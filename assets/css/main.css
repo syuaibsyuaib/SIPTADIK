@@ -1,0 +1,17 @@
+.warna-dasar{
+    background-color: #FFDA6A;
+}
+
+.warna-sibuk{
+    background-color: #EA868F;
+}
+
+.bg-male {
+    --bs-bg-opacity: 1;
+    background-color: #0dcaf0;
+}
+
+.bg-famale {
+    --bs-bg-opacity: 1;
+    background-color: #d63384;
+}
