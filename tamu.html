@@ -13,7 +13,7 @@
 	</title>
 </head>
 
-<body>
+<body style="background-image: url(/img/bg.jpg);background-size: cover;">
 	<!-- NAVBAR START HERE -->
 	<nav class="navbar navbar-expand-lg navbar-light warna-dasar sticky-top">
 		<div class="container">
@@ -60,12 +60,16 @@
 	</nav>
 	<!-- NAVBAR END HERE -->
 
-	<main class="container-fluid">
-		<section class="row" style="height: 55rem;background-image: url(/img/bg.jpg);background-size: cover;">
-			<section class="col p-5" style="float: left;width: 100%;max-width: 50%;">
+	<!-- ISI MULAI -->
+	<main class="container">
+		<div class="row">
+			<div class="col-md-7 p-4">
+
 				<div class="row mb-5">
 					<img src="./img/Logo ProvSulSel.png" width="200px" style="width:30%;display:block;margin:0 auto;">
 				</div>
+
+				<!-- SLIDER START HERE -->
 				<div class="row">
 					<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 						<div class="carousel-indicators">
@@ -73,8 +77,6 @@
 								class="active" aria-current="true" aria-label="Slide 1"></button>
 							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
 								aria-label="Slide 2"></button>
-							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-								aria-label="Slide 3"></button>
 						</div>
 						<div class="carousel-inner">
 							<div class="carousel-item active">
@@ -96,9 +98,12 @@
 						</button>
 					</div>
 				</div>
-			</section>
-			<section class="col p-5 shadow"
-				style="display: block;position: absolute;background: #fff;width: 45%;right: 5%;">
+				<!-- SLIDER END HERE -->
+
+			</div>
+
+			<div class="col-md-5 bg-light p-4" style="box-shadow: 15px 0px 15px -4px rgb(0 0 0 / 23%), -13px 0 8px -4px rgb(0 0 0 / 23%)">
+
 				<h2 class="mb-4">Informasi Pengunjung</h2>
 				<form>
 					<div class="mb-3">
@@ -181,15 +186,17 @@
 					</div>
 
 					<!-- <div class="output">
-                      <img id="photo" alt="The screen capture will appear in this box.">
-                    </div> -->
+				  <img id="photo" alt="The screen capture will appear in this box.">
+				</div> -->
 					<!-- --------------------------end kamera -->
 
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
-			</section>
-		</section>
+
+			</div>
+		</div>
 	</main>
+	<!-- ISI SELESAI -->
 
 	<footer class="footer mt-auto py-3 warna-dasar">
 		<div class="container text-center">
