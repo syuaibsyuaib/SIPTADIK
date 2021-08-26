@@ -1,0 +1,5 @@
+- Ukuran foto profil harus: 265px x 265px
+
+- To easily change logo image, just replace "title.png" and "favicon.ico" with another pictures with same file name
+
+- Size of title.png must be totally square
