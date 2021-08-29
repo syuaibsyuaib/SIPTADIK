@@ -26,8 +26,8 @@ if (isset($_POST['masuk'])) {
     $resp = curl_exec($curl);
     curl_close($curl);
     $hasil = json_decode($resp, true);
-    
-    if ($hasil) {
+    // var_dump($hasil);
+    if ($hasil || $hasil != NULL) {
         session_start();
         $_SESSION['user'] = $pengguna;
         $_SESSION['pass'] = $sandi;
@@ -42,6 +42,8 @@ if (isset($_POST['masuk'])) {
         } else {
             header("location: index.html");
         }
+    }else {
+        header("location: index.html");
     };
 
     
