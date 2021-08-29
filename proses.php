@@ -28,10 +28,11 @@ if (isset($_POST['masuk'])) {
     $result = file_get_contents($url, false, stream_context_create($options));
     $res = json_decode($result, true);
     if($res){
+        session_start();
         $_SESSION['user'] = $res["pengguna"];
         $_SESSION['pass'] = $res["sandi"];
         $_SESSION['role'] = $res["role"];
-    }
+    };
     echo $res["pengguna"] . "<br>";
     echo $res["sandi"];
 }
