@@ -3,6 +3,36 @@ session_start();
 if (isset($_POST['masuk'])) {
     $pengguna = $_POST['pengguna'];
     $sandi = $_POST['sandi'];
+
+    $data = array("pengguna" => $pengguna, "sandi" => $sandi);
+    $hasil = kirim($data);
+    // var_dump($hasil);
+    if ($hasil || $hasil != NULL) {
+        $_SESSION['user'] = $pengguna;
+        $_SESSION['pass'] = $sandi;
+        $_SESSION['role'] = $hasil["role"];
+        
+        if ($hasil["role"] == 1) {
+            header("location: admin.php");
+        } elseif ($hasil["role"] == 2) {
+            header("location: tamu.php");
+        } elseif ($hasil["role"] == 3) {
+            header("location: pejabat.php");
+        } else {
+            header("location: /");
+        }
+    }else {
+        header("location: /");
+    };
+
+    
+}
+
+if (isset($_POST['masuk'])) {
+
+}
+
+function kirim($dataArr){
     $url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -15,7 +45,7 @@ if (isset($_POST['masuk'])) {
     );
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
-    $data = json_encode(array("pengguna" => $pengguna, "sandi" => $sandi));
+    $data = json_encode($dataArr);
 
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
@@ -26,24 +56,5 @@ if (isset($_POST['masuk'])) {
     $resp = curl_exec($curl);
     curl_close($curl);
     $hasil = json_decode($resp, true);
-    // var_dump($hasil);
-    if ($hasil || $hasil != NULL) {
-        $_SESSION['user'] = $pengguna;
-        $_SESSION['pass'] = $sandi;
-        $_SESSION['role'] = $hasil["role"];
-        
-        if ($hasil["role"] == 1) {
-            header("location: admin");
-        } elseif ($hasil["role"] == 2) {
-            header("location: tamu");
-        } elseif ($hasil["role"] == 3) {
-            header("location: pejabat");
-        } else {
-            header("location: /");
-        }
-    }else {
-        header("location: /");
-    };
-
-    
+    return $hasil;
 }
