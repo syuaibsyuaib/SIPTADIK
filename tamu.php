@@ -4,6 +4,13 @@ include("layout/header.php");
 $_SESSION['role'] != 2 ? header("Location: /") : "";
 ?>
 
+<style>
+	body {
+		background-image: url(/img/bg.jpg);
+		background-size: cover;
+	}
+</style>
+
 <!-- ISI MULAI -->
 <main class="container">
 	<div class="row">
