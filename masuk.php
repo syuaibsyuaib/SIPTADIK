@@ -54,7 +54,7 @@ if (isset($_SESSION['user'])) {
 				<label for="inputsandi">Kata Sandi</label>
 			</div>
 
-			<div class="checkbox mb-3">
+			<div class="checkbox mb-3 text-start ps-2">
 				<label>
 					<input type="checkbox" value="remember-me"> Ingat Saya
 				</label>

@@ -32,12 +32,12 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form method="POST" action="">
+			<form method="POST" action="proses.php">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body px-4">
 					<!-- ISI MODAL START HERE -->
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Nama</label>
@@ -72,7 +72,7 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Simpan</button>
+					<button type="submit" class="btn btn-primary" name="tambah">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
