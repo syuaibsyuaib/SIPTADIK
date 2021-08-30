@@ -52,10 +52,12 @@ include("validation.php");
                         </ul>
                     </li>
                 </ul>
-                <section class="d-flex">
-                    <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <span class="nav-link">Akun: <b><?=$_SESSION['user'] ?? "###"?></b></span>
+                    </li>
+                </ul>
                     <a href="keluar.php" class="btn bg-danger text-light" id="tbl-keluar">Keluar</a>
-                </section>
             </div>
         </div>
     </nav>
