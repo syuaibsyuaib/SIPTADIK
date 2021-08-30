@@ -28,7 +28,8 @@ if (isset($_POST['masuk'])) {
     
 }
 
-if (isset($_POST['masuk'])) {
+////dari modal tambah user
+if (isset($_POST['tambah'])) {
 
 }
 

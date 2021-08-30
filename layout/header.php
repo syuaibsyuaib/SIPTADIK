@@ -54,7 +54,7 @@ include("validation.php");
                 </ul>
                 <section class="d-flex">
                     <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                    <button class="btn bg-danger text-light" id="tbl-keluar">Keluar</button>
+                    <a href="keluar.php" class="btn bg-danger text-light" id="tbl-keluar">Keluar</a>
                 </section>
             </div>
         </div>
