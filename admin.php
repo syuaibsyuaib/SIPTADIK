@@ -1,6 +1,7 @@
 <?php
 $title = "Admin";
 include("layout/header.php");
+$_SESSION['role'] != 1 ? header("Location: /") : "";
 ?>
 
 <div class="nav-scroller bg-light shadow-sm">

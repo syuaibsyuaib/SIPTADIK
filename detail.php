@@ -1,6 +1,7 @@
 <?php
 $title = "Admin";
 include("layout/header.php");
+$_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 ?>
 
 <!-- ISINYA MULAI DI SINI -->

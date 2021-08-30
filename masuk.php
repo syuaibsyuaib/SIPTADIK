@@ -1,3 +1,16 @@
+<?php
+session_start();
+if (isset($_SESSION['user'])) {
+    if ($_SESSION['role'] == 1) {
+		header("Location: admin.php");
+	} elseif ($_SESSION['role'] == 2) {
+		header("Location: tamu.php");
+	} elseif ($_SESSION['role'] == 3) {
+		header("Location: pejabat.html");
+	}
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -18,7 +31,6 @@
 	<main class="form-signin py-4 px-5 shadow rounded">
 
 		<?php
-		session_start();
 		if (isset($_SESSION['temp'])) {
 		?>
 		<div class="alert alert-warning" role="alert">
