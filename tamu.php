@@ -9,6 +9,11 @@ $_SESSION['role'] != 2 ? header("Location: /") : "";
 		background-image: url(/img/bg.jpg);
 		background-size: cover;
 	}
+
+	.carousel-item {
+		height: 100%;
+		max-height: 400px;
+	}
 </style>
 
 <!-- ISI MULAI -->
@@ -26,6 +31,7 @@ $_SESSION['role'] != 2 ? header("Location: /") : "";
 					<div class="carousel-indicators">
 						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
 					</div>
 					<div class="carousel-inner">
 						<div class="carousel-item active">
@@ -33,6 +39,9 @@ $_SESSION['role'] != 2 ? header("Location: /") : "";
 						</div>
 						<div class="carousel-item">
 							<img src="./img/slide2.jpg" class="d-block w-100" alt="Gambar 2">
+						</div>
+						<div class="carousel-item">
+							<img src="./img/slide3.jpg" class="d-block w-100" alt="Gambar 3">
 						</div>
 					</div>
 					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -86,10 +95,8 @@ $_SESSION['role'] != 2 ? header("Location: /") : "";
 					<input type="checkbox" class="form-check-input" id="exampleCheck1">
 					<label class="form-check-label" for="exampleCheck1">Check me out</label>
 				</div>
-				<!-- --------------------------kamera -->
-				<section>
 
-				</section>
+				<!-- --------------------------kamera -->
 				<button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-primary" id="kamera-modal">Ambil gambar</button>
 
 				<div class="modal" tabindex="-1" id="myModal">
