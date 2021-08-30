@@ -13,19 +13,19 @@ if (isset($_POST['masuk'])) {
         $_SESSION['role'] = $hasil["role"];
         
         if ($hasil["role"] == 1) {
-            header("location: admin.php");
+            header("Location: admin.php");
         } elseif ($hasil["role"] == 2) {
-            header("location: tamu.php");
+            header("Location: tamu.php");
         } elseif ($hasil["role"] == 3) {
-            header("location: pejabat.php");
+            header("Location: pejabat.html");
         } else {
-            header("location: /");
+            header("Location: /");
         }
-    }else {
-        header("location: /");
-    };
-
-    
+    } else {
+        header("Location: /");
+    }
+} else {
+    header("Location: /");
 }
 
 ////dari modal tambah user

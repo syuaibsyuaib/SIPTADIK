@@ -1,7 +1,7 @@
 <?php
 $title = "Tamu";
 include("layout/header.php");
-$_SESSION['role'] != 3 ? header("Location: /") : "";
+$_SESSION['role'] != 2 ? header("Location: /") : "";
 ?>
 
 <!-- ISI MULAI -->
