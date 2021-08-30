@@ -33,17 +33,20 @@ if (isset($_POST['masuk'])) {
         $_SESSION['role'] = $hasil["role"];
         
         if ($hasil["role"] == 1) {
-            header("location: admin");
+            header("location: admin.php");
         } elseif ($hasil["role"] == 2) {
-            header("location: tamu");
+            header("location: tamu.php");
         } elseif ($hasil["role"] == 3) {
-            header("location: pejabat");
+            header("location: pejabat.html");
         } else {
             header("location: /");
         }
     }else {
         header("location: /");
-    };
+    }
 
     
+}else {
+    header("location: /");
 }
+?>
