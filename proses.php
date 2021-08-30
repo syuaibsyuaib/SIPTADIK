@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 if (isset($_POST['masuk'])) {
     $pengguna = $_POST['pengguna'];
@@ -34,16 +33,16 @@ if (isset($_POST['masuk'])) {
         $_SESSION['role'] = $hasil["role"];
         
         if ($hasil["role"] == 1) {
-            header("location: admin.html");
+            header("location: admin");
         } elseif ($hasil["role"] == 2) {
-            header("location: tamu.html");
+            header("location: tamu");
         } elseif ($hasil["role"] == 3) {
-            header("location: pejabat.html");
+            header("location: pejabat");
         } else {
-            header("location: index.html");
+            header("location: /");
         }
     }else {
-        header("location: index.html");
+        header("location: /");
     };
 
     
