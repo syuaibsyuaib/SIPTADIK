@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 if (isset($_POST['masuk'])) {
     $pengguna = $_POST['pengguna'];
     $sandi = $_POST['sandi'];
@@ -28,7 +29,6 @@ if (isset($_POST['masuk'])) {
     $hasil = json_decode($resp, true);
     // var_dump($hasil);
     if ($hasil || $hasil != NULL) {
-        session_start();
         $_SESSION['user'] = $pengguna;
         $_SESSION['pass'] = $sandi;
         $_SESSION['role'] = $hasil["role"];
