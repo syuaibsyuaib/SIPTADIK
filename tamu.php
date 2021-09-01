@@ -192,9 +192,12 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 					<label class="form-check-label" for="exampleCheck1">Check me out</label>
 				</div>
 
-				<!-- --------------------------kamera -->
-				<button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-primary" id="kamera-modal">Ambil gambar</button>
+					<button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-primary me-auto" id="kamera-modal">Ambil gambar</button>
+				<div class="float-end d-inline-block">
+					<button type="submit" class="btn btn-success ms-auto">Submit</button>
+				</div>
 
+				<!-- MODAL KAMERA START -->
 				<div class="modal" tabindex="-1" id="myModal">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
@@ -202,9 +205,8 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 								<h5 class="modal-title">Ambil gambar</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<!-- body modal -->
-							<div class="modal-body">
 
+							<div class="modal-body">
 								<div class="camera">
 									<section class="row">
 										<section class="col text-center">
@@ -220,10 +222,8 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 										</section>
 									</section>
 								</div>
-
-
 							</div>
-							<!-- /// -->
+
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 								<button type="button" class="btn btn-primary" id="simpan">Simpan</button>
@@ -231,13 +231,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 						</div>
 					</div>
 				</div>
-
-				<!-- <div class="output">
-				  <img id="photo" alt="The screen capture will appear in this box.">
-				</div> -->
-				<!-- --------------------------end kamera -->
-
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<!-- MODAL KAMERA END -->
 			</form>
 
 		</div>
