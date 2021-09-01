@@ -1,7 +1,7 @@
 <?php
 $title = "Tamu";
 include("layout/header.php");
-$_SESSION['role'] != 2 ? header("Location: /") : "";
+$_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 ?>
 
 <style>
@@ -55,6 +55,51 @@ $_SESSION['role'] != 2 ? header("Location: /") : "";
 				</div>
 			</div>
 			<!-- SLIDER END HERE -->
+
+			<?php
+			if ($_SESSION['role'] == 1) {
+			?>
+				<div class="row mt-4 text-center">
+					<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#slider_edit">Edit Slider</button>
+				</div>
+
+				<!-- MODAL UBAH -->
+				<div class="modal fade" id="slider_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<form method="POST" action="">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<!-- ISI MODAL START HERE -->
+								<div class="modal-body text-center">
+									<!-- FORM UPLOAD GAMBAR -->
+									<div class="mb-3 col">
+										<form action="" method="post" enctype="multipart/form-data">
+											<label for="formFile" class="form-label">Default file input example</label>
+											<input class="form-control" type="file" id="formFile" accept="image/*">
+											<input class="mt-3 btn btn-primary" type="submit" value="Simpan Gambar" name="submit">
+										</form>
+									</div>
+									<!-- THUMBNAIL VIEWER -->
+									<div class="mb-3 col">
+										<i>Test text</i>
+									</div>
+								</div>
+								<!-- ISI MODAL END HERE -->
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-primary">Simpan</button>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- MODAL UBAH -->
+			<?php
+			}
+			?>
 
 		</div>
 
