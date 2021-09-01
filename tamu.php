@@ -14,6 +14,17 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 		height: 100%;
 		max-height: 400px;
 	}
+
+	.coba img {
+		min-width: 100%;
+		width: 100%;
+		height: 5rem;
+		/* cursor: move; */
+	}
+
+	.coba>div {
+		overflow: hidden;
+	}
 </style>
 
 <!-- ISI MULAI -->
@@ -32,6 +43,8 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
 						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
 					</div>
 					<div class="carousel-inner">
 						<div class="carousel-item active">
@@ -42,6 +55,12 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 						</div>
 						<div class="carousel-item">
 							<img src="./img/slide3.jpg" class="d-block w-100" alt="Gambar 3">
+						</div>
+						<div class="carousel-item">
+							<img src="./img/slide4.jpg" class="d-block w-100" alt="Gambar 3">
+						</div>
+						<div class="carousel-item">
+							<img src="./img/slide5.jpg" class="d-block w-100" alt="Gambar 3">
 						</div>
 					</div>
 					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -69,27 +88,59 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 						<div class="modal-content">
 							<form method="POST" action="">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+									<h5 class="modal-title" id="exampleModalLabel">Pengaturan Gambar Carousel</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
 								<!-- ISI MODAL START HERE -->
 								<div class="modal-body text-center">
-									<!-- FORM UPLOAD GAMBAR -->
-									<div class="mb-3 col">
-										<form action="" method="post" enctype="multipart/form-data">
-											<label for="formFile" class="form-label">Default file input example</label>
-											<input class="form-control" type="file" id="formFile" accept="image/*">
-											<input class="mt-3 btn btn-primary" type="submit" value="Simpan Gambar" name="submit">
-										</form>
-									</div>
-									<!-- THUMBNAIL VIEWER -->
-									<div class="mb-3 col">
-										<i>Test text</i>
+									<div class="px-3">
+										<!-- FORM UPLOAD GAMBAR -->
+										<!-- <div class="mb-3 row">
+											<form action="" method="post" enctype="multipart/form-data">
+												<input class="form-control" type="file" id="formFile" accept="image/*">
+												<input class="mt-3 btn btn-primary" type="submit" value="Simpan Gambar" name="submit">
+											</form>
+										</div> -->
+										<!-- THUMBNAIL VIEWER -->
+										<div class="mb-1 row d-block text-center coba">
+											<div class="col-sm-2 d-inline-block rounded p-0">
+												<img class="align-top" src="img/slide1.jpg" alt="">
+											</div>
+											<div class="col-sm-2 d-inline-block rounded p-0">
+												<img class="align-top" src="img/slide2.jpg" alt="">
+											</div>
+											<div class="col-sm-2 d-inline-block rounded p-0">
+												<img class="align-top" src="img/slide3.jpg" alt="">
+											</div>
+											<div class="col-sm-2 d-inline-block rounded p-0">
+												<img class="align-top" src="img/slide4.jpg" alt="">
+											</div>
+											<div class="col-sm-2 d-inline-block rounded p-0">
+												<img class="align-top" src="img/slide5.jpg" alt="">
+											</div>
+										</div>
+										<div class="row d-block text-center">
+											<div class="col-sm-2 d-inline-block">
+												<button class="btn btn-primary btn-sm">Ganti</button>
+											</div>
+											<div class="col-sm-2 d-inline-block">
+												<button class="btn btn-primary btn-sm">Ganti</button>
+											</div>
+											<div class="col-sm-2 d-inline-block">
+												<button class="btn btn-primary btn-sm">Ganti</button>
+											</div>
+											<div class="col-sm-2 d-inline-block">
+												<button class="btn btn-primary btn-sm">Ganti</button>
+											</div>
+											<div class="col-sm-2 d-inline-block">
+												<button class="btn btn-primary btn-sm">Ganti</button>
+											</div>
+										</div>
+										<i class="text-muted mt-3 d-block">Recommended image ratio: 1625 x 900 pixel (65:36)</i>
 									</div>
 								</div>
 								<!-- ISI MODAL END HERE -->
 								<div class="modal-footer">
-									<button type="submit" class="btn btn-primary">Simpan</button>
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 								</div>
 							</form>
