@@ -192,13 +192,13 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 					<label class="form-check-label" for="exampleCheck1">Check me out</label>
 				</div>
 
-					<button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-primary me-auto" id="kamera-modal">Ambil gambar</button>
+				<button type="button" data-bs-toggle="modal" data-bs-target="#modal-kamera" class="btn btn-secondary me-auto" id="kamera-modal">Ambil gambar</button>
 				<div class="float-end d-inline-block">
 					<button type="submit" class="btn btn-success ms-auto">Submit</button>
 				</div>
 
 				<!-- MODAL KAMERA START -->
-				<div class="modal" tabindex="-1" id="myModal">
+				<div class="modal" tabindex="-1" id="modal-kamera">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
