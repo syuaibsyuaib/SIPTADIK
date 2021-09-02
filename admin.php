@@ -78,7 +78,7 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" name="tambah">Simpan</button>
+					<input type="submit" class="btn btn-primary" name="tambah" value="Simpan">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>

@@ -193,7 +193,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 
 				<button type="button" data-bs-toggle="modal" data-bs-target="#modal-kamera" class="btn btn-secondary me-auto" id="kamera-modal">Ambil gambar</button>
 				<div class="float-end d-inline-block">
-					<button type="submit" class="btn btn-success ms-auto">Submit</button>
+					<input type="submit" name="submit" class="btn btn-success ms-auto" value="Simpan">
 				</div>
 
 				<!-- MODAL KAMERA START -->
@@ -225,7 +225,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-								<input type="submit" class="btn btn-primary" id="simpan">Simpan</button>
+								<button type="submit" class="btn btn-primary" id="simpan">Simpan</button>
 							</div>
 						</div>
 					</div>
