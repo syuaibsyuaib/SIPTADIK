@@ -157,32 +157,31 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 		<div class="col-md-5 bg-light p-4" style="box-shadow: 15px 0px 15px -4px rgb(0 0 0 / 23%), -13px 0 8px -4px rgb(0 0 0 / 23%)">
 
 			<h2 class="mb-4">Informasi Pengunjung</h2>
-			<form>
+			<form method="POST" action="" enctype="multipart/form-data">
 				<div class="mb-3">
 					<label for="nama" class="form-label">Nama</label>
-					<input type="text" class="form-control" id="nama">
+					<input type="text" class="form-control" id="nama" required>
 				</div>
 				<div class="mb-3">
 					<label for="nip" class="form-label">NIK/NIP</label>
-					<input type="number" class="form-control" id="nip">
+					<input type="number" class="form-control" id="nip" required>
 				</div>
 				<div class="mb-3">
 					<label for="asal" class="form-label">Instansi</label>
-					<input type="text" class="form-control" id="asal">
+					<input type="text" class="form-control" id="asal" required>
 				</div>
 				<div class="mb-3">
 					<label for="asal" class="form-label">Sub bidang tujuan</label>
-					<select class="form-select" aria-label="Default select example">
-						<option selected>zero</option>
-						<option value="1">One</option>
-						<option value="2">Two</option>
-						<option value="3">Three</option>
+					<select class="form-select" aria-label="Default select example" required>
+						<option value="" selected>Silakan pilih</option>
+						<option value="1">Bidang One</option>
+						<option value="2">Bidang Two</option>
+						<option value="3">Bidang Three</option>
 					</select>
 				</div>
-
 				<div class="mb-3">
 					<label for="tujuan" class="form-label">Tujuan</label>
-					<input type="text" class="form-control" id="tujuan">
+					<input type="text" class="form-control" id="tujuan" required>
 				</div>
 				<div class="mb-3 border" style="width: 190px;height: 200px;">
 					<img id="foto" width=190 height=200>
@@ -226,7 +225,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-								<button type="button" class="btn btn-primary" id="simpan">Simpan</button>
+								<input type="submit" class="btn btn-primary" id="simpan">Simpan</button>
 							</div>
 						</div>
 					</div>

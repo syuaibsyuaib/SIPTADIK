@@ -30,9 +30,9 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 
 <!-- MODAL TAMBAH -->
 <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form method="POST" action="proses.php">
+			<form method="POST" action="proses.php" enctype="multipart/form-data">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -42,31 +42,37 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Nama</label>
 						<div class="col-sm-10">
-							<input name="nama_pejabat" type="text" class="form-control" require>
+							<input name="nama_pejabat" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">NIP</label>
 						<div class="col-sm-10">
-							<input name="nip_pejabat" type="text" class="form-control" require>
+							<input name="nip_pejabat" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Jabatan</label>
 						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" require>
+							<input name="jabatan_pejabat" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">No. HP</label>
 						<div class="col-sm-10">
-							<input name="hp_pejabat" type="text" class="form-control" require>
+							<input name="hp_pejabat" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Alamat</label>
 						<div class="col-sm-10">
-							<input name="alamat_pejabat" type="text" class="form-control" require>
+							<input name="alamat_pejabat" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Foto Profil</label>
+						<div class="col-sm-10">
+							<input name="foto_pejabat" class="form-control" type="file" id="formFile" accept="image/*" required>
 						</div>
 					</div>
 					<!-- ISI MODAL END HERE -->
@@ -117,7 +123,7 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
                 </p> -->
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
-									<a href="detail.html" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
+									<a href="detail.php" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
 									<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
 								</div>
 								<small class="text-success">Ada</small>
@@ -156,7 +162,7 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
                 </p> -->
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
-									<a href="detail.html" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
+									<a href="detail.php" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
 									<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
 								</div>
 								<small class="text-danger">Sibuk</small>
