@@ -4,6 +4,16 @@ include("layout/header.php");
 $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 ?>
 
+<style>
+	.modal-foto {
+		display: block;
+		width: 100%;
+	}
+	.thumb img {
+		cursor: zoom-in;
+	}
+</style>
+
 <!-- ISI MULAI -->
 <div class="container">
 	<h2 class="my-4">Riwayat Tamu</h2>
@@ -32,7 +42,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 								<tr class="candidates-list">
 									<td class="title">
 										<div class="thumb">
-											<img class="img-fluid" src="./img/tamu1.jpg" alt="">
+											<img class="img-fluid" src="./img/tamu1.jpg" alt="" data-bs-toggle="modal" data-bs-target="#fototamu1" title="Perbesar gambar">
 										</div>
 										<div class="candidate-list-details">
 											<div class="candidate-list-info">
@@ -54,6 +64,26 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 									<td>Tujuan Tamu 1</td>
 								</tr>
 								<!-- TAMU 1 END -->
+								<!-- MODAL FOTO TAMU 1 -->
+								<div class="modal fade" id="fototamu1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Foto: NAMA TAMU 1</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<!-- ISI MODAL START HERE -->
+												<img class="modal-foto" src="./img/tamu1.jpg" alt="">
+												<!-- ISI MODAL END HERE -->
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- MODAL FOTO TAMU 1 -->
 								<!-- MODAL TAMU 1 -->
 								<div class="modal fade" id="tamu1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
@@ -114,7 +144,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 								<tr class="candidates-list">
 									<td class="title">
 										<div class="thumb">
-											<img class="img-fluid" src="./img/tamu2.jpg" alt="">
+											<img class="img-fluid" src="./img/tamu2.jpg" alt="" data-bs-toggle="modal" data-bs-target="#fototamu2" title="Perbesar gambar">
 										</div>
 										<div class="candidate-list-details">
 											<div class="candidate-list-info">
@@ -136,6 +166,26 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 									<td>Tujuan Tamu 2</td>
 								</tr>
 								<!-- TAMU 2 END -->
+								<!-- MODAL FOTO TAMU 2 -->
+								<div class="modal fade" id="fototamu2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Foto: NAMA TAMU 1</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<!-- ISI MODAL START HERE -->
+												<img class="modal-foto" src="./img/tamu2.jpg" alt="">
+												<!-- ISI MODAL END HERE -->
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- MODAL FOTO TAMU 2 -->
 								<!-- MODAL TAMU 2 -->
 								<div class="modal fade" id="tamu2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
