@@ -25,6 +25,12 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 	.coba>div {
 		overflow: hidden;
 	}
+
+	video {
+		object-fit: cover;
+		width: 380;
+		height: 400;
+	}
 </style>
 
 <!-- ISI MULAI -->
@@ -183,13 +189,13 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 					<label for="tujuan" class="form-label">Tujuan</label>
 					<input type="text" class="form-control" id="tujuan" required>
 				</div>
-				<div class="mb-3 border" style="width: 190px;height: 200px;">
-					<img id="foto" width=190 height=200>
+				<div class="mb-3" style="width: 190px;height: 200px;">
+					<img class="shadow p-3" id="foto" width=190 height=200>
 				</div>
-				<div class="mb-3 form-check">
+				<!-- <div class="mb-3 form-check">
 					<input type="checkbox" class="form-check-input" id="exampleCheck1">
 					<label class="form-check-label" for="exampleCheck1">Check me out</label>
-				</div>
+				</div> -->
 
 				<button type="button" data-bs-toggle="modal" data-bs-target="#modal-kamera" class="btn btn-secondary me-auto" id="kamera-modal">Ambil gambar</button>
 				<div class="float-end d-inline-block">
@@ -198,34 +204,36 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 
 				<!-- MODAL KAMERA START -->
 				<div class="modal" tabindex="-1" id="modal-kamera">
-					<div class="modal-dialog modal-lg">
+					<div class="modal-dialog modal-md">
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title">Ambil gambar</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
 							</div>
 
 							<div class="modal-body">
 								<div class="camera">
 									<section class="row">
 										<section class="col text-center">
-											<video id="video" style="display: inline">Video stream not
-												available.</video>
-											<canvas id="canvas" style="display: none">
-											</canvas>
+											<section>
+												<video id="video" style="display: inline">Video stream not
+													available.</video>
+												<canvas id="canvas" style="display: none">
+												</canvas>
+											</section>
 										</section>
 									</section>
 									<section class="row">
 										<section class="col text-center">
-											<button id="startbutton" class="btn btn-success">Take</button>
+											<button id="startbutton" class="btn btn-success mt-2">Take</button>
 										</section>
 									</section>
 								</div>
 							</div>
 
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-								<button type="submit" class="btn btn-primary" id="simpan">Simpan</button>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="tutupKamera">Tutup</button>
+								<button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="simpan" disabled>Simpan</button>
 							</div>
 						</div>
 					</div>
@@ -239,108 +247,98 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 <!-- ISI SELESAI -->
 
 <script>
-	// The width and height of the captured photo. We will set the
-	// width to the value defined here, but the height will be
-	// calculated based on the aspect ratio of the input stream.
-
-	var width = 570; // We will scale the photo width to this
-	var height = 0; // This will be computed based on the input stream
-
-	// |streaming| indicates whether or not we're currently streaming
-	// video from the camera. Obviously, we start at false.
-
 	var streaming = false;
 
 	// The various HTML elements we need to configure or control. These
 	// will be set by the startup() function.
 	let foto = document.getElementById('foto');
+	let width = 380, height = 400, vid;
 	var video = null;
 	var canvas = null;
 	var photo = null;
 	var startbutton = null;
 	let kameraModal = document.getElementById('kamera-modal');
+	let tutupKamera = document.getElementById('tutupKamera');
+	let fotoB64 = null;
+	let simpan = document.getElementById('simpan');
 
 	video = document.getElementById('video');
 	canvas = document.getElementById('canvas');
 	photo = document.getElementById('photo');
 	startbutton = document.getElementById('startbutton');
 
-	navigator.mediaDevices.getUserMedia({
-			video: true,
-			audio: false
-		})
-		.then(function(stream) {
-			video.srcObject = stream;
-			video.play();
-		})
-		.catch(function(err) {
-			console.log("An error occurred: " + err);
-		});
+	tutupKamera.addEventListener('click', () => {
+		vid = video.srcObject;
+		vid.getTracks()[0].stop();
+	})
 
-	video.addEventListener('canplay', function(ev) {
-		if (!streaming) {
-			height = video.videoHeight / (video.videoWidth / width);
 
-			// Firefox currently has a bug where the height can't be read from
-			// the video, so we will make assumptions if this happens.
+	kameraModal.addEventListener('click', function() {
+		simpan.disabled = true;
+		canvas.setAttribute('style', 'display: none');
+		video.setAttribute('style', 'display: inline');
+		navigator.mediaDevices.getUserMedia({
+				video: true,
+				audio: false
+			})
+			.then(function(stream) {
+				video.srcObject = stream;
+				video.play();
+			})
+			.catch(function(err) {
+				console.log("An error occurred: " + err);
+			});
 
-			if (isNaN(height)) {
-				height = width / (4 / 3);
+		video.addEventListener('canplay', function(ev) {
+			if (!streaming) {
+				height = video.videoHeight / (video.videoWidth / width);
+
+				if (isNaN(height)) {
+					height = width / (4 / 3);
+				}
+
+				video.setAttribute('width', width);
+				video.setAttribute('height', height);
+				canvas.setAttribute('width', width);
+				canvas.setAttribute('height', height);
+				streaming = true;
 			}
+		}, false);
+	})
 
-			video.setAttribute('width', width);
-			video.setAttribute('height', height);
-			canvas.setAttribute('width', width);
-			canvas.setAttribute('height', height);
-			streaming = true;
-		}
-	}, false);
+	function clearphoto() {
+		var context = canvas.getContext('2d');
+		context.fillStyle = "#AAA";
+		context.fillRect(0, 0, canvas.width, canvas.height);
+
+		var data = canvas.toDataURL('image/png');
+		// photo.setAttribute('src', data);
+	}
+
 
 	startbutton.addEventListener('click', function(ev) {
 		takepicture();
 		ev.preventDefault();
 	}, false);
 
-	// clearphoto();
-
-	// kameraModal.addEventListener('click', function(){
-
-	// })
-
-	// Fill the photo with an indication that none has been
-	// captured.
-
-	// function clearphoto() {
-	//     var context = canvas.getContext('2d');
-	//     context.fillStyle = "#AAA";
-	//     context.fillRect(0, 0, canvas.width, canvas.height);
-
-	//     var data = canvas.toDataURL('image/png');
-	//     photo.setAttribute('src', data);
-	// }
-
-	// Capture a photo by fetching the current contents of the video
-	// and drawing it into a canvas, then converting that to a PNG
-	// format data URL. By drawing it on an offscreen canvas and then
-	// drawing that to the screen, we can change its size and/or apply
-	// other changes before drawing it.
-
 	function takepicture() {
 		var context = canvas.getContext('2d');
-		let simpan = document.getElementById('simpan');
+		simpan.disabled = false;
 
 		if (canvas.getAttribute('style') == 'display: none') {
 			canvas.setAttribute('style', 'display: inline');
 			video.setAttribute('style', 'display: none');
 			if (width && height) {
-				canvas.width = width;
-				canvas.height = height;
-				context.drawImage(video, 0, 0, width, height);
+				canvas.width = 380;
+				canvas.height = 400;
+				context.drawImage(video, 92, 0, 455, 480, 0, 0, 380, 400);
 
 				var data = canvas.toDataURL('image/png');
 				simpan.addEventListener('click', () => {
 					foto.src = data;
-					console.log(data)
+					fotoB64 = localStorage.setItem('foto', data);
+					vid = video.srcObject;
+					vid.getTracks()[0].stop();
 				})
 			}
 		} else {
