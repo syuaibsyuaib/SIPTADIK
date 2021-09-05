@@ -45,10 +45,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 										<div class="mb-3 row">
 											<label class="col-sm-5 col-form-label">Rentang Waktu</label>
 											<div class="col-sm-7">
-												<div class="form-outline datepicker" data-mdb-inline="true">
-													<input type="text" class="form-control" id="exampleDatepicker2">
-													<label for="exampleDatepicker2" class="form-label">Example label</label>
-												</div>
+												sss
 											</div>
 										</div>
 										<div class="mb-3 row">
