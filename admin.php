@@ -4,10 +4,23 @@ include("layout/header.php");
 $_SESSION['role'] != 1 ? header("Location: /") : "";
 ?>
 
+<style>
+	.coba img {
+		min-width: 100%;
+		width: 100%;
+		height: 5rem;
+		/* cursor: move; */
+	}
+
+	.coba>div {
+		overflow: hidden;
+	}
+</style>
+
 <div class="nav-scroller bg-light shadow-sm">
 	<div class="container">
 		<nav class="nav nav-underline py-1" aria-label="Secondary navigation">
-			<span class="navbar-brand">Daftar Pejabat</span>
+			<span class="navbar-brand">Daftar Pengguna</span>
 			<!-- <a class="nav-link active" aria-current="page" href="#">Dashboard</a> -->
 			<!-- <a class="nav-link" href="#"> -->
 			<!-- Friends -->
@@ -17,9 +30,24 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 			<!-- <a class="nav-link" href="#">Suggestions</a> -->
 			<!-- <a class="nav-link" href="#">Link</a> -->
 			<!-- <a class="nav-link" href="#">Link</a> -->
-			<!-- <a class="nav-link" href="#">Link</a> -->
-			<!-- <a class="nav-link" href="#">Link</a> -->
-			<a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#tambah">Tambah Pengguna</a>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Pengguna
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#tambah">Tambah Pengguna</a></li>
+				</ul>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Pengaturan
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#slider_edit">Slider</a></li>
+					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#jabatan_edit">Bagian/Sub-bagian/Jabatan</a></li>
+				</ul>
+			</li>
+			<a class="nav-link" href="riwayat.php">Riwayat</a>
 			<section class="ms-auto">
 				<input class="form-control" type="search" placeholder="Cari Pejabat" aria-label="Search">
 			</section>
@@ -27,8 +55,7 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 	</div>
 </div>
 
-
-<!-- MODAL TAMBAH -->
+<!-- MODAL TAMBAH START -->
 <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -85,7 +112,114 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 		</div>
 	</div>
 </div>
-<!-- MODAL TAMBAH -->
+<!-- MODAL TAMBAH END -->
+
+<!-- MODAL SLIDER START -->
+<div class="modal fade" id="slider_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form method="POST" action="">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Gambar Slider</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<!-- ISI MODAL START HERE -->
+				<div class="modal-body text-center">
+					<div class="px-3">
+						<!-- FORM UPLOAD GAMBAR -->
+						<!-- <div class="mb-3 row">
+								<form action="" method="post" enctype="multipart/form-data">
+									<input class="form-control" type="file" id="formFile" accept="image/*">
+									<input class="mt-3 btn btn-primary" type="submit" value="Simpan Gambar" name="submit">
+								</form>
+							</div> -->
+						<!-- THUMBNAIL VIEWER -->
+						<div class="mb-1 row d-block text-center coba">
+							<div class="col-sm-2 d-inline-block rounded p-0">
+								<img class="align-top" src="img/slide1.jpg" alt="">
+							</div>
+							<div class="col-sm-2 d-inline-block rounded p-0">
+								<img class="align-top" src="img/slide2.jpg" alt="">
+							</div>
+							<div class="col-sm-2 d-inline-block rounded p-0">
+								<img class="align-top" src="img/slide3.jpg" alt="">
+							</div>
+							<div class="col-sm-2 d-inline-block rounded p-0">
+								<img class="align-top" src="img/slide4.jpg" alt="">
+							</div>
+							<div class="col-sm-2 d-inline-block rounded p-0">
+								<img class="align-top" src="img/slide5.jpg" alt="">
+							</div>
+						</div>
+						<div class="row d-block text-center">
+							<div class="col-sm-2 d-inline-block">
+								<button class="btn btn-primary btn-sm">Ganti</button>
+							</div>
+							<div class="col-sm-2 d-inline-block">
+								<button class="btn btn-primary btn-sm">Ganti</button>
+							</div>
+							<div class="col-sm-2 d-inline-block">
+								<button class="btn btn-primary btn-sm">Ganti</button>
+							</div>
+							<div class="col-sm-2 d-inline-block">
+								<button class="btn btn-primary btn-sm">Ganti</button>
+							</div>
+							<div class="col-sm-2 d-inline-block">
+								<button class="btn btn-primary btn-sm">Ganti</button>
+							</div>
+						</div>
+						<i class="text-muted mt-3 d-block">Recommended image ratio: 1625 x 900 pixel (65:36)</i>
+					</div>
+				</div>
+				<!-- ISI MODAL END HERE -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- MODAL SLIDER END -->
+
+<!-- MODAL BAGIAN/SUBBAGIAN/JABATAN START -->
+<div class="modal fade" id="jabatan_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form method="POST" action="">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Bagian/Sub-bagian/Jabatan</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<!-- ISI MODAL START HERE -->
+				<div class="modal-body px-4">
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Bagian</label>
+						<div class="col-sm-10">
+							<input name="jabatan_pejabat" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Sub Bagian</label>
+						<div class="col-sm-10">
+							<input name="jabatan_pejabat" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Jabatan</label>
+						<div class="col-sm-10">
+							<input name="jabatan_pejabat" type="text" class="form-control" required>
+						</div>
+					</div>
+				</div>
+				<!-- ISI MODAL END HERE -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- MODAL BAGIAN/SUBBAGIAN/JABATAN END -->
 
 <main>
 	<div class="pt-4 pb-3">
