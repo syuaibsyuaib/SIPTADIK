@@ -32,9 +32,62 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 								<input class="form-control" style="width: 20%;min-width: 200px;" type="search" placeholder="Search" aria-label="Search">
 							</div>
 							<div class="col-auto">
-								<button class="btn"><i class="bi bi-filter-square-fill" style="font-size: 1.5rem;color: #ababab"></i></button>
+								<button class="btn" data-bs-toggle="collapse" data-bs-target="#filter_cari" aria-expanded="false" aria-controls="filter_cari"><i class="bi bi-filter-square-fill" style="font-size: 1.5rem;color: #ababab"></i></button>
 								<button class="btn"><i class="bi bi-arrow-right-square" style="font-size: 1.5rem;color: #ababab"></i></button>
 								<button class="btn"><i class="bi bi-arrow-left-square" style="font-size: 1.5rem;color: #ababab"></i></button>
+							</div>
+						</div>
+						<div class="collapse mb-4" id="filter_cari">
+							<div class="card">
+								<div class="card-body">
+									<div class="col-lg-6 col-md-6 col-sm">
+										<!-- ISI START -->
+										<div class="mb-3 row">
+											<label class="col-sm-5 col-form-label">Rentang Waktu</label>
+											<div class="col-sm-7">
+												<div class="form-outline datepicker" data-mdb-inline="true">
+													<input type="text" class="form-control" id="exampleDatepicker2">
+													<label for="exampleDatepicker2" class="form-label">Example label</label>
+												</div>
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-sm-5 col-form-label">Bidang Tujuan</label>
+											<div class="col-sm-7">
+												<select class="form-select" aria-label="Pilih Jabatna Tujuan">
+													<option value="" selected></option>
+													<option value="1">Jabatan One</option>
+													<option value="2">Jabatan Two</option>
+													<option value="3">Jabatan Three</option>
+												</select>
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-sm-5 col-form-label">Sub-Bidang Tujuan</label>
+											<div class="col-sm-7">
+												<select class="form-select" aria-label="Pilih Jabatna Tujuan">
+													<option value="" selected></option>
+													<option value="1">Jabatan One</option>
+													<option value="2">Jabatan Two</option>
+													<option value="3">Jabatan Three</option>
+												</select>
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-sm-5 col-form-label">Jabatan Tujuan</label>
+											<div class="col-sm-7">
+												<select class="form-select" aria-label="Pilih Jabatna Tujuan">
+													<option value="" selected></option>
+													<option value="1">Jabatan One</option>
+													<option value="2">Jabatan Two</option>
+													<option value="3">Jabatan Three</option>
+												</select>
+											</div>
+										</div>
+										<!-- ISI END -->
+									</div>
+									<button class="btn btn-primary">Saring</button>
+								</div>
 							</div>
 						</div>
 						<table class="table manage-candidates-top mb-0">
