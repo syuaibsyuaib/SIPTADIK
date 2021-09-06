@@ -2,12 +2,6 @@
 $title = "Admin";
 include("layout/header.php");
 $_SESSION['role'] != 1 ? header("Location: /") : "";
-
-// print_r($_SESSION['data']['dataPjb']);
-$data = $_SESSION['data']['dataPjb'];
-// print_r($data);
-// $hasil = $_SESSION['data'];
-// echo "COBA ".$hasil['role'];
 ?>
 
 <style>
