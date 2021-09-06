@@ -75,22 +75,22 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 		<div class="col-md-5 bg-light p-4" style="box-shadow: 15px 0px 15px -4px rgb(0 0 0 / 23%), -13px 0 8px -4px rgb(0 0 0 / 23%)">
 
 			<h2 class="mb-4">Informasi Pengunjung</h2>
-			<form method="POST" action="" enctype="multipart/form-data">
+			<form method="POST" action="proses.php" enctype="multipart/form-data">
 				<div class="mb-3">
 					<label for="nama" class="form-label">Nama</label>
-					<input type="text" class="form-control" id="nama" required>
+					<input name="namaTamu" type="text" class="form-control" id="nama" required>
 				</div>
 				<div class="mb-3">
 					<label for="nip" class="form-label">NIK/NIP</label>
-					<input type="number" class="form-control" id="nip" required>
+					<input name="nipTamu" type="number" class="form-control" id="nip" required>
 				</div>
 				<div class="mb-3">
 					<label for="asal" class="form-label">Instansi</label>
-					<input type="text" class="form-control" id="asal" required>
+					<input name="asalTamu" type="text" class="form-control" id="asal" required>
 				</div>
 				<div class="mb-3">
-					<label for="asal" class="form-label">Bidang Tujuan</label>
-					<select class="form-select" aria-label="Pilih Bidang Tujuan">
+					<label for="bidang" class="form-label">Bidang Tujuan</label>
+					<select name="bidangTujuan" class="form-select" aria-label="Pilih Bidang Tujuan">
 						<option value="" selected></option>
 						<option value="1">Bidang One</option>
 						<option value="2">Bidang Two</option>
@@ -98,8 +98,8 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 					</select>
 				</div>
 				<div class="mb-3">
-					<label for="asal" class="form-label">Sub-Bidang Tujuan</label>
-					<select class="form-select" aria-label="Pilih Sub Bidang Tujuan">
+					<label for="subbidang" class="form-label">Sub-Bidang Tujuan</label>
+					<select name="subBidangTujuan" class="form-select" aria-label="Pilih Sub Bidang Tujuan">
 						<option value="" selected></option>
 						<option value="1">Sub-Bidang One</option>
 						<option value="2">Sub-Bidang Two</option>
@@ -107,8 +107,8 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 					</select>
 				</div>
 				<div class="mb-3">
-					<label for="asal" class="form-label">Jabatan Tujuan</label>
-					<select class="form-select" aria-label="Pilih Jabatna Tujuan">
+					<label for="jabatan" class="form-label">Jabatan Tujuan</label>
+					<select name="jabatanTujuan" class="form-select" aria-label="Pilih Jabatan Tujuan">
 						<option value="" selected></option>
 						<option value="1">Jabatan One</option>
 						<option value="2">Jabatan Two</option>
@@ -117,9 +117,10 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 				</div>
 				<div class="mb-3">
 					<label for="tujuan" class="form-label">Tujuan</label>
-					<input type="text" class="form-control" id="tujuan" required>
+					<input name="tujuan" type="text" class="form-control" id="tujuan" required>
 				</div>
 				<div class="mb-3" style="width: 190px;height: 200px;">
+					<input type="hidden" name="foto" id="fotoPhp">
 					<img class="shadow p-3" id="foto" width=190 height=200>
 				</div>
 				<!-- <div class="mb-3 form-check">
@@ -129,7 +130,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 
 				<button type="button" data-bs-toggle="modal" data-bs-target="#modal-kamera" class="btn btn-secondary me-auto" id="kamera-modal">Ambil gambar</button>
 				<div class="float-end d-inline-block">
-					<input type="submit" name="submit" class="btn btn-success ms-auto" value="Simpan">
+					<input type="submit" name="tamu" class="btn btn-success ms-auto" value="Simpan">
 				</div>
 
 				<!-- MODAL KAMERA START -->
@@ -180,7 +181,9 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 	var streaming = false;
 
 	let foto = document.getElementById('foto');
-	let width = 380, height = 400, vid;
+	let width = 380,
+		height = 400,
+		vid;
 	var video = null;
 	var canvas = null;
 	var photo = null;
@@ -264,7 +267,8 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 				var data = canvas.toDataURL('image/png');
 				simpan.addEventListener('click', () => {
 					foto.src = data;
-					console.log(data.replace(/^data:.+;base64,/, ''));
+					let fotoPhp = document.getElementById('fotoPhp')
+					fotoPhp.value = data.replace(/^data:.+;base64,/, '');
 					vid = video.srcObject;
 					vid.getTracks()[0].stop();
 				})
@@ -274,7 +278,6 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 			video.setAttribute('style', 'display: inline');
 		}
 	}
-
 </script>
 
 <?php

@@ -2,6 +2,7 @@
 $title = "Admin";
 include("layout/header.php");
 $_SESSION['role'] != 1 ? header("Location: /") : "";
+print_r($_SESSION['data']['dataUser'][0]);
 ?>
 
 <style>
