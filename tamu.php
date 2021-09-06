@@ -249,8 +249,6 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 <script>
 	var streaming = false;
 
-	// The various HTML elements we need to configure or control. These
-	// will be set by the startup() function.
 	let foto = document.getElementById('foto');
 	let width = 380, height = 400, vid;
 	var video = null;
@@ -336,7 +334,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 				var data = canvas.toDataURL('image/png');
 				simpan.addEventListener('click', () => {
 					foto.src = data;
-					fotoB64 = localStorage.setItem('foto', data);
+					console.log(data.replace(/^data:.+;base64,/, ''));
 					vid = video.srcObject;
 					vid.getTracks()[0].stop();
 				})
@@ -347,9 +345,6 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 		}
 	}
 
-	// Set up our event listener to run the startup process
-	// once loading is complete.
-	// window.addEventListener('click', startup, false);
 </script>
 
 <?php
