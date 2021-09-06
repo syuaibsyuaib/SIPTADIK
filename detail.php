@@ -1,6 +1,14 @@
 <?php
-$title = "Admin";
+$title = "Detail";
 include("layout/header.php");
+
+if (!isset($_GET['id'])) {
+	header("Location: /");
+	exit;
+}
+$id = encrypt_decrypt("d", $_GET['id']);;
+$data = array_search_multi($_SESSION['data']['dataPjb'], 0, $id, false);
+// print_r($data);
 $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 ?>
 
@@ -17,9 +25,9 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 							<div class="d-flex flex-column align-items-center text-center">
 								<img src="./img/orang-1.jpeg" alt="Admin" class="rounded-circle" width="150">
 								<div class="mt-3">
-									<h4>Pejabat Satu, M.Si</h4>
+									<h4><?=$data[0][3]?></h4>
 									<p class="text-secondary mb-1">Supervisor Divisi 1</p>
-									<p class="text-muted font-size-sm">Jl. Sam Ratulangi, No. 18, Kota Makassar</p>
+									<p class="text-muted font-size-sm"><?=$data[0][6]?></p>
 								</div>
 							</div>
 						</div>
