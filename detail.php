@@ -6,7 +6,7 @@ if (!isset($_GET['id'])) {
 	header("Location: /");
 	exit;
 }
-$id = encrypt_decrypt("d", $_GET['id']);;
+$id = encrypt_decrypt("d", $_GET['id']);
 $data = array_search_multi($_SESSION['data']['dataPjb'], 0, $id, false);
 // print_r($data);
 $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
