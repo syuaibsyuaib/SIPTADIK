@@ -275,25 +275,6 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 							<img style="width: 100%;" src="./img/orang-2.jpeg">
 						</div>
 						<div class="card-body">
-							<!-- <p class="card-text">
-                <table>
-                  <tr>
-                    <td>Nama</td>
-                    <td class="px-1">:</td>
-                    <td>Pejabat Dua, S.Sos</td>
-                  </tr>
-                  <tr>
-                    <td>NIP</td>
-                    <td class="px-1">:</td>
-                    <td>98763465</td>
-                  </tr>
-                  <tr>
-                    <td>Jabatan</td>
-                    <td class="px-1">:</td>
-                    <td>Supervisor</td>
-                  </tr>
-                </table>
-                </p> -->
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
 									<a href="detail.php" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
