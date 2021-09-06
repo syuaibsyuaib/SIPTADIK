@@ -15,17 +15,6 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 		max-height: 400px;
 	}
 
-	.coba img {
-		min-width: 100%;
-		width: 100%;
-		height: 5rem;
-		/* cursor: move; */
-	}
-
-	.coba>div {
-		overflow: hidden;
-	}
-
 	video {
 		object-fit: cover;
 		width: 380;
@@ -81,83 +70,6 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 			</div>
 			<!-- SLIDER END HERE -->
 
-			<?php
-			if ($_SESSION['role'] == 1) {
-			?>
-				<div class="row mt-4 text-center">
-					<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#slider_edit">Edit Slider</button>
-				</div>
-
-				<!-- MODAL UBAH -->
-				<div class="modal fade" id="slider_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<form method="POST" action="">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Pengaturan Gambar Carousel</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<!-- ISI MODAL START HERE -->
-								<div class="modal-body text-center">
-									<div class="px-3">
-										<!-- FORM UPLOAD GAMBAR -->
-										<!-- <div class="mb-3 row">
-											<form action="" method="post" enctype="multipart/form-data">
-												<input class="form-control" type="file" id="formFile" accept="image/*">
-												<input class="mt-3 btn btn-primary" type="submit" value="Simpan Gambar" name="submit">
-											</form>
-										</div> -->
-										<!-- THUMBNAIL VIEWER -->
-										<div class="mb-1 row d-block text-center coba">
-											<div class="col-sm-2 d-inline-block rounded p-0">
-												<img class="align-top" src="img/slide1.jpg" alt="">
-											</div>
-											<div class="col-sm-2 d-inline-block rounded p-0">
-												<img class="align-top" src="img/slide2.jpg" alt="">
-											</div>
-											<div class="col-sm-2 d-inline-block rounded p-0">
-												<img class="align-top" src="img/slide3.jpg" alt="">
-											</div>
-											<div class="col-sm-2 d-inline-block rounded p-0">
-												<img class="align-top" src="img/slide4.jpg" alt="">
-											</div>
-											<div class="col-sm-2 d-inline-block rounded p-0">
-												<img class="align-top" src="img/slide5.jpg" alt="">
-											</div>
-										</div>
-										<div class="row d-block text-center">
-											<div class="col-sm-2 d-inline-block">
-												<button class="btn btn-primary btn-sm">Ganti</button>
-											</div>
-											<div class="col-sm-2 d-inline-block">
-												<button class="btn btn-primary btn-sm">Ganti</button>
-											</div>
-											<div class="col-sm-2 d-inline-block">
-												<button class="btn btn-primary btn-sm">Ganti</button>
-											</div>
-											<div class="col-sm-2 d-inline-block">
-												<button class="btn btn-primary btn-sm">Ganti</button>
-											</div>
-											<div class="col-sm-2 d-inline-block">
-												<button class="btn btn-primary btn-sm">Ganti</button>
-											</div>
-										</div>
-										<i class="text-muted mt-3 d-block">Recommended image ratio: 1625 x 900 pixel (65:36)</i>
-									</div>
-								</div>
-								<!-- ISI MODAL END HERE -->
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<!-- MODAL UBAH -->
-			<?php
-			}
-			?>
-
 		</div>
 
 		<div class="col-md-5 bg-light p-4" style="box-shadow: 15px 0px 15px -4px rgb(0 0 0 / 23%), -13px 0 8px -4px rgb(0 0 0 / 23%)">
@@ -177,12 +89,30 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
 					<input type="text" class="form-control" id="asal" required>
 				</div>
 				<div class="mb-3">
-					<label for="asal" class="form-label">Sub bidang tujuan</label>
-					<select class="form-select" aria-label="Default select example" required>
-						<option value="" selected>Silakan pilih</option>
+					<label for="asal" class="form-label">Bidang Tujuan</label>
+					<select class="form-select" aria-label="Pilih Bidang Tujuan">
+						<option value="" selected></option>
 						<option value="1">Bidang One</option>
 						<option value="2">Bidang Two</option>
 						<option value="3">Bidang Three</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="asal" class="form-label">Sub-Bidang Tujuan</label>
+					<select class="form-select" aria-label="Pilih Sub Bidang Tujuan">
+						<option value="" selected></option>
+						<option value="1">Sub-Bidang One</option>
+						<option value="2">Sub-Bidang Two</option>
+						<option value="3">Sub-Bidang Three</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="asal" class="form-label">Jabatan Tujuan</label>
+					<select class="form-select" aria-label="Pilih Jabatna Tujuan">
+						<option value="" selected></option>
+						<option value="1">Jabatan One</option>
+						<option value="2">Jabatan Two</option>
+						<option value="3">Jabatan Three</option>
 					</select>
 				</div>
 				<div class="mb-3">

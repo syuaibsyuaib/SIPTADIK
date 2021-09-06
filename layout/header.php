@@ -1,7 +1,9 @@
 <?php
 include("validation.php");
+
+$role = $_SESSION['role'] == 1 ? "Admin" : ($_SESSION['role'] == 2 ? "Piket/Tamu" : ($_SESSION['role'] == 3 ? "Pejabat" : "Unknown"));
 ?>
-<html php="h-100">
+<html class="h-100">
 
 <head>
     <meta charset="UTF-8">
@@ -9,7 +11,7 @@ include("validation.php");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="favicon.ico">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
     <link href="assets/css/riwayat.css" rel="stylesheet">
     <link href="assets/css/icons.css" rel="stylesheet">
     <title>
@@ -36,7 +38,7 @@ include("validation.php");
                     <li class="nav-item">
                         <a class="nav-link" href="#">Bantuan</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Menu
                         </a>
@@ -50,11 +52,11 @@ include("validation.php");
                             <li><a class="dropdown-item" href="detail.php">Profil</a></li>
                             <li><a class="dropdown-item" href="pejabat.html">Pejabat</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <span class="nav-link">Akun: <b><?=$_SESSION['user'] ?? "###"?></b></span>
+                        <span class="nav-link">Akun: <b><?=$role?></b></span>
                     </li>
                 </ul>
                     <a href="keluar.php" class="btn bg-danger text-light" id="tbl-keluar">Keluar</a>
