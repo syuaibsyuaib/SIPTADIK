@@ -2,6 +2,8 @@
 $title = "Tamu";
 include("layout/header.php");
 $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
+
+var_dump($_SESSION['data']);
 ?>
 
 <style>
