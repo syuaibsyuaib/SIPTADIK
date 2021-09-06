@@ -2,7 +2,6 @@
 $title = "Admin";
 include("layout/header.php");
 $_SESSION['role'] != 1 ? header("Location: /") : "";
-print_r($_SESSION['data']['dataUser'][0]);
 ?>
 
 <style>
@@ -326,65 +325,34 @@ print_r($_SESSION['data']['dataUser'][0]);
 		<div class="container-sm pb-3">
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
 
-				<!-- --------------------------------card user -->
-				<div class="col">
-					<div class="card shadow-sm">
-						<div class="card-header warna-dasar">
-							Pejabat Satu, M.Si
-						</div>
-						<div style="height: 265px; overflow: hidden;">
-							<img style="width: 100%;" src="./img/orang-1.jpeg">
-						</div>
-						<div class="card-body">
-							<!-- <p class="card-text">
-								<table>
-								<tr>
-									<td>Nama</td>
-									<td class="px-1">:</td>
-									<td>Pejabat Satu, M.Si</td>
-								</tr>
-								<tr>
-									<td>NIP</td>
-									<td class="px-1">:</td>
-									<td>123456</td>
-								</tr>
-								<tr>
-									<td>Jabatan</td>
-									<td class="px-1">:</td>
-									<td>Guild master</td>
-								</tr>
-								</table>
-							</p> -->
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<a href="detail.php" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
-									<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
-								</div>
-								<small class="text-success">Ada</small>
-							</div>
-						</div>
-					</div>
-				</div>
+				<?php
+				foreach ($data as $value) {
+					$id = encrypt_decrypt("e",$value[0]);
+				?>
 
-				<div class="col">
-					<div class="card shadow-sm">
-						<div class="card-header warna-sibuk">
-							Pejabat Dua, S.Sos
-						</div>
-						<div style="height: 265px; overflow: hidden;">
-							<img style="width: 100%;" src="./img/orang-2.jpeg">
-						</div>
-						<div class="card-body">
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<a href="detail.php" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
-									<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
+					<div class="col">
+						<div class="card shadow-sm">
+							<div class="card-header warna-dasar">
+								<?= $value[3] ?>
+							</div>
+							<div style="height: 265px; overflow: hidden;">
+								<img style="width: 100%;" src="./img/orang-1.jpeg">
+							</div>
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
+										<a href="detail.php?id=<?=$id?>" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
+										<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
+									</div>
+									<small class="text-muted"><?= $value[2] ?></small>
 								</div>
-								<small class="text-danger">Sibuk</small>
 							</div>
 						</div>
 					</div>
-				</div>
+
+				<?php
+				}
+				?>
 
 			</div>
 		</div>

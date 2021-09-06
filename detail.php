@@ -1,6 +1,14 @@
 <?php
-$title = "Admin";
+$title = "Detail";
 include("layout/header.php");
+
+if (!isset($_GET['id'])) {
+	header("Location: /");
+	exit;
+}
+$id = encrypt_decrypt("d", $_GET['id']);
+$data = array_search_multi($_SESSION['data']['dataPjb'], 0, $id, false);
+// print_r($data);
 $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 ?>
 
@@ -17,9 +25,9 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 							<div class="d-flex flex-column align-items-center text-center">
 								<img src="./img/orang-1.jpeg" alt="Admin" class="rounded-circle" width="150">
 								<div class="mt-3">
-									<h4>Pejabat Satu, M.Si</h4>
-									<p class="text-secondary mb-1">Supervisor Divisi 1</p>
-									<p class="text-muted font-size-sm">Jl. Sam Ratulangi, No. 18, Kota Makassar</p>
+									<h4><?= $data[0][3] ?></h4>
+									<p class="text-secondary mb-1"><?= $data[0][2] ?></p>
+									<p class="text-muted font-size-sm"><?= $data[0][6] ?></p>
 								</div>
 							</div>
 						</div>
@@ -61,7 +69,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 									<h6 class="mb-0">Nama Lengkap</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									Pejabat Satu, M.Si
+									<?= $data[0][3] ?>
 								</div>
 							</div>
 
@@ -72,7 +80,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 									<h6 class="mb-0">NIP</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									1234567890
+									<?= $data[0][4] ?>
 								</div>
 							</div>
 
@@ -83,7 +91,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 									<h6 class="mb-0">Jabatan</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									Supervisor Divisi 1
+									<?= $data[0][2] ?>
 								</div>
 							</div>
 
@@ -94,7 +102,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 									<h6 class="mb-0">No. Telepon</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									+62 812-3456-7890
+									<?= $data[0][5] ?>
 								</div>
 							</div>
 
@@ -105,7 +113,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 									<h6 class="mb-0">Alamat</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									Jl. Sam Ratulangi, No. 18, Kota Makassar
+								<?= $data[0][6] ?>
 								</div>
 							</div>
 
@@ -132,31 +140,31 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 										<div class="mb-3 row">
 											<label class="col-sm-2 col-form-label">Nama</label>
 											<div class="col-sm-10">
-												<input name="nama_pejabat" type="text" class="form-control" value="Pejabat Satu, M.Si">
+												<input name="nama_pejabat" type="text" class="form-control" value="<?= $data[0][3] ?>">
 											</div>
 										</div>
 										<div class="mb-3 row">
 											<label class="col-sm-2 col-form-label">NIP</label>
 											<div class="col-sm-10">
-												<input name="nip_pejabat" type="text" class="form-control" value="1234567890">
+												<input name="nip_pejabat" type="text" class="form-control" value="<?= $data[0][4] ?>">
 											</div>
 										</div>
 										<div class="mb-3 row">
 											<label class="col-sm-2 col-form-label">Jabatan</label>
 											<div class="col-sm-10">
-												<input name="jabatan_pejabat" type="text" class="form-control" value="Supervisor Divisi 1">
+												<input name="jabatan_pejabat" type="text" class="form-control" value="<?= $data[0][2] ?>">
 											</div>
 										</div>
 										<div class="mb-3 row">
 											<label class="col-sm-2 col-form-label">No. HP</label>
 											<div class="col-sm-10">
-												<input name="hp_pejabat" type="text" class="form-control" value="+62 812-3456-7890">
+												<input name="hp_pejabat" type="text" class="form-control" value="<?= $data[0][5] ?>">
 											</div>
 										</div>
 										<div class="mb-3 row">
 											<label class="col-sm-2 col-form-label">Alamat</label>
 											<div class="col-sm-10">
-												<input name="alamat_pejabat" type="text" class="form-control" value="Jl. Sam Ratulangi, No. 18, Kota Makassar">
+												<input name="alamat_pejabat" type="text" class="form-control" value="<?= $data[0][6] ?>">
 											</div>
 										</div>
 										<!-- ISI MODAL END HERE -->
