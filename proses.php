@@ -11,6 +11,7 @@ if (isset($_POST['masuk'])) {
         $_SESSION['user'] = $pengguna;
         $_SESSION['pass'] = $sandi;
         $_SESSION['role'] = $hasil["role"];
+        $_SESSION['data'] = $hasil;
         
         if ($hasil["role"] == 1) {
             header("Location: admin.php");
@@ -28,7 +29,7 @@ if (isset($_POST['masuk'])) {
     header("Location: /");
 }
 
-////dari modal tambah user
+////dari page tamu
 if (isset($_POST['tambah'])) {
 
 }

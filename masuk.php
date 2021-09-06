@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['user'])) {
-    if ($_SESSION['role'] == 1) {
+	if ($_SESSION['role'] == 1) {
 		header("Location: admin.php");
 	} elseif ($_SESSION['role'] == 2) {
 		header("Location: tamu.php");
@@ -33,11 +33,11 @@ if (isset($_SESSION['user'])) {
 		<?php
 		if (isset($_SESSION['temp'])) {
 		?>
-		<div class="alert alert-warning" role="alert">
-			<?=$_SESSION['temp']?>
-		</div>
+			<div class="alert alert-warning" role="alert">
+				<?= $_SESSION['temp'] ?>
+			</div>
 		<?php
-		unset($_SESSION['temp']);
+			unset($_SESSION['temp']);
 		}
 		?>
 
@@ -58,7 +58,6 @@ if (isset($_SESSION['user'])) {
 			<p class="mt-5 mb-3 text-muted">&copy; SIPTADIK</p>
 		</form>
 	</main>
-
 </body>
 
 </html>
