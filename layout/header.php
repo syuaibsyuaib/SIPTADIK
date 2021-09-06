@@ -1,5 +1,7 @@
 <?php
 include("validation.php");
+
+$role = $_SESSION['role'] == 1 ? "Admin" : ($_SESSION['role'] == 2 ? "Piket/Tamu" : ($_SESSION['role'] == 3 ? "Pejabat" : "Unknown"));
 ?>
 <html class="h-100">
 
@@ -54,7 +56,7 @@ include("validation.php");
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <span class="nav-link">Akun: <b><?=$_SESSION['user'] ?? "###"?></b></span>
+                        <span class="nav-link">Akun: <b><?=$role?></b></span>
                     </li>
                 </ul>
                     <a href="keluar.php" class="btn bg-danger text-light" id="tbl-keluar">Keluar</a>

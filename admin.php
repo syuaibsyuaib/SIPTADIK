@@ -246,7 +246,7 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 		<div class="modal-content">
 			<form method="POST" action="">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Bagian/Sub-bagian/Jabatan</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Sub-bagian</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<!-- ISI MODAL START HERE -->
