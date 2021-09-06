@@ -5,7 +5,7 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 
 // print_r($_SESSION['data']['dataPjb']);
 $data = $_SESSION['data']['dataPjb'];
-print_r($data);
+// print_r($data);
 // $hasil = $_SESSION['data'];
 // echo "COBA ".$hasil['role'];
 ?>
@@ -339,7 +339,7 @@ print_r($data);
 					<div class="col">
 						<div class="card shadow-sm">
 							<div class="card-header warna-dasar">
-								<?= $value[0] ?>
+								<?= $value[3] ?>
 							</div>
 							<div style="height: 265px; overflow: hidden;">
 								<img style="width: 100%;" src="./img/orang-1.jpeg">
@@ -350,7 +350,7 @@ print_r($data);
 										<a href="detail.php?id=<?=$id?>" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
 										<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
 									</div>
-									<small class="text-success">Ada</small>
+									<small class="text-muted"><?= $value[2] ?></small>
 								</div>
 							</div>
 						</div>
