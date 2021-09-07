@@ -2,6 +2,7 @@
 $title = "Admin";
 include("layout/header.php");
 $_SESSION['role'] != 1 ? header("Location: /") : "";
+$data = $_SESSION['data']['dataPjb'];
 ?>
 
 <style>
@@ -17,6 +18,7 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 	}
 </style>
 
+<!-- SECONDARY NAVBAR HERE -->
 <div class="nav-scroller bg-light shadow-sm">
 	<div class="container">
 		<nav class="nav nav-underline py-1" aria-label="Secondary navigation">
@@ -327,7 +329,7 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 
 				<?php
 				foreach ($data as $value) {
-					$id = encrypt_decrypt("e",$value[0]);
+					$id = encrypt_decrypt("e", $value[0]);
 				?>
 
 					<div class="col">
@@ -339,12 +341,15 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 								<img style="width: 100%;" src="./img/orang-1.jpeg">
 							</div>
 							<div class="card-body">
+								<p class="card-text">
+									<!-- <?= $value[2] ?> -->
+								</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<a href="detail.php?id=<?=$id?>" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
+										<a href="detail.php?id=<?= $id ?>" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
 										<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
 									</div>
-									<small class="text-muted"><?= $value[2] ?></small>
+									<!-- <small class="text-muted">Status keberadaan</small> -->
 								</div>
 							</div>
 						</div>
