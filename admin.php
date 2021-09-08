@@ -17,7 +17,7 @@ $data = $_SESSION['data']['dataPjb'];
 	}
 </style>
 
-<!-- SECONDARY NAVBAR HERE -->
+<!-- SECONDARY NAVBAR -->
 <div class="nav-scroller bg-light shadow-sm">
 	<div class="container">
 		<nav class="nav nav-underline py-1" aria-label="Secondary navigation">
@@ -31,9 +31,9 @@ $data = $_SESSION['data']['dataPjb'];
 					<li>
 						<hr class="dropdown-divider">
 					</li>
-					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#bagian_edit">Bagian</a></li>
-					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#subbagian_edit">Sub-Bagian</a></li>
-					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#jabatan_edit">Jabatan</a></li>
+					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal_bagian_edit">Bagian</a></li>
+					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal_subbagian_edit">Sub-Bagian</a></li>
+					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal_jabatan_edit">Jabatan</a></li>
 				</ul>
 			</li>
 			<li class="nav-item dropdown">
@@ -53,69 +53,11 @@ $data = $_SESSION['data']['dataPjb'];
 	</div>
 </div>
 
-<!-- MODAL TAMBAH PENGGUNA -->
-<div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<form method="POST" action="proses.php" enctype="multipart/form-data">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body px-4">
-					<!-- ISI MODAL START HERE -->
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Nama</label>
-						<div class="col-sm-10">
-							<input name="nama_pejabat" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">NIP</label>
-						<div class="col-sm-10">
-							<input name="nip_pejabat" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Jabatan</label>
-						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">No. HP</label>
-						<div class="col-sm-10">
-							<input name="hp_pejabat" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Alamat</label>
-						<div class="col-sm-10">
-							<input name="alamat_pejabat" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Foto Profil</label>
-						<div class="col-sm-10">
-							<input name="foto_pejabat" class="form-control" type="file" id="formFile" accept="image/*" required>
-						</div>
-					</div>
-					<!-- ISI MODAL END HERE -->
-				</div>
-				<div class="modal-footer">
-					<input type="submit" class="btn btn-primary" name="tambah" value="Simpan">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
 <!-- MODAL SLIDER -->
 <div class="modal fade" id="slider_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form method="POST" action="">
+			<form class="m-0 p-0" method="POST" action="">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Gambar Slider</h5>
 				</div>
@@ -176,11 +118,82 @@ $data = $_SESSION['data']['dataPjb'];
 	</div>
 </div>
 
-<!-- MODAL BAGIAN -->
-<div class="modal fade" id="bagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- MODAL TAMBAH PENGGUNA -->
+<div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form method="POST" action="">
+			<form class="m-0 p-0" method="POST" enctype="multipart/form-data">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+				</div>
+				<div class="modal-body">
+					<!-- ISI MODAL START HERE -->
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Pengguna</label>
+						<div class="col-sm-10">
+							<input name="pengguna_pjb" type="text" class="form-control" required>
+							<div class="mt-1">
+								<small class="text-danger"><i>Gunakan huruf kecil dan angka tanpa simbol dan diawali huruf</i></small>
+							</div>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Foto</label>
+						<div class="col-sm-10">
+							<input name="foto_pjb" type="file" class="form-control" accept="image/*" required>
+							<div class="mt-1">
+								<small class="text-danger">
+									<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
+								</small>
+							</div>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Nama</label>
+						<div class="col-sm-10">
+							<input name="nama_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">NIP</label>
+						<div class="col-sm-10">
+							<input name="nip_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Jabatan</label>
+						<div class="col-sm-10">
+							<input name="jabatan_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">No. HP</label>
+						<div class="col-sm-10">
+							<input name="hp_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Alamat</label>
+						<div class="col-sm-10">
+							<input name="alamat_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<!-- ISI MODAL END HERE -->
+				</div>
+				<div class="modal-footer">
+					<button type="submit" name="simpan_data" class="btn btn-primary">Simpan</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL BAGIAN -->
+<div class="modal fade" id="modal_bagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form class="m-0 p-0" method="POST" action="">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Bagian</h5>
 				</div>
@@ -189,44 +202,146 @@ $data = $_SESSION['data']['dataPjb'];
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Nama Bagian</th>
-								<th scope="col">Pilihan</th>
+								<th>#</th>
+								<th>Nama Bagian</th>
+								<th>Pilihan</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<th scope="row">1</th>
+								<th>1</th>
 								<td>Kepala Dinas</td>
 								<td>
-									<button class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_1" aria-expanded="false" aria-controls="edit_bagian_1"><i class="bi bi-pencil-square"></i></button>
 									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">2</th>
-								<td>Sekretariat</td>
+								<td colspan="3" class="collapse" id="edit_bagian_1">
+									<div class="row">
+										<div class="col-sm-11">
+											<input name="bagian_1" type="text" class="form-control" required="" value="Kepala Dinas">
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>2</th>
+								<td>Pembinaan PKPLK Bahasa dan Sastra</td>
 								<td>
-									<button class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_2" aria-expanded="false" aria-controls="edit_bagian_2"><i class="bi bi-pencil-square"></i></button>
 									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">3</th>
+								<td colspan="3" class="collapse" id="edit_bagian_2">
+									<div class="row">
+										<div class="col-sm-11">
+											<input name="bagian_6" type="text" class="form-control" required="" value="Pembinaan PKPLK Bahasa dan Sastra">
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>3</th>
+								<td>Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_3" aria-expanded="false" aria-controls="edit_bagian_3"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="collapse" id="edit_bagian_3">
+									<div class="row">
+										<div class="col-sm-11">
+											<input name="bagian_5" type="text" class="form-control" required="" value="Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas">
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>4</th>
 								<td>Pembinaan SMA</td>
 								<td>
-									<button class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_4" aria-expanded="false" aria-controls="edit_bagian_4"><i class="bi bi-pencil-square"></i></button>
 									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="collapse" id="edit_bagian_4">
+									<div class="row">
+										<div class="col-sm-11">
+											<input name="bagian_3" type="text" class="form-control" required="" value="Pembinaan SMA">
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>5</th>
+								<td>Pembinaan SMK</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_5" aria-expanded="false" aria-controls="edit_bagian_5"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="collapse" id="edit_bagian_5">
+									<div class="row">
+										<div class="col-sm-11">
+											<input name="bagian_4" type="text" class="form-control" required="" value="Pembinaan SMK">
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>6</th>
+								<td>Sekretariat</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_6" aria-expanded="false" aria-controls="edit_bagian_6"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="collapse" id="edit_bagian_6">
+									<div class="row">
+										<div class="col-sm-11">
+											<input name="bagian_2" type="text" class="form-control" required="" value="Sekretariat">
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>7</th>
+								<td>UPT PTIKP</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_7" aria-expanded="false" aria-controls="edit_bagian_7"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="collapse" id="edit_bagian_7">
+									<div class="row">
+										<div class="col-sm-11">
+											<input name="bagian_7" type="text" class="form-control" required="" value="UPT PTIKP">
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="mb-3 row">
 						<label class="col-sm-3 col-form-label">Tambah Bagian</label>
-						<div class="col-sm-7">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
+						<div class="col-sm-8">
+							<input name="tambah_bagian" type="text" class="form-control" required>
 						</div>
-						<button class="col-sm-2 btn btn-success">Tambah</button>
+						<button class="col-sm-1 btn btn-success"><i class="bi bi-plus-lg"></i></button>
 					</div>
 				</div>
 				<!-- ISI MODAL END HERE -->
@@ -239,33 +354,157 @@ $data = $_SESSION['data']['dataPjb'];
 </div>
 
 <!-- MODAL SUBBAGIAN -->
-<div class="modal fade" id="subbagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_subbagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form method="POST" action="">
+			<form class="m-0 p-0" method="POST" action="">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Sub-bagian</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Sub-Bagian</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Nama Sub-Bagian</th>
+								<th>Bagian</th>
+								<th>Pilihan</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>1</th>
+								<td>Umum Kepegawaian dan Hukum</td>
+								<td>Sekretariat</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_subbagian_1" aria-expanded="false" aria-controls="edit_subbagian_1"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" class="collapse" id="edit_subbagian_1">
+									<div class="row">
+										<div class="col-sm-7">
+											<input name="subbagian_2" type="text" class="form-control" required="" value="Umum Kepegawaian dan Hukum">
+										</div>
+										<div class="col-sm-4">
+											<select class="form-select" name="edit_nama_bagian_2">
+												<option value="" selected="">== Pilih jenis bagian ==</option>
+												<option value="1">Kepala Dinas</option>
+												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
+												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
+												<option value="3">Pembinaan SMA</option>
+												<option value="4">Pembinaan SMK</option>
+												<option value="2" selected="">Sekretariat</option>
+												<option value="7">UPT PTIKP</option>
+											</select>
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>2</th>
+								<td>Keuangan</td>
+								<td>Sekretariat</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_subbagian_2" aria-expanded="false" aria-controls="edit_subbagian_2"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" class="collapse" id="edit_subbagian_2">
+									<div class="row">
+										<div class="col-sm-7">
+											<input name="subbagian_2" type="text" class="form-control" required="" value="Keuangan">
+										</div>
+										<div class="col-sm-4">
+											<select class="form-select" name="edit_nama_bagian_2">
+												<option value="" selected="">== Pilih jenis bagian ==</option>
+												<option value="1">Kepala Dinas</option>
+												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
+												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
+												<option value="3">Pembinaan SMA</option>
+												<option value="4">Pembinaan SMK</option>
+												<option value="2" selected="">Sekretariat</option>
+												<option value="7">UPT PTIKP</option>
+											</select>
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>3</th>
+								<td>Program</td>
+								<td>Sekretariat</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_subbagian_3" aria-expanded="false" aria-controls="edit_subbagian_3"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" class="collapse" id="edit_subbagian_3">
+									<div class="row">
+										<div class="col-sm-7">
+											<input name="subbagian_2" type="text" class="form-control" required="" value="Program">
+										</div>
+										<div class="col-sm-4">
+											<select class="form-select" name="edit_nama_bagian_2">
+												<option value="" selected="">== Pilih jenis bagian ==</option>
+												<option value="1">Kepala Dinas</option>
+												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
+												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
+												<option value="3">Pembinaan SMA</option>
+												<option value="4">Pembinaan SMK</option>
+												<option value="2" selected="">Sekretariat</option>
+												<option value="7">UPT PTIKP</option>
+											</select>
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>4</th>
+								<td>Subbidang Pembinaan SMA</td>
+								<td>Pembinaan SMA</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_subbagian_4" aria-expanded="false" aria-controls="edit_subbagian_4"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" class="collapse" id="edit_subbagian_4">
+									<div class="row">
+										<div class="col-sm-7">
+											<input name="subbagian_3" type="text" class="form-control" required="" value="Subbidang Pembinaan SMA">
+										</div>
+										<div class="col-sm-4">
+											<select class="form-select" name="edit_nama_bagian_3">
+												<option value="" selected="">== Pilih jenis bagian ==</option>
+												<option value="1">Kepala Dinas</option>
+												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
+												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
+												<option value="3" selected="">Pembinaan SMA</option>
+												<option value="4">Pembinaan SMK</option>
+												<option value="2">Sekretariat</option>
+												<option value="7">UPT PTIKP</option>
+											</select>
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Bagian</label>
-						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
+						<label class="col-sm-3 col-form-label">Tambah Bagian</label>
+						<div class="col-sm-8">
+							<input name="tambah_subbagian" type="text" class="form-control" required>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Sub Bagian</label>
-						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Jabatan</label>
-						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
-						</div>
+						<button class="col-sm-1 btn btn-success"><i class="bi bi-plus-lg"></i></button>
 					</div>
 				</div>
 				<!-- ISI MODAL END HERE -->
@@ -276,36 +515,161 @@ $data = $_SESSION['data']['dataPjb'];
 		</div>
 	</div>
 </div>
-<!-- MODAL SUBBAGIAN END -->
 
 <!-- MODAL JABATAN -->
-<div class="modal fade" id="jabatan_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_jabatan_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form method="POST" action="">
+			<form class="m-0 p-0" method="POST" action="">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Bagian/Sub-bagian/Jabatan</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Jabatan</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Nama Jabatan</th>
+								<th>Sub-Bagian</th>
+								<th>Bagian</th>
+								<th>Pilihan</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>1</th>
+								<td>Kasubag Keuangan</td>
+								<td>Keuangan</td>
+								<td>Sekretariat</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_jabatan_1" aria-expanded="false" aria-controls="edit_jabatan_1"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="5" class="collapse" id="edit_jabatan_1">
+									<div class="row">
+										<div class="col-sm-5">
+											<input name="jabatan_3" type="text" class="form-control" required="" value="Kasubag Keuangan">
+										</div>
+										<div class="col-sm-3">
+											<select class="form-select" name="edit_nama_subbagian_3">
+												<option value="" selected="">== Pilih jenis sub bagian ==</option>
+												<option value="2" selected="">Keuangan</option>
+												<option value="3">Program</option>
+												<option value="4">Subbidang Pembinaan SMA</option>
+												<option value="1">Umum Kepegawaian dan Hukum</option>
+											</select>
+										</div>
+										<div class="col-sm-3">
+											<select class="form-select" name="edit_nama_bagian_3">
+												<option value="" selected="">== Pilih jenis bagian ==</option>
+												<option value="1">Kepala Dinas</option>
+												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
+												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
+												<option value="3">Pembinaan SMA</option>
+												<option value="4">Pembinaan SMK</option>
+												<option value="2" selected="">Sekretariat</option>
+												<option value="7">UPT PTIKP</option>
+											</select>
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>2</th>
+								<td>Kepala Dinas</td>
+								<td>-</td>
+								<td>Kepala Dinas</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_jabatan_2" aria-expanded="false" aria-controls="edit_jabatan_2"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="5" class="collapse" id="edit_jabatan_2">
+									<div class="row">
+										<div class="col-sm-5">
+											<input name="jabatan_1" type="text" class="form-control" required="" value="Kepala Dinas">
+										</div>
+										<div class="col-sm-3">
+											<select class="form-select" name="edit_nama_subbagian_1">
+												<option value="" selected="">== Pilih jenis sub bagian ==</option>
+												<option value="2">Keuangan</option>
+												<option value="3">Program</option>
+												<option value="4">Subbidang Pembinaan SMA</option>
+												<option value="1">Umum Kepegawaian dan Hukum</option>
+											</select>
+										</div>
+										<div class="col-sm-3">
+											<select class="form-select" name="edit_nama_bagian_1">
+												<option value="" selected="">== Pilih jenis bagian ==</option>
+												<option value="1" selected="">Kepala Dinas</option>
+												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
+												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
+												<option value="3">Pembinaan SMA</option>
+												<option value="4">Pembinaan SMK</option>
+												<option value="2">Sekretariat</option>
+												<option value="7">UPT PTIKP</option>
+											</select>
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>3</th>
+								<td>Sekretaris</td>
+								<td>-</td>
+								<td>Sekretariat</td>
+								<td>
+									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_jabatan_3" aria-expanded="false" aria-controls="edit_jabatan_3"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="5" class="collapse" id="edit_jabatan_3">
+									<div class="row">
+										<div class="col-sm-5">
+											<input name="jabatan_2" type="text" class="form-control" required="" value="Sekretaris">
+										</div>
+										<div class="col-sm-3">
+											<select class="form-select" name="edit_nama_subbagian_2">
+												<option value="" selected="">== Pilih jenis sub bagian ==</option>
+												<option value="2">Keuangan</option>
+												<option value="3">Program</option>
+												<option value="4">Subbidang Pembinaan SMA</option>
+												<option value="1">Umum Kepegawaian dan Hukum</option>
+											</select>
+										</div>
+										<div class="col-sm-3">
+											<select class="form-select" name="edit_nama_bagian_2">
+												<option value="" selected="">== Pilih jenis bagian ==</option>
+												<option value="1">Kepala Dinas</option>
+												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
+												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
+												<option value="3">Pembinaan SMA</option>
+												<option value="4">Pembinaan SMK</option>
+												<option value="2" selected="">Sekretariat</option>
+												<option value="7">UPT PTIKP</option>
+											</select>
+										</div>
+										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
+									</div>
+								</td>
+							</tr>
+
+
+						</tbody>
+					</table>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Bagian</label>
-						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
+						<label class="col-sm-3 col-form-label">Tambah Bagian</label>
+						<div class="col-sm-8">
+							<input name="tambah_jabatan" type="text" class="form-control" required>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Sub Bagian</label>
-						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Jabatan</label>
-						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
-						</div>
+						<button class="col-sm-1 btn btn-success"><i class="bi bi-plus-lg"></i></button>
 					</div>
 				</div>
 				<!-- ISI MODAL END HERE -->
