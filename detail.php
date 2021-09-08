@@ -10,6 +10,10 @@ $id = encrypt_decrypt("d", $_GET['id']);
 $data = array_search_multi($_SESSION['data']['dataPjb'], 0, $id, false);
 // print_r($data);
 $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
+
+if (isset($_POST['ubah_foto'])) {
+	// sss
+}
 ?>
 
 <!-- ISINYA MULAI DI SINI -->
@@ -32,6 +36,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 							</div>
 						</div>
 					</div>
+					<!-- MEDIA SOSIAL START -->
 					<div class="card mt-3">
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -58,6 +63,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 							</li>
 						</ul>
 					</div>
+					<!-- MEDIA SOSIAL END -->
 				</div>
 
 				<div class="col-md-8">
@@ -113,7 +119,7 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 									<h6 class="mb-0">Alamat</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-								<?= $data[0][6] ?>
+									<?= $data[0][6] ?>
 								</div>
 							</div>
 
@@ -121,64 +127,14 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 
 							<div class="row">
 								<div class="col-sm-12">
-									<a class="btn btn-info text-light" href="#" data-bs-toggle="modal" data-bs-target="#ubah">Ubah</a>
+									<a class="btn btn-info text-light" href="#" data-bs-toggle="modal" data-bs-target="#ubahdetail">Ubah Detail</a>
+									<a class="btn btn-info text-light" href="#" data-bs-toggle="modal" data-bs-target="#ubahfoto">Ubah Foto</a>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- MODAL UBAH -->
-					<div class="modal fade" id="ubah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form method="POST" action="">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										<!-- ISI MODAL START HERE -->
-										<div class="mb-3 row">
-											<label class="col-sm-2 col-form-label">Nama</label>
-											<div class="col-sm-10">
-												<input name="nama_pejabat" type="text" class="form-control" value="<?= $data[0][3] ?>">
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-2 col-form-label">NIP</label>
-											<div class="col-sm-10">
-												<input name="nip_pejabat" type="text" class="form-control" value="<?= $data[0][4] ?>">
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-2 col-form-label">Jabatan</label>
-											<div class="col-sm-10">
-												<input name="jabatan_pejabat" type="text" class="form-control" value="<?= $data[0][2] ?>">
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-2 col-form-label">No. HP</label>
-											<div class="col-sm-10">
-												<input name="hp_pejabat" type="text" class="form-control" value="<?= $data[0][5] ?>">
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-2 col-form-label">Alamat</label>
-											<div class="col-sm-10">
-												<input name="alamat_pejabat" type="text" class="form-control" value="<?= $data[0][6] ?>">
-											</div>
-										</div>
-										<!-- ISI MODAL END HERE -->
-									</div>
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-primary">Simpan</button>
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-					<!-- MODAL UBAH -->
 
+					<!-- STATISTICS -->
 					<div class="row gutters-sm">
 						<div class="col-sm-6 mb-3">
 							<div class="card h-100">
@@ -226,6 +182,80 @@ $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 		</div>
 	</div>
 
+</div>
+
+<!-- MODAL UBAH INFORMASI -->
+<div class="modal fade" id="ubahdetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form method="POST" action="">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+				</div>
+				<div class="modal-body">
+					<!-- ISI MODAL START HERE -->
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Nama</label>
+						<div class="col-sm-10">
+							<input name="nama_pejabat" type="text" class="form-control" value="<?= $data[0][3] ?>">
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">NIP</label>
+						<div class="col-sm-10">
+							<input name="nip_pejabat" type="text" class="form-control" value="<?= $data[0][4] ?>">
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Jabatan</label>
+						<div class="col-sm-10">
+							<input name="jabatan_pejabat" type="text" class="form-control" value="<?= $data[0][2] ?>">
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">No. HP</label>
+						<div class="col-sm-10">
+							<input name="hp_pejabat" type="text" class="form-control" value="<?= $data[0][5] ?>">
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Alamat</label>
+						<div class="col-sm-10">
+							<input name="alamat_pejabat" type="text" class="form-control" value="<?= $data[0][6] ?>">
+						</div>
+					</div>
+					<!-- ISI MODAL END HERE -->
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Simpan</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL UBAH FOTO -->
+
+<div class="modal fade" id="ubahfoto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form method="post" enctype="multipart/form-data">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ubah Foto</h5>
+				</div>
+				<div class="modal-body">
+					<!-- ISI MODAL START HERE -->
+					<input class="form-control" type="file" id="formFile" accept="image/*">
+					<!-- ISI MODAL END HERE -->
+				</div>
+				<div class="modal-footer">
+					<input class="btn btn-primary" type="submit" value="Simpan" name="ubah_foto">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 <!-- ISINYA BERAKHIR DI SINI -->
 

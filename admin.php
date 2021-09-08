@@ -10,7 +10,6 @@ $data = $_SESSION['data']['dataPjb'];
 		min-width: 100%;
 		width: 100%;
 		height: 5rem;
-		/* cursor: move; */
 	}
 
 	.coba>div {
@@ -54,7 +53,7 @@ $data = $_SESSION['data']['dataPjb'];
 	</div>
 </div>
 
-<!-- MODAL TAMBAH PENGGUNA START -->
+<!-- MODAL TAMBAH PENGGUNA -->
 <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -111,9 +110,8 @@ $data = $_SESSION['data']['dataPjb'];
 		</div>
 	</div>
 </div>
-<!-- MODAL TAMBAH PENGGUNA END -->
 
-<!-- MODAL SLIDER START -->
+<!-- MODAL SLIDER -->
 <div class="modal fade" id="slider_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -177,9 +175,8 @@ $data = $_SESSION['data']['dataPjb'];
 		</div>
 	</div>
 </div>
-<!-- MODAL SLIDER END -->
 
-<!-- MODAL BAGIAN START -->
+<!-- MODAL BAGIAN -->
 <div class="modal fade" id="bagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -240,9 +237,8 @@ $data = $_SESSION['data']['dataPjb'];
 		</div>
 	</div>
 </div>
-<!-- MODAL BAGIAN END -->
 
-<!-- MODAL SUBBAGIAN START -->
+<!-- MODAL SUBBAGIAN -->
 <div class="modal fade" id="subbagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -282,7 +278,7 @@ $data = $_SESSION['data']['dataPjb'];
 </div>
 <!-- MODAL SUBBAGIAN END -->
 
-<!-- MODAL JABATAN START -->
+<!-- MODAL JABATAN -->
 <div class="modal fade" id="jabatan_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -320,7 +316,6 @@ $data = $_SESSION['data']['dataPjb'];
 		</div>
 	</div>
 </div>
-<!-- MODAL JABATAN END -->
 
 <main>
 	<div class="pt-4 pb-3">
