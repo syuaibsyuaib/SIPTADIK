@@ -38,56 +38,6 @@ function kirim($dataArr){
     return $hasil;
 }
 
-// Fungsi encrypt dan decrypt
-function encrypt_decrypt($action, $string)
-{
-    $output = false;
-    $encrypt_method = "AES-256-CBC";
-    $secret_key = 'siptadik12345';
-    $secret_iv = 'mohpoejibikin';
-    // hash
-    $key = hash('sha256', $secret_key);
-
-    // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
-    $iv = substr(hash('sha256', $secret_iv), 0, 16);
-    if ($action == 'e') {
-        $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
-        $output = base64_encode($output);
-    } else if ($action == 'd') {
-        $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
-    }
-    return $output;
-}
-
-function array_search_multi($array, $key, $value, $parent = false)
-{
-    $results = array();
-
-    if (is_array($array)) {
-        if (isset($array[$key]) && $array[$key] == $value)
-            $results[] = $array;
-
-        foreach ($array as $id => $subarray) {
-            $found = array_search_multi(
-                $subarray,
-                $key,
-                $value
-            );
-
-            if (!empty($found)) {
-                if ($parent) {
-                    $results[$id] =
-                        $array[$id];
-                } else {
-                    $results = $found;
-                }
-            }
-        }
-    }
-
-    return $results;
-}
-
 // FUNCTION END
 
 $pengguna = $_SESSION['user'];
