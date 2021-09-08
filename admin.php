@@ -111,6 +111,7 @@ $data = $_SESSION['data']['dataPjb'];
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -124,7 +125,7 @@ $data = $_SESSION['data']['dataPjb'];
 		<div class="modal-content">
 			<form class="m-0 p-0" method="POST" enctype="multipart/form-data">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
 				</div>
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
@@ -346,6 +347,7 @@ $data = $_SESSION['data']['dataPjb'];
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -509,6 +511,7 @@ $data = $_SESSION['data']['dataPjb'];
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -674,6 +677,7 @@ $data = $_SESSION['data']['dataPjb'];
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
