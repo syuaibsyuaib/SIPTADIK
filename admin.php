@@ -27,7 +27,7 @@ $data = $_SESSION['data']['dataPjb'];
 					Tambah
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#tambah">Pengguna</a></li>
+					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal_tambah_pengguna">Pengguna</a></li>
 					<li>
 						<hr class="dropdown-divider">
 					</li>
@@ -57,7 +57,7 @@ $data = $_SESSION['data']['dataPjb'];
 <div class="modal fade" id="slider_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form class="m-0 p-0" method="POST" action="">
+			<form class="m-0 p-0" method="POST" enctype="multipart/form-data">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Gambar Slider</h5>
 				</div>
@@ -120,7 +120,7 @@ $data = $_SESSION['data']['dataPjb'];
 </div>
 
 <!-- MODAL TAMBAH PENGGUNA -->
-<div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_tambah_pengguna" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<form class="m-0 p-0" method="POST" enctype="multipart/form-data">
@@ -130,7 +130,7 @@ $data = $_SESSION['data']['dataPjb'];
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Pengguna</label>
+						<label class="col-sm-2 col-form-label"><i>Username</i></label>
 						<div class="col-sm-10">
 							<input name="pengguna_pjb" type="text" class="form-control" required>
 							<div class="mt-1">
@@ -162,9 +162,40 @@ $data = $_SESSION['data']['dataPjb'];
 						</div>
 					</div>
 					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Bagian</label>
+						<div class="col-sm-10">
+							<select class="form-select" name="edit_nama_bagian_pengguna" required>
+								<option value="" selected="">== Pilih jenis bagian ==</option>
+								<option value="1">Kepala Dinas</option>
+								<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
+								<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
+								<option value="3">Pembinaan SMA</option>
+								<option value="4">Pembinaan SMK</option>
+								<option value="2" >Sekretariat</option>
+								<option value="7">UPT PTIKP</option>
+							</select>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Sub-Bagian</label>
+						<div class="col-sm-10">
+							<select class="form-select" name="edit_nama_subbagian_pengguna">
+								<option value="" selected="">== Pilih jenis sub bagian ==</option>
+								<option value="2">Keuangan</option>
+								<option value="3">Program</option>
+								<option value="4">Subbidang Pembinaan SMA</option>
+								<option value="1">Umum Kepegawaian dan Hukum</option>
+							</select>
+						</div>
+					</div>
+					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Jabatan</label>
 						<div class="col-sm-10">
-							<input name="jabatan_pjb" type="text" class="form-control" required>
+							<select class="form-select" name="edit_nama_jabatan_pengguna">
+								<option value="" selected="">== Pilih jenis jabatan ==</option>
+								<option value="1">Kepala Bagian/Subbagian</option>
+								<option value="2">Bendahara Bagian/Subbagian</option>
+							</select>
 						</div>
 					</div>
 					<div class="mb-3 row">
@@ -391,7 +422,7 @@ $data = $_SESSION['data']['dataPjb'];
 											<input name="subbagian_2" type="text" class="form-control" required="" value="Umum Kepegawaian dan Hukum">
 										</div>
 										<div class="col-sm-4">
-											<select class="form-select" name="edit_nama_bagian_2">
+											<select class="form-select" name="edit_nama_bagian_2" required>
 												<option value="" selected="">== Pilih jenis bagian ==</option>
 												<option value="1">Kepala Dinas</option>
 												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
@@ -422,7 +453,7 @@ $data = $_SESSION['data']['dataPjb'];
 											<input name="subbagian_2" type="text" class="form-control" required="" value="Keuangan">
 										</div>
 										<div class="col-sm-4">
-											<select class="form-select" name="edit_nama_bagian_2">
+											<select class="form-select" name="edit_nama_bagian_2" required>
 												<option value="" selected="">== Pilih jenis bagian ==</option>
 												<option value="1">Kepala Dinas</option>
 												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
@@ -453,7 +484,7 @@ $data = $_SESSION['data']['dataPjb'];
 											<input name="subbagian_2" type="text" class="form-control" required="" value="Program">
 										</div>
 										<div class="col-sm-4">
-											<select class="form-select" name="edit_nama_bagian_2">
+											<select class="form-select" name="edit_nama_bagian_2" required>
 												<option value="" selected="">== Pilih jenis bagian ==</option>
 												<option value="1">Kepala Dinas</option>
 												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
@@ -484,7 +515,7 @@ $data = $_SESSION['data']['dataPjb'];
 											<input name="subbagian_3" type="text" class="form-control" required="" value="Subbidang Pembinaan SMA">
 										</div>
 										<div class="col-sm-4">
-											<select class="form-select" name="edit_nama_bagian_3">
+											<select class="form-select" name="edit_nama_bagian_3" required>
 												<option value="" selected="">== Pilih jenis bagian ==</option>
 												<option value="1">Kepala Dinas</option>
 												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
@@ -566,7 +597,7 @@ $data = $_SESSION['data']['dataPjb'];
 											</select>
 										</div>
 										<div class="col-sm-3">
-											<select class="form-select" name="edit_nama_bagian_3">
+											<select class="form-select" name="edit_nama_bagian_3" required>
 												<option value="" selected="">== Pilih jenis bagian ==</option>
 												<option value="1">Kepala Dinas</option>
 												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
@@ -607,7 +638,7 @@ $data = $_SESSION['data']['dataPjb'];
 											</select>
 										</div>
 										<div class="col-sm-3">
-											<select class="form-select" name="edit_nama_bagian_1">
+											<select class="form-select" name="edit_nama_bagian_1" required>
 												<option value="" selected="">== Pilih jenis bagian ==</option>
 												<option value="1" selected="">Kepala Dinas</option>
 												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
@@ -648,7 +679,7 @@ $data = $_SESSION['data']['dataPjb'];
 											</select>
 										</div>
 										<div class="col-sm-3">
-											<select class="form-select" name="edit_nama_bagian_2">
+											<select class="form-select" name="edit_nama_bagian_2" required>
 												<option value="" selected="">== Pilih jenis bagian ==</option>
 												<option value="1">Kepala Dinas</option>
 												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
