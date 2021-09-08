@@ -23,7 +23,7 @@ function kirim($dataArr){
         "Content-Type: application/json",
     );
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-
+    $dataArr += ["sesi" => session_id()];
     $data = json_encode($dataArr);
 
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);

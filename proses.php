@@ -1,12 +1,13 @@
 <?php
 session_start();
+var_dump(session_id());
 if (isset($_POST['masuk'])) {
     $pengguna = $_POST['pengguna'];
     $sandi = $_POST['sandi'];
 
     $data = array("pengguna" => $pengguna, "sandi" => $sandi);
     $hasil = kirim($data);
-    // var_dump($hasil);
+
     if ($hasil || $hasil != NULL) {
         $_SESSION['user'] = $pengguna;
         $_SESSION['pass'] = $sandi;
@@ -31,9 +32,8 @@ if (isset($_POST['masuk'])) {
 
 ////dari page tamu
 if (isset($_POST['tamu'])) {
-    $dataTamu = array("namaTamu"=> $_POST['namaTamu'], "nipTamu" => $_POST['nipTamu'], "asalTamu" => $_POST['asalTamu'], "bidangTujuan" => $_POST['bidangTujuan'], "subBidangTujuan" => $_POST['subBidangTujuan'], "jabatanTujuan" => $_POST['jabatanTujuan'], "tujuan" => $_POST['tujuan'], "foto" => $_POST['foto']);
-
-    $hasilTamu = kirim($dataTamu);
+    $dataTamu = array("role" => "tamu", "namaTamu"=> $_POST['namaTamu'], "nipTamu" => $_POST['nipTamu'], "asalTamu" => $_POST['asalTamu'], "bidangTujuan" => $_POST['bidangTujuan'], "subBidangTujuan" => $_POST['subBidangTujuan'], "jabatanTujuan" => $_POST['jabatanTujuan'], "tujuan" => $_POST['tujuan'], "foto" => $_POST['foto']);
+    kirim($dataTamu);
 };
 
 function kirim($dataArr){
@@ -48,7 +48,7 @@ function kirim($dataArr){
         "Content-Type: application/json",
     );
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-
+    $dataArr += ["sesi" => session_id()];
     $data = json_encode($dataArr);
 
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);

@@ -2,8 +2,7 @@
 $title = "Tamu";
 include("layout/header.php");
 $_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
-
-var_dump($_SESSION['data']);
+$dataBidang = $_SESSION['data']['dataBidang'];
 ?>
 
 <style>
@@ -90,31 +89,48 @@ var_dump($_SESSION['data']);
 					<label for="asal" class="form-label">Instansi</label>
 					<input name="asalTamu" type="text" class="form-control" id="asal" required>
 				</div>
+
+
 				<div class="mb-3">
 					<label for="bidang" class="form-label">Bidang Tujuan</label>
-					<select name="bidangTujuan" class="form-select" aria-label="Pilih Bidang Tujuan">
+					<select id="bidang" name="bidangTujuan" class="form-select" aria-label="Pilih Bidang Tujuan">
 						<option value="" selected></option>
-						<option value="1">Bidang One</option>
-						<option value="2">Bidang Two</option>
-						<option value="3">Bidang Three</option>
+						<?php
+						foreach ($dataBidang as $val) {
+						?>
+							<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
+						<?php
+						}
+						?>
 					</select>
 				</div>
 				<div class="mb-3">
 					<label for="subbidang" class="form-label">Sub-Bidang Tujuan</label>
-					<select name="subBidangTujuan" class="form-select" aria-label="Pilih Sub Bidang Tujuan">
+					<select id="subbidang" name="subBidangTujuan" class="form-select" aria-label="Pilih Sub Bidang Tujuan" disabled>
 						<option value="" selected></option>
-						<option value="1">Sub-Bidang One</option>
-						<option value="2">Sub-Bidang Two</option>
-						<option value="3">Sub-Bidang Three</option>
+						<?php
+						foreach ($dataBidang as $val) {
+							if ($val[3] == "") {
+								continue;
+							}
+						?>
+							<option value="<?= $val[2] ?>"><?= $val[3] ?></option>
+						<?php
+						}
+						?>
 					</select>
 				</div>
 				<div class="mb-3">
 					<label for="jabatan" class="form-label">Jabatan Tujuan</label>
-					<select name="jabatanTujuan" class="form-select" aria-label="Pilih Jabatan Tujuan">
+					<select id="jabatan" name="jabatanTujuan" class="form-select" aria-label="Pilih Jabatan Tujuan">
 						<option value="" selected></option>
-						<option value="1">Jabatan One</option>
-						<option value="2">Jabatan Two</option>
-						<option value="3">Jabatan Three</option>
+						<?php
+						foreach ($dataBidang as $val) {
+						?>
+							<option value="<?= $val[4] ?>"><?= $val[5] ?></option>
+						<?php
+						}
+						?>
 					</select>
 				</div>
 				<div class="mb-3">
@@ -125,10 +141,6 @@ var_dump($_SESSION['data']);
 					<input type="hidden" name="foto" id="fotoPhp">
 					<img class="shadow p-3" id="foto" width=190 height=200>
 				</div>
-				<!-- <div class="mb-3 form-check">
-					<input type="checkbox" class="form-check-input" id="exampleCheck1">
-					<label class="form-check-label" for="exampleCheck1">Check me out</label>
-				</div> -->
 
 				<button type="button" data-bs-toggle="modal" data-bs-target="#modal-kamera" class="btn btn-secondary me-auto" id="kamera-modal">Ambil gambar</button>
 				<div class="float-end d-inline-block">
@@ -180,16 +192,63 @@ var_dump($_SESSION['data']);
 <!-- ISI SELESAI -->
 
 <script>
-	var streaming = false;
+	////// BIDANG OPTION //////=======================================================================
+	let bidang = document.getElementById('bidang');
+	let subbidang = document.getElementById('subbidang');
+	let jabatan = document.getElementById('jabatan');
+
+	for (let i = 3; i < jabatan.options.length; i++) {
+		jabatan.options[i].classList.toggle('d-none');
+	}
+
+	function togel(parm) {
+		if (parm == 'kadisHilang') {
+			jabatan.options[1].classList.add('d-none');
+			jabatan.options[2].classList.add('d-none');
+			for (let i = 3; i < jabatan.options.length; i++) {
+				jabatan.options[i].classList.remove('d-none');
+			}
+		}else{
+			jabatan.options[1].classList.remove('d-none');
+			jabatan.options[2].classList.remove('d-none');
+			for (let i = 3; i < jabatan.options.length; i++) {
+				jabatan.options[i].classList.add('d-none');
+			}
+		}
+	}
+
+	bidang.addEventListener('change', (isi) => {
+		let value = isi.target.options[bidang.selectedIndex].value;
+		subbidang.disabled = true;
+		subbidang.options.selectedIndex = 0;
+		// jabatan.disabled = true;
+		jabatan.options.selectedIndex = 0;
+		if (value == 'b1') {
+			subbidang.disabled = false
+		};
+
+		if (value != "") {
+			togel('kadisHilang');
+		} else {
+			togel('muncul ko kadis');
+		}
+	});
+
+	subbidang.addEventListener('change', (isi) => {
+		jabatan.options.selectedIndex = 0;
+	})
+
+	/////// CAMERA ////////=================================================================================
+	let streaming = false;
 
 	let foto = document.getElementById('foto');
 	let width = 380,
 		height = 400,
 		vid;
-	var video = null;
-	var canvas = null;
-	var photo = null;
-	var startbutton = null;
+	let video = null;
+	let canvas = null;
+	let photo = null;
+	let startbutton = null;
 	let kameraModal = document.getElementById('kamera-modal');
 	let tutupKamera = document.getElementById('tutupKamera');
 	let fotoB64 = null;
