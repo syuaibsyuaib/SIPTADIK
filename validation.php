@@ -40,13 +40,13 @@ function kirim($dataArr){
 
 // FUNCTION END
 
-$pengguna = $_SESSION['user'];
-$sandi = $_SESSION['pass'];
+// $pengguna = $_SESSION['user'];
+// $sandi = $_SESSION['pass'];
 
-$data = array("pengguna" => $pengguna, "sandi" => $sandi);
-$hasil = kirim($data);
-if ($hasil || $hasil != NULL) {
-    unset($_SESSION['data']);
-    $_SESSION['data'] = $hasil;
-}
+// $data = array("pengguna" => $pengguna, "sandi" => $sandi);
+// $hasil = kirim($data);
+// if ($hasil || $hasil != NULL) {
+//     unset($_SESSION['data']);
+//     $_SESSION['data'] = $hasil;
+// }
 ?>
