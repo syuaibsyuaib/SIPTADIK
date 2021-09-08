@@ -127,8 +127,7 @@ if (isset($_POST['ubah_foto'])) {
 
 							<div class="row">
 								<div class="col-sm-12">
-									<a class="btn btn-info text-light" href="#" data-bs-toggle="modal" data-bs-target="#ubahdetail">Ubah Detail</a>
-									<a class="btn btn-info text-light" href="#" data-bs-toggle="modal" data-bs-target="#ubahfoto">Ubah Foto</a>
+									<a class="btn btn-info text-light" href="#" data-bs-toggle="modal" data-bs-target="#ubahdetail">Ubah</a>
 								</div>
 							</div>
 						</div>
@@ -186,71 +185,59 @@ if (isset($_POST['ubah_foto'])) {
 
 <!-- MODAL UBAH INFORMASI -->
 <div class="modal fade" id="ubahdetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form method="POST" action="">
+			<form class="m-0 p-0" method="POST" enctype="multipart/form-data">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
 				</div>
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
 					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Foto</label>
+						<div class="col-sm-10">
+							<input name="foto_pejabat" type="file" class="form-control" accept="image/*">
+							<div class="mt-1">
+								<small class="text-muted">
+									<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
+								</small>
+							</div>
+						</div>
+					</div>
+					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Nama</label>
 						<div class="col-sm-10">
-							<input name="nama_pejabat" type="text" class="form-control" value="<?= $data[0][3] ?>">
+							<input name="nama_pejabat" type="text" class="form-control" value="<?= $data[0][3] ?>" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">NIP</label>
 						<div class="col-sm-10">
-							<input name="nip_pejabat" type="text" class="form-control" value="<?= $data[0][4] ?>">
+							<input name="nip_pejabat" type="text" class="form-control" value="<?= $data[0][4] ?>" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Jabatan</label>
 						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" value="<?= $data[0][2] ?>">
+							<input name="jabatan_pejabat" type="text" class="form-control" value="<?= $data[0][2] ?>" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">No. HP</label>
 						<div class="col-sm-10">
-							<input name="hp_pejabat" type="text" class="form-control" value="<?= $data[0][5] ?>">
+							<input name="hp_pejabat" type="text" class="form-control" value="<?= $data[0][5] ?>" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Alamat</label>
 						<div class="col-sm-10">
-							<input name="alamat_pejabat" type="text" class="form-control" value="<?= $data[0][6] ?>">
+							<input name="alamat_pejabat" type="text" class="form-control" value="<?= $data[0][6] ?>" required>
 						</div>
 					</div>
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Simpan</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<!-- MODAL UBAH FOTO -->
-
-<div class="modal fade" id="ubahfoto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form method="post" enctype="multipart/form-data">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ubah Foto</h5>
-				</div>
-				<div class="modal-body">
-					<!-- ISI MODAL START HERE -->
-					<input class="form-control" type="file" id="formFile" accept="image/*">
-					<!-- ISI MODAL END HERE -->
-				</div>
-				<div class="modal-footer">
-					<input class="btn btn-primary" type="submit" value="Simpan" name="ubah_foto">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
