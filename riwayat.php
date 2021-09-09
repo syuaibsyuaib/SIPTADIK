@@ -1,7 +1,7 @@
 <?php
 $title = "Riwayat";
 include("layout/header.php");
-$_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
+$_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? pindahko("/") : "";
 ?>
 
 <style>

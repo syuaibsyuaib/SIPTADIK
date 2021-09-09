@@ -1,7 +1,7 @@
 <?php
 $title = "Admin";
 include("layout/header.php");
-$_SESSION['role'] != 1 ? header("Location: /") : "";
+$_SESSION['role'] != 1 ? pindahko("/") : "";
 $data = $_SESSION['data']['dataPjb'];
 ?>
 
@@ -741,7 +741,7 @@ $data = $_SESSION['data']['dataPjb'];
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<a href="detail.php?id=<?= $id ?>" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
-										<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
+										<a href="#" type="button" class="btn btn-sm btn-outline-danger" onclick="return tanya_hapus()">Hapus</a>
 									</div>
 									<!-- <small class="text-muted">Status keberadaan</small> -->
 								</div>

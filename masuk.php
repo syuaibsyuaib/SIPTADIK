@@ -1,4 +1,7 @@
 <?php
+date_default_timezone_set("Asia/Makassar");
+setlocale(LC_ALL, 'id_ID');
+
 session_start();
 if (isset($_SESSION['user'])) {
 	if ($_SESSION['role'] == 1) {

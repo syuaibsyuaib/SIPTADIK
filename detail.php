@@ -1,6 +1,7 @@
 <?php
 $title = "Detail";
 include("layout/header.php");
+$_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? pindahko("/") : "";
 
 if (!isset($_GET['id'])) {
 	header("Location: /");
@@ -9,7 +10,6 @@ if (!isset($_GET['id'])) {
 $id = encrypt_decrypt("d", $_GET['id']);
 $data = array_search_multi($_SESSION['data']['dataPjb'], 0, $id, false);
 // print_r($data);
-$_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? header("Location: /") : "";
 
 if (isset($_POST['ubah_foto'])) {
 	// sss
