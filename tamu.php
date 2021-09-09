@@ -144,48 +144,46 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 
 				<button type="button" data-bs-toggle="modal" data-bs-target="#modal-kamera" class="btn btn-secondary me-auto" id="kamera-modal">Ambil gambar</button>
 				<div class="float-end d-inline-block">
-					<input type="submit" name="tamu" class="btn btn-success ms-auto" value="Simpan">
+					<input id="kirimTamu" type="submit" name="kirimTamu" class="btn btn-success ms-auto" value="Simpan">
 				</div>
+			</form>
+			<!-- MODAL KAMERA START -->
+			<div class="modal" tabindex="-1" id="modal-kamera">
+				<div class="modal-dialog modal-md">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Ambil gambar</h5>
+							<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+						</div>
 
-				<!-- MODAL KAMERA START -->
-				<div class="modal" tabindex="-1" id="modal-kamera">
-					<div class="modal-dialog modal-md">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title">Ambil gambar</h5>
-								<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-							</div>
-
-							<div class="modal-body">
-								<div class="camera">
-									<section class="row">
-										<section class="col text-center">
-											<section>
-												<video id="video" style="display: inline">Video stream not
-													available.</video>
-												<canvas id="canvas" style="display: none">
-												</canvas>
-											</section>
+						<div class="modal-body">
+							<div class="camera">
+								<section class="row">
+									<section class="col text-center">
+										<section>
+											<video id="video" style="display: inline">Video stream not
+												available.</video>
+											<canvas id="canvas" style="display: none">
+											</canvas>
 										</section>
 									</section>
-									<section class="row">
-										<section class="col text-center">
-											<button id="startbutton" class="btn btn-success mt-2">Take</button>
-										</section>
+								</section>
+								<section class="row">
+									<section class="col text-center">
+										<button id="startbutton" class="btn btn-success mt-2">Take</button>
 									</section>
-								</div>
+								</section>
 							</div>
+						</div>
 
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="tutupKamera">Tutup</button>
-								<button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="simpan" disabled>Simpan</button>
-							</div>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" data-bs-dismiss="modal" id="tutupKamera">Tutup</button>
+							<button class="btn btn-primary" data-bs-dismiss="modal" id="simpan" disabled>Simpan</button>
 						</div>
 					</div>
 				</div>
-				<!-- MODAL KAMERA END -->
-			</form>
-
+			</div>
+			<!-- MODAL KAMERA END -->
 		</div>
 	</div>
 </main>
@@ -208,7 +206,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 			for (let i = 3; i < jabatan.options.length; i++) {
 				jabatan.options[i].classList.remove('d-none');
 			}
-		}else{
+		} else {
 			jabatan.options[1].classList.remove('d-none');
 			jabatan.options[2].classList.remove('d-none');
 			for (let i = 3; i < jabatan.options.length; i++) {
@@ -339,6 +337,24 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 			video.setAttribute('style', 'display: inline');
 		}
 	}
+
+	//////////////// AJAX //////////////////
+	// let kirimTamu = document.getElementById('kirimTamu');
+
+	// kirimTamu.addEventListener('click', function() {
+	// 	var xhr = new XMLHttpRequest();
+	// 	xhr.open("POST", '/proses.php', true);
+
+	// 	//Send the proper header information along with the request
+	// 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	// 	xhr.onreadystatechange = function() { // Call a function when the state changes.
+	// 		if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+	// 			// Request finished. Do processing here.
+	// 		}
+	// 	}
+	// 	xhr.send(``);
+	// })
 </script>
 
 <?php

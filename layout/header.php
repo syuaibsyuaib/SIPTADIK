@@ -1,5 +1,13 @@
 <?php
-include("validation.php");
+session_start();
+if (!isset($_SESSION['user'])) {
+    unset($_SESSION['user']);
+    unset($_SESSION['pass']);
+    unset($_SESSION['role']);
+    $_SESSION['temp'] = "Silakan masuk terlebih dahulu!";
+    header("Location: masuk.php");
+    exit;
+}
 
 $role = $_SESSION['role'] == 1 ? "Admin" : ($_SESSION['role'] == 2 ? "Piket/Tamu" : ($_SESSION['role'] == 3 ? "Pejabat" : "Unknown"));
 

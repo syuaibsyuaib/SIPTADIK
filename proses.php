@@ -1,6 +1,6 @@
 <?php
 session_start();
-var_dump(session_id());
+// var_dump(session_id());
 if (isset($_POST['masuk'])) {
     $pengguna = $_POST['pengguna'];
     $sandi = $_POST['sandi'];
@@ -13,7 +13,7 @@ if (isset($_POST['masuk'])) {
         $_SESSION['pass'] = $sandi;
         $_SESSION['role'] = $hasil["role"];
         $_SESSION['data'] = $hasil;
-        
+
         if ($hasil["role"] == 1) {
             header("Location: admin.php");
         } elseif ($hasil["role"] == 2) {
@@ -30,13 +30,15 @@ if (isset($_POST['masuk'])) {
     header("Location: /");
 }
 
-////dari page tamu
-if (isset($_POST['tamu'])) {
-    $dataTamu = array("role" => "tamu", "namaTamu"=> $_POST['namaTamu'], "nipTamu" => $_POST['nipTamu'], "asalTamu" => $_POST['asalTamu'], "bidangTujuan" => $_POST['bidangTujuan'], "subBidangTujuan" => $_POST['subBidangTujuan'], "jabatanTujuan" => $_POST['jabatanTujuan'], "tujuan" => $_POST['tujuan'], "foto" => $_POST['foto']);
+// dari page tamu
+if (isset($_POST['kirimTamu'])) {
+    $subBidangTujuan = isset($_POST['subBidangTujuan']) ? $_POST['subBidangTujuan'] : '';
+    $dataTamu = array("dataTambah" => array($_POST['namaTamu'], $_POST['nipTamu'], $_POST['asalTamu'], $_POST['bidangTujuan'], $subBidangTujuan, $_POST['jabatanTujuan'], $_POST['tujuan'], $_POST['foto']));
     kirim($dataTamu);
 };
 
-function kirim($dataArr){
+function kirim($dataArr)
+{
     $url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -48,7 +50,10 @@ function kirim($dataArr){
         "Content-Type: application/json",
     );
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-    $dataArr += ["sesi" => session_id()];
+    if (isset($_SESSION['user'])) {
+        $dataArr += ["role" => $_SESSION['role'], "pengguna" => $_SESSION['user'], "sandi" => $_SESSION['pass']];
+    }
+
     $data = json_encode($dataArr);
 
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
