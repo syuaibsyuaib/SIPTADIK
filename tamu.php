@@ -159,7 +159,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 
 				<button type="button" data-bs-toggle="modal" data-bs-target="#modal-kamera" class="btn btn-secondary me-auto" id="kamera-modal">Ambil gambar</button>
 				<div class="float-end d-inline-block">
-					<input id="kirimTamu" type="submit" name="kirimTamu" class="btn btn-success ms-auto" value="Simpan">
+					<input id="kirimTamu" type="submit" name="kirimTamu" class="btn btn-success ms-auto" onclick="return tanya_simpan()" value="Simpan">
 				</div>
 			</form>
 			<!-- MODAL KAMERA START -->
