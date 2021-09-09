@@ -35,7 +35,7 @@ if (isset($_POST['kirimTamu'])) {
     date_default_timezone_set('Asia/Makassar');
     $tgl = getDate()['mday'] . "_" . getDate()['mon'] . "_" . getDate()['year'] . "_" . getDate()['hours'] . "_" . getDate()['minutes'] . "_" . getDate()['seconds'];
     $subBidangTujuan = isset($_POST['subBidangTujuan']) ? $_POST['subBidangTujuan'] : '';
-    $dataTamu = array("dataTambah" => array($_POST['namaTamu'], $_POST['nipTamu'], $_POST['asalTamu'], $_POST['bidangTujuan'], $subBidangTujuan, $_POST['jabatanTujuan'], $_POST['tujuan'], $tgl), "foto" => $_POST['foto']);
+    $dataTamu = array("dataTambah" => array(time(), $_POST['namaTamu'], $_POST['nipTamu'], $_POST['asalTamu'], $_POST['bidangTujuan'], $subBidangTujuan, $_POST['jabatanTujuan'], $_POST['tujuan'], $tgl, $_SESSION['user']), "foto" => $_POST['foto']);
     kirim($dataTamu);
 };
 
