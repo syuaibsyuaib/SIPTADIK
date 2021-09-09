@@ -32,14 +32,17 @@ if (isset($_POST['masuk'])) {
 
 // dari page tamu
 if (isset($_POST['kirimTamu'])) {
+    date_default_timezone_set('Asia/Makassar');
+    $tgl = getDate()['mday'] . "_" . getDate()['mon'] . "_" . getDate()['year'] . "_" . getDate()['hours'] . "_" . getDate()['minutes'] . "_" . getDate()['seconds'];
     $subBidangTujuan = isset($_POST['subBidangTujuan']) ? $_POST['subBidangTujuan'] : '';
-    $dataTamu = array("dataTambah" => array($_POST['namaTamu'], $_POST['nipTamu'], $_POST['asalTamu'], $_POST['bidangTujuan'], $subBidangTujuan, $_POST['jabatanTujuan'], $_POST['tujuan'], $_POST['foto']));
+    $dataTamu = array("dataTambah" => array($_POST['namaTamu'], $_POST['nipTamu'], $_POST['asalTamu'], $_POST['bidangTujuan'], $subBidangTujuan, $_POST['jabatanTujuan'], $_POST['tujuan'], $tgl), "foto" => $_POST['foto']);
     kirim($dataTamu);
 };
 
 function kirim($dataArr)
 {
     $url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
+
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_POST, true);
