@@ -1,7 +1,7 @@
 <?php
 $title = "Tamu";
-include("layout/header.php");
-$_SESSION['role'] != 1 && $_SESSION['role'] != 2 ? header("Location: /") : "";
+include "layout/header.php";
+$_SESSION['role'] != 2 ? pindahko("/") : "";
 $dataBidang = $_SESSION['data']['dataBidang'];
 ?>
 
@@ -22,6 +22,21 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 		height: 400;
 	}
 </style>
+
+<!-- MODAL LOADING -->
+<div class="modal fade" id="modal_loading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content" style="background: none; border: none;">
+			<div class="modal-body">
+				<div class="d-flex justify-content-center">
+					<div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <!-- ISI MULAI -->
 <main class="container">
