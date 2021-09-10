@@ -158,6 +158,9 @@ function encrypt_decrypt($action, $string)
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_loading">Demo Loading</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?notif=1">Demo Notif</a>
+                        </li>
                     <?php
                     }
                     ?>
