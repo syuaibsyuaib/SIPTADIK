@@ -282,7 +282,7 @@ function encrypt_decrypt($action, $string)
                                 </h2>
                                 <div id="faq_1" class="accordion-collapse collapse show" aria-labelledby="faq_1_head" data-bs-parent="#faq_bantuan">
                                     <div class="accordion-body">
-                                        <strong>SIPTADIK</strong> atau yang bisa disebut sebagai
+                                        <strong>SIPTADIK</strong> atau yang bisa disebut sebagai Sistem Informasi Pembukuan Tamu Disdik merupakan sebuah aplikasi yang digunakan dalam mengelola informasi tamu yang berkunjung, dan memudahkan proses pelayanan kepada tamu di Dinas Pendidikan.
                                     </div>
                                 </div>
                             </div>
@@ -294,19 +294,19 @@ function encrypt_decrypt($action, $string)
                                 </h2>
                                 <div id="faq_2" class="accordion-collapse collapse" aria-labelledby="faq_2_head" data-bs-parent="#faq_bantuan">
                                     <div class="accordion-body">
-                                        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut semper lectus condimentum quam varius porta. Integer gravida sapien vitae semper rhoncus. Mauris nibh magna, lacinia id quam vitae, efficitur tincidunt mi. Cras felis urna, semper non malesuada at, tempus non diam. Pellentesque sapien lectus, congue in dignissim vitae, auctor eu metus. Phasellus ultrices efficitur augue, ut pharetra ante interdum sed. Mauris convallis quam eget urna tempor, non porttitor ex lobortis. Etiam sit amet tellus in orci suscipit volutpat. Nulla ornare ultricies varius. Nulla ut tristique mi. Nam elementum risus quam, eget pretium est ultrices quis. Pellentesque lobortis laoreet elit, vel sagittis urna finibus eget. Morbi blandit vitae lorem id facilisis. Mauris varius rhoncus scelerisque. Suspendisse feugiat purus in felis tristique, vel dictum nisl scelerisque. Donec sed arcu ac enim auctor dapibus.
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingThree">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Bagaimana cara menambahkan <i>user</i>?
+                                        Bagaimana cara menambahkan pengguna?
                                     </button>
                                 </h2>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faq_bantuan">
                                     <div class="accordion-body">
-                                        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                    In volutpat magna sapien, sit amet mattis ligula viverra sit amet. Phasellus accumsan ullamcorper risus, a accumsan dui tristique sit amet. Sed at justo placerat, maximus erat ullamcorper, condimentum ex. Nunc risus quam, euismod id ullamcorper ac, vehicula a est. Phasellus vitae dictum ipsum. Maecenas porttitor dictum nunc, vitae luctus tortor feugiat quis. Curabitur non porttitor metus. Ut maximus velit a arcu tristique consequat. Ut finibus, dolor ut tempus tincidunt, nulla lorem auctor nulla, non ornare odio erat quis arcu.
                                     </div>
                                 </div>
                             </div>
