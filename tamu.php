@@ -38,6 +38,19 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 	</div>
 </div>
 
+<!-- NOTIFIKASI SUKSES SIMPAN -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+	<div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header">
+			<strong class="me-auto">SIPTADIK</strong>
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body">
+			Data tamu berhasil ditambahkan!
+		</div>
+	</div>
+</div>
+
 <!-- ISI MULAI -->
 <main class="container">
 	<div class="row">
@@ -91,7 +104,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 		<div class="col-md-5 bg-light p-4" style="box-shadow: 15px 0px 15px -4px rgb(0 0 0 / 23%), -13px 0 8px -4px rgb(0 0 0 / 23%)">
 
 			<h2 class="mb-4">Informasi Pengunjung</h2>
-			<form method="POST" action="proses.php" enctype="multipart/form-data">
+			<form method="POST" action="proses.php" enctype="multipart/form-data" autocomplete="off">
 				<div class="mb-3">
 					<label for="nama" class="form-label">Nama</label>
 					<input name="namaTamu" type="text" class="form-control" id="nama" required>
