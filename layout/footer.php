@@ -6,6 +6,7 @@
 
 <script>function tanya_hapus(){return!!confirm("Yakin ingin menghapus?")}</script>
 <script>function tanya_simpan(){return!!confirm("Pastikan semua data sudah benar, simpan?")}</script>
+<script>function tanya_keluar(){return!!confirm("Anda ingin keluar?")}</script>
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/jquery.js"></script>
