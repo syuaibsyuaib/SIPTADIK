@@ -1,8 +1,15 @@
-.warna-dasar{
+:root {
+    --kuning: #FFDA6A;
+    --pink: #EA868F;
+    --biru: #0dcaf0;
+    --merah: #d63384;
+}
+
+.warna-dasar {
     background-color: #FFDA6A;
 }
 
-.warna-sibuk{
+.warna-sibuk {
     background-color: #EA868F;
 }
 
@@ -14,4 +21,8 @@
 .bg-famale {
     --bs-bg-opacity: 1;
     background-color: #d63384;
+}
+
+.shadow-blue {
+    box-shadow: 0 4px 8px 0 rgb(0, 153, 255), 0 6px 20px 0 rgba(95, 191, 255, 0.863);
 }

@@ -23,34 +23,6 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 	}
 </style>
 
-<!-- MODAL LOADING -->
-<div class="modal fade" id="modal_loading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content" style="background: none; border: none;">
-			<div class="modal-body">
-				<div class="d-flex justify-content-center">
-					<div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
-						<span class="visually-hidden">Loading...</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- NOTIFIKASI SUKSES SIMPAN -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-	<div id="liveToast" class="toast <?=isset($_GET['notif']) ? "show" : "hide"?>" role="alert" aria-live="assertive" aria-atomic="true">
-		<div class="toast-header">
-			<strong class="me-auto">SIPTADIK</strong>
-			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-		</div>
-		<div class="toast-body">
-			Data tamu berhasil ditambahkan!
-		</div>
-	</div>
-</div>
-
 <!-- ISI MULAI -->
 <main class="container">
 	<div class="row">
@@ -104,21 +76,20 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 		<div class="col-md-5 bg-light p-4" style="box-shadow: 15px 0px 15px -4px rgb(0 0 0 / 23%), -13px 0 8px -4px rgb(0 0 0 / 23%)">
 
 			<h2 class="mb-4">Informasi Pengunjung</h2>
-			<form method="POST" action="proses.php" enctype="multipart/form-data" autocomplete="off">
+			<!-- method="POST" action="proses.php" enctype="multipart/form-data" name="formTamu" id="formTamu" -->
+			<form id="formTamu" autocomplete="off">
 				<div class="mb-3">
 					<label for="nama" class="form-label">Nama</label>
-					<input name="namaTamu" type="text" class="form-control" id="nama" required>
+					<input name="namaTamu" type="text" class="form-control" id="namaTamu" required>
 				</div>
 				<div class="mb-3">
 					<label for="nip" class="form-label">NIK/NIP</label>
-					<input name="nipTamu" type="number" class="form-control" id="nip" required>
+					<input name="nipTamu" type="number" class="form-control" id="nipTamu" required>
 				</div>
 				<div class="mb-3">
 					<label for="asal" class="form-label">Instansi</label>
-					<input name="asalTamu" type="text" class="form-control" id="asal" required>
+					<input name="asalTamu" type="text" class="form-control" id="asalTamu" required>
 				</div>
-
-
 				<div class="mb-3">
 					<label for="bidang" class="form-label">Bidang Tujuan</label>
 					<select id="bidang" name="bidangTujuan" class="form-select" aria-label="Pilih Bidang Tujuan">
@@ -163,16 +134,17 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 				</div>
 				<div class="mb-3">
 					<label for="tujuan" class="form-label">Tujuan</label>
-					<input name="tujuan" type="text" class="form-control" id="tujuan" required>
+					<input name="tujuan" type="text" class="form-control" id="tujuanTamu" required>
 				</div>
 				<div class="mb-3" style="width: 190px;height: 200px;">
-					<input type="hidden" name="foto" id="fotoPhp">
+					<input type="hidden" name="fotoPhp" id="fotoPhp">
 					<img class="shadow p-3" id="foto" width=190 height=200>
 				</div>
 
 				<button type="button" data-bs-toggle="modal" data-bs-target="#modal-kamera" class="btn btn-secondary me-auto" id="kamera-modal">Ambil gambar</button>
 				<div class="float-end d-inline-block">
-					<input id="kirimTamu" type="submit" name="kirimTamu" class="btn btn-success ms-auto" onclick="return tanya_simpan()" value="Simpan">
+					<input type="submit" class="btn btn-success ms-auto" name="kirimTamu" value="Simpan">
+					<!-- type="submit" name="kirimTamu" id="kirimTamu"-->
 				</div>
 			</form>
 			<!-- MODAL KAMERA START -->
@@ -218,6 +190,31 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 <!-- ISI SELESAI -->
 
 <script>
+	let foto = document.getElementById('foto');
+
+	///////// MODAL WARNING //////////===========================================================
+	$('#formTamu').submit(event => {
+		// event.preventDefault();
+		let formTamu = document.getElementById('formTamu');
+		if (namaTamu.value != '' && nipTamu.value != '' && asalTamu.value != '' && tujuanTamu.value != '') {
+			event.preventDefault();
+			if (fotoPhp.value == '') {
+				foto.classList.remove('shadow');
+				foto.classList.add('shadow-blue');
+			} else {
+				foto.classList.remove('shadow-blue');
+				foto.classList.add('shadow');
+
+				const fotoBuffer = _base64ToArrayBuffer($('#fotoPhp').val());
+				event.preventDefault();
+				let data = `kirimTamu=&namaTamu=${$('#namaTamu').val()}&nipTamu=${$('#nipTamu').val()}&asalTamu=${$('#asalTamu').val()}&bidangTujuan=${$('#bidang').val()}&subBidangTujuan=${$('#subbidang').val()}&jabatanTujuan=${$('#jabatan').val()}&tujuan=${$('#tujuanTamu').val()}&fotoPhp=${fotoBuffer}`
+
+				tanya_simpan('Yakin akan simpan?', data);
+			}
+		}
+		event.preventDefault();
+	});
+
 	////// BIDANG OPTION //////=======================================================================
 	let bidang = document.getElementById('bidang');
 	let subbidang = document.getElementById('subbidang');
@@ -267,7 +264,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 	/////// CAMERA ////////=================================================================================
 	let streaming = false;
 
-	let foto = document.getElementById('foto');
+
 	let width = 380,
 		height = 400,
 		vid;
