@@ -1,6 +1,12 @@
 <?php
 session_start();
 // var_dump(session_id());
+if (!isset($_SESSION['role'])) {
+    header("Location: /");
+    unset($_SESSION['user']);
+    unset($_SESSION['pass']);
+};
+
 if (isset($_POST['masuk'])) {
     $pengguna = $_POST['pengguna'];
     $sandi = $_POST['sandi'];
@@ -20,24 +26,34 @@ if (isset($_POST['masuk'])) {
             header("Location: tamu.php");
         } elseif ($hasil["role"] == 3) {
             header("Location: pejabat.html");
-        } else {
-            header("Location: /");
         }
     } else {
         header("Location: /");
     }
-} else {
-    header("Location: /");
 }
 
 // dari page tamu
 if (isset($_POST['kirimTamu'])) {
     date_default_timezone_set('Asia/Makassar');
     $tgl = getDate()['mday'] . "_" . getDate()['mon'] . "_" . getDate()['year'] . "_" . getDate()['hours'] . "_" . getDate()['minutes'] . "_" . getDate()['seconds'];
+
     $subBidangTujuan = isset($_POST['subBidangTujuan']) ? $_POST['subBidangTujuan'] : '';
-    $dataTamu = array("dataTambah" => array(time(), $_POST['namaTamu'], $_POST['nipTamu'], $_POST['asalTamu'], $_POST['bidangTujuan'], $subBidangTujuan, $_POST['jabatanTujuan'], $_POST['tujuan'], $tgl, $_SESSION['user']), "foto" => $_POST['foto']);
-    kirim($dataTamu);
-};
+
+    $namaTamu = $_POST['namaTamu'];
+    $nipTamu = $_POST['nipTamu'];
+    $asalTamu = $_POST['asalTamu'];
+    $bidangTujuan = $_POST['bidangTujuan'];
+    $jabatanTujuan = $_POST['jabatanTujuan'];
+    $tujuan = $_POST['tujuan'];
+
+    $dataTamu = array("dataTambah" => array(time(),$namaTamu ,$nipTamu, $asalTamu, $bidangTujuan, $subBidangTujuan, $jabatanTujuan, $tujuan, $tgl, $_SESSION['user']), "foto" => array($_POST['fotoPhp']));
+
+    $res = kirim($dataTamu);
+    
+    var_dump($res);
+    // header("Location: tamu.php");
+}
+
 
 function kirim($dataArr)
 {
@@ -48,6 +64,7 @@ function kirim($dataArr)
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    // curl_setopt($curl, CURLOPT_HEADER, true);
 
     $headers = array(
         "Content-Type: application/json",
@@ -66,6 +83,7 @@ function kirim($dataArr)
     // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
     $resp = curl_exec($curl);
+
     curl_close($curl);
     $hasil = json_decode($resp, true);
     return $hasil;

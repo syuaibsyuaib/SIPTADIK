@@ -3,15 +3,10 @@ date_default_timezone_set("Asia/Makassar");
 setlocale(LC_ALL, 'id_ID');
 
 session_start();
-if (isset($_SESSION['user'])) {
-	if ($_SESSION['role'] == 1) {
-		header("Location: admin.php");
-	} elseif ($_SESSION['role'] == 2) {
-		header("Location: tamu.php");
-	} elseif ($_SESSION['role'] == 3) {
-		header("Location: pejabat.html");
-	}
-}
+unset($_SESSION['user']);
+unset($_SESSION['role']);
+unset($_SESSION['pass']);
+
 ?>
 
 <!doctype html>
@@ -57,7 +52,7 @@ if (isset($_SESSION['user'])) {
 				<label for="inputsandi">Kata Sandi</label>
 			</div>
 
-			<button class="w-100 btn btn-lg btn-primary" type="submit" name="masuk">Masuk</button>
+			<button class="w-100 btn btn-lg btn-primary" type="submit" name="masuk">Masuk</button> 
 			<p class="mt-5 mb-3 text-muted">&copy; SIPTADIK</p>
 		</form>
 	</main>

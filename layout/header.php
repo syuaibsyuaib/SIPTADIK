@@ -81,10 +81,11 @@ function encrypt_decrypt($action, $string)
     <link href="assets/css/custom.css" rel="stylesheet">
     <link href="assets/css/riwayat.css" rel="stylesheet">
     <link href="assets/css/icons.css" rel="stylesheet">
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.js"></script>
     <title>
         <?= $title ?? "Halaman" ?> | SIPTADIK
     </title>
-
     <style>
         .gradient-brand-color {
             background-image: -webkit-linear-gradient(0deg, #376be6 0%, #6470ef 100%);
@@ -149,20 +150,20 @@ function encrypt_decrypt($action, $string)
                         <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_bantuan">Bantuan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="keluar.php" onclick="return tanya_keluar()">Keluar</a>
+                        <a class="nav-link text-danger" href="keluar.php" onclick="tanya_simpan('Yakin akan keluar?')">Keluar</a>
                     </li>
 
                     <?php
-                    if ($_SESSION['role'] == 2) {
+                    // if ($_SESSION['role'] == 2) {
                     ?>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_loading">Demo Loading</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="?notif=1">Demo Notif</a>
-                        </li>
+                        </li> -->
                     <?php
-                    }
+                    // }
                     ?>
 
                 </ul>
@@ -294,7 +295,7 @@ function encrypt_decrypt($action, $string)
                                 </h2>
                                 <div id="faq_2" class="accordion-collapse collapse" aria-labelledby="faq_2_head" data-bs-parent="#faq_bantuan">
                                     <div class="accordion-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut semper lectus condimentum quam varius porta. Integer gravida sapien vitae semper rhoncus. Mauris nibh magna, lacinia id quam vitae, efficitur tincidunt mi. Cras felis urna, semper non malesuada at, tempus non diam. Pellentesque sapien lectus, congue in dignissim vitae, auctor eu metus. Phasellus ultrices efficitur augue, ut pharetra ante interdum sed. Mauris convallis quam eget urna tempor, non porttitor ex lobortis. Etiam sit amet tellus in orci suscipit volutpat. Nulla ornare ultricies varius. Nulla ut tristique mi. Nam elementum risus quam, eget pretium est ultrices quis. Pellentesque lobortis laoreet elit, vel sagittis urna finibus eget. Morbi blandit vitae lorem id facilisis. Mauris varius rhoncus scelerisque. Suspendisse feugiat purus in felis tristique, vel dictum nisl scelerisque. Donec sed arcu ac enim auctor dapibus.
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut semper lectus condimentum quam varius porta. Integer gravida sapien vitae semper rhoncus. Mauris nibh magna, lacinia id quam vitae, efficitur tincidunt mi. Cras felis urna, semper non malesuada at, tempus non diam. Pellentesque sapien lectus, congue in dignissim vitae, auctor eu metus. Phasellus ultrices efficitur augue, ut pharetra ante interdum sed. Mauris convallis quam eget urna tempor, non porttitor ex lobortis. Etiam sit amet tellus in orci suscipit volutpat. Nulla ornare ultricies varius. Nulla ut tristique mi. Nam elementum risus quam, eget pretium est ultrices quis. Pellentesque lobortis laoreet elit, vel sagittis urna finibus eget. Morbi blandit vitae lorem id facilisis. Mauris varius rhoncus scelerisque. Suspendisse feugiat purus in felis tristique, vel dictum nisl scelerisque. Donec sed arcu ac enim auctor dapibus.
                                     </div>
                                 </div>
                             </div>
@@ -306,7 +307,7 @@ function encrypt_decrypt($action, $string)
                                 </h2>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faq_bantuan">
                                     <div class="accordion-body">
-                                    In volutpat magna sapien, sit amet mattis ligula viverra sit amet. Phasellus accumsan ullamcorper risus, a accumsan dui tristique sit amet. Sed at justo placerat, maximus erat ullamcorper, condimentum ex. Nunc risus quam, euismod id ullamcorper ac, vehicula a est. Phasellus vitae dictum ipsum. Maecenas porttitor dictum nunc, vitae luctus tortor feugiat quis. Curabitur non porttitor metus. Ut maximus velit a arcu tristique consequat. Ut finibus, dolor ut tempus tincidunt, nulla lorem auctor nulla, non ornare odio erat quis arcu.
+                                        In volutpat magna sapien, sit amet mattis ligula viverra sit amet. Phasellus accumsan ullamcorper risus, a accumsan dui tristique sit amet. Sed at justo placerat, maximus erat ullamcorper, condimentum ex. Nunc risus quam, euismod id ullamcorper ac, vehicula a est. Phasellus vitae dictum ipsum. Maecenas porttitor dictum nunc, vitae luctus tortor feugiat quis. Curabitur non porttitor metus. Ut maximus velit a arcu tristique consequat. Ut finibus, dolor ut tempus tincidunt, nulla lorem auctor nulla, non ornare odio erat quis arcu.
                                     </div>
                                 </div>
                             </div>
@@ -318,3 +319,50 @@ function encrypt_decrypt($action, $string)
             </div>
         </div>
     </div>
+
+    <!-- MODAL WARNING DAN LOADING -->
+    <div class="modal fade" id="modalWarning" tabindex="-1" aria-labelledby="modalTes" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="staticBackdropLabel">Perhatian</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="isiModal"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tblModalWarning">Ya</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: none; border: none;">
+                <div class="modal-body" id="modal_loading_label">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+<!-- NOTIFIKASI -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+	<div id="liveToast" class="toast <?= isset($_GET['notif']) ? "show" : "hide" ?>" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header bg-success text-white">
+			<strong class="me-auto">SIPTADIK</strong>
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body">
+			Data tamu berhasil ditambahkan!
+		</div>
+	</div>
+</div>
