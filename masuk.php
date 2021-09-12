@@ -3,9 +3,7 @@ date_default_timezone_set("Asia/Makassar");
 setlocale(LC_ALL, 'id_ID');
 
 session_start();
-unset($_SESSION['user']);
-unset($_SESSION['role']);
-unset($_SESSION['pass']);
+session_destroy();
 
 ?>
 
