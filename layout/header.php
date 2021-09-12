@@ -150,7 +150,7 @@ function encrypt_decrypt($action, $string)
                         <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_bantuan">Bantuan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="keluar.php" onclick="tanya_simpan('Yakin akan keluar?')">Keluar</a>
+                        <a class="nav-link text-danger" onclick="tanya_simpan('Yakin akan keluar?', 'keluar')">Keluar</a>
                     </li>
 
                     <?php
@@ -356,13 +356,13 @@ function encrypt_decrypt($action, $string)
     
 <!-- NOTIFIKASI -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-	<div id="liveToast" class="toast <?= isset($_GET['notif']) ? "show" : "hide" ?>" role="alert" aria-live="assertive" aria-atomic="true">
+	<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 		<div class="toast-header bg-success text-white">
 			<strong class="me-auto">SIPTADIK</strong>
 			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
 		</div>
 		<div class="toast-body">
-			Data tamu berhasil ditambahkan!
+			<div id="pesanNotif"></div>
 		</div>
 	</div>
 </div>

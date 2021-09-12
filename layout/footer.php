@@ -18,7 +18,9 @@
         let tblModalWarning = document.getElementById('tblModalWarning');
 
         tblModalWarning.addEventListener('click', () => {
-            if (data) {
+            if (data == 'keluar') {
+                window.location.assign('masuk.php')
+            } else if (data) {
                 myModalLoading.show();
 
                 fetch('proses.php', {
@@ -32,14 +34,21 @@
                     .then(data => {
                         myModalLoading.hide();
                         window.location.reload();
-                    })
-                    .catch((error) => {
+                    }).then(()=>{
+                        notif('Data tamu telah disimpan');
+                    }).catch((error) => {
                         myModalLoading.hide();
                         alert(`Error: ${error}`);
                         window.location.reload();
                     });
             }
         });
+    }
+
+    function notif(isiPesan) {
+        let toast = new bootstrap.Toast($('#liveToast'));
+        $('#pesanNotif').html(isiPesan);
+        toast.show();
     }
 
     function _base64ToArrayBuffer(base64) {
@@ -51,32 +60,6 @@
         }
         return new Uint8Array(bytes.buffer);
     }
-
-    // function b64ToArrBuf(b64) {
-
-    //     mime = mime || '';
-    //     var sliceSize = 1024;
-    //     var byteChars = window.atob(base64);
-    //     var byteArrays = [];
-
-    //     for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
-    //         var slice = byteChars.slice(offset, offset + sliceSize);
-
-    //         var byteNumbers = new Array(slice.length);
-    //         for (var i = 0; i < slice.length; i++) {
-    //             byteNumbers[i] = slice.charCodeAt(i);
-    //         }
-
-    //         var byteArray = new Uint8Array(byteNumbers);
-
-    //         byteArrays.push(byteArray);
-    //     }
-    //     return byteArray;
-    //     // return new Blob(byteArrays, {
-    //     //     type: mime
-    //     // });
-
-    // }
 
     // function toBlob(b64) {
     //     const base64Data = b64;
