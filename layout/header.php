@@ -150,22 +150,8 @@ function encrypt_decrypt($action, $string)
                         <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_bantuan">Bantuan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" onclick="tanya_simpan('Yakin akan keluar?', 'keluar')">Keluar</a>
+                        <a class="nav-link text-danger" href="#" onclick="tanya_simpan('Yakin akan keluar?', 'keluar')">Keluar</a>
                     </li>
-
-                    <?php
-                    // if ($_SESSION['role'] == 2) {
-                    ?>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_loading">Demo Loading</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="?notif=1">Demo Notif</a>
-                        </li> -->
-                    <?php
-                    // }
-                    ?>
-
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -353,16 +339,16 @@ function encrypt_decrypt($action, $string)
         </div>
     </div>
 
-    
-<!-- NOTIFIKASI -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-	<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-		<div class="toast-header bg-success text-white">
-			<strong class="me-auto">SIPTADIK</strong>
-			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-		</div>
-		<div class="toast-body">
-			<div id="pesanNotif"></div>
-		</div>
-	</div>
-</div>
+
+    <!-- NOTIFIKASI -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">SIPTADIK</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <div id="pesanNotif"></div>
+            </div>
+        </div>
+    </div>

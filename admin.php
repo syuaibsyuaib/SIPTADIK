@@ -3,6 +3,7 @@ $title = "Admin";
 include("layout/header.php");
 $_SESSION['role'] != 1 ? pindahko("/") : "";
 $data = $_SESSION['data']['dataPjb'];
+$dataBidang = $_SESSION['data']['dataBidang'];
 ?>
 
 <style>
@@ -123,7 +124,8 @@ $data = $_SESSION['data']['dataPjb'];
 <div class="modal fade" id="modal_tambah_pengguna" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form class="m-0 p-0" method="POST" enctype="multipart/form-data">
+			<!-- method="POST" enctype="multipart/form-data" -->
+			<form class="m-0 p-0" id="formTambahUser">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
 				</div>
@@ -133,18 +135,24 @@ $data = $_SESSION['data']['dataPjb'];
 						<label class="col-sm-2 col-form-label"><i>Username</i></label>
 						<div class="col-sm-10">
 							<input name="pengguna_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label"><i>Password</i></label>
+						<div class="col-sm-10">
+							<input name="pass_pjb" type="password" class="form-control pass" required>
 							<div class="mt-1">
-								<small class="text-danger"><i>Gunakan huruf kecil dan angka tanpa simbol dan diawali huruf</i></small>
+								<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
 							</div>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Foto</label>
 						<div class="col-sm-10">
-							<input name="foto_pjb" type="file" class="form-control" accept="image/*" required>
+							<input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
 							<div class="mt-1">
 								<small class="text-danger">
-									<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
+									<i>Disarankan rasio 1:1 (persegi)</i>
 								</small>
 							</div>
 						</div>
@@ -162,39 +170,50 @@ $data = $_SESSION['data']['dataPjb'];
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Bagian</label>
+						<label class="col-sm-2 col-form-label">Bidang</label>
 						<div class="col-sm-10">
-							<select class="form-select" name="edit_nama_bagian_pengguna" required>
-								<option value="" selected="">== Pilih jenis bagian ==</option>
-								<option value="1">Kepala Dinas</option>
-								<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
-								<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
-								<option value="3">Pembinaan SMA</option>
-								<option value="4">Pembinaan SMK</option>
-								<option value="2" >Sekretariat</option>
-								<option value="7">UPT PTIKP</option>
+							<select id="bidang" class="form-select" name="edit_nama_bagian_pengguna" required>
+								<option value="" selected></option>
+								<?php
+								foreach ($dataBidang as $val) {
+								?>
+									<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
+								<?php
+								}
+								?>
 							</select>
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Sub-Bagian</label>
+						<label class="col-sm-2 col-form-label">Sub-Bidang</label>
 						<div class="col-sm-10">
-							<select class="form-select" name="edit_nama_subbagian_pengguna">
-								<option value="" selected="">== Pilih jenis sub bagian ==</option>
-								<option value="2">Keuangan</option>
-								<option value="3">Program</option>
-								<option value="4">Subbidang Pembinaan SMA</option>
-								<option value="1">Umum Kepegawaian dan Hukum</option>
+							<select id="subbidang" class="form-select" name="edit_nama_subbagian_pengguna" disabled>
+								<option value="" selected></option>
+								<?php
+								foreach ($dataBidang as $val) {
+									if ($val[3] == "") {
+										continue;
+									}
+								?>
+									<option value="<?= $val[2] ?>"><?= $val[3] ?></option>
+								<?php
+								}
+								?>
 							</select>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Jabatan</label>
 						<div class="col-sm-10">
-							<select class="form-select" name="edit_nama_jabatan_pengguna">
-								<option value="" selected="">== Pilih jenis jabatan ==</option>
-								<option value="1">Kepala Bagian/Subbagian</option>
-								<option value="2">Bendahara Bagian/Subbagian</option>
+							<select id="jabatan" class="form-select" name="edit_nama_jabatan_pengguna">
+								<option value="" selected></option>
+								<?php
+								foreach ($dataBidang as $val) {
+								?>
+									<option value="<?= $val[4] ?>"><?= $val[5] ?></option>
+								<?php
+								}
+								?>
 							</select>
 						</div>
 					</div>
@@ -213,13 +232,30 @@ $data = $_SESSION['data']['dataPjb'];
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
-					<button type="submit" name="simpan_data" class="btn btn-primary">Simpan</button>
+					<button type="submit" name="tambah_user" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+<script>
+	$('#formTambahUser').submit(function(e) {
+		e.preventDefault()
+		let foto;
+		let valArr = $('input,select').slice(4, 11);
+		// console.log(data.eq(5).val())
+
+		let reader = new FileReader();
+		reader.onload = function() {
+			foto = new Uint8Array(reader.result);
+		}
+		reader.readAsArrayBuffer($('input')[6].files[0]);
+// LANJUTKAN................................................................................//
+		const data = `tambahUser=&username=${valArr.eq(0).val()}`;
+	tanya_simpan("Yakin akan simpan?", data);
+	})
+</script>
 
 <!-- MODAL BAGIAN -->
 <div class="modal fade" id="modal_bagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

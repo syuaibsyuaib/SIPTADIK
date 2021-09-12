@@ -3,7 +3,7 @@
         <small><i><a href="/" class="text-dark">SIPTADIK - Sistem Informasi Tamu</a> | Copyright &copy; 2021 | <a href="www.google.com" class="text-dark">Made with &hearts;</a></i></small>
     </div>
 </footer>
-
+<script src="assets/js/main.js"></script>
 <script>
     function tanya_simpan(isiPesan, data) {
         data = data || false;
@@ -33,9 +33,8 @@
                     .then(response => response.text())
                     .then(data => {
                         myModalLoading.hide();
-                        window.location.reload();
-                    }).then(()=>{
-                        notif('Data tamu telah disimpan');
+                        notif('Data telah disimpan');
+                        window.location.reload();   
                     }).catch((error) => {
                         myModalLoading.hide();
                         alert(`Error: ${error}`);
