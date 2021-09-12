@@ -194,72 +194,18 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 
 	///////// MODAL WARNING //////////===========================================================
 	$('#formTamu').submit(event => {
-		// event.preventDefault();
-		let formTamu = document.getElementById('formTamu');
-		if (namaTamu.value != '' && nipTamu.value != '' && asalTamu.value != '' && tujuanTamu.value != '') {
-			event.preventDefault();
-			if (fotoPhp.value == '') {
-				foto.classList.remove('shadow');
-				foto.classList.add('shadow-blue');
-			} else {
-				foto.classList.remove('shadow-blue');
-				foto.classList.add('shadow');
-
-				const fotoBuffer = _base64ToArrayBuffer($('#fotoPhp').val());
-				event.preventDefault();
-				let data = `kirimTamu=&namaTamu=${$('#namaTamu').val()}&nipTamu=${$('#nipTamu').val()}&asalTamu=${$('#asalTamu').val()}&bidangTujuan=${$('#bidang').val()}&subBidangTujuan=${$('#subbidang').val()}&jabatanTujuan=${$('#jabatan').val()}&tujuan=${$('#tujuanTamu').val()}&fotoPhp=${fotoBuffer}`
-
-				tanya_simpan('Yakin akan simpan?', data);
-			}
-		}
 		event.preventDefault();
-	});
-
-	////// BIDANG OPTION //////=======================================================================
-	let bidang = document.getElementById('bidang');
-	let subbidang = document.getElementById('subbidang');
-	let jabatan = document.getElementById('jabatan');
-
-	for (let i = 3; i < jabatan.options.length; i++) {
-		jabatan.options[i].classList.toggle('d-none');
-	}
-
-	function togel(parm) {
-		if (parm == 'kadisHilang') {
-			jabatan.options[1].classList.add('d-none');
-			jabatan.options[2].classList.add('d-none');
-			for (let i = 3; i < jabatan.options.length; i++) {
-				jabatan.options[i].classList.remove('d-none');
-			}
+		if ($('#fotoPhp').val() == '') {
+			$('#foto').removeClass('shadow');
+			$('#foto').addClass('shadow-blue');
 		} else {
-			jabatan.options[1].classList.remove('d-none');
-			jabatan.options[2].classList.remove('d-none');
-			for (let i = 3; i < jabatan.options.length; i++) {
-				jabatan.options[i].classList.add('d-none');
-			}
-		}
-	}
-
-	bidang.addEventListener('change', (isi) => {
-		let value = isi.target.options[bidang.selectedIndex].value;
-		subbidang.disabled = true;
-		subbidang.options.selectedIndex = 0;
-		// jabatan.disabled = true;
-		jabatan.options.selectedIndex = 0;
-		if (value == 'b1') {
-			subbidang.disabled = false
-		};
-
-		if (value != "") {
-			togel('kadisHilang');
-		} else {
-			togel('muncul ko kadis');
+			$('#foto').removeClass('shadow-blue');
+			$('#foto').addClass('shadow');
+			const fotoBuffer = _base64ToArrayBuffer($('#fotoPhp').val());
+			let data = `kirimTamu=&namaTamu=${$('#namaTamu').val()}&nipTamu=${$('#nipTamu').val()}&asalTamu=${$('#asalTamu').val()}&bidangTujuan=${$('#bidang').val()}&subBidangTujuan=${$('#subbidang').val()}&jabatanTujuan=${$('#jabatan').val()}&tujuan=${$('#tujuanTamu').val()}&fotoPhp=${fotoBuffer}`
+			tanya_simpan('Yakin akan simpan?', data);
 		}
 	});
-
-	subbidang.addEventListener('change', (isi) => {
-		jabatan.options.selectedIndex = 0;
-	})
 
 	/////// CAMERA ////////=================================================================================
 	let streaming = false;
