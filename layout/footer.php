@@ -21,7 +21,7 @@
 
         tblModalWarning.addEventListener('click', () => {
             if (data == 'keluar') {
-                window.location.assign('masuk.php')
+                window.location.assign('masuk.php?logout=<?= $_SESSION['role'] ?>');
             } else if (data) {
                 myModalLoading.show();
 
