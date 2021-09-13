@@ -3,8 +3,19 @@ date_default_timezone_set("Asia/Makassar");
 setlocale(LC_ALL, 'id_ID');
 
 session_start();
-session_destroy();
-
+if (isset($_SESSION['user'])) {
+	if ($_SESSION['role'] == 1) {
+		header("Location: admin.php");
+	} elseif ($_SESSION['role'] == 2) {
+		header("Location: tamu.php");
+	} elseif ($_SESSION['role'] == 3) {
+		header("Location: pejabat.html");
+	}
+}
+if (isset($_GET['logout'])) {
+	session_destroy();
+	header("Location: masuk.php");
+}
 ?>
 
 <!doctype html>
