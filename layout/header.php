@@ -13,6 +13,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 $role = $_SESSION['role'] == 1 ? "Admin" : ($_SESSION['role'] == 2 ? "Piket/Tamu" : ($_SESSION['role'] == 3 ? "Pejabat" : "Unknown"));
+$dataBidang = $_SESSION['data']['dataBidang'];
 
 function array_search_multi($array, $key, $value, $parent = false)
 {
@@ -83,52 +84,124 @@ function encrypt_decrypt($action, $string)
     <link href="assets/css/icons.css" rel="stylesheet">
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.js"></script>
-    <title>
-        <?= $title ?? "Halaman" ?> | SIPTADIK
-    </title>
-    <style>
-        .gradient-brand-color {
-            background-image: -webkit-linear-gradient(0deg, #376be6 0%, #6470ef 100%);
-            background-image: -ms-linear-gradient(0deg, #376be6 0%, #6470ef 100%);
-            color: #fff;
-        }
-
-        .contact-info_wrapper {
-            overflow: hidden;
-            border-radius: 0 .625rem .625rem 0;
-            border: 1px solid #376be6;
-        }
-
-        .contact-info_list span.position-absolute {
-            left: 0;
-            margin-top: 5px;
-        }
-
-        .z-index-101 {
-            z-index: 101;
-        }
-
-        .list-style-none {
-            list-style: none;
-        }
-
-        .contact-form_wrapper {
-            border-radius: .625rem 0 0 .625rem;
-            border-top: 1px solid #376be6;
-            border-left: 1px solid #376be6;
-            border-bottom: 1px solid #376be6;
-        }
-
-        .kontak a {
-            text-decoration: none;
-        }
-
-        .kontak a:hover {
-            text-decoration: underline;
-        }
-    </style>
-
+    <title><?= $title ?? "Halaman" ?> | SIPTADIK</title>
 </head>
+
+<script>
+    let tambah_pengguna = '<form class="m-0 p-0" id="formTambahUser"> \
+        <div class="modal-header"> \
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5> \
+        </div> \
+        <div class="modal-body"> \
+            <!-- ISI MODAL START HERE --> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label"><i>Username</i></label> \
+                <div class="col-sm-10"> \
+                    <input name="pengguna_pjb" type="text" class="form-control" required> \
+                </div> \
+            </div> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label"><i>Password</i></label> \
+                <div class="col-sm-10"> \
+                    <input name="pass_pjb_1" type="password" class="form-control pass" required> \
+                    <div class="mt-1"> \
+                        <small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small> \
+                    </div> \
+                </div> \
+            </div> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label"><i>Ulangi Password</i></label> \
+                <div class="col-sm-10"> \
+                    <input name="pass_pjb_2" type="password" class="form-control pass" required> \
+                </div> \
+            </div> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label">Foto</label> \
+                <div class="col-sm-10"> \
+                    <input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required> \
+                    <div class="mt-1"> \
+                        <small class="text-danger"> \
+                            <i>Disarankan rasio 1:1 (persegi)</i> \
+                        </small> \
+                    </div> \
+                </div> \
+            </div> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label">Nama</label> \
+                <div class="col-sm-10"> \
+                    <input name="nama_pjb" type="text" class="form-control" required> \
+                </div> \
+            </div> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label">NIP</label> \
+                <div class="col-sm-10"> \
+                    <input name="nip_pjb" type="text" class="form-control" required> \
+                </div> \
+            </div> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label">Bidang</label> \
+                <div class="col-sm-10"> \
+                    <select id="bidang" class="form-select" name="edit_nama_bagian_pengguna" required> \
+                        <option value="" selected></option> \
+                        <?php foreach ($dataBidang as $val) { ?>
+                            <option value="<?= $val[0] ?>"><?= $val[1] ?></option> \
+                        <?php } ?>
+                    </select> \
+                </div> \
+            </div> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label">Sub-Bidang</label> \
+                <div class="col-sm-10"> \
+                    <select id="subbidang" class="form-select" name="edit_nama_subbagian_pengguna" disabled> \
+                        <option value="" selected></option> \
+                        <?php
+                        foreach ($dataBidang as $val) {
+                            if ($val[3] == "") {
+                                continue;
+                            }
+                        ?>
+                            <option value="<?= $val[2] ?>"><?= $val[3] ?></option> \
+                        <?php
+                        }
+                        ?>
+                    </select> \
+                </div> \
+            </div> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label">Jabatan</label> \
+                <div class="col-sm-10"> \
+                    <select id="jabatan" class="form-select" name="edit_nama_jabatan_pengguna"> \
+                        <option value="" selected></option> \
+                        <?php
+                        foreach ($dataBidang as $val) {
+                        ?>
+                            <option value="<?= $val[4] ?>"><?= $val[5] ?></option> \
+                        <?php
+                        }
+                        ?>
+                    </select> \
+                </div> \
+            </div> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label">No. HP</label> \
+                <div class="col-sm-10"> \
+                    <input name="hp_pjb" type="text" class="form-control" required> \
+                </div> \
+            </div> \
+            <div class="mb-3 row"> \
+                <label class="col-sm-2 col-form-label">Alamat</label> \
+                <div class="col-sm-10"> \
+                    <input name="alamat_pjb" type="text" class="form-control" required> \
+                </div> \
+            </div> \
+            <!-- ISI MODAL END HERE --> \
+        </div> \
+        <div class="modal-footer"> \
+            <button type="submit" name="tambah_user" class="btn btn-primary">Simpan</button> \
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button> \
+        </div> \
+    </form>';
+</script>
 
 <body class="d-flex flex-column h-100">
     <!-- NAVBAR START HERE -->
@@ -140,20 +213,68 @@ function encrypt_decrypt($action, $string)
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <?php
+                    if ($_SESSION['role'] != 2) {
+                    ?>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Beranda</a>
+                        </li>
+                    <?php
+                    }
+                    ?>
+
+                    <?php
+                    if ($_SESSION['role'] == 1) {
+                    ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Tambah
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" onclick="tanya_simpan('Tambah Pengguna', tambah_pengguna)">Pengguna</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_bagian_edit">Bagian</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_subbagian_edit">Sub-Bagian</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_jabatan_edit">Jabatan</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pengaturan
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#slider_edit">Slider</a></li>
+                                <!-- <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#jabatan_edit">Bagian/Sub-bagian/Jabatan</a></li> -->
+                            </ul>
+                        </li>
+                        <a class="nav-link" href="riwayat.php">Riwayat</a>
+                    <?php
+                    }
+                    ?>
+
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Beranda</a>
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modal_kontak">Kontak</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_kontak">Kontak</a>
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modal_bantuan">Bantuan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_bantuan">Bantuan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" href="#" onclick="tanya_simpan('Yakin akan keluar?', 'keluar')">Keluar</a>
+                        <a class="nav-link text-danger" onclick="tanya_simpan('Perhatian', 'Yakin akan keluar?', 'keluar')">Keluar</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
+                    <?php
+                    if ($_SESSION['role'] == 1) {
+                    ?>
+                        <section>
+                            <input class="form-control" type="search" placeholder="Cari Pejabat" aria-label="Search">
+                        </section>
+                    <?php
+                    }
+                    ?>
                     <li class="nav-item">
                         <i><small class="nav-link text-muted">Akun: <b><?= $role ?></b></small></i>
                     </li>
@@ -307,11 +428,11 @@ function encrypt_decrypt($action, $string)
     </div>
 
     <!-- MODAL WARNING DAN LOADING -->
-    <div class="modal fade" id="modalWarning" tabindex="-1" aria-labelledby="modalTes" aria-hidden="true">
+    <div class="modal fade" id="modalWarning" tabindex="-1" aria-labelledby="judulModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title" id="staticBackdropLabel">Perhatian</h5>
+                    <h5 class="modal-title" id="judulModal"></h5>
                 </div>
                 <div class="modal-body">
                     <div id="isiModal"></div>
@@ -323,7 +444,6 @@ function encrypt_decrypt($action, $string)
             </div>
         </div>
     </div>
-
 
     <div class="modal" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -338,7 +458,6 @@ function encrypt_decrypt($action, $string)
             </div>
         </div>
     </div>
-
 
     <!-- NOTIFIKASI -->
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
