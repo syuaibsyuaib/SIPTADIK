@@ -6,54 +6,6 @@ $data = $_SESSION['data']['dataPjb'];
 $dataBidang = $_SESSION['data']['dataBidang'];
 ?>
 
-<style>
-	.coba img {
-		min-width: 100%;
-		width: 100%;
-		height: 5rem;
-	}
-
-	.coba>div {
-		overflow: hidden;
-	}
-</style>
-
-<!-- SECONDARY NAVBAR -->
-<div class="nav-scroller bg-light shadow-sm">
-	<div class="container">
-		<nav class="nav nav-underline py-1" aria-label="Secondary navigation">
-			<span class="navbar-brand">Daftar Pengguna</span>
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					Tambah
-				</a>
-				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal_tambah_pengguna">Pengguna</a></li>
-					<li>
-						<hr class="dropdown-divider">
-					</li>
-					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal_bagian_edit">Bagian</a></li>
-					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal_subbagian_edit">Sub-Bagian</a></li>
-					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal_jabatan_edit">Jabatan</a></li>
-				</ul>
-			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					Pengaturan
-				</a>
-				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#slider_edit">Slider</a></li>
-					<!-- <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#jabatan_edit">Bagian/Sub-bagian/Jabatan</a></li> -->
-				</ul>
-			</li>
-			<a class="nav-link" href="riwayat.php">Riwayat</a>
-			<section class="ms-auto">
-				<input class="form-control" type="search" placeholder="Cari Pejabat" aria-label="Search">
-			</section>
-		</nav>
-	</div>
-</div>
-
 <!-- MODAL SLIDER -->
 <div class="modal fade" id="slider_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -140,10 +92,16 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label"><i>Password</i></label>
 						<div class="col-sm-10">
-							<input name="pass_pjb" type="password" class="form-control pass" required>
+							<input name="pass_pjb_1" type="password" class="form-control pass" required>
 							<div class="mt-1">
 								<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
 							</div>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label"><i>Ulangi Password</i></label>
+						<div class="col-sm-10">
+							<input name="pass_pjb_2" type="password" class="form-control pass" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
