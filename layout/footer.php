@@ -5,15 +5,17 @@
 </footer>
 <script src="assets/js/main.js"></script>
 <script>
-    function tanya_simpan(isiPesan, data) {
+    function tanya_simpan(judulPesan, isiPesan, data) {
         data = data || false;
 
         let myModalWarning = new bootstrap.Modal(document.getElementById('modalWarning'));
         let myModalLoading = new bootstrap.Modal(document.getElementById('modalLoading'))
         let isiModal = document.getElementById('isiModal');
+        let judulModal = document.getElementById('judulModal');
 
         myModalWarning.show();
         isiModal.innerHTML = isiPesan;
+        judulModal.innerHTML = judulPesan;
 
         let tblModalWarning = document.getElementById('tblModalWarning');
 
