@@ -26,3 +26,60 @@
 .shadow-blue {
     box-shadow: 0 4px 8px 0 rgb(0, 153, 255), 0 6px 20px 0 rgba(95, 191, 255, 0.863);
 }
+
+/* FOR CONTACT */
+.gradient-brand-color {
+    background-image: -webkit-linear-gradient(0deg, #376be6 0%, #6470ef 100%);
+    background-image: -ms-linear-gradient(0deg, #376be6 0%, #6470ef 100%);
+    color: #fff;
+}
+
+.contact-info_wrapper {
+    overflow: hidden;
+    border-radius: 0 .625rem .625rem 0;
+    border: 1px solid #376be6;
+}
+
+.contact-info_list span.position-absolute {
+    left: 0;
+    margin-top: 5px;
+}
+
+.z-index-101 {
+    z-index: 101;
+}
+
+.list-style-none {
+    list-style: none;
+}
+
+.contact-form_wrapper {
+    border-radius: .625rem 0 0 .625rem;
+    border-top: 1px solid #376be6;
+    border-left: 1px solid #376be6;
+    border-bottom: 1px solid #376be6;
+}
+
+.kontak a {
+    text-decoration: none;
+}
+
+.kontak a:hover {
+    text-decoration: underline;
+}
+
+/* FOR ADMIN */
+.coba img {
+    min-width: 100%;
+    width: 100%;
+    height: 5rem;
+}
+
+.coba>div {
+    overflow: hidden;
+}
+
+/* FOR NAVBAR */
+.navbar-nav a {
+    cursor: pointer;
+}
