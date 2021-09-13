@@ -15,8 +15,8 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Gambar Slider</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
-				<div class="modal-body text-center">
-					<div class="px-3">
+				<div class="modal-body">
+					<div class="px-3 text-center">
 						<!-- FORM UPLOAD GAMBAR -->
 						<!-- <div class="mb-3 row">
 							<form action="" method="post" enctype="multipart/form-data">
