@@ -23,7 +23,7 @@
 	    }
 	}
 
-	bidang.addEventListener('change', (isi) => {
+	bidang.addEventListener('change', function(isi) {
 	    let value = isi.target.options[bidang.selectedIndex].value;
 	    subbidang.disabled = true;
 	    subbidang.options.selectedIndex = 0;
@@ -40,11 +40,11 @@
 	    }
 	});
 
-	subbidang.addEventListener('change', (isi) => {
+	subbidang.addEventListener('change', function(isi) {
 	    jabatan.options.selectedIndex = 0;
 	})
 
-	$('.pass').click(() => {
+	$('.pass').click(function() {
 	    $('.pass').prop({ 'type': 'text' });
 	    $('.pass').focusout(() => {
 	        $('.pass').prop({ 'type': 'password' });
