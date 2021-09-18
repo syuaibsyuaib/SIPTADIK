@@ -23,7 +23,7 @@
 	    }
 	}
 
-	bidang.addEventListener('change', (isi) => {
+	bidang.addEventListener('change', function(isi) {
 	    let value = isi.target.options[bidang.selectedIndex].value;
 	    subbidang.disabled = true;
 	    subbidang.options.selectedIndex = 0;
@@ -40,13 +40,29 @@
 	    }
 	});
 
-	subbidang.addEventListener('change', (isi) => {
+	subbidang.addEventListener('change', function(isi) {
 	    jabatan.options.selectedIndex = 0;
 	})
 
-	$('.pass').click(() => {
+	$('.pass').click(function() {
 	    $('.pass').prop({ 'type': 'text' });
 	    $('.pass').focusout(() => {
 	        $('.pass').prop({ 'type': 'password' });
 	    })
-	})
+	});
+
+	function notif(isiPesan) {
+	    let toast = new bootstrap.Toast($('#liveToast'));
+	    $('#pesanNotif').html(isiPesan);
+	    toast.show();
+	}
+
+	function _base64ToArrayBuffer(base64) {
+	    var binary_string = window.atob(base64);
+	    var len = binary_string.length;
+	    var bytes = new Uint8Array(len);
+	    for (var i = 0; i < len; i++) {
+	        bytes[i] = binary_string.charCodeAt(i);
+	    }
+	    return new Uint8Array(bytes.buffer);
+	}

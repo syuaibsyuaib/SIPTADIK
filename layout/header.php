@@ -77,6 +77,9 @@ function encrypt_decrypt($action, $string)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
     <link rel="icon" href="favicon.ico">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
@@ -86,122 +89,6 @@ function encrypt_decrypt($action, $string)
     <script src="assets/js/jquery.js"></script>
     <title><?= $title ?? "Halaman" ?> | SIPTADIK</title>
 </head>
-
-<script>
-    let tambah_pengguna = '<form class="m-0 p-0" id="formTambahUser"> \
-        <div class="modal-header"> \
-            <h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5> \
-        </div> \
-        <div class="modal-body"> \
-            <!-- ISI MODAL START HERE --> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label"><i>Username</i></label> \
-                <div class="col-sm-10"> \
-                    <input name="pengguna_pjb" type="text" class="form-control" required> \
-                </div> \
-            </div> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label"><i>Password</i></label> \
-                <div class="col-sm-10"> \
-                    <input name="pass_pjb_1" type="password" class="form-control pass" required> \
-                    <div class="mt-1"> \
-                        <small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small> \
-                    </div> \
-                </div> \
-            </div> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label"><i>Ulangi Password</i></label> \
-                <div class="col-sm-10"> \
-                    <input name="pass_pjb_2" type="password" class="form-control pass" required> \
-                </div> \
-            </div> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label">Foto</label> \
-                <div class="col-sm-10"> \
-                    <input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required> \
-                    <div class="mt-1"> \
-                        <small class="text-danger"> \
-                            <i>Disarankan rasio 1:1 (persegi)</i> \
-                        </small> \
-                    </div> \
-                </div> \
-            </div> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label">Nama</label> \
-                <div class="col-sm-10"> \
-                    <input name="nama_pjb" type="text" class="form-control" required> \
-                </div> \
-            </div> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label">NIP</label> \
-                <div class="col-sm-10"> \
-                    <input name="nip_pjb" type="text" class="form-control" required> \
-                </div> \
-            </div> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label">Bidang</label> \
-                <div class="col-sm-10"> \
-                    <select id="bidang" class="form-select" name="edit_nama_bagian_pengguna" required> \
-                        <option value="" selected></option> \
-                        <?php foreach ($dataBidang as $val) { ?>
-                            <option value="<?= $val[0] ?>"><?= $val[1] ?></option> \
-                        <?php } ?>
-                    </select> \
-                </div> \
-            </div> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label">Sub-Bidang</label> \
-                <div class="col-sm-10"> \
-                    <select id="subbidang" class="form-select" name="edit_nama_subbagian_pengguna" disabled> \
-                        <option value="" selected></option> \
-                        <?php
-                        foreach ($dataBidang as $val) {
-                            if ($val[3] == "") {
-                                continue;
-                            }
-                        ?>
-                            <option value="<?= $val[2] ?>"><?= $val[3] ?></option> \
-                        <?php
-                        }
-                        ?>
-                    </select> \
-                </div> \
-            </div> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label">Jabatan</label> \
-                <div class="col-sm-10"> \
-                    <select id="jabatan" class="form-select" name="edit_nama_jabatan_pengguna"> \
-                        <option value="" selected></option> \
-                        <?php
-                        foreach ($dataBidang as $val) {
-                        ?>
-                            <option value="<?= $val[4] ?>"><?= $val[5] ?></option> \
-                        <?php
-                        }
-                        ?>
-                    </select> \
-                </div> \
-            </div> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label">No. HP</label> \
-                <div class="col-sm-10"> \
-                    <input name="hp_pjb" type="text" class="form-control" required> \
-                </div> \
-            </div> \
-            <div class="mb-3 row"> \
-                <label class="col-sm-2 col-form-label">Alamat</label> \
-                <div class="col-sm-10"> \
-                    <input name="alamat_pjb" type="text" class="form-control" required> \
-                </div> \
-            </div> \
-            <!-- ISI MODAL END HERE --> \
-        </div> \
-        <div class="modal-footer"> \
-            <button type="submit" name="tambah_user" class="btn btn-primary">Simpan</button> \
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button> \
-        </div> \
-    </form>';
-</script>
 
 <body class="d-flex flex-column h-100">
     <!-- NAVBAR START HERE -->
@@ -232,7 +119,8 @@ function encrypt_decrypt($action, $string)
                                 Tambah
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" onclick="tanya_simpan('Tambah Pengguna', tambah_pengguna)">Pengguna</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_tambah_piket">Piket</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_tambah_pengguna">Pejabat</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -428,7 +316,7 @@ function encrypt_decrypt($action, $string)
     </div>
 
     <!-- MODAL WARNING DAN LOADING -->
-    <div class="modal fade" id="modalWarning" tabindex="-1" aria-labelledby="judulModal" aria-hidden="true">
+    <div class="modal fade" id="modalWarning" tabindex="-1" aria-labelledby="judulModal" aria-hidden="true" style="z-index: 1057;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
@@ -445,7 +333,7 @@ function encrypt_decrypt($action, $string)
         </div>
     </div>
 
-    <div class="modal" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true">
+    <div class="modal" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true" style="z-index: 1057;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="background: none; border: none;">
                 <div class="modal-body" id="modal_loading_label">
@@ -460,7 +348,7 @@ function encrypt_decrypt($action, $string)
     </div>
 
     <!-- NOTIFIKASI -->
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-success text-white">
                 <strong class="me-auto">SIPTADIK</strong>
