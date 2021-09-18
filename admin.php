@@ -72,14 +72,15 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 	</div>
 </div>
 
+
+
 <!-- MODAL TAMBAH PENGGUNA -->
 <div class="modal fade" id="modal_tambah_pengguna" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog">
 		<div class="modal-content">
-			<!-- method="POST" enctype="multipart/form-data" -->
 			<form class="m-0 p-0" id="formTambahUser">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Tambah Pejabat</h5>
 				</div>
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
@@ -130,15 +131,11 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Bidang</label>
 						<div class="col-sm-10">
-							<select id="bidang" class="form-select" name="edit_nama_bagian_pengguna" required>
+							<select id="bidang" class="form-select" name="edit_nama_bagian_pengguna">
 								<option value="" selected></option>
-								<?php
-								foreach ($dataBidang as $val) {
-								?>
+								<?php foreach ($dataBidang as $val) { ?>
 									<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
-								<?php
-								}
-								?>
+								<?php } ?>
 							</select>
 						</div>
 					</div>
@@ -163,7 +160,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Jabatan</label>
 						<div class="col-sm-10">
-							<select id="jabatan" class="form-select" name="edit_nama_jabatan_pengguna">
+							<select id="jabatan" class="form-select" name="edit_nama_jabatan_pengguna" required>
 								<option value="" selected></option>
 								<?php
 								foreach ($dataBidang as $val) {
@@ -197,23 +194,62 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 		</div>
 	</div>
 </div>
-<script>
-	$('#formTambahUser').submit(function(e) {
-		e.preventDefault()
-		let foto;
-		let valArr = $('input,select').slice(4, 11);
-		// console.log(data.eq(5).val())
 
-		let reader = new FileReader();
-		reader.onload = function() {
-			foto = new Uint8Array(reader.result);
-		}
-		reader.readAsArrayBuffer($('input')[6].files[0]);
-// LANJUTKAN................................................................................//
-		const data = `tambahUser=&username=${valArr.eq(0).val()}`;
-	tanya_simpan("Yakin akan simpan?", data);
-	})
-</script>
+<!-- MODAL TAMBAH PIKET -->
+<div class="modal fade" id="modal_tambah_piket" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="m-0 p-0" id="formTambahPiket">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Tambah Piket</h5>
+				</div>
+				<div class="modal-body">
+					<!-- ISI MODAL START HERE -->
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label"><i>Username</i></label>
+						<div class="col-sm-10">
+							<input name="pengguna_piket" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label"><i>Password</i></label>
+						<div class="col-sm-10">
+							<input name="pass_piket_1" type="password" class="form-control pass" required>
+							<div class="mt-1">
+								<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
+							</div>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label"><i>Ulangi Password</i></label>
+						<div class="col-sm-10">
+							<input name="pass_piket_2" type="password" class="form-control pass" required>
+						</div>
+					</div>
+					<!-- <div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Foto</label>
+						<div class="col-sm-10">
+							<input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
+							<div class="mt-1">
+								<small class="text-danger">
+									<i>Disarankan rasio 1:1 (persegi)</i>
+								</small>
+							</div>
+						</div>
+					</div> -->
+
+					<!-- ISI MODAL END HERE -->
+				</div>
+				<div class="modal-footer">
+					<button type="submit" name="tambah_piket" class="btn btn-primary">Simpan</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
 
 <!-- MODAL BAGIAN -->
 <div class="modal fade" id="modal_bagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -772,7 +808,39 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 
 	</div>
 </main>
+<script>
 
+	$('#formTambahUser').submit(function(e) {
+		e.preventDefault()
+		let foto;
+		let valArr = $('input,select').slice(4, 15);
+
+		let reader = new FileReader();
+		reader.onload = function() {
+			foto = new Uint8Array(reader.result);
+
+			// console.log(foto);
+			const data = `tambahUser=&username=${valArr.eq(0).val()}&password=${valArr.eq(1).val()}&nama=${valArr.eq(4).val()}&nip=${valArr.eq(5).val()}&bidang=${valArr.eq(6).val()}&subbidang=${valArr.eq(7).val()}&jabatan=${valArr.eq(8).val()}&nohp=${valArr.eq(9).val()}&alamat=${valArr.eq(10).val()}&foto=${foto}`;
+			tanya_simpan("Tambah Pengguna", "Yakin akan simpan?", data);
+		}
+		reader.readAsArrayBuffer($('input')[7].files[0]);
+	});
+
+	<?php
+	if (isset($_POST['data'])) {
+		unset($data);
+		unset($_SESSION['data']);
+		$data = $_POST['data']['dataPjb'];
+	}
+	?>
+
+	$('#formTambahPiket').submit(function(e) {
+		e.preventDefault();
+		alert('Under Maintenance');
+	})
+
+	
+</script>
 <?php
 include("layout/footer.php");
 ?>

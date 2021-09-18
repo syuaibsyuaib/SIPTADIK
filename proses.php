@@ -1,5 +1,13 @@
 <?php
 session_start();
+date_default_timezone_set("Asia/Makassar");
+setlocale(LC_ALL, 'id_ID');
+
+function timestamp()
+{
+    $tgl = getDate()['mday'] . "_" . getDate()['mon'] . "_" . getDate()['year'] . "_" . getDate()['hours'] . "_" . getDate()['minutes'] . "_" . getDate()['seconds'];
+    return $tgl;
+}
 // var_dump(session_id());
 if (!isset($_SESSION['role'])) {
     header("Location: /");
@@ -34,9 +42,6 @@ if (isset($_POST['masuk'])) {
 
 // dari page tamu
 if (isset($_POST['kirimTamu'])) {
-    date_default_timezone_set('Asia/Makassar');
-    $tgl = getDate()['mday'] . "_" . getDate()['mon'] . "_" . getDate()['year'] . "_" . getDate()['hours'] . "_" . getDate()['minutes'] . "_" . getDate()['seconds'];
-
     $subBidangTujuan = isset($_POST['subBidangTujuan']) ? $_POST['subBidangTujuan'] : '';
 
     $namaTamu = $_POST['namaTamu'];
@@ -46,14 +51,46 @@ if (isset($_POST['kirimTamu'])) {
     $jabatanTujuan = $_POST['jabatanTujuan'];
     $tujuan = $_POST['tujuan'];
 
-    $dataTamu = array("dataTambah" => array(time(),$namaTamu ,$nipTamu, $asalTamu, $bidangTujuan, $subBidangTujuan, $jabatanTujuan, $tujuan, $tgl, $_SESSION['user']), "foto" => array($_POST['fotoPhp']));
+    $dataTamu = array("dataTambah" => array(time(), $namaTamu, $nipTamu, $asalTamu, $bidangTujuan, $subBidangTujuan, $jabatanTujuan, $tujuan, timestamp(), $_SESSION['user']), "foto" => array($_POST['fotoPhp']));
 
     $res = kirim($dataTamu);
+    if (!$res) {
+        return print('Terjadi kesalahan');
+    }else{
+        return sukses();
+    }
     
-    var_dump($res);
-    // header("Location: tamu.php");
 }
 
+//dari admin tambah pengguna
+if (isset($_POST['tambahUser'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $foto = $_POST['foto'];
+    $nama = $_POST['nama'];
+    $nip = $_POST['nip'];
+    $bidang = $_POST['bidang'];
+    $subbidang = $_POST['subbidang'];
+    $jabatan = $_POST['jabatan'];
+    $nohp = $_POST['nohp'];
+    $alamat = $_POST['alamat'];
+
+    $dataUser = array("dataTambah" => array("tambah user",  $password, $username, $bidang, $subbidang, $jabatan, $nama, $nip, $nohp, $alamat), "foto" => array($foto));
+
+    $res = kirim($dataUser);
+
+    if ($res == "Username sudah ada") {
+        return print('Username sudah digunakan');
+    } 
+        // $_SESSION['data'] = $res;
+        return sukses();
+    
+}
+
+function sukses()
+{
+    return print('sukses');
+}
 
 function kirim($dataArr)
 {
@@ -83,8 +120,8 @@ function kirim($dataArr)
     // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
     $resp = curl_exec($curl);
-
-    curl_close($curl);
     $hasil = json_decode($resp, true);
+    curl_close($curl);
+    
     return $hasil;
 }
