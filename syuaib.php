@@ -9,6 +9,12 @@
 </head>
 
 <body>
+    <?php
+    $arr = ["Nol", "Satu", "Dua", "Tiga", "Empat", "Lima"];
+    print_r($arr);
+    echo "<br>";
+    print_r(array_slice($arr,3));
+    ?>
     <script>
         let isi = [1,2,3];
 
