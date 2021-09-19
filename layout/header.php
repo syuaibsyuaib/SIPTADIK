@@ -1,20 +1,12 @@
 <?php
 date_default_timezone_set("Asia/Makassar");
 setlocale(LC_ALL, 'id_ID');
-
 session_start();
-if (!isset($_SESSION['user'])) {
-    unset($_SESSION['user']);
-    unset($_SESSION['pass']);
-    unset($_SESSION['role']);
-    $_SESSION['temp'] = "Silakan masuk terlebih dahulu!";
-    pindahko("masuk.php");
-    exit;
-}
-
-$role = $_SESSION['role'] == 1 ? "Admin" : ($_SESSION['role'] == 2 ? "Piket/Tamu" : ($_SESSION['role'] == 3 ? "Pejabat" : "Unknown"));
-$dataBidang = $_SESSION['data']['dataBidang'];
-
+// KONSTANTA
+define("JUDUL", "SIPTADIK");
+define("TAGLINE", "Sistem Informasi Tamu");
+define("DEVLINK", "https://www.google.com/");
+// FUNSI PENCARIAN UNTUK ARRAY
 function array_search_multi($array, $key, $value, $parent = false)
 {
     $results = array();
@@ -43,14 +35,12 @@ function array_search_multi($array, $key, $value, $parent = false)
 
     return $results;
 }
-
-// Redirect function
+// FUNGSI REDIRECT
 function pindahko($header_location)
 {
     echo "<meta http-equiv='refresh' content='0; url=" . $header_location . "' />";
 }
-
-// Fungsi encrypt dan decrypt
+// FUNGSI ENCRYPT DAN DECRYPT
 function encrypt_decrypt($action, $string)
 {
     $output = false;
@@ -70,6 +60,26 @@ function encrypt_decrypt($action, $string)
     }
     return $output;
 }
+// FUNGSI MENGATUR QUERY GET
+function setgetquery($var, $val)
+{
+    // $new_url = $_SERVER['QUERY_STRING'].http_build_query($_GET);
+    $new_url = $_SERVER['QUERY_STRING'] . (count($_GET) > 0 ? "&" : "") . "$var=$val";
+    // unset($_GET[$var]);
+    return $new_url;
+}
+
+if (!isset($_SESSION['user'])) {
+    unset($_SESSION['user']);
+    unset($_SESSION['pass']);
+    unset($_SESSION['role']);
+    $_SESSION['temp'] = "Silakan masuk terlebih dahulu!";
+    pindahko("masuk.php");
+    exit;
+}
+
+$role = $_SESSION['role'] == 1 ? "Admin" : ($_SESSION['role'] == 2 ? "Piket/Tamu" : ($_SESSION['role'] == 3 ? "Pejabat" : "Unknown"));
+$dataBidang = $_SESSION['data']['dataBidang'];
 ?>
 <html class="h-100">
 
@@ -87,14 +97,15 @@ function encrypt_decrypt($action, $string)
     <link href="assets/css/icons.css" rel="stylesheet">
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.js"></script>
-    <title><?= $title ?? "Halaman" ?> | SIPTADIK</title>
+    <title><?= $title ?? "Halaman" ?> | <?= JUDUL ?></title>
 </head>
 
 <body class="d-flex flex-column h-100">
-    <!-- NAVBAR START HERE -->
+
+    <!-- NAVIGATION BAR (NAVBAR) -->
     <nav class="navbar navbar-expand-lg navbar-light warna-dasar sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="/"><img class="d-inline-block align-middle me-1" src="./img/title.png" alt="" width="20" height="20"> <b class="d-inline-block align-middle">SIPTADIK</b></a>
+            <a class="navbar-brand" href="/"><img class="d-inline-block align-middle me-1" src="./img/title.png" alt="" width="20" height="20"> <b class="d-inline-block align-middle"><?= JUDUL ?></b></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -102,6 +113,7 @@ function encrypt_decrypt($action, $string)
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <?php
+                    // HIDE BERANDA FROM USER ROLE 2 (PIKET)
                     if ($_SESSION['role'] != 2) {
                     ?>
                         <li class="nav-item">
@@ -112,6 +124,7 @@ function encrypt_decrypt($action, $string)
                     ?>
 
                     <?php
+                    // MENU KHUSUS UNTUK USER ROLE 1 (ADMIN)
                     if ($_SESSION['role'] == 1) {
                     ?>
                         <li class="nav-item dropdown">
@@ -154,24 +167,18 @@ function encrypt_decrypt($action, $string)
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
-                    <?php
-                    if ($_SESSION['role'] == 1) {
-                    ?>
+                    <?php if ($_SESSION['role'] == 1) { ?>
                         <section>
                             <input class="form-control" type="search" placeholder="Cari Pejabat" aria-label="Search">
                         </section>
-                    <?php
-                    }
-                    ?>
+                    <?php } ?>
                     <li class="nav-item">
                         <i><small class="nav-link text-muted">Akun: <b><?= $role ?></b></small></i>
                     </li>
                 </ul>
-                <!-- <a href="keluar.php" class="btn bg-danger text-light" id="tbl-keluar">Keluar</a> -->
             </div>
         </div>
     </nav>
-    <!-- NAVBAR END HERE -->
 
     <!-- MODAL KONTAK -->
     <div class="modal fade" id="modal_kontak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
