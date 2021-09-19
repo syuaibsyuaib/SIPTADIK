@@ -60,14 +60,6 @@ function encrypt_decrypt($action, $string)
     }
     return $output;
 }
-// FUNGSI MENGATUR QUERY GET
-function setgetquery($var, $val)
-{
-    // $new_url = $_SERVER['QUERY_STRING'].http_build_query($_GET);
-    $new_url = $_SERVER['QUERY_STRING'] . (count($_GET) > 0 ? "&" : "") . "$var=$val";
-    // unset($_GET[$var]);
-    return $new_url;
-}
 
 if (!isset($_SESSION['user'])) {
     unset($_SESSION['user']);
