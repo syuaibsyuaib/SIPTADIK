@@ -852,9 +852,10 @@ $data = array_slice($data, $offset, $limit);
 	</div>
 </main>
 <script>
+	let modalTambahPengguna = new bootstrap.Modal(document.getElementById('modal_tambah_pengguna'));
+
 	// TAMBAH PENGGUNA
 	$('#formTambahUser').submit(function(e) {
-		e.preventDefault()
 		let foto;
 		let valArr = $('input,select').slice(4, 15);
 
@@ -864,9 +865,10 @@ $data = array_slice($data, $offset, $limit);
 
 			// console.log(foto);
 			const data = `tambahUser=&username=${valArr.eq(0).val()}&password=${valArr.eq(1).val()}&nama=${valArr.eq(4).val()}&nip=${valArr.eq(5).val()}&bidang=${valArr.eq(6).val()}&subbidang=${valArr.eq(7).val()}&jabatan=${valArr.eq(8).val()}&nohp=${valArr.eq(9).val()}&alamat=${valArr.eq(10).val()}&foto=${foto}`;
-			tanya_simpan("Tambah Pengguna", "Yakin akan simpan?", data);
+			tanya_simpan("Tambah Pengguna", "Yakin akan simpan?", data, modalTambahPengguna);
 		}
 		reader.readAsArrayBuffer($('input')[7].files[0]);
+		e.preventDefault()
 	});
 
 	<?php

@@ -193,7 +193,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 	let foto = document.getElementById('foto');
 
 	///////// MODAL WARNING //////////===========================================================
-	$('#formTamu').submit(event => {
+	$('#formTamu').submit(function (event){
 		event.preventDefault();
 		if ($('#fotoPhp').val() == '') {
 			$('#foto').removeClass('shadow');

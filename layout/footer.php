@@ -8,20 +8,22 @@
 </footer>
 <script src="assets/js/main.js"></script>
 <script>
-    function tanya_simpan(judulPesan, isiPesan, data) {
+    function tanya_simpan(judulPesan, isiPesan, data, modalTarget) {
+        modalTarget = modalTarget || false;
         data = data || false;
         let loc = window.location.pathname
         let myModalWarning = new bootstrap.Modal(document.getElementById('modalWarning'));
         let myModalLoading = new bootstrap.Modal(document.getElementById('modalLoading'));
+        let modalTargetId = modalTarget._element.id;
         let isiModal = document.getElementById('isiModal');
         let judulModal = document.getElementById('judulModal');
-
+        let tblModalWarning = document.getElementById('tblModalWarning');
         myModalWarning.show();
         $('.modal-backdrop:eq(1)').attr('style', 'z-index:1056')
         isiModal.innerHTML = isiPesan;
         judulModal.innerHTML = judulPesan;
 
-        $('#tblModalWarning').click(function(e) {
+        tblModalWarning.onclick = function(e) {
             if (data == 'keluar') {
                 window.location.assign('masuk.php?logout=<?= $_SESSION['role'] ?>');
             } else {
@@ -32,18 +34,21 @@
                         myModalLoading.hide();
                         if (data != 'sukses') {
                             notif(data);
+                            $(`#${modalTargetId} input`)[0].click()
                         } else {
                             notif(data);
-                            window.location.reload();
+                            $(`#${modalTargetId} input,#${modalTargetId} select`).filter((ind, el) => {
+                                el.value == "";
+                            });
+                            modalTarget.hide()
                         }
                     })
                     .catch((error) => {
                         myModalLoading.hide();
                         alert(`Error: ${error}`);
-                        window.location.reload();
                     });
             }
-        });
+        };
 
 
     };
