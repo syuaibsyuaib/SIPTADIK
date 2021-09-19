@@ -1,3 +1,6 @@
+<?php
+!isset($_SESSION['user']) ? header("Location: /") : "";
+?>
 <footer class="footer mt-auto py-3 warna-dasar">
     <div class="text-center">
         <small><i><a href="/" class="text-dark"><?= JUDUL ?> - <?= TAGLINE ?></a> | Copyright &copy; 2021 | <a href="<?= DEVLINK ?>" class="text-dark">Made with &hearts;</a></i></small>
