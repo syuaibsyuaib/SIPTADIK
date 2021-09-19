@@ -4,6 +4,23 @@ include("layout/header.php");
 $_SESSION['role'] != 1 ? pindahko("/") : "";
 $data = $_SESSION['data']['dataPjb'];
 $dataBidang = $_SESSION['data']['dataBidang'];
+
+// UNTUK PAGINATION START
+$page = isset($_GET['p']) ? encrypt_decrypt("d", $_GET['p']) : 1;
+$limit = 8;
+$offset = ($page - 1) * $limit;
+$total_data = count($data);
+$total_pages = ceil($total_data / $limit);
+$total_number = 2;
+$start_number = ($page > $total_number) ? ($page - $total_number) : 1;
+$end_number = ($page < ($total_pages - $total_number)) ? ($page + $total_number) : $total_pages;
+// JIKA OVERFLOW, KE LAST PAGE
+if ($page > $total_pages) {
+	$_GET['p'] = encrypt_decrypt("e", $total_pages);
+	pindahko("?" . http_build_query($_GET));
+}
+$data = array_slice($data, $offset, $limit);
+// UNTUK PAGINATION END
 ?>
 
 <!-- MODAL SLIDER -->
@@ -72,11 +89,9 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 	</div>
 </div>
 
-
-
-<!-- MODAL TAMBAH PENGGUNA -->
+<!-- MODAL TAMBAH PEJABAT -->
 <div class="modal fade" id="modal_tambah_pengguna" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<form class="m-0 p-0" id="formTambahUser">
 				<div class="modal-header">
@@ -85,14 +100,14 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label"><i>Username</i></label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label"><i>Username</i></label>
+						<div class="col-sm-9">
 							<input name="pengguna_pjb" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label"><i>Password</i></label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label"><i>Password</i></label>
+						<div class="col-sm-9">
 							<input name="pass_pjb_1" type="password" class="form-control pass" required>
 							<div class="mt-1">
 								<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
@@ -100,14 +115,14 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label"><i>Ulangi Password</i></label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label"><i>Ulangi Password</i></label>
+						<div class="col-sm-9">
 							<input name="pass_pjb_2" type="password" class="form-control pass" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Foto</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label">Foto</label>
+						<div class="col-sm-9">
 							<input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
 							<div class="mt-1">
 								<small class="text-danger">
@@ -117,20 +132,20 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Nama</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label">Nama</label>
+						<div class="col-sm-9">
 							<input name="nama_pjb" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">NIP</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label">NIP</label>
+						<div class="col-sm-9">
 							<input name="nip_pjb" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Bidang</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label">Bidang</label>
+						<div class="col-sm-9">
 							<select id="bidang" class="form-select" name="edit_nama_bagian_pengguna">
 								<option value="" selected></option>
 								<?php foreach ($dataBidang as $val) { ?>
@@ -140,8 +155,8 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Sub-Bidang</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label">Sub-Bidang</label>
+						<div class="col-sm-9">
 							<select id="subbidang" class="form-select" name="edit_nama_subbagian_pengguna" disabled>
 								<option value="" selected></option>
 								<?php
@@ -158,8 +173,8 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Jabatan</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label">Jabatan</label>
+						<div class="col-sm-9">
 							<select id="jabatan" class="form-select" name="edit_nama_jabatan_pengguna" required>
 								<option value="" selected></option>
 								<?php
@@ -173,14 +188,14 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">No. HP</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label">No. HP</label>
+						<div class="col-sm-9">
 							<input name="hp_pjb" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Alamat</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label">Alamat</label>
+						<div class="col-sm-9">
 							<input name="alamat_pjb" type="text" class="form-control" required>
 						</div>
 					</div>
@@ -197,7 +212,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 
 <!-- MODAL TAMBAH PIKET -->
 <div class="modal fade" id="modal_tambah_piket" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<form class="m-0 p-0" id="formTambahPiket">
 				<div class="modal-header">
@@ -206,14 +221,14 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label"><i>Username</i></label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label"><i>Username</i></label>
+						<div class="col-sm-9">
 							<input name="pengguna_piket" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label"><i>Password</i></label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label"><i>Password</i></label>
+						<div class="col-sm-9">
 							<input name="pass_piket_1" type="password" class="form-control pass" required>
 							<div class="mt-1">
 								<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
@@ -221,14 +236,14 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 						</div>
 					</div>
 					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label"><i>Ulangi Password</i></label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label"><i>Ulangi Password</i></label>
+						<div class="col-sm-9">
 							<input name="pass_piket_2" type="password" class="form-control pass" required>
 						</div>
 					</div>
 					<!-- <div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Foto</label>
-						<div class="col-sm-10">
+						<label class="col-sm-3 col-form-label">Foto</label>
+						<div class="col-sm-9">
 							<input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
 							<div class="mt-1">
 								<small class="text-danger">
@@ -248,8 +263,6 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 		</div>
 	</div>
 </div>
-
-
 
 <!-- MODAL BAGIAN -->
 <div class="modal fade" id="modal_bagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -748,6 +761,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 
 <main>
 	<div class="pt-4 pb-3">
+		<!-- DAFTAR PEJABAT -->
 		<div class="container-sm pb-3">
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
 
@@ -758,16 +772,24 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 
 					<div class="col">
 						<div class="card shadow-sm">
+
+							<!-- NAMA -->
 							<div class="card-header warna-dasar">
 								<?= $value[3] ?>
 							</div>
+
+							<!-- FOTO -->
 							<div style="height: 265px; overflow: hidden;">
 								<img style="width: 100%;" src="./img/orang-1.jpeg">
 							</div>
+
+							<!-- CARD BODY -->
 							<div class="card-body">
+								<!-- JABATAN -->
 								<p class="card-text">
 									<!-- <?= $value[2] ?> -->
 								</p>
+								<!-- TOMBOL -->
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<a href="detail.php?id=<?= $id ?>" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
@@ -776,6 +798,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 									<!-- <small class="text-muted">Status keberadaan</small> -->
 								</div>
 							</div>
+
 						</div>
 					</div>
 
@@ -786,30 +809,44 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 			</div>
 		</div>
 
-		<!-- Pagination Mulai -->
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
-		<!-- Pagination Selesai -->
+		<!-- PAGINATION MULAI -->
+		<?php if ($total_data > $limit) : ?>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+
+					<!-- SEBELUMNYA -->
+					<li class="page-item <?= $page == 1 ? "disabled" : "" ?>">
+						<a class="page-link" href="?<?= setgetquery("p", encrypt_decrypt("e", 1)) ?>" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+
+					<!-- TENGAH-TENGAH -->
+					<?php
+					for ($start_number; $start_number <= $end_number; $start_number++) {
+						$active = $page == $start_number ? "active" : "";
+					?>
+						<li class="page-item <?= $active ?>"><a class="page-link" href="?<?= setgetquery("p", encrypt_decrypt("e", $start_number)) ?>"><?= $start_number ?></a></li>
+					<?php
+					}
+					?>
+
+					<!-- SELANJUTNYA -->
+					<li class="page-item">
+						<a class="page-link" href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+
+				</ul>
+			</nav>
+		<?php endif; ?>
+		<!-- PAGINATION SELESAI -->
 
 	</div>
 </main>
 <script>
-
+	// TAMBAH PENGGUNA
 	$('#formTambahUser').submit(function(e) {
 		e.preventDefault()
 		let foto;
@@ -838,9 +875,8 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 		e.preventDefault();
 		alert('Under Maintenance');
 	})
-
-	
 </script>
+
 <?php
 include("layout/footer.php");
 ?>
