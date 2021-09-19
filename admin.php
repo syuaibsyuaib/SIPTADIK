@@ -6,7 +6,7 @@ $data = $_SESSION['data']['dataPjb'];
 $dataBidang = $_SESSION['data']['dataBidang'];
 
 // UNTUK PAGINATION START
-$page = isset($_GET['p']) ? encrypt_decrypt("d", $_GET['p']) : 1;
+$page = $_GET['p'] ?? 1;
 $limit = 8;
 $offset = ($page - 1) * $limit;
 $total_data = count($data);
@@ -816,7 +816,7 @@ $data = array_slice($data, $offset, $limit);
 
 					<!-- SEBELUMNYA -->
 					<li class="page-item <?= $page == 1 ? "disabled" : "" ?>">
-						<a class="page-link" href="?<?= setgetquery("p", encrypt_decrypt("e", 1)) ?>" aria-label="Previous">
+						<a class="page-link" href="?p=1" aria-label="Previous">
 							<span aria-hidden="true">&laquo;</span>
 						</a>
 					</li>
@@ -826,14 +826,20 @@ $data = array_slice($data, $offset, $limit);
 					for ($start_number; $start_number <= $end_number; $start_number++) {
 						$active = $page == $start_number ? "active" : "";
 					?>
-						<li class="page-item <?= $active ?>"><a class="page-link" href="?<?= setgetquery("p", encrypt_decrypt("e", $start_number)) ?>"><?= $start_number ?></a></li>
+						<li class="page-item <?= $active ?>">
+							<?php if ($page != $start_number) { ?>
+								<a class="page-link" href="?p=<?= $start_number ?>"><?= $start_number ?></a>
+							<?php } else { ?>
+								<span class="page-link"><?= $start_number ?></span>
+							<?php } ?>
+						</li>
 					<?php
 					}
 					?>
 
 					<!-- SELANJUTNYA -->
-					<li class="page-item">
-						<a class="page-link" href="#" aria-label="Next">
+					<li class="page-item <?= $page == $end_number ? "disabled" : "" ?>">
+						<a class="page-link" href="?p=<?= $total_pages ?>" aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
 						</a>
 					</li>
