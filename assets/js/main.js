@@ -30,8 +30,12 @@
 	    // jabatan.disabled = true;
 	    jabatan.options.selectedIndex = 0;
 	    if (value == 'b1') {
-	        subbidang.disabled = false
-	    };
+	        subbidang.disabled = false;
+	        jabatan.options.selectedIndex = 0;
+	        jabatan.disabled = true;
+	    } else if (subbidang.selectedIndex == 0) {
+	        jabatan.disabled = false;
+	    }
 
 	    if (value != "") {
 	        togel('kadisHilang');
@@ -41,7 +45,14 @@
 	});
 
 	subbidang.addEventListener('change', function(isi) {
+	    let value = isi.target.options[subbidang.selectedIndex].value;
 	    jabatan.options.selectedIndex = 0;
+	    if (value != "" && subbidang.options.selectedIndex != 0) {
+	        jabatan.disabled = false;
+	    } else {
+	        jabatan.options.selectedIndex = 0;
+	        jabatan.disabled = true;
+	    }
 	})
 
 	$('.pass').click(function() {

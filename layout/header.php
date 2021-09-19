@@ -66,7 +66,7 @@ if (!isset($_SESSION['user'])) {
     unset($_SESSION['pass']);
     unset($_SESSION['role']);
     $_SESSION['temp'] = "Silakan masuk terlebih dahulu!";
-    pindahko("masuk.php");
+    pindahko("/");
     exit;
 }
 
