@@ -21,6 +21,8 @@ if ($page > $total_pages) {
 }
 $data = array_slice($data, $offset, $limit);
 // UNTUK PAGINATION END
+
+print_r($data);
 ?>
 
 <!-- MODAL SLIDER -->
@@ -780,7 +782,7 @@ $data = array_slice($data, $offset, $limit);
 
 							<!-- FOTO -->
 							<div style="height: 265px; overflow: hidden;">
-								<img style="width: 100%;" src="./img/orang-1.jpeg">
+								<img style="width: 100%;" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>">
 							</div>
 
 							<!-- CARD BODY -->
@@ -827,7 +829,9 @@ $data = array_slice($data, $offset, $limit);
 						$active = $page == $start_number ? "active" : "";
 					?>
 						<li class="page-item <?= $active ?>">
-							<?php if ($page != $start_number) { ?>
+							<?php if (!isset($_GET['p']) && $start_number == 1) { ?>
+								<span class="page-link"><?= $start_number ?></span>
+							<?php } elseif ($page != $start_number) { ?>
 								<a class="page-link" href="?p=<?= $start_number ?>"><?= $start_number ?></a>
 							<?php } else { ?>
 								<span class="page-link"><?= $start_number ?></span>
