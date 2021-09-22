@@ -8,13 +8,11 @@
 </footer>
 <script src="assets/js/main.js"></script>
 <script>
-    function tanya_simpan(judulPesan, isiPesan, data, modalTarget) {
-        modalTarget = modalTarget || false;
+    function tanya_simpan(judulPesan, isiPesan, data) {
         data = data || false;
         let loc = window.location.pathname
         let myModalWarning = new bootstrap.Modal(document.getElementById('modalWarning'));
         let myModalLoading = new bootstrap.Modal(document.getElementById('modalLoading'));
-        let modalTargetId = modalTarget._element.id;
         let isiModal = document.getElementById('isiModal');
         let judulModal = document.getElementById('judulModal');
         let tblModalWarning = document.getElementById('tblModalWarning');
@@ -27,21 +25,13 @@
             if (data == 'keluar') {
                 window.location.assign('masuk.php?logout=<?= $_SESSION['role'] ?>');
             } else {
+                localStorage.clear();
                 myModalLoading.show();
                 $('.modal-backdrop:eq(2)').attr('style', 'z-index:1056');
                 let resp = kirim('proses.php', data);
                 resp.then((data) => {
-                        myModalLoading.hide();
-                        if (data != 'sukses') {
-                            notif(data);
-                            $(`#${modalTargetId} input`)[0].click()
-                        } else {
-                            notif(data);
-                            $(`#${modalTargetId} input,#${modalTargetId} select`).filter((ind, el) => {
-                                el.value == "";
-                            });
-                            modalTarget.hide()
-                        }
+                    myModalLoading.hide();
+                    localStorage('respon', data);
                     })
                     .catch((error) => {
                         myModalLoading.hide();
@@ -49,8 +39,6 @@
                     });
             }
         };
-
-
     };
 
     async function kirim(url, data) {
