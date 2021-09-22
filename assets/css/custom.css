@@ -86,9 +86,12 @@
 }
 
 /* FOR DETAIL */
-.tunggu {
+.detail-content-loader {
     min-height: 150px;
     min-width: 150px;
+}
+
+.tunggu {
     animation: loader 3s infinite ease-in-out;
     -webkit-animation: loader 3s infinite ease-in-out;
 }
