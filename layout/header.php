@@ -117,7 +117,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 
                     <?php
                     // MENU KHUSUS UNTUK USER ROLE 1 (ADMIN)
-                    if ($_SESSION['role'] == 1) {
+                    if ($_SESSION['role'] == 1 && $title == "Admin") {
                     ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -159,7 +159,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
-                    <?php if ($_SESSION['role'] == 1) { ?>
+                    <?php if ($_SESSION['role'] == 1 && $title == "Admin") { ?>
                         <section>
                             <input class="form-control" type="search" placeholder="Cari Pejabat" aria-label="Search">
                         </section>
@@ -314,7 +314,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
         </div>
     </div>
 
-    <!-- MODAL WARNING DAN LOADING -->
+    <!-- MODAL WARNING -->
     <div class="modal fade" id="modalWarning" tabindex="-1" aria-labelledby="judulModal" aria-hidden="true" style="z-index: 1057;">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -332,6 +332,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
         </div>
     </div>
 
+    <!-- MODAL LOADING -->
     <div class="modal" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true" style="z-index: 1057;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="background: none; border: none;">
