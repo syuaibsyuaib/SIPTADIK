@@ -231,17 +231,7 @@ $data = array_slice($data, $offset, $limit);
 							</div>
 						</div>
 					</div>
-					<!-- <div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">Foto</label>
-						<div class="col-sm-9">
-							<input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
-							<div class="mt-1">
-								<small class="text-danger">
-									<i>Disarankan rasio 1:1 (persegi)</i>
-								</small>
-							</div>
-						</div>
-					</div> -->
+
 
 					<!-- ISI MODAL END HERE -->
 				</div>
@@ -848,14 +838,16 @@ $data = array_slice($data, $offset, $limit);
 
 	// TAMBAH PENGGUNA
 	$('#formTambahUser').submit(function(e) {
-		let foto;
-		let valArr = $('input,select').slice(4, 15);
+		let foto, valArr = [];
+		$(`#modal_tambah_pengguna input,#modal_tambah_pengguna select`).filter((ind, el) => {
+			valArr.push(el.value);
+		});
 
 		let reader = new FileReader();
 		reader.onload = function() {
 			foto = new Uint8Array(reader.result);
 
-			const data = `tambahUser=&username=${valArr.eq(0).val()}&password=${valArr.eq(1).val()}&nama=${valArr.eq(4).val()}&nip=${valArr.eq(5).val()}&bidang=${valArr.eq(6).val()}&subbidang=${valArr.eq(7).val()}&jabatan=${valArr.eq(8).val()}&nohp=${valArr.eq(9).val()}&alamat=${valArr.eq(10).val()}&foto=${foto}`;
+			const data = `tambahUser=&username=${valArr[0]}&password=${valArr[1]}&nama=${valArr[3]}&nip=${valArr[4]}&bidang=${valArr[5]}&subbidang=${valArr[6]}&jabatan=${valArr[7]}&nohp=${valArr[8]}&alamat=${valArr[9]}&foto=${foto}`;
 
 			tanya_simpan("Tambah Pengguna", "Yakin akan simpan?", data);
 			responProses().then(res => { ///////////// PROMISE ====================+
@@ -871,7 +863,7 @@ $data = array_slice($data, $offset, $limit);
 				}
 			})
 		}
-		reader.readAsArrayBuffer($('input')[7].files[0]);
+		reader.readAsArrayBuffer($('input')[6].files[0]);
 		e.preventDefault()
 	});
 
