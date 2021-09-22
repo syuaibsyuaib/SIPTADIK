@@ -39,7 +39,7 @@ if (isset($_POST['ubah_foto'])) {
 						</div>
 					</div>
 					<!-- MEDIA SOSIAL START -->
-					<div class="card mt-3">
+					<!-- <div class="card mt-3">
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 								<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter me-2 icon-inline text-info">
@@ -64,7 +64,7 @@ if (isset($_POST['ubah_foto'])) {
 								<span class="text-secondary">mohpoe</span>
 							</li>
 						</ul>
-					</div>
+					</div> -->
 					<!-- MEDIA SOSIAL END -->
 				</div>
 
@@ -136,7 +136,7 @@ if (isset($_POST['ubah_foto'])) {
 					</div>
 
 					<!-- STATISTICS -->
-					<div class="row gutters-sm">
+					<!-- <div class="row gutters-sm">
 						<div class="col-sm-6 mb-3">
 							<div class="card h-100">
 								<div class="card-body">
@@ -175,7 +175,7 @@ if (isset($_POST['ubah_foto'])) {
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
 				</div>
 			</div>
