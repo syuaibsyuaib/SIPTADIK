@@ -83,7 +83,8 @@ if (isset($_POST['tambahUser'])) {
         return print('Username sudah digunakan');
     } 
         // $_SESSION['data'] = $res;
-        return sukses();
+        
+        return print(json_encode($res));
     
 }
 

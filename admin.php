@@ -22,7 +22,7 @@ if ($page > $total_pages) {
 $data = array_slice($data, $offset, $limit);
 // UNTUK PAGINATION END
 
-print_r($data);
+// print_r($data);
 ?>
 
 <!-- MODAL SLIDER -->
@@ -867,26 +867,23 @@ print_r($data);
 		reader.onload = function() {
 			foto = new Uint8Array(reader.result);
 
-			// console.log(foto);
 			const data = `tambahUser=&username=${valArr.eq(0).val()}&password=${valArr.eq(1).val()}&nama=${valArr.eq(4).val()}&nip=${valArr.eq(5).val()}&bidang=${valArr.eq(6).val()}&subbidang=${valArr.eq(7).val()}&jabatan=${valArr.eq(8).val()}&nohp=${valArr.eq(9).val()}&alamat=${valArr.eq(10).val()}&foto=${foto}`;
 
 			tanya_simpan("Tambah Pengguna", "Yakin akan simpan?", data);
+			responProses().then(res => { ///////////// PROMISE ====================+
+				if (res != 'Username sudah digunakan') {
+					notif('Data tersimpan');
+					modalTambahPengguna.hide()
+					$(`#modal_tambah_pengguna input,#modal_tambah_pengguna select`).filter((ind, el) => {
+						el.value = "";
+					});
+				} else {
+					notif(res);
+					$(`#modal_tambah_pengguna input`)[0].click()
+				}
+			})
 		}
 		reader.readAsArrayBuffer($('input')[7].files[0]);
-		window.addEventListener('storage', (e)=>{
-			if(e.key == 'respon'){
-  					if (e.newValue != 'sukses') {
-                            notif(e.newValue);
-                            $(`#modal_tambah_pengguna input`)[0].click()
-                        } else {
-                            notif(e.newValue);
-                            $(`#modal_tambah_pengguna input,#modal_tambah_pengguna select`).filter((ind, el) => {
-                                el.value == "";
-                            });
-                            modalTambahPengguna.hide()
-                        }
-			}
-		})
 		e.preventDefault()
 	});
 

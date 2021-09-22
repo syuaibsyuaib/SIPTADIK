@@ -29,9 +29,9 @@
                 myModalLoading.show();
                 $('.modal-backdrop:eq(2)').attr('style', 'z-index:1056');
                 let resp = kirim('proses.php', data);
-                resp.then((data) => {
-                    myModalLoading.hide();
-                    localStorage('respon', data);
+                resp.then((res) => {
+                        myModalLoading.hide();
+                        localStorage.setItem('respon', res);
                     })
                     .catch((error) => {
                         myModalLoading.hide();
@@ -44,7 +44,6 @@
     async function kirim(url, data) {
         const response = await fetch(url, {
             method: 'POST', // or 'PUT'
-            cache: 'no-store',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded', //'multipart/form-data',   //
             },
@@ -52,12 +51,20 @@
         })
         return response.text();
     }
-    // function toBlob(b64) {
-    //     const base64Data = b64;
-    //     const base64 = await fetch(base64Data);
-    //     const blob = await base64Response.blob();
-    //     return blob;
-    // }
+
+    function responProses(){
+        return new Promise((res, rej)=>{
+            let timeout = setTimeout(()=>{
+                let interval = setInterval(() => {
+                    if(localStorage.respon){
+                        res(localStorage.respon);
+                        clearInterval(interval);
+                        clearTimeout(timeout);
+                    }
+                }, 500);
+            }, 10000);
+        })
+    }
 </script>
 </body>
 
