@@ -82,9 +82,10 @@ if (isset($_POST['tambahUser'])) {
     if ($res == "Username sudah ada") {
         return print('Username sudah digunakan');
     } 
-        // $_SESSION['data'] = $res;
-        
-        return print(json_encode($res));
+    unset($_SESSION['data']);
+    $_SESSION['data'] = $res;
+    
+    return print(json_encode($res));
     
 }
 
