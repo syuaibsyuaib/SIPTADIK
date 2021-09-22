@@ -16,7 +16,7 @@ $start_number = ($page > $total_number) ? ($page - $total_number) : 1;
 $end_number = ($page < ($total_pages - $total_number)) ? ($page + $total_number) : $total_pages;
 // JIKA OVERFLOW, KE LAST PAGE
 if ($page > $total_pages) {
-	$_GET['p'] = encrypt_decrypt("e", $total_pages);
+	$_GET['p'] = $total_pages;
 	pindahko("?" . http_build_query($_GET));
 }
 $data = array_slice($data, $offset, $limit);
@@ -114,12 +114,6 @@ $data = array_slice($data, $offset, $limit);
 							<div class="mt-1">
 								<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
 							</div>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label"><i>Ulangi Password</i></label>
-						<div class="col-sm-9">
-							<input name="pass_pjb_2" type="password" class="form-control pass" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
@@ -235,12 +229,6 @@ $data = array_slice($data, $offset, $limit);
 							<div class="mt-1">
 								<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
 							</div>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label"><i>Ulangi Password</i></label>
-						<div class="col-sm-9">
-							<input name="pass_piket_2" type="password" class="form-control pass" required>
 						</div>
 					</div>
 					<!-- <div class="mb-3 row">
