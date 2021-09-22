@@ -84,3 +84,10 @@
 .navbar-nav a {
     cursor: pointer;
 }
+
+/* FOR DETAIL */
+.tunggu {
+    min-height: 150px;
+    min-width: 150px;
+    background: #e4e4e4;
+}
