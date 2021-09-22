@@ -84,3 +84,38 @@
 .navbar-nav a {
     cursor: pointer;
 }
+
+/* FOR DETAIL */
+.detail-content-loader {
+    min-height: 150px;
+    min-width: 150px;
+}
+
+.tunggu {
+    animation: loader 3s infinite ease-in-out;
+    -webkit-animation: loader 3s infinite ease-in-out;
+}
+
+@keyframes loader {
+    0% {
+        background-color: rgba(165, 165, 165, 0.1);
+    }
+    50% {
+        background-color: rgba(165, 165, 165, 0.3);
+    }
+    100% {
+        background-color: rgba(165, 165, 165, 0.1);
+    }
+}
+
+@-webkit-keyframes loader {
+    0% {
+        background-color: rgba(165, 165, 165, 0.1);
+    }
+    50% {
+        background-color: rgba(165, 165, 165, 0.3);
+    }
+    100% {
+        background-color: rgba(165, 165, 165, 0.1);
+    }
+}
