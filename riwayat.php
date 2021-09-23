@@ -2,6 +2,8 @@
 $title = "Riwayat";
 include("layout/header.php");
 $_SESSION['role'] != 1 ? pindahko("/") : "";
+$data = $_SESSION['data']['dataTamu'];
+// print_r($data);
 ?>
 
 <style>
@@ -24,19 +26,34 @@ $_SESSION['role'] != 1 ? pindahko("/") : "";
 			<div class="row">
 				<div class="col-md-12">
 					<div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+
+						<!-- TOMBOL DAN SEARCHBOX -->
 						<div class="row g-3 mb-4">
+							<!-- TOMBOL UNDUH CSV -->
 							<div class="col-auto">
 								<button class="btn btn-success"><i class="bi bi-download"></i> Unduh CSV</button>
 							</div>
+							<!-- SEARCHBOX -->
 							<div class="col-auto">
 								<input class="form-control" style="width: 20%;min-width: 200px;" type="search" placeholder="Search" aria-label="Search">
 							</div>
 							<div class="col-auto">
+								<select class="form-select" aria-label="Default select example">
+									<option selected>-- Jumlah Baris --</option>
+									<option value="20">20</option>
+									<option value="50">50</option>
+									<option value="100">100</option>
+									<option value="500">500</option>
+								</select>
+							</div>
+							<div class="col-auto">
 								<button class="btn" data-bs-toggle="collapse" data-bs-target="#filter_cari" aria-expanded="false" aria-controls="filter_cari"><i class="bi bi-filter-square-fill" style="font-size: 1.5rem;color: #ababab"></i></button>
-								<button class="btn"><i class="bi bi-arrow-right-square" style="font-size: 1.5rem;color: #ababab"></i></button>
-								<button class="btn"><i class="bi bi-arrow-left-square" style="font-size: 1.5rem;color: #ababab"></i></button>
+								<!-- <button class="btn"><i class="bi bi-arrow-right-square" style="font-size: 1.5rem;color: #ababab"></i></button> -->
+								<!-- <button class="btn"><i class="bi bi-arrow-left-square" style="font-size: 1.5rem;color: #ababab"></i></button> -->
 							</div>
 						</div>
+
+						<!-- FILTER COLLAPSE -->
 						<div class="collapse mb-4" id="filter_cari">
 							<div class="card">
 								<div class="card-body">
@@ -87,6 +104,7 @@ $_SESSION['role'] != 1 ? pindahko("/") : "";
 								</div>
 							</div>
 						</div>
+
 						<table class="table manage-candidates-top mb-0">
 							<thead>
 								<tr>
@@ -99,203 +117,123 @@ $_SESSION['role'] != 1 ? pindahko("/") : "";
 							</thead>
 							<tbody>
 
-								<!-- TAMU 1 START -->
-								<tr class="candidates-list">
-									<td>05/09/2021 06.30 PM</td>
-									<td class="title">
-										<div class="thumb">
-											<img class="img-fluid" src="./img/tamu1.jpg" alt="" data-bs-toggle="modal" data-bs-target="#fototamu1" title="Perbesar gambar">
-										</div>
-										<div class="candidate-list-details">
-											<div class="candidate-list-info">
-												<div class="candidate-list-title">
-													<h5 class="mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#tamu1">NAMA TAMU 1</a>
-													</h5>
-												</div>
-												<div class="candidate-list-option">
-													<ul class="list-unstyled">
-														<li><i class="bi bi-person-badge me-1"></i>6472134516890001
-														</li>
-													</ul>
-												</div>
+								<?php
+								echo "Hasilnya: " . $_SERVER['QUERY_STRING'];
+								foreach ($data as $value) {
+									$id_raw = $value[0];
+									$id_enc = encrypt_decrypt("e", $id_raw);
+									$timestamp = $value[8];
+									$nama = $value[1];
+									$no_id = $value[2];
+									$instansi_asal = $value[3];
+									$bidang_tujuan = $value[4];
+									$subbidang_tujuan = $value[5];
+									$jabatan_tujuan = $value[6];
+									$tujuan = $value[7];
+									$user_piket = $value[9];
+									// $foto = $value[10];
+									$foto = "";
+								?>
+									<!-- DATA TAMU -->
+									<tr class="candidates-list">
+										<td><?= $timestamp ?></td>
+										<td class="title">
+											<div class="thumb">
+												<img class="img-fluid" src="<?= $foto != "" ? $foto : "img/p.webp" ?>" alt="" data-bs-toggle="modal" data-bs-target="#foto_<?= $id_raw ?>" title="Perbesar gambar">
 											</div>
-										</div>
-									</td>
-									<td>Instansi Tamu 1</td>
-									<td>Bidang Tujuan 1</td>
-									<td>Tujuan Tamu 1</td>
-								</tr>
-								<!-- TAMU 1 END -->
-								<!-- MODAL FOTO TAMU 1 -->
-								<div class="modal fade" id="fototamu1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Foto: NAMA TAMU 1</h5>
-												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">
-												<!-- ISI MODAL START HERE -->
-												<img class="modal-foto" src="./img/tamu1.jpg" alt="">
-												<!-- ISI MODAL END HERE -->
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- MODAL FOTO TAMU 1 -->
-								<!-- MODAL TAMU 1 -->
-								<div class="modal fade" id="tamu1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Detail Tamu 1</h5>
-											</div>
-											<div class="modal-body">
-												<!-- ISI MODAL START HERE -->
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">Nama</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="Nama Tamu">
+											<div class="candidate-list-details">
+												<div class="candidate-list-info">
+													<div class="candidate-list-title">
+														<h5 class="mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#data_<?= $id_raw ?>"><?= $nama ?></a>
+														</h5>
+													</div>
+													<div class="candidate-list-option">
+														<ul class="list-unstyled">
+															<li><i class="bi bi-person-badge me-1"></i><?= $no_id ?>
+															</li>
+														</ul>
 													</div>
 												</div>
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">NIK/NIP</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="123456">
-													</div>
-												</div>
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">Instansi</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="Dinas Pendidikan Kabupaten Pinrang">
-													</div>
-												</div>
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">Sub Bidang Tujuan</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="Sub Bidang Tujuan">
-													</div>
-												</div>
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">Tujuan</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="Kunjungan Dinas">
-													</div>
-												</div>
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">Status</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="Diterima">
-													</div>
-												</div>
-												<!-- ISI MODAL END HERE -->
 											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- MODAL TAMU 1 -->
+										</td>
+										<td><?= $instansi_asal ?></td>
+										<td><?= $subbidang_tujuan ?></td>
+										<td><?= $tujuan ?></td>
+									</tr>
 
-								<!-- TAMU 2 START -->
-								<tr class="candidates-list">
-									<td>05/09/2021 06.30 PM</td>
-									<td class="title">
-										<div class="thumb">
-											<img class="img-fluid" src="./img/tamu2.jpg" alt="" data-bs-toggle="modal" data-bs-target="#fototamu2" title="Perbesar gambar">
-										</div>
-										<div class="candidate-list-details">
-											<div class="candidate-list-info">
-												<div class="candidate-list-title">
-													<h5 class="mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#tamu2">NAMA TAMU 2</a>
-													</h5>
+									<!-- MODAL FOTO TAMU -->
+									<div class="modal fade" id="foto_<?= $id_raw ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Foto: <?= $nama ?></h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
-												<div class="candidate-list-option">
-													<ul class="list-unstyled">
-														<li><i class="bi bi-person-badge me-1"></i>6472134516890001
-														</li>
-													</ul>
+												<div class="modal-body">
+													<!-- ISI MODAL START HERE -->
+													<img class="modal-foto" src="<?= $foto != "" ? $foto : "img/p.webp" ?>" alt="">
+													<!-- ISI MODAL END HERE -->
 												</div>
-											</div>
-										</div>
-									</td>
-									<td>Instansi Tamu 2</td>
-									<td>Bidang Tujuan Tamu 2</td>
-									<td>Tujuan Tamu 2</td>
-								</tr>
-								<!-- TAMU 2 END -->
-								<!-- MODAL FOTO TAMU 2 -->
-								<div class="modal fade" id="fototamu2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Foto: NAMA TAMU 1</h5>
-												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">
-												<!-- ISI MODAL START HERE -->
-												<img class="modal-foto" src="./img/tamu2.jpg" alt="">
-												<!-- ISI MODAL END HERE -->
 											</div>
 										</div>
 									</div>
-								</div>
-								<!-- MODAL FOTO TAMU 2 -->
-								<!-- MODAL TAMU 2 -->
-								<div class="modal fade" id="tamu2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Detail Tamu 2</h5>
-											</div>
-											<div class="modal-body">
-												<!-- ISI MODAL START HERE -->
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">Nama</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="Nama Tamu">
-													</div>
+
+									<!-- MODAL DATA TAMU -->
+									<div class="modal fade" id="data_<?= $id_raw ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Detail: <?= $nama ?></h5>
 												</div>
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">NIK/NIP</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="98767654">
+												<div class="modal-body">
+													<!-- ISI MODAL START HERE -->
+													<div class="mb-3 row">
+														<label class="col-sm-4 col-form-label">Nama</label>
+														<div class="col-sm-8">
+															<input type="text" readonly class="form-control-plaintext" value="<?= $nama ?>">
+														</div>
 													</div>
-												</div>
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">Instansi</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="Pemkab Pinrang">
+													<div class="mb-3 row">
+														<label class="col-sm-4 col-form-label">NIK/NIP</label>
+														<div class="col-sm-8">
+															<input type="text" readonly class="form-control-plaintext" value="<?= $no_id ?>">
+														</div>
 													</div>
-												</div>
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">Sub Bidang Tujuan</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="Sub Bidang Tujuan">
+													<div class="mb-3 row">
+														<label class="col-sm-4 col-form-label">Instansi</label>
+														<div class="col-sm-8">
+															<input type="text" readonly class="form-control-plaintext" value="<?= $instansi_asal ?>">
+														</div>
 													</div>
-												</div>
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">Tujuan</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="Kunjungan Dinas">
+													<div class="mb-3 row">
+														<label class="col-sm-4 col-form-label">Sub Bidang Tujuan</label>
+														<div class="col-sm-8">
+															<input type="text" readonly class="form-control-plaintext" value="<?= $subbidang_tujuan ?>">
+														</div>
 													</div>
-												</div>
-												<div class="mb-3 row">
-													<label class="col-sm-4 col-form-label">Status</label>
-													<div class="col-sm-8">
-														<input type="text" readonly class="form-control-plaintext" value="Ditolak">
+													<div class="mb-3 row">
+														<label class="col-sm-4 col-form-label">Tujuan</label>
+														<div class="col-sm-8">
+															<input type="text" readonly class="form-control-plaintext" value="<?= $tujuan ?>">
+														</div>
 													</div>
+													<!-- <div class="mb-3 row">
+														<label class="col-sm-4 col-form-label">Status</label>
+														<div class="col-sm-8">
+															<input type="text" readonly class="form-control-plaintext" value="Diterima">
+														</div>
+													</div> -->
+													<!-- ISI MODAL END HERE -->
 												</div>
-												<!-- ISI MODAL END HERE -->
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<!-- MODAL TAMU 2 -->
+								<?php
+								}
+								?>
 
 							</tbody>
 						</table>
