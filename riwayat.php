@@ -53,6 +53,8 @@ $data = $_SESSION['data']['dataTamu'];
 									$id_raw = $value[0];
 									$id_enc = encrypt_decrypt("e", $id_raw);
 									$timestamp = $value[8];
+									$e = explode("_", $timestamp);
+									$timestamp2 = date("d/m/Y H:i",strtotime($e[0]."-".$e[1]."-".$e[2]." ".$e[3].":".$e[4]));
 									$nama = $value[1];
 									$no_id = $value[2];
 									$instansi_asal = $value[3];
@@ -62,11 +64,10 @@ $data = $_SESSION['data']['dataTamu'];
 									$tujuan = $value[7];
 									$user_piket = $value[9];
 									$foto = $value[10];
-									// $foto = "";
 								?>
 									<!-- DATA TAMU -->
 									<tr class="candidates-list">
-										<td><?= $timestamp ?></td>
+										<td><?= $timestamp2 ?></td>
 										<td class="title">
 											<div class="thumb">
 												<img class="img-fluid tunggu" src="<?= $foto != "" ? $foto : "img/p.webp" ?>" alt="" data-bs-toggle="modal" data-bs-target="#foto_<?= $id_raw ?>" title="Perbesar gambar">
