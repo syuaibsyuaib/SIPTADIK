@@ -760,7 +760,24 @@ $data = array_slice($data, $offset, $limit);
 
 							<!-- FOTO -->
 							<div class="tunggu" style="height: 310px; overflow: hidden;">
-								<img style="width: 100%; min-height: 310px; min-width: 310px;" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>">
+								<img style="cursor:pointer; width: 100%; min-height: 310px; min-width: 310px;" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>"  data-bs-toggle="modal" data-bs-target="#foto_<?= $value[0] ?>">
+							</div>
+
+							<!-- MODAL FOTO -->
+							<div class="modal fade" id="foto_<?= $value[0] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Foto: <?= $value[3] ?></h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<!-- ISI MODAL START HERE -->
+											<img class="modal-foto" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>" alt="">
+											<!-- ISI MODAL END HERE -->
+										</div>
+									</div>
+								</div>
 							</div>
 
 							<!-- CARD BODY -->

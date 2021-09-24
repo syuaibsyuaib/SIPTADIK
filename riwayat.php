@@ -6,17 +6,6 @@ $data = $_SESSION['data']['dataTamu'];
 // print_r($data);
 ?>
 
-<style>
-	.modal-foto {
-		display: block;
-		width: 100%;
-	}
-
-	.thumb img {
-		cursor: zoom-in;
-	}
-</style>
-
 <!-- ISI MULAI -->
 <div class="container">
 	<h2 class="my-4">Riwayat Tamu</h2>

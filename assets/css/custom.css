@@ -119,3 +119,13 @@
         background-color: rgba(165, 165, 165, 0.1);
     }
 }
+
+/* FOR RIWAYAT */
+.modal-foto {
+    display: block;
+    width: 100%;
+}
+
+.thumb img {
+    cursor: zoom-in;
+}
