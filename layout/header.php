@@ -86,7 +86,9 @@ $dataBidang = $_SESSION['data']['dataBidang'];
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
     <link href="assets/css/riwayat.css" rel="stylesheet">
-    <link href="assets/css/icons.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="" > -->
+    <link rel="stylesheet" href="assets/css/icons.css">
+    <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.js"></script>
     <title><?= $title ?? "Halaman" ?> | <?= JUDUL ?></title>
