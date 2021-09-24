@@ -55,9 +55,9 @@ if (isset($_POST['kirimTamu'])) {
 
     $res = kirim($dataTamu);
     if (!$res) {
-        return print('Terjadi kesalahan');
+        return print(json_decode($res));
     }else{
-        return sukses();
+        return 'Error';
     }
     
 }
