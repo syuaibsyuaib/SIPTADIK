@@ -33,79 +33,10 @@ $data = $_SESSION['data']['dataTamu'];
 							<div class="col-auto">
 								<button class="btn btn-success"><i class="bi bi-download"></i> Unduh CSV</button>
 							</div>
-							<!-- SEARCHBOX -->
-							<div class="col-auto">
-								<input class="form-control" style="width: 20%;min-width: 200px;" type="search" placeholder="Search" aria-label="Search">
-							</div>
-							<div class="col-auto">
-								<select class="form-select" aria-label="Default select example">
-									<option selected>-- Jumlah Baris --</option>
-									<option value="20">20</option>
-									<option value="50">50</option>
-									<option value="100">100</option>
-									<option value="500">500</option>
-								</select>
-							</div>
-							<div class="col-auto">
-								<button class="btn" data-bs-toggle="collapse" data-bs-target="#filter_cari" aria-expanded="false" aria-controls="filter_cari"><i class="bi bi-filter-square-fill" style="font-size: 1.5rem;color: #ababab"></i></button>
-								<!-- <button class="btn"><i class="bi bi-arrow-right-square" style="font-size: 1.5rem;color: #ababab"></i></button> -->
-								<!-- <button class="btn"><i class="bi bi-arrow-left-square" style="font-size: 1.5rem;color: #ababab"></i></button> -->
-							</div>
 						</div>
 
-						<!-- FILTER COLLAPSE -->
-						<div class="collapse mb-4" id="filter_cari">
-							<div class="card">
-								<div class="card-body">
-									<div class="col-lg-6 col-md-6 col-sm">
-										<!-- ISI START -->
-										<div class="mb-3 row">
-											<label class="col-sm-5 col-form-label">Rentang Waktu</label>
-											<div class="col-sm-7">
-												sss
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-5 col-form-label">Bidang Tujuan</label>
-											<div class="col-sm-7">
-												<select class="form-select" aria-label="Pilih Jabatna Tujuan">
-													<option value="" selected></option>
-													<option value="1">Jabatan One</option>
-													<option value="2">Jabatan Two</option>
-													<option value="3">Jabatan Three</option>
-												</select>
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-5 col-form-label">Sub-Bidang Tujuan</label>
-											<div class="col-sm-7">
-												<select class="form-select" aria-label="Pilih Jabatna Tujuan">
-													<option value="" selected></option>
-													<option value="1">Jabatan One</option>
-													<option value="2">Jabatan Two</option>
-													<option value="3">Jabatan Three</option>
-												</select>
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-5 col-form-label">Jabatan Tujuan</label>
-											<div class="col-sm-7">
-												<select class="form-select" aria-label="Pilih Jabatna Tujuan">
-													<option value="" selected></option>
-													<option value="1">Jabatan One</option>
-													<option value="2">Jabatan Two</option>
-													<option value="3">Jabatan Three</option>
-												</select>
-											</div>
-										</div>
-										<!-- ISI END -->
-									</div>
-									<button class="btn btn-primary">Saring</button>
-								</div>
-							</div>
-						</div>
-
-						<table class="table manage-candidates-top mb-0">
+						<!-- MAIN TABLE -->
+						<table class="table manage-candidates-top mb-0" id="table_id">
 							<thead>
 								<tr>
 									<th>Tanggal</th>
@@ -118,7 +49,6 @@ $data = $_SESSION['data']['dataTamu'];
 							<tbody>
 
 								<?php
-								echo "Hasilnya: " . $_SERVER['QUERY_STRING'];
 								foreach ($data as $value) {
 									$id_raw = $value[0];
 									$id_enc = encrypt_decrypt("e", $id_raw);
@@ -131,15 +61,15 @@ $data = $_SESSION['data']['dataTamu'];
 									$jabatan_tujuan = $value[6];
 									$tujuan = $value[7];
 									$user_piket = $value[9];
-									// $foto = $value[10];
-									$foto = "";
+									$foto = $value[10];
+									// $foto = "";
 								?>
 									<!-- DATA TAMU -->
 									<tr class="candidates-list">
 										<td><?= $timestamp ?></td>
 										<td class="title">
 											<div class="thumb">
-												<img class="img-fluid" src="<?= $foto != "" ? $foto : "img/p.webp" ?>" alt="" data-bs-toggle="modal" data-bs-target="#foto_<?= $id_raw ?>" title="Perbesar gambar">
+												<img class="img-fluid tunggu" src="<?= $foto != "" ? $foto : "img/p.webp" ?>" alt="" data-bs-toggle="modal" data-bs-target="#foto_<?= $id_raw ?>" title="Perbesar gambar">
 											</div>
 											<div class="candidate-list-details">
 												<div class="candidate-list-info">
@@ -244,28 +174,14 @@ $data = $_SESSION['data']['dataTamu'];
 		</div>
 	</div>
 
-	<!-- Pagination Mulai -->
-	<nav aria-label="Page navigation example">
-		<ul class="pagination justify-content-center">
-			<li class="page-item">
-				<a class="page-link" href="#" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item">
-				<a class="page-link" href="#" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
-	<!-- Pagination Selesai -->
-
 </div>
 <!-- ISI SELESAI -->
+
+<script>
+	$(document).ready(function() {
+		$('#table_id').DataTable();
+	});
+</script>
 
 <?php
 include("layout/footer.php");
