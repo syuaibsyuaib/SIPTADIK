@@ -22,7 +22,7 @@ if ($page > $total_pages) {
 $data = array_slice($data, $offset, $limit);
 // UNTUK PAGINATION END
 
-// print_r($data);
+// print_r($_SESSION['data']);
 ?>
 
 <!-- MODAL SLIDER -->
@@ -760,7 +760,7 @@ $data = array_slice($data, $offset, $limit);
 
 							<!-- FOTO -->
 							<div class="tunggu" style="height: 310px; overflow: hidden;">
-								<img style="width: 100%; min-height: 310px;" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>">
+								<img style="width: 100%; min-height: 310px; min-width: 310px;" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>">
 							</div>
 
 							<!-- CARD BODY -->
