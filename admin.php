@@ -22,7 +22,7 @@ if ($page > $total_pages) {
 $data = array_slice($data, $offset, $limit);
 // UNTUK PAGINATION END
 
-// print_r($_SESSION['data']);
+// print_r($dataBidang);
 ?>
 
 <!-- MODAL SLIDER -->
@@ -36,13 +36,7 @@ $data = array_slice($data, $offset, $limit);
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body">
 					<div class="px-3 text-center">
-						<!-- FORM UPLOAD GAMBAR -->
-						<!-- <div class="mb-3 row">
-							<form action="" method="post" enctype="multipart/form-data">
-								<input class="form-control" type="file" id="formFile" accept="image/*">
-								<input class="mt-3 btn btn-primary" type="submit" value="Simpan Gambar" name="submit">
-							</form>
-						</div> -->
+						
 						<!-- THUMBNAIL VIEWER -->
 						<div class="mb-1 row d-block text-center coba">
 							<div class="col-sm-2 d-inline-block rounded p-0">
@@ -63,22 +57,28 @@ $data = array_slice($data, $offset, $limit);
 						</div>
 						<div class="row d-block text-center">
 							<div class="col-sm-2 d-inline-block">
-								<button class="btn btn-primary btn-sm">Ganti</button>
+								<input class="form-control d-none" type="file" name="slider_1" id="slider_1" accept="image/*">
+								<label for="slider_1" class="btn btn-sm btn-primary">Ganti</label>
 							</div>
 							<div class="col-sm-2 d-inline-block">
-								<button class="btn btn-primary btn-sm">Ganti</button>
+								<input class="form-control d-none" type="file" name="slider_2" id="slider_2" accept="image/*">
+								<label for="slider_2" class="btn btn-sm btn-primary">Ganti</label>
 							</div>
 							<div class="col-sm-2 d-inline-block">
-								<button class="btn btn-primary btn-sm">Ganti</button>
+								<input class="form-control d-none" type="file" name="slider_3" id="slider_3" accept="image/*">
+								<label for="slider_3" class="btn btn-sm btn-primary">Ganti</label>
 							</div>
 							<div class="col-sm-2 d-inline-block">
-								<button class="btn btn-primary btn-sm">Ganti</button>
+								<input class="form-control d-none" type="file" name="slider_4" id="slider_4" accept="image/*">
+								<label for="slider_4" class="btn btn-sm btn-primary">Ganti</label>
 							</div>
 							<div class="col-sm-2 d-inline-block">
-								<button class="btn btn-primary btn-sm">Ganti</button>
+								<input class="form-control d-none" type="file" name="slider_5" id="slider_5" accept="image/*">
+								<label for="slider_5" class="btn btn-sm btn-primary">Ganti</label>
 							</div>
 						</div>
 						<i class="text-muted mt-3 d-block">Recommended image ratio: 1625 x 900 pixel (65:36)</i>
+						
 					</div>
 				</div>
 				<!-- ISI MODAL END HERE -->
@@ -248,156 +248,68 @@ $data = array_slice($data, $offset, $limit);
 <div class="modal fade" id="modal_bagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form class="m-0 p-0" method="POST" action="">
+			<form class="m-0 p-0" id="formTambahBagian">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Bagian</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">
-					<table class="table">
+					<table class="table td-vmiddle">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>Nama Bagian</th>
-								<th>Pilihan</th>
+								<th width="8%">#</th>
+								<th width="72%">Nama Bagian</th>
+								<th width="20%">Pilihan</th>
 							</tr>
 						</thead>
 						<tbody>
+
+							<?php
+							$num = 0;
+							foreach ($dataBidang as $value) {
+								if ($value[0] != "") {
+									$num++;
+							?>
+
+									<tr>
+										<th><?= $num ?></th>
+										<td>
+											<input id="bagian_<?= $value[0] ?>" name="bagian_<?= $value[0] ?>" type="text" class="form-control" required="" value="<?= $value[1] ?>" readonly="readonly">
+										</td>
+										<td>
+											<button class="btn btn-primary col-5" type="button" id="tombol_<?= $value[0] ?>"><i id="ikon_tombol_<?= $value[0] ?>" class="bi bi-pencil-square"></i></button>
+											<button class="btn btn-danger col-5"><i class="bi bi-trash"></i></button>
+										</td>
+									</tr>
+									<script>
+										$("#tombol_<?= $value[0] ?>").click(function() {
+											$('#bagian_<?= $value[0] ?>').attr('readonly', function(index, attr) {
+												return attr == 'readonly' ? null : 'readonly';
+											});
+											$('#ikon_tombol_<?= $value[0] ?>').attr('class', function(index, attr) {
+												return attr == 'bi bi-pencil-square' ? 'bi bi-check-lg' : 'bi bi-pencil-square';
+											});
+											$('#tombol_<?= $value[0] ?>').attr('class', function(index, attr) {
+												return attr == 'btn btn-primary col-5' ? 'btn btn-success col-5' : 'btn btn-primary col-5';
+											});
+										});
+									</script>
+
+							<?php
+								}
+							}
+							?>
+
 							<tr>
-								<th>1</th>
-								<td>Kepala Dinas</td>
+								<td>Tambah</td>
+								<td><input name="tambah_bagian" type="text" class="form-control" required></td>
 								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_1" aria-expanded="false" aria-controls="edit_bagian_1"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+									<button class="col-5 btn btn-success"><i class="bi bi-plus-lg"></i></button>
 								</td>
 							</tr>
-							<tr>
-								<td colspan="3" class="collapse" id="edit_bagian_1">
-									<div class="row">
-										<div class="col-sm-11">
-											<input name="bagian_1" type="text" class="form-control" required="" value="Kepala Dinas">
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>2</th>
-								<td>Pembinaan PKPLK Bahasa dan Sastra</td>
-								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_2" aria-expanded="false" aria-controls="edit_bagian_2"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="collapse" id="edit_bagian_2">
-									<div class="row">
-										<div class="col-sm-11">
-											<input name="bagian_6" type="text" class="form-control" required="" value="Pembinaan PKPLK Bahasa dan Sastra">
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>3</th>
-								<td>Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</td>
-								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_3" aria-expanded="false" aria-controls="edit_bagian_3"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="collapse" id="edit_bagian_3">
-									<div class="row">
-										<div class="col-sm-11">
-											<input name="bagian_5" type="text" class="form-control" required="" value="Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas">
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>4</th>
-								<td>Pembinaan SMA</td>
-								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_4" aria-expanded="false" aria-controls="edit_bagian_4"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="collapse" id="edit_bagian_4">
-									<div class="row">
-										<div class="col-sm-11">
-											<input name="bagian_3" type="text" class="form-control" required="" value="Pembinaan SMA">
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>5</th>
-								<td>Pembinaan SMK</td>
-								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_5" aria-expanded="false" aria-controls="edit_bagian_5"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="collapse" id="edit_bagian_5">
-									<div class="row">
-										<div class="col-sm-11">
-											<input name="bagian_4" type="text" class="form-control" required="" value="Pembinaan SMK">
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>6</th>
-								<td>Sekretariat</td>
-								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_6" aria-expanded="false" aria-controls="edit_bagian_6"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="collapse" id="edit_bagian_6">
-									<div class="row">
-										<div class="col-sm-11">
-											<input name="bagian_2" type="text" class="form-control" required="" value="Sekretariat">
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>7</th>
-								<td>UPT PTIKP</td>
-								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_bagian_7" aria-expanded="false" aria-controls="edit_bagian_7"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="collapse" id="edit_bagian_7">
-									<div class="row">
-										<div class="col-sm-11">
-											<input name="bagian_7" type="text" class="form-control" required="" value="UPT PTIKP">
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
+
 						</tbody>
 					</table>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">Tambah Bagian</label>
-						<div class="col-sm-8">
-							<input name="tambah_bagian" type="text" class="form-control" required>
-						</div>
-						<button class="col-sm-1 btn btn-success"><i class="bi bi-plus-lg"></i></button>
-					</div>
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
@@ -419,149 +331,96 @@ $data = array_slice($data, $offset, $limit);
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">
-					<table class="table">
+					<table class="table td-vmiddle">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>Nama Sub-Bagian</th>
-								<th>Bagian</th>
-								<th>Pilihan</th>
+								<th width="7%">#</th>
+								<th width="43%">Nama Sub-Bagian</th>
+								<th width="30%">Bagian</th>
+								<th width="20%">Pilihan</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th>1</th>
-								<td>Umum Kepegawaian dan Hukum</td>
-								<td>Sekretariat</td>
-								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_subbagian_1" aria-expanded="false" aria-controls="edit_subbagian_1"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4" class="collapse" id="edit_subbagian_1">
-									<div class="row">
-										<div class="col-sm-7">
-											<input name="subbagian_2" type="text" class="form-control" required="" value="Umum Kepegawaian dan Hukum">
-										</div>
-										<div class="col-sm-4">
-											<select class="form-select" name="edit_nama_bagian_2" required>
+
+							<?php
+							$num = 0;
+							foreach ($dataBidang as $value) {
+								if ($value[2] != '') {
+									$num++;
+									$id = $value[2];
+									$id_bidang = array_search_multi($dataBidang, 0, substr($value[2], 0, 2), false)[0][0];
+									$nama_bidang = array_search_multi($dataBidang, 0, substr($value[2], 0, 2), false)[0][1];
+							?>
+									<tr>
+										<th><?= $num ?></th>
+										<td>
+											<input id="subbagian_<?= $id ?>" name="subbagian_<?= $id ?>" type="text" class="form-control class_subbagian_<?= $id ?>" required="" value="<?= $value[3] ?>" readonly="readonly">
+										</td>
+										<td>
+											<select id="edit_nama_bagian_<?= $id ?>" class="form-select" name="edit_nama_bagian_<?= $id ?>" required disabled="disabled">
 												<option value="" selected="">== Pilih jenis bagian ==</option>
-												<option value="1">Kepala Dinas</option>
-												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
-												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
-												<option value="3">Pembinaan SMA</option>
-												<option value="4">Pembinaan SMK</option>
-												<option value="2" selected="">Sekretariat</option>
-												<option value="7">UPT PTIKP</option>
+												<?php
+												foreach ($dataBidang as $val) {
+													if ($val[0] != "") {
+												?>
+														<option value="<?= $val[0] ?>" <?= $val[0] == $id_bidang ? "selected" : "" ?>><?= $val[1] ?></option>
+												<?php
+													}
+												}
+												?>
 											</select>
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
+										</td>
+										<td>
+											<button class="btn btn-primary col-5" id="tombol_subbagian_<?= $id ?>" type="button" data-bs-toggle="collapse" data-bs-target="#edit_subbagian_1" aria-expanded="false" aria-controls="edit_subbagian_1"><i id="ikon_tombol_<?= $id ?>" class="bi bi-pencil-square"></i></button>
+											<button class="btn btn-danger col-5"><i class="bi bi-trash"></i></button>
+										</td>
+									</tr>
+									<script>
+										$("#tombol_subbagian_<?= $id ?>").click(function() {
+											$('#subbagian_<?= $id ?>').attr('readonly', function(index, attr) {
+												return attr == 'readonly' ? null : 'readonly';
+											});
+											$('#edit_nama_bagian_<?= $id ?>').attr('disabled', function(index, attr) {
+												return attr == 'disabled' ? null : 'disabled';
+											});
+											$('#ikon_tombol_<?= $id ?>').attr('class', function(index, attr) {
+												return attr == 'bi bi-pencil-square' ? 'bi bi-check-lg' : 'bi bi-pencil-square';
+											});
+											$('#tombol_subbagian_<?= $id ?>').attr('class', function(index, attr) {
+												return attr == 'btn btn-primary col-5' ? 'btn btn-success col-5' : 'btn btn-primary col-5';
+											});
+										});
+									</script>
+
+							<?php
+								}
+							}
+							?>
+
 							<tr>
-								<th>2</th>
-								<td>Keuangan</td>
-								<td>Sekretariat</td>
+								<td>Tambah</td>
+								<td><input name="tambah_subbagian" type="text" class="form-control" required></td>
 								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_subbagian_2" aria-expanded="false" aria-controls="edit_subbagian_2"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+									<select class="form-select" name="tambah_subbagian" required>
+										<option value="" selected="">== Pilih jenis bagian ==</option>
+										<?php
+										foreach ($dataBidang as $val) {
+											if ($val[0] != "") {
+										?>
+												<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
 								</td>
-							</tr>
-							<tr>
-								<td colspan="4" class="collapse" id="edit_subbagian_2">
-									<div class="row">
-										<div class="col-sm-7">
-											<input name="subbagian_2" type="text" class="form-control" required="" value="Keuangan">
-										</div>
-										<div class="col-sm-4">
-											<select class="form-select" name="edit_nama_bagian_2" required>
-												<option value="" selected="">== Pilih jenis bagian ==</option>
-												<option value="1">Kepala Dinas</option>
-												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
-												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
-												<option value="3">Pembinaan SMA</option>
-												<option value="4">Pembinaan SMK</option>
-												<option value="2" selected="">Sekretariat</option>
-												<option value="7">UPT PTIKP</option>
-											</select>
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>3</th>
-								<td>Program</td>
-								<td>Sekretariat</td>
 								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_subbagian_3" aria-expanded="false" aria-controls="edit_subbagian_3"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+									<button class="col-5 btn btn-success"><i class="bi bi-plus-lg"></i></button>
 								</td>
 							</tr>
-							<tr>
-								<td colspan="4" class="collapse" id="edit_subbagian_3">
-									<div class="row">
-										<div class="col-sm-7">
-											<input name="subbagian_2" type="text" class="form-control" required="" value="Program">
-										</div>
-										<div class="col-sm-4">
-											<select class="form-select" name="edit_nama_bagian_2" required>
-												<option value="" selected="">== Pilih jenis bagian ==</option>
-												<option value="1">Kepala Dinas</option>
-												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
-												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
-												<option value="3">Pembinaan SMA</option>
-												<option value="4">Pembinaan SMK</option>
-												<option value="2" selected="">Sekretariat</option>
-												<option value="7">UPT PTIKP</option>
-											</select>
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>4</th>
-								<td>Subbidang Pembinaan SMA</td>
-								<td>Pembinaan SMA</td>
-								<td>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#edit_subbagian_4" aria-expanded="false" aria-controls="edit_subbagian_4"><i class="bi bi-pencil-square"></i></button>
-									<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4" class="collapse" id="edit_subbagian_4">
-									<div class="row">
-										<div class="col-sm-7">
-											<input name="subbagian_3" type="text" class="form-control" required="" value="Subbidang Pembinaan SMA">
-										</div>
-										<div class="col-sm-4">
-											<select class="form-select" name="edit_nama_bagian_3" required>
-												<option value="" selected="">== Pilih jenis bagian ==</option>
-												<option value="1">Kepala Dinas</option>
-												<option value="6">Pembinaan PKPLK Bahasa dan Sastra</option>
-												<option value="5">Pembinaan PTK Fasilitasi Paud Dikdas Dikti dan Dikmas</option>
-												<option value="3" selected="">Pembinaan SMA</option>
-												<option value="4">Pembinaan SMK</option>
-												<option value="2">Sekretariat</option>
-												<option value="7">UPT PTIKP</option>
-											</select>
-										</div>
-										<button class="col-sm-1 btn btn-success"><i class="bi bi-check-lg"></i></button>
-									</div>
-								</td>
-							</tr>
+
 						</tbody>
 					</table>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">Tambah Bagian</label>
-						<div class="col-sm-8">
-							<input name="tambah_subbagian" type="text" class="form-control" required>
-						</div>
-						<button class="col-sm-1 btn btn-success"><i class="bi bi-plus-lg"></i></button>
-					</div>
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
@@ -760,7 +619,7 @@ $data = array_slice($data, $offset, $limit);
 
 							<!-- FOTO -->
 							<div class="tunggu" style="height: 310px; overflow: hidden;">
-								<img style="cursor:pointer; width: 100%; min-height: 310px; min-width: 310px;" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>"  data-bs-toggle="modal" data-bs-target="#foto_<?= $value[0] ?>">
+								<img style="cursor:pointer; width: 100%; min-height: 310px; min-width: 310px;" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>" data-bs-toggle="modal" data-bs-target="#foto_<?= $value[0] ?>">
 							</div>
 
 							<!-- MODAL FOTO -->
