@@ -281,6 +281,8 @@ $data = array_slice($data, $offset, $limit);
 											<button class="btn btn-danger col-5"><i class="bi bi-trash"></i></button>
 										</td>
 									</tr>
+
+									<!-- JQUERY PENGATUR INPUT -->
 									<script>
 										$("#tombol_<?= $value[0] ?>").click(function() {
 											$('#bagian_<?= $value[0] ?>').attr('readonly', function(index, attr) {
@@ -375,6 +377,8 @@ $data = array_slice($data, $offset, $limit);
 											<button class="btn btn-danger col-5"><i class="bi bi-trash"></i></button>
 										</td>
 									</tr>
+
+									<!-- JQUERY PENGATUR INPUT -->
 									<script>
 										$("#tombol_subbagian_<?= $id ?>").click(function() {
 											$('#subbagian_<?= $id ?>').attr('readonly', function(index, attr) {
@@ -471,6 +475,8 @@ $data = array_slice($data, $offset, $limit);
 											<button class="btn btn-danger col-5"><i class="bi bi-trash"></i></button>
 										</td>
 									</tr>
+
+									<!-- JQUERY PENGATUR INPUT -->
 									<script>
 										$("#tombol_j_<?= $id_j ?>").click(function() {
 											$('#jabatan_<?= $id_j ?>').attr('readonly', function(index, attr) {
