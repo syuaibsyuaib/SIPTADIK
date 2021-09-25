@@ -80,6 +80,10 @@
     overflow: hidden;
 }
 
+.td-vmiddle td, .td-vmiddle th {
+    vertical-align: middle;
+  }
+
 /* FOR NAVBAR */
 .navbar-nav a {
     cursor: pointer;
