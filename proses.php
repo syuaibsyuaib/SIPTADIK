@@ -59,7 +59,6 @@ if (isset($_POST['kirimTamu'])) {
     }else{
         return 'Error';
     }
-    
 }
 
 //dari admin tambah pengguna
@@ -75,7 +74,7 @@ if (isset($_POST['tambahUser'])) {
     $nohp = $_POST['nohp'];
     $alamat = $_POST['alamat'];
 
-    $dataUser = array("dataTambah" => array("tambah user",  $password, $username, $bidang, $subbidang, $jabatan, $nama, $nip, $nohp, $alamat), "foto" => array($foto));
+    $dataUser = array("type" => "tambahUser", "dataTambah" => array($username, $password, $bidang, $subbidang, $jabatan, $nama, $nip, $nohp, $alamat), "foto" => array($foto));
 
     $res = kirim($dataUser);
 
@@ -86,7 +85,6 @@ if (isset($_POST['tambahUser'])) {
     $_SESSION['data'] = $res;
     
     return print(json_encode($res));
-    
 }
 
 function sukses()
@@ -124,6 +122,6 @@ function kirim($dataArr)
     $resp = curl_exec($curl);
     $hasil = json_decode($resp, true);
     curl_close($curl);
-    
+    // var_dump($hasil);
     return $hasil;
 }

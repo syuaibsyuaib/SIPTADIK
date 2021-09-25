@@ -65,6 +65,9 @@ if (isset($_GET['logout'])) {
 			<p class="mt-5 mb-3 text-muted">&copy; SIPTADIK</p>
 		</form>
 	</main>
+	<script>
+		localStorage.clear()
+	</script>
 </body>
 
 </html>
