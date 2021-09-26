@@ -142,7 +142,7 @@ $data = array_slice($data, $offset, $limit);
 					<div class="mb-3 row">
 						<label class="col-sm-3 col-form-label">Bidang</label>
 						<div class="col-sm-9">
-							<select id="bidang" class="form-select" name="edit_nama_bagian_pengguna">
+							<select id="bid" class="form-select" name="edit_nama_bagian_pengguna" required>
 								<option value="" selected></option>
 								<?php foreach ($dataBidang as $val) { ?>
 									<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
@@ -153,7 +153,7 @@ $data = array_slice($data, $offset, $limit);
 					<div class="mb-3 row">
 						<label class="col-sm-3 col-form-label">Sub-Bidang</label>
 						<div class="col-sm-9">
-							<select id="subbidang" class="form-select" name="edit_nama_subbagian_pengguna" disabled>
+							<select id="subbid" class="form-select" name="edit_nama_subbagian_pengguna" disabled>
 								<option value="" selected></option>
 								<?php
 								foreach ($dataBidang as $val) {
@@ -171,15 +171,9 @@ $data = array_slice($data, $offset, $limit);
 					<div class="mb-3 row">
 						<label class="col-sm-3 col-form-label">Jabatan</label>
 						<div class="col-sm-9">
-							<select id="jabatan" class="form-select" name="edit_nama_jabatan_pengguna" required>
+							<select id="jabat" class="form-select" name="edit_nama_jabatan_pengguna" disabled required>
 								<option value="" selected></option>
-								<?php
-								foreach ($dataBidang as $val) {
-								?>
-									<option value="<?= $val[4] ?>"><?= $val[5] ?></option>
-								<?php
-								}
-								?>
+								<option value="jp">PENGELOLA</option>
 							</select>
 						</div>
 					</div>
@@ -632,7 +626,37 @@ $data = array_slice($data, $offset, $limit);
 
 <script>
 	let modalTambahPengguna = new bootstrap.Modal(document.getElementById('modal_tambah_pengguna'));
+	$('#bid').on('change', function(e) {
+		switch ($('#bid').prop('selectedIndex')) {
+			case 0:
+				$('#subbid, #jabat').prop('selectedIndex', 0);
+				$('#subbid, #jabat').prop('disabled', true);
+				break;
+			case 1:
+				$('#subbid').prop('disabled', false);
+				$('#jabat').prop('disabled', true);
+				$('#subbid, #jabat').prop('selectedIndex', 0);
+				break;
+			default:
+				$('#subbid').prop('disabled', true);
+				$('#jabat').prop('disabled', false);
+				$('#subbid, #jabat').prop('selectedIndex', 0);
+				break;
+		}
+	})
 
+	$('#subbid').on('change', function(e) {
+		switch ($('#subbid').prop('selectedIndex')) {
+			case 0:
+				$('#jabat').prop('disabled', true);
+				$('#jabat').prop('selectedIndex', 0);
+				break;
+			default:
+				$('#jabat').prop('disabled', false);
+				$('#jabat').prop('selectedIndex', 0);
+				break;
+		}
+	})
 	// TAMBAH PENGGUNA
 	$('#formTambahUser').submit(function(e) {
 		let foto, valArr = [];
@@ -660,7 +684,7 @@ $data = array_slice($data, $offset, $limit);
 				}
 			})
 		}
-		reader.readAsArrayBuffer($('input')[6].files[0]);
+		reader.readAsArrayBuffer($(`#modal_tambah_pengguna input`)[2].files[0]);
 		e.preventDefault()
 	});
 
