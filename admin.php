@@ -536,7 +536,7 @@ $data = array_slice($data, $offset, $limit);
 
 							<!-- FOTO -->
 							<div class="tunggu" style="height: 310px; overflow: hidden;">
-								<img style="cursor:pointer; width: 100%; min-height: 310px; min-width: 310px;" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>" data-bs-toggle="modal" data-bs-target="#foto_<?= $value[0] ?>">
+								<img style="cursor:zoom-in; width: 100%; min-height: 310px; min-width: 310px;" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>" data-bs-toggle="modal" data-bs-target="#foto_<?= $value[0] ?>">
 							</div>
 
 							<!-- MODAL FOTO -->
