@@ -23,6 +23,7 @@
 	    }
 	}
 
+
 	bidang.addEventListener('change', function(isi) {
 	    let value = isi.target.options[bidang.selectedIndex].value;
 	    subbidang.disabled = true;
