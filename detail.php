@@ -28,7 +28,7 @@ if (isset($_POST['ubah_foto'])) {
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
 								<div class="detail-content-loader tunggu rounded-circle">
-									<img src="<?= $data[0][7] != "" ? $data[0][7] : "img/p.webp" ?>" alt="Admin" class="rounded-circle" width="150">
+									<img src="<?= $data[0][7] != "" ? $data[0][7] : "img/p.webp" ?>" alt="Admin" class="rounded-circle" width="150" style="min-height: 150px;min-width: 150px">
 								</div>
 								<div class="mt-3">
 									<h4><?= $data[0][3] ?></h4>
