@@ -22,7 +22,7 @@ if ($page > $total_pages) {
 $data = array_slice($data, $offset, $limit);
 // UNTUK PAGINATION END
 
-// print_r($dataBidang);
+// print_r($_SESSION['data']);
 ?>
 
 <!-- MODAL SLIDER -->
@@ -251,9 +251,9 @@ $data = array_slice($data, $offset, $limit);
 					<table class="table td-vmiddle">
 						<thead>
 							<tr>
-								<th width="8%">#</th>
-								<th width="72%">Nama Bagian</th>
-								<th width="20%">Pilihan</th>
+								<th width="10%">#</th>
+								<th width="70%">Nama Bagian</th>
+								<th width="30%">Pilihan</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -271,22 +271,24 @@ $data = array_slice($data, $offset, $limit);
 											<input id="bagian_<?= $value[0] ?>" name="bagian_<?= $value[0] ?>" type="text" class="form-control" required="" value="<?= $value[1] ?>" readonly="readonly">
 										</td>
 										<td>
-											<button class="btn btn-primary col-5" type="button" id="tombol_<?= $value[0] ?>"><i id="ikon_tombol_<?= $value[0] ?>" class="bi bi-pencil-square"></i></button>
-											<button class="btn btn-danger col-5"><i class="bi bi-trash"></i></button>
+											<button class="btn btn-primary" type="button" id="tombol_e_<?= $value[0] ?>">
+												<i id="ikon_tombol_e_<?= $value[0] ?>" class="bi bi-pencil-square"></i>
+											</button>
+											<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
 										</td>
 									</tr>
 
 									<!-- JQUERY PENGATUR INPUT -->
 									<script>
-										$("#tombol_<?= $value[0] ?>").click(function() {
+										$("#tombol_e_<?= $value[0] ?>").click(function() {
 											$('#bagian_<?= $value[0] ?>').attr('readonly', function(index, attr) {
 												return attr == 'readonly' ? null : 'readonly';
 											});
-											$('#ikon_tombol_<?= $value[0] ?>').attr('class', function(index, attr) {
+											$('#ikon_tombol_e_<?= $value[0] ?>').attr('class', function(index, attr) {
 												return attr == 'bi bi-pencil-square' ? 'bi bi-check-lg' : 'bi bi-pencil-square';
 											});
-											$('#tombol_<?= $value[0] ?>').attr('class', function(index, attr) {
-												return attr == 'btn btn-primary col-5' ? 'btn btn-success col-5' : 'btn btn-primary col-5';
+											$('#tombol_e_<?= $value[0] ?>').attr('class', function(index, attr) {
+												return attr == 'btn btn-primary' ? 'btn btn-success' : 'btn btn-primary';
 											});
 										});
 									</script>
@@ -331,9 +333,9 @@ $data = array_slice($data, $offset, $limit);
 						<thead>
 							<tr>
 								<th width="7%">#</th>
-								<th width="43%">Nama Sub-Bagian</th>
+								<th width="40%">Nama Sub-Bagian</th>
 								<th width="30%">Bagian</th>
-								<th width="20%">Pilihan</th>
+								<th width="23%">Pilihan</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -345,7 +347,6 @@ $data = array_slice($data, $offset, $limit);
 									$num++;
 									$id = $value[2];
 									$id_bidang = array_search_multi($dataBidang, 0, substr($value[2], 0, 2), false)[0][0];
-									$nama_bidang = array_search_multi($dataBidang, 0, substr($value[2], 0, 2), false)[0][1];
 							?>
 									<tr>
 										<th><?= $num ?></th>
@@ -367,25 +368,27 @@ $data = array_slice($data, $offset, $limit);
 											</select>
 										</td>
 										<td>
-											<button class="btn btn-primary col-5" id="tombol_subbagian_<?= $id ?>" type="button" data-bs-toggle="collapse" data-bs-target="#edit_subbagian_1" aria-expanded="false" aria-controls="edit_subbagian_1"><i id="ikon_tombol_<?= $id ?>" class="bi bi-pencil-square"></i></button>
-											<button class="btn btn-danger col-5"><i class="bi bi-trash"></i></button>
+											<button class="btn btn-primary" id="btn_e_subbagian_<?= $id ?>" type="button">
+												<i id="btn_i_subbagian_<?= $id ?>" class="bi bi-pencil-square"></i>
+											</button>
+											<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
 										</td>
 									</tr>
 
 									<!-- JQUERY PENGATUR INPUT -->
 									<script>
-										$("#tombol_subbagian_<?= $id ?>").click(function() {
+										$("#btn_e_subbagian_<?= $id ?>").click(function() {
 											$('#subbagian_<?= $id ?>').attr('readonly', function(index, attr) {
 												return attr == 'readonly' ? null : 'readonly';
 											});
 											$('#edit_nama_bagian_<?= $id ?>').attr('disabled', function(index, attr) {
 												return attr == 'disabled' ? null : 'disabled';
 											});
-											$('#ikon_tombol_<?= $id ?>').attr('class', function(index, attr) {
+											$('#btn_i_subbagian_<?= $id ?>').attr('class', function(index, attr) {
 												return attr == 'bi bi-pencil-square' ? 'bi bi-check-lg' : 'bi bi-pencil-square';
 											});
-											$('#tombol_subbagian_<?= $id ?>').attr('class', function(index, attr) {
-												return attr == 'btn btn-primary col-5' ? 'btn btn-success col-5' : 'btn btn-primary col-5';
+											$('#btn_e_subbagian_<?= $id ?>').attr('class', function(index, attr) {
+												return attr == 'btn btn-primary' ? 'btn btn-success' : 'btn btn-primary';
 											});
 										});
 									</script>
@@ -453,7 +456,7 @@ $data = array_slice($data, $offset, $limit);
 							<?php
 							$num = 0;
 							foreach ($dataBidang as $value) {
-								if ($value[4] != '') {
+								if ($value[4] != '' && $value[4] != 'kd' && $value[4] != 'sd') {
 									$num++;
 									$id_j = $value[4];
 									$nama_j = $value[5];
@@ -626,37 +629,7 @@ $data = array_slice($data, $offset, $limit);
 
 <script>
 	let modalTambahPengguna = new bootstrap.Modal(document.getElementById('modal_tambah_pengguna'));
-	$('#bid').on('change', function(e) {
-		switch ($('#bid').prop('selectedIndex')) {
-			case 0:
-				$('#subbid, #jabat').prop('selectedIndex', 0);
-				$('#subbid, #jabat').prop('disabled', true);
-				break;
-			case 1:
-				$('#subbid').prop('disabled', false);
-				$('#jabat').prop('disabled', true);
-				$('#subbid, #jabat').prop('selectedIndex', 0);
-				break;
-			default:
-				$('#subbid').prop('disabled', true);
-				$('#jabat').prop('disabled', false);
-				$('#subbid, #jabat').prop('selectedIndex', 0);
-				break;
-		}
-	})
 
-	$('#subbid').on('change', function(e) {
-		switch ($('#subbid').prop('selectedIndex')) {
-			case 0:
-				$('#jabat').prop('disabled', true);
-				$('#jabat').prop('selectedIndex', 0);
-				break;
-			default:
-				$('#jabat').prop('disabled', false);
-				$('#jabat').prop('selectedIndex', 0);
-				break;
-		}
-	})
 	// TAMBAH PENGGUNA
 	$('#formTambahUser').submit(function(e) {
 		let foto, valArr = [];
@@ -685,6 +658,12 @@ $data = array_slice($data, $offset, $limit);
 			})
 		}
 		reader.readAsArrayBuffer($(`#modal_tambah_pengguna input`)[2].files[0]);
+		e.preventDefault()
+	});
+
+	// TAMBAH BAGIAN
+	$('#formTambahBagian').submit(function(e) {
+		//
 		e.preventDefault()
 	});
 
