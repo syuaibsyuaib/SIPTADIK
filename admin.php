@@ -98,12 +98,110 @@ $data = array_slice($data, $offset, $limit);
 		<div class="modal-content">
 			<form class="m-0 p-0" id="formTambahUser">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Tambah Pejabat</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-person-plus-fill"></i> Tambah Pejabat</h5>
 				</div>
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
-					<div class="px-4">
-						<div class="mb-3 row">
+					<div class="row px-4">
+
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="pengguna_pjb"><i>Username</i></label>
+								<input name="pengguna_pjb" id="pengguna_pjb" type="text" class="form-control" placeholder="Nama pengguna" required>
+								<div class="mt-1">
+									<small class="text-danger"><i>Hanya huruf kecil dan angka, diawali dengan huruf</i></small>
+								</div>
+							</div>
+						</div>
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="pass_pjb_1"><i>Password</i></label>
+								<input name="pass_pjb_1" id="pass_pjb_1" type="password" class="form-control pass" placeholder="Kata Sandi" required>
+								<div class="mt-1">
+									<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="nama_pjb">Nama Lengkap</label>
+								<input name="nama_pjb" id="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap" required>
+							</div>
+						</div>
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="nip_pjb">NIP / NIK</label>
+								<input name="nip_pjb" id="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK" required>
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="foto_pjb">Foto Profil</label>
+								<input name="foto_pjb" id="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
+								<div class="mt-1">
+									<small class="text-danger">
+										<i>Disarankan rasio 1:1 (persegi)</i>
+									</small>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="mb-1" for="hp_pjb">Nomor HP</label>
+								<input name="hp_pjb" id="hp_pjb" type="text" class="form-control" placeholder="Nomor Handphone" required>
+							</div>
+						</div>
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="mb-1" for="alamat_pjb">Alamat</label>
+								<input name="alamat_pjb" id="alamat_pjb" type="text" class="form-control" placeholder="Alamat Lengkap" required>
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="bid">Bagian</label>
+								<select id="bid" class="form-select" name="edit_nama_bagian_pengguna" required>
+									<option value="" selected></option>
+									<?php foreach ($dataBidang as $val) { ?>
+										<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="subbid">Sub-Bagian</label>
+								<select id="subbid" class="form-select" name="edit_nama_subbagian_pengguna" disabled>
+									<option value="" selected></option>
+									<?php
+									foreach ($dataBidang as $val) {
+										if ($val[3] == "") {
+											continue;
+										}
+									?>
+										<option value="<?= $val[2] ?>"><?= $val[3] ?></option>
+									<?php
+									}
+									?>
+								</select>
+							</div>
+						</div>
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="jabat">Jabatan</label>
+								<select id="jabat" class="form-select" name="edit_nama_jabatan_pengguna" disabled required>
+									<option value="" selected></option>
+									<option value="jp">PENGELOLA</option>
+									<option value="jb">BENDAHARA</option>
+								</select>
+							</div>
+						</div>
+
+						<!-- <div class="mb-3 row">
 							<label class="col-sm-3 col-form-label"><i>Username &amp; Password</i></label>
 							<div class="col">
 								<input name="pengguna_pjb" type="text" class="form-control" placeholder="Nama pengguna" required>
@@ -117,7 +215,8 @@ $data = array_slice($data, $offset, $limit);
 									<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
 								</div>
 							</div>
-						</div>
+						</div> -->
+
 						<!-- <div class="mb-3 row">
 							<label class="col-sm-3 col-form-label"><i>Username</i></label>
 							<div class="col-sm-9">
@@ -133,7 +232,8 @@ $data = array_slice($data, $offset, $limit);
 								</div>
 							</div>
 						</div> -->
-						<div class="mb-3 row">
+
+						<!-- <div class="mb-3 row">
 							<label class="col-3 col-form-label">Foto Profil</label>
 							<div class="col-9">
 								<input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
@@ -143,8 +243,8 @@ $data = array_slice($data, $offset, $limit);
 									</small>
 								</div>
 							</div>
-						</div>
-						<div class="mb-3 row">
+						</div> -->
+						<!-- <div class="mb-3 row">
 							<label class="col-3 col-form-label">Nama &amp; NIP/NIK</label>
 							<div class="col">
 								<input name="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap" required>
@@ -152,14 +252,14 @@ $data = array_slice($data, $offset, $limit);
 							<div class="col">
 								<input name="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK" required>
 							</div>
-						</div>
+						</div> -->
 						<!-- <div class="mb-3 row">
 							<label class="col-3 col-form-label">NIP</label>
 							<div class="col-9">
 								<input name="nip_pjb" type="text" class="form-control" required>
 							</div>
 						</div> -->
-						<div class="mb-3 row">
+						<!-- <div class="mb-3 row">
 							<label class="col-3 col-form-label">Bidang</label>
 							<div class="col-9">
 								<select id="bid" class="form-select" name="edit_nama_bagian_pengguna" required>
@@ -169,8 +269,8 @@ $data = array_slice($data, $offset, $limit);
 									<?php } ?>
 								</select>
 							</div>
-						</div>
-						<div class="mb-3 row">
+						</div> -->
+						<!-- <div class="mb-3 row">
 							<label class="col-3 col-form-label">Sub-Bidang</label>
 							<div class="col-9">
 								<select id="subbid" class="form-select" name="edit_nama_subbagian_pengguna" disabled>
@@ -187,8 +287,8 @@ $data = array_slice($data, $offset, $limit);
 									?>
 								</select>
 							</div>
-						</div>
-						<div class="mb-3 row">
+						</div> -->
+						<!-- <div class="mb-3 row">
 							<label class="col-3 col-form-label">Jabatan</label>
 							<div class="col-9">
 								<select id="jabat" class="form-select" name="edit_nama_jabatan_pengguna" disabled required>
@@ -196,8 +296,8 @@ $data = array_slice($data, $offset, $limit);
 									<option value="jp">PENGELOLA</option>
 								</select>
 							</div>
-						</div>
-						<div class="mb-3 row">
+						</div> -->
+						<!-- <div class="mb-3 row">
 							<label class="col-3 col-form-label">No. HP</label>
 							<div class="col-9">
 								<input name="hp_pjb" type="text" class="form-control" placeholder="Nomor Handphone" required>
@@ -208,7 +308,7 @@ $data = array_slice($data, $offset, $limit);
 							<div class="col-9">
 								<input name="alamat_pjb" type="text" class="form-control" placeholder="Alamat Lengkap" required>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<!-- ISI MODAL END HERE -->
 				</div>
@@ -227,7 +327,7 @@ $data = array_slice($data, $offset, $limit);
 		<div class="modal-content">
 			<form class="m-0 p-0" id="formTambahPiket">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Tambah Piket</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-person-plus-fill"></i> Tambah Piket</h5>
 				</div>
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
@@ -318,7 +418,7 @@ $data = array_slice($data, $offset, $limit);
 		<div class="modal-content">
 			<form class="m-0 p-0" id="formTambahBagian">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Bagian</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools"></i> Pengaturan Bagian</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">
@@ -399,7 +499,7 @@ $data = array_slice($data, $offset, $limit);
 		<div class="modal-content">
 			<form class="m-0 p-0" method="POST" action="">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Sub-Bagian</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools"></i> Pengaturan Sub-Bagian</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">
@@ -513,7 +613,7 @@ $data = array_slice($data, $offset, $limit);
 		<div class="modal-content">
 			<form class="m-0 p-0" method="POST" action="">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Jabatan</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools"></i> Pengaturan Jabatan</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">

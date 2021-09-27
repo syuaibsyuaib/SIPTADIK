@@ -126,8 +126,8 @@ $dataBidang = $_SESSION['data']['dataBidang'];
                                 Tambah
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_tambah_piket">Piket</a></li>
                                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_tambah_pengguna">Pejabat</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_tambah_piket">Piket</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -221,7 +221,6 @@ $dataBidang = $_SESSION['data']['dataBidang'];
                                         <div class="col-sm-12 mb-3">
                                             <button type="submit" name="kontak_kirim" class="btn btn-primary">Kirim</button>
                                         </div>
-
                                     </div>
                                 </form>
                             </div>
