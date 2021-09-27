@@ -1,6 +1,16 @@
-<?php
-// date_default_timezone_set("Asia/Makassar");
-setlocale(LC_ALL, 'id_ID');
-// setlocale(LC_ALL, 'da_DA');
-echo date("d/m/Y h:i", strtotime("20-01-2021 15:20"));
-?>
+<html>
+
+<head>
+    <title>SSS</title>
+</head>
+
+<body>
+    <script>
+        var jvalue = 'VARIABEL JS INI';
+        <?php $abc = "<script>document.write(jvalue)</script>" ?>
+    </script>
+
+    
+</body>
+
+</html>
