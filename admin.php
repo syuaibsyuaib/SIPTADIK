@@ -23,7 +23,7 @@ if ($page > $total_pages) {
 $data = array_slice($data, $offset, $limit);
 // UNTUK PAGINATION END
 
-print_r($_SESSION['data']['dataUser']);
+// print_r($_SESSION['data']['dataUser']);
 ?>
 
 <!-- MODAL SLIDER -->
@@ -134,7 +134,7 @@ print_r($_SESSION['data']['dataUser']);
 							</div>
 						</div> -->
 						<div class="mb-3 row">
-							<label class="col-3 col-form-label">Foto</label>
+							<label class="col-3 col-form-label">Foto Profil</label>
 							<div class="col-9">
 								<input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
 								<div class="mt-1">
