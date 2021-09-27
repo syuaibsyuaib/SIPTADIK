@@ -89,6 +89,12 @@ if (isset($_POST['ubahPejabat'])) {
     return print(json_encode($resUbahPejabat));
 }
 
+// HAPUS
+if(isset($_POST['hapus'])){
+    $hapus = array("type" => "hapusUser", "usernameHapus" => $_POST['hapus']);
+    kirim($hapus);
+}
+
 function kirim($dataArr){
     $url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
 

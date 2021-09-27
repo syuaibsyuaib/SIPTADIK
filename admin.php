@@ -739,13 +739,14 @@ $data = array_slice($data, $offset, $limit);
 							<div class="card-body">
 								<!-- JABATAN -->
 								<p class="card-text">
-									<!-- <?= $value[2] ?> -->
+									<?= $value[2] ?>
 								</p>
 								<!-- TOMBOL -->
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<a href="detail.php?id=<?= $id ?>" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
-										<a href="#" type="button" class="btn btn-sm btn-outline-danger" onclick="return tanya_hapus()">Hapus</a>
+										<a class="d-none" href="detail.php?id=<?= $value[0] ?>"></a>
+										<a href="#" type="button" class="btn btn-sm btn-outline-danger hapus">Hapus</a>
 									</div>
 									<!-- <small class="text-muted">Status keberadaan</small> -->
 								</div>
@@ -822,6 +823,7 @@ $data = array_slice($data, $offset, $limit);
 
 			let dataQuery = new URLSearchParams(new FormData($('#formTambahPejabat')[0]));
 			dataQuery.set('foto', foto);
+			dataQuery.append('tambahPejabat', '');
 
 			console.log(dataQuery)
 
@@ -844,6 +846,17 @@ $data = array_slice($data, $offset, $limit);
 		reader.readAsArrayBuffer($(`#modalTambahPejabat input`)[2].files[0]);
 		e.preventDefault()
 	});
+
+	// HAPUS PEJABAT/USER
+	$('.hapus').click(function() {
+		let hre = new URLSearchParams(new URL($(this).prev().prop('href')).search);
+		let id_del = `hapus=${hre.get('id')}`
+		// document.cookie = `hapus=${hre.get('id')}`
+		
+		// alert(id_del)
+		
+		tanya_simpan('Hapus Pengguna', 'Yakin akan menghapus user ini?', id_del)
+	})
 
 	// TAMBAH BAGIAN
 	$('#formTambahBagian').submit(function(e) {
