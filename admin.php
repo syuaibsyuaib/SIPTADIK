@@ -809,8 +809,8 @@ $data = array_slice($data, $offset, $limit);
 <script>
 	let modalTambahPengguna = new bootstrap.Modal(document.getElementById('modalTambahPejabat'));
 
-	// TAMBAH PENGGUNA
-	$('#formTambahUser').submit(function(e) {
+	// TAMBAH PEJABAT
+	$('#formTambahPejabat').submit(function(e) {
 		let foto, valArr = [];
 		$(`#modalTambahPejabat input,#modalTambahPejabat select`).filter((ind, el) => {
 			valArr.push(el.value);
