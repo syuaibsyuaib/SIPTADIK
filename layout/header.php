@@ -128,12 +128,6 @@ $dataBidang = $_SESSION['data']['dataBidang'];
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_tambah_piket">Piket</a></li>
                                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_tambah_pengguna">Pejabat</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_bagian_edit">Bagian</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_subbagian_edit">Sub-Bagian</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_jabatan_edit">Jabatan</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -142,6 +136,12 @@ $dataBidang = $_SESSION['data']['dataBidang'];
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#slider_edit">Slider</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_bagian_edit">Bagian</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_subbagian_edit">Sub-Bagian</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_jabatan_edit">Jabatan</a></li>
                                 <!-- <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#jabatan_edit">Bagian/Sub-bagian/Jabatan</a></li> -->
                             </ul>
                         </li>
