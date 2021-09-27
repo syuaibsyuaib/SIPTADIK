@@ -4,6 +4,7 @@ include("layout/header.php");
 $_SESSION['role'] != 1 ? pindahko("/") : "";
 $data = $_SESSION['data']['dataPjb'];
 $dataBidang = $_SESSION['data']['dataBidang'];
+$dataUser = $_SESSION['data']['dataUser'];
 
 // UNTUK PAGINATION START
 $page = $_GET['p'] ?? 1;
@@ -22,7 +23,7 @@ if ($page > $total_pages) {
 $data = array_slice($data, $offset, $limit);
 // UNTUK PAGINATION END
 
-// print_r($_SESSION['data']);
+print_r($_SESSION['data']['dataUser']);
 ?>
 
 <!-- MODAL SLIDER -->
@@ -101,92 +102,112 @@ $data = array_slice($data, $offset, $limit);
 				</div>
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label"><i>Username</i></label>
-						<div class="col-sm-9">
-							<input name="pengguna_pjb" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label"><i>Password</i></label>
-						<div class="col-sm-9">
-							<input name="pass_pjb_1" type="password" class="form-control pass" required>
-							<div class="mt-1">
-								<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
+					<div class="px-4">
+						<div class="mb-3 row">
+							<label class="col-sm-3 col-form-label"><i>Username &amp; Password</i></label>
+							<div class="col">
+								<input name="pengguna_pjb" type="text" class="form-control" placeholder="Nama pengguna" required>
+								<div class="mt-1">
+									<small class="text-danger"><i>Hanya huruf kecil dan angka, diawali dengan huruf</i></small>
+								</div>
+							</div>
+							<div class="col">
+								<input name="pass_pjb_1" type="password" class="form-control pass" placeholder="Kata Sandi" required>
+								<div class="mt-1">
+									<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">Foto</label>
-						<div class="col-sm-9">
-							<input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
-							<div class="mt-1">
-								<small class="text-danger">
-									<i>Disarankan rasio 1:1 (persegi)</i>
-								</small>
+						<!-- <div class="mb-3 row">
+							<label class="col-sm-3 col-form-label"><i>Username</i></label>
+							<div class="col-sm-9">
+								<input name="pengguna_pjb" type="text" class="form-control" required>
 							</div>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">Nama</label>
-						<div class="col-sm-9">
-							<input name="nama_pjb" type="text" class="form-control" required>
+						<div class="mb-3 row">
+							<label class="col-sm-3 col-form-label"><i>Password</i></label>
+							<div class="col-sm-9">
+								<input name="pass_pjb_1" type="password" class="form-control pass" required>
+								<div class="mt-1">
+									<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
+								</div>
+							</div>
+						</div> -->
+						<div class="mb-3 row">
+							<label class="col-3 col-form-label">Foto</label>
+							<div class="col-9">
+								<input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
+								<div class="mt-1">
+									<small class="text-danger">
+										<i>Disarankan rasio 1:1 (persegi)</i>
+									</small>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">NIP</label>
-						<div class="col-sm-9">
-							<input name="nip_pjb" type="text" class="form-control" required>
+						<div class="mb-3 row">
+							<label class="col-3 col-form-label">Nama &amp; NIP/NIK</label>
+							<div class="col">
+								<input name="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap" required>
+							</div>
+							<div class="col">
+								<input name="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK" required>
+							</div>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">Bidang</label>
-						<div class="col-sm-9">
-							<select id="bid" class="form-select" name="edit_nama_bagian_pengguna" required>
-								<option value="" selected></option>
-								<?php foreach ($dataBidang as $val) { ?>
-									<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
-								<?php } ?>
-							</select>
+						<!-- <div class="mb-3 row">
+							<label class="col-3 col-form-label">NIP</label>
+							<div class="col-9">
+								<input name="nip_pjb" type="text" class="form-control" required>
+							</div>
+						</div> -->
+						<div class="mb-3 row">
+							<label class="col-3 col-form-label">Bidang</label>
+							<div class="col-9">
+								<select id="bid" class="form-select" name="edit_nama_bagian_pengguna" required>
+									<option value="" selected></option>
+									<?php foreach ($dataBidang as $val) { ?>
+										<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
+									<?php } ?>
+								</select>
+							</div>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">Sub-Bidang</label>
-						<div class="col-sm-9">
-							<select id="subbid" class="form-select" name="edit_nama_subbagian_pengguna" disabled>
-								<option value="" selected></option>
-								<?php
-								foreach ($dataBidang as $val) {
-									if ($val[3] == "") {
-										continue;
+						<div class="mb-3 row">
+							<label class="col-3 col-form-label">Sub-Bidang</label>
+							<div class="col-9">
+								<select id="subbid" class="form-select" name="edit_nama_subbagian_pengguna" disabled>
+									<option value="" selected></option>
+									<?php
+									foreach ($dataBidang as $val) {
+										if ($val[3] == "") {
+											continue;
+										}
+									?>
+										<option value="<?= $val[2] ?>"><?= $val[3] ?></option>
+									<?php
 									}
-								?>
-									<option value="<?= $val[2] ?>"><?= $val[3] ?></option>
-								<?php
-								}
-								?>
-							</select>
+									?>
+								</select>
+							</div>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">Jabatan</label>
-						<div class="col-sm-9">
-							<select id="jabat" class="form-select" name="edit_nama_jabatan_pengguna" disabled required>
-								<option value="" selected></option>
-								<option value="jp">PENGELOLA</option>
-							</select>
+						<div class="mb-3 row">
+							<label class="col-3 col-form-label">Jabatan</label>
+							<div class="col-9">
+								<select id="jabat" class="form-select" name="edit_nama_jabatan_pengguna" disabled required>
+									<option value="" selected></option>
+									<option value="jp">PENGELOLA</option>
+								</select>
+							</div>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">No. HP</label>
-						<div class="col-sm-9">
-							<input name="hp_pjb" type="text" class="form-control" required>
+						<div class="mb-3 row">
+							<label class="col-3 col-form-label">No. HP</label>
+							<div class="col-9">
+								<input name="hp_pjb" type="text" class="form-control" placeholder="Nomor Handphone" required>
+							</div>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label">Alamat</label>
-						<div class="col-sm-9">
-							<input name="alamat_pjb" type="text" class="form-control" required>
+						<div class="mb-3 row">
+							<label class="col-3 col-form-label">Alamat</label>
+							<div class="col-9">
+								<input name="alamat_pjb" type="text" class="form-control" placeholder="Alamat Lengkap" required>
+							</div>
 						</div>
 					</div>
 					<!-- ISI MODAL END HERE -->
@@ -210,23 +231,76 @@ $data = array_slice($data, $offset, $limit);
 				</div>
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label"><i>Username</i></label>
-						<div class="col-sm-9">
-							<input name="pengguna_piket" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-3 col-form-label"><i>Password</i></label>
-						<div class="col-sm-9">
-							<input name="pass_piket_1" type="password" class="form-control pass" required>
-							<div class="mt-1">
-								<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
-							</div>
-						</div>
-					</div>
+					<div class="px-4">
+						<table class="table td-vmiddle">
+							<thead>
+								<tr>
+									<th width="10%">#</th>
+									<th width="35%"><i>Username</i></th>
+									<th width="35%"><i>Password</i> <i>(Edit Only)</i></th>
+									<th width="20%">Pilihan</th>
+								</tr>
+							</thead>
+							<tbody>
 
+								<?php
+								$num = 0;
+								foreach ($dataUser as $value) {
+									if ($value[0] != "" && $value[2] == 2) {
+										$num++;
+								?>
 
+										<tr>
+											<th><?= $num ?></th>
+											<td>
+												<input id="piket_u_<?= $value[0] ?>" name="piket_u_<?= $value[0] ?>" type="text" class="form-control" required="" value="<?= $value[0] ?>" readonly="readonly">
+											</td>
+											<td>
+												<input id="piket_p_<?= $value[0] ?>" name="piket_p_<?= $value[0] ?>" type="text" class="form-control" required="" readonly="readonly" placeholder="Kata sandi">
+											</td>
+											<td>
+												<button class="btn btn-primary" type="button" id="piket_btn<?= $value[0] ?>">
+													<i id="ikon_piket_btn<?= $value[0] ?>" class="bi bi-pencil-square"></i>
+												</button>
+												<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+											</td>
+										</tr>
+
+										<!-- JQUERY PENGATUR INPUT -->
+										<script>
+											$("#piket_btn<?= $value[0] ?>").click(function() {
+												$('#piket_u_<?= $value[0] ?>').attr('readonly', function(index, attr) {
+													return attr == 'readonly' ? null : 'readonly';
+												});
+												$('#piket_p_<?= $value[0] ?>').attr('readonly', function(index, attr) {
+													return attr == 'readonly' ? null : 'readonly';
+												});
+												$('#ikon_piket_btn<?= $value[0] ?>').attr('class', function(index, attr) {
+													return attr == 'bi bi-pencil-square' ? 'bi bi-check-lg' : 'bi bi-pencil-square';
+												});
+												$('#piket_btn<?= $value[0] ?>').attr('class', function(index, attr) {
+													return attr == 'btn btn-primary' ? 'btn btn-success' : 'btn btn-primary';
+												});
+											});
+										</script>
+
+								<?php
+									}
+								}
+								?>
+
+								<tr>
+									<td>Tambah</td>
+									<td><input name="tambah_username_piket" type="text" class="form-control" required></td>
+									<td><input name="tambah_password_piket" type="text" class="form-control" required></td>
+									<td>
+										<button class="col-5 btn btn-success"><i class="bi bi-plus-lg"></i></button>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
