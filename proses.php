@@ -56,44 +56,40 @@ if (isset($_POST['kirimTamu'])) {
     $res = kirim($dataTamu);
     if (!$res) {
         return print(json_decode($res));
-    }else{
+    } else {
         return 'Error';
     }
 }
 
-//dari admin tambah pengguna
-if (isset($_POST['tambahUser'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $foto = $_POST['foto'];
-    $nama = $_POST['nama'];
-    $nip = $_POST['nip'];
-    $bidang = $_POST['bidang'];
-    $subbidang = $_POST['subbidang'];
-    $jabatan = $_POST['jabatan'];
-    $nohp = $_POST['nohp'];
-    $alamat = $_POST['alamat'];
+//dari admin tambah pejabat
+if (isset($_POST['tambahPejabat'])) {
+    $dataUser = array("type" => "tambahUser", "dataTambah" => array($_POST['username'], $_POST['password'], $_POST['bidang'], $_POST['subbidang'], $_POST['jabatan'], $_POST['nama'], $_POST['nip'], $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
 
-    $dataUser = array("type" => "tambahUser", "dataTambah" => array($username, $password, $bidang, $subbidang, $jabatan, $nama, $nip, $nohp, $alamat), "foto" => array($foto));
+    $resTambahPejabat = kirim($dataUser);
 
-    $res = kirim($dataUser);
-
-    if ($res == "Username sudah ada") {
+    if ($resTambahPejabat == "Username sudah ada") {
         return print('Username sudah digunakan');
-    } 
+    }
+
     unset($_SESSION['data']);
-    $_SESSION['data'] = $res;
-    
-    return print(json_encode($res));
+    $_SESSION['data'] = $resTambahPejabat;
+
+    return print(json_encode($resTambahPejabat));
 }
 
-function sukses()
-{
-    return print('sukses');
+//dari ubah pejabat
+if (isset($_POST['ubahPejabat'])) {
+    $dataUbahPejabat = array("type" => "ubahPejabat", "usernamePejabat" => $_POST['usernamePejabat'],"dataTambah" => array($_POST['nama'], $_POST['nip'], $_POST['jabatan'], $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
+
+    $resUbahPejabat = kirim($dataUbahPejabat);
+
+    unset($_SESSION['data']);
+    $_SESSION['data'] = $resUbahPejabat;
+
+    return print(json_encode($resUbahPejabat));
 }
 
-function kirim($dataArr)
-{
+function kirim($dataArr){
     $url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
 
     $curl = curl_init($url);

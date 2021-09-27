@@ -201,7 +201,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 		} else {
 			$('#foto').removeClass('shadow-blue');
 			$('#foto').addClass('shadow');
-			const fotoBuffer = _base64ToArrayBuffer($('#fotoPhp').val());
+			const fotoBuffer = b64toArr($('#fotoPhp').val());
 			let data = `kirimTamu=&namaTamu=${$('#namaTamu').val()}&nipTamu=${$('#nipTamu').val()}&asalTamu=${$('#asalTamu').val()}&bidangTujuan=${$('#bidang').val()}&subBidangTujuan=${$('#subbidang').val()}&jabatanTujuan=${$('#jabatan').val()}&tujuan=${$('#tujuanTamu').val()}&fotoPhp=${fotoBuffer}`
 			tanya_simpan('Perhatian', 'Yakin akan simpan?', data);
 		}

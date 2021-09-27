@@ -189,7 +189,7 @@ if (isset($_POST['ubah_foto'])) {
 <div class="modal fade" id="ubahdetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form class="m-0 p-0" method="POST" enctype="multipart/form-data">
+			<form class="m-0 p-0" id="formUbahPejabat">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
 				</div>
@@ -198,7 +198,7 @@ if (isset($_POST['ubah_foto'])) {
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Foto</label>
 						<div class="col-sm-10">
-							<input name="foto_pejabat" type="file" class="form-control" accept="image/*">
+							<input name="foto" type="file" class="form-control" accept=".png, .jpg, .jpeg">
 							<div class="mt-1">
 								<small class="text-muted">
 									<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
@@ -209,37 +209,37 @@ if (isset($_POST['ubah_foto'])) {
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Nama</label>
 						<div class="col-sm-10">
-							<input name="nama_pejabat" type="text" class="form-control" value="<?= $data[0][3] ?>" required>
+							<input name="nama" type="text" class="form-control" value="<?= $data[0][3] ?>" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">NIP</label>
 						<div class="col-sm-10">
-							<input name="nip_pejabat" type="text" class="form-control" value="<?= $data[0][4] ?>" required>
+							<input name="nip" type="text" class="form-control" value="<?= $data[0][4] ?>" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Jabatan</label>
 						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" value="<?= $data[0][2] ?>" required>
+							<input name="jabatan" type="text" class="form-control" value="<?= $data[0][2] ?>" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">No. HP</label>
 						<div class="col-sm-10">
-							<input name="hp_pejabat" type="text" class="form-control" value="<?= $data[0][5] ?>" required>
+							<input name="nohp" type="text" class="form-control" value="<?= $data[0][5] ?>" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Alamat</label>
 						<div class="col-sm-10">
-							<input name="alamat_pejabat" type="text" class="form-control" value="<?= $data[0][6] ?>" required>
+							<input name="alamat" type="text" class="form-control" value="<?= $data[0][6] ?>" required>
 						</div>
 					</div>
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Simpan</button>
+					<button type="submit" class="btn btn-primary" name="ubahPejabat">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -247,7 +247,30 @@ if (isset($_POST['ubah_foto'])) {
 	</div>
 </div>
 <!-- ISINYA BERAKHIR DI SINI -->
-
+<script>
+	$('#formUbahPejabat').on('submit', function(e) {
+		let usernamePejabat = "<?= $id ?>"
+		let reader = new FileReader();
+		reader.onload = function() {
+			let foto = new Uint8Array(reader.result);
+			
+			let dataQuery = new URLSearchParams(new FormData($('#formUbahPejabat')[0]));
+			dataQuery.set('foto', foto);
+			dataQuery.set('ubahPejabat', '');
+			dataQuery.set('usernamePejabat', usernamePejabat);
+			// console.log(dataQuery.toString())
+			
+			tanya_simpan("Ubah Pengguna", "Yakin akan simpan?", dataQuery.toString());
+			responProses().then(res => { ///////////// PROMISE ====================+
+				notif('Data tersimpan');
+			}).catch((err) => {
+				notif(err)
+			})
+		}
+		reader.readAsArrayBuffer($('#formUbahPejabat :file')[0].files[0]);
+		e.preventDefault()
+	})
+</script>
 <?php
 include("layout/footer.php");
 ?>

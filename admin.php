@@ -93,21 +93,23 @@ $data = array_slice($data, $offset, $limit);
 </div>
 
 <!-- MODAL TAMBAH PEJABAT -->
-<div class="modal fade" id="modal_tambah_pengguna" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalTambahPejabat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form class="m-0 p-0" id="formTambahUser">
+			<form class="m-0 p-0" id="formTambahPejabat">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-person-plus-fill"></i> Tambah Pejabat</h5>
 				</div>
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
+
+
 					<div class="row px-4">
 
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="pengguna_pjb"><i>Username</i></label>
-								<input name="pengguna_pjb" id="pengguna_pjb" type="text" class="form-control" placeholder="Nama pengguna" required>
+								<input name="username" id="pengguna_pjb" type="text" class="form-control" placeholder="Nama pengguna" required>
 								<div class="mt-1">
 									<small class="text-danger"><i>Hanya huruf kecil dan angka, diawali dengan huruf</i></small>
 								</div>
@@ -116,7 +118,7 @@ $data = array_slice($data, $offset, $limit);
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="pass_pjb_1"><i>Password</i></label>
-								<input name="pass_pjb_1" id="pass_pjb_1" type="password" class="form-control pass" placeholder="Kata Sandi" required>
+								<input name="password" id="pass_pjb_1" type="password" class="form-control pass" placeholder="Kata Sandi" required>
 								<div class="mt-1">
 									<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
 								</div>
@@ -126,20 +128,20 @@ $data = array_slice($data, $offset, $limit);
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="nama_pjb">Nama Lengkap</label>
-								<input name="nama_pjb" id="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap" required>
+								<input name="nama" id="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap" required>
 							</div>
 						</div>
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="nip_pjb">NIP / NIK</label>
-								<input name="nip_pjb" id="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK" required>
+								<input name="nip" id="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK" required>
 							</div>
 						</div>
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="foto_pjb">Foto Profil</label>
-								<input name="foto_pjb" id="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
+								<input name="foto" id="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
 								<div class="mt-1">
 									<small class="text-danger">
 										<i>Disarankan rasio 1:1 (persegi)</i>
@@ -151,20 +153,20 @@ $data = array_slice($data, $offset, $limit);
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="mb-1" for="hp_pjb">Nomor HP</label>
-								<input name="hp_pjb" id="hp_pjb" type="text" class="form-control" placeholder="Nomor Handphone" required>
+								<input name="nohp" id="hp_pjb" type="text" class="form-control" placeholder="Nomor Handphone" required>
 							</div>
 						</div>
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="mb-1" for="alamat_pjb">Alamat</label>
-								<input name="alamat_pjb" id="alamat_pjb" type="text" class="form-control" placeholder="Alamat Lengkap" required>
+								<input name="alamat" id="alamat_pjb" type="text" class="form-control" placeholder="Alamat Lengkap" required>
 							</div>
 						</div>
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="bid">Bagian</label>
-								<select id="bid" class="form-select" name="edit_nama_bagian_pengguna" required>
+								<select id="bid" class="form-select" name="bidang" required>
 									<option value="" selected></option>
 									<?php foreach ($dataBidang as $val) { ?>
 										<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
@@ -175,7 +177,7 @@ $data = array_slice($data, $offset, $limit);
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="subbid">Sub-Bagian</label>
-								<select id="subbid" class="form-select" name="edit_nama_subbagian_pengguna" disabled>
+								<select id="subbid" class="form-select" name="subbidang" disabled>
 									<option value="" selected></option>
 									<?php
 									foreach ($dataBidang as $val) {
@@ -185,15 +187,17 @@ $data = array_slice($data, $offset, $limit);
 									?>
 										<option value="<?= $val[2] ?>"><?= $val[3] ?></option>
 									<?php
+
 									}
 									?>
 								</select>
 							</div>
 						</div>
+
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="jabat">Jabatan</label>
-								<select id="jabat" class="form-select" name="edit_nama_jabatan_pengguna" disabled required>
+								<select id="jabat" class="form-select" name="jabatan" disabled required>
 									<option value="" selected></option>
 									<option value="jp">PENGELOLA</option>
 									<option value="jb">BENDAHARA</option>
@@ -302,6 +306,7 @@ $data = array_slice($data, $offset, $limit);
 							<div class="col-9">
 								<input name="hp_pjb" type="text" class="form-control" placeholder="Nomor Handphone" required>
 							</div>
+
 						</div>
 						<div class="mb-3 row">
 							<label class="col-3 col-form-label">Alamat</label>
@@ -313,7 +318,7 @@ $data = array_slice($data, $offset, $limit);
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
-					<button type="submit" name="tambah_user" class="btn btn-primary">Simpan</button>
+					<button type="submit" name="tambahPejabat" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -802,12 +807,12 @@ $data = array_slice($data, $offset, $limit);
 </main>
 
 <script>
-	let modalTambahPengguna = new bootstrap.Modal(document.getElementById('modal_tambah_pengguna'));
+	let modalTambahPengguna = new bootstrap.Modal(document.getElementById('modalTambahPejabat'));
 
 	// TAMBAH PENGGUNA
 	$('#formTambahUser').submit(function(e) {
 		let foto, valArr = [];
-		$(`#modal_tambah_pengguna input,#modal_tambah_pengguna select`).filter((ind, el) => {
+		$(`#modalTambahPejabat input,#modalTambahPejabat select`).filter((ind, el) => {
 			valArr.push(el.value);
 		});
 
@@ -815,23 +820,28 @@ $data = array_slice($data, $offset, $limit);
 		reader.onload = function() {
 			foto = new Uint8Array(reader.result);
 
-			const data = `tambahUser=&username=${valArr[0]}&password=${valArr[1]}&nama=${valArr[3]}&nip=${valArr[4]}&bidang=${valArr[5]}&subbidang=${valArr[6]}&jabatan=${valArr[7]}&nohp=${valArr[8]}&alamat=${valArr[9]}&foto=${foto}`;
+			let dataQuery = new URLSearchParams(new FormData($('#formTambahPejabat')[0]));
+			dataQuery.set('foto', foto);
+
+			console.log(dataQuery)
+
+			const data = `tambahPejabat=&username=${valArr[0]}&password=${valArr[1]}&nama=${valArr[3]}&nip=${valArr[4]}&bidang=${valArr[5]}&subbidang=${valArr[6]}&jabatan=${valArr[7]}&nohp=${valArr[8]}&alamat=${valArr[9]}&foto=${foto}`;
 
 			tanya_simpan("Tambah Pengguna", "Yakin akan simpan?", data);
 			responProses().then(res => { ///////////// PROMISE ====================+
 				if (res != 'Username sudah digunakan') {
 					notif('Data tersimpan');
 					modalTambahPengguna.hide()
-					$(`#modal_tambah_pengguna input,#modal_tambah_pengguna select`).filter((ind, el) => {
+					$(`#modalTambahPejabat input,#modalTambahPejabat select`).filter((ind, el) => {
 						el.value = "";
 					});
 				} else {
 					notif(res);
-					$(`#modal_tambah_pengguna input`)[0].click()
+					$(`#modalTambahPejabat input`)[0].click()
 				}
 			})
 		}
-		reader.readAsArrayBuffer($(`#modal_tambah_pengguna input`)[2].files[0]);
+		reader.readAsArrayBuffer($(`#modalTambahPejabat input`)[2].files[0]);
 		e.preventDefault()
 	});
 
