@@ -712,10 +712,10 @@ $data = array_slice($data, $offset, $limit);
 								<?php
 								foreach ($dataBidang as $val) {
 									if ($val[4] == $value[2]) {
-										if (strlen($val[5]) <= 32) {
+										if (strlen($val[5]) <= 20) {
 											echo $val[5];
 										} else {
-											echo substr($val[5], 0, 29) . '...';
+											echo substr($val[5], 0, 18) . '...';
 										}
 									}
 								}
