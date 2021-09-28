@@ -691,7 +691,7 @@ $data = array_slice($data, $offset, $limit);
 </div>
 
 <!-- MAIN CONTENT -->
-<main>
+<main id="admin-page">
 	<div class="pt-4 pb-3">
 
 		<!-- DAFTAR PEJABAT -->
@@ -712,11 +712,7 @@ $data = array_slice($data, $offset, $limit);
 								<?php
 								foreach ($dataBidang as $val) {
 									if ($val[4] == $value[2]) {
-										if (strlen($val[5]) <= 20) {
-											echo $val[5];
-										} else {
-											echo substr($val[5], 0, 18) . '...';
-										}
+										echo "<span>$val[5]</span>";
 									}
 								}
 								?>
