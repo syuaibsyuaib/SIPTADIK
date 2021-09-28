@@ -256,28 +256,28 @@ if (isset($_POST['ubah_foto'])) {
 							<div class="form-group">
 								<label class="required-field mb-1">Jabatan <i><?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "(Hanya lihat)" : "" ?></i></label>
 								<?php
-								if ($data[0][2] != "kd" && $data[0][2] != "sd") {
+								// if ($data[0][2] != "kd" && $data[0][2] != "sd") {
 								?>
-									<select class="form-select" name="jabatan" required>
-										<option value="" selected></option>
+								<select class="form-select" name="jabatan" required <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "disabled" : "" ?>>
+									<option value="" selected></option>
 
-										<?php
-										foreach ($dataBidang as $val) {
-											if ($val[4] != "") {
-										?>
-												<option value="<?= $val[4] ?>" <?= $val[4] == $data[0][2] ? "selected" : "" ?>><?= $val[5] ?></option>
-										<?php
-											}
+									<?php
+									foreach ($dataBidang as $val) {
+										if ($val[4] != "") {
+									?>
+											<option value="<?= $val[4] ?>" <?= $val[4] == $data[0][2] ? "selected" : "" ?>><?= $val[5] ?></option>
+									<?php
 										}
-										?>
+									}
+									?>
 
-									</select>
+								</select>
 								<?php
-								} else {
+								// } else {
 								?>
-									<div class="form-control" readonly><?= array_search_multi($dataBidang, 4, $data[0][2], false)[0][5] ?></div>
+								<!-- <div class="form-control" readonly><?= array_search_multi($dataBidang, 4, $data[0][2], false)[0][5] ?></div> -->
 								<?php
-								}
+								// }
 								?>
 							</div>
 						</div>
