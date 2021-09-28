@@ -9,6 +9,7 @@ if (!isset($_GET['id'])) {
 }
 $id = encrypt_decrypt("d", $_GET['id']);
 $data = array_search_multi($_SESSION['data']['dataPjb'], 0, $id, false);
+$dataBidang = $_SESSION['data']['dataBidang'];
 // print_r($data);
 
 if (isset($_POST['ubah_foto'])) {
@@ -23,7 +24,11 @@ if (isset($_POST['ubah_foto'])) {
 		<div class="main-body">
 
 			<div class="row gutters-sm">
+
+				<!-- FOTO PROFIL DAN MEDIA SOSIAL -->
 				<div class="col-md-4 mb-3">
+
+					<!-- FOTO PROFIL -->
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
@@ -32,13 +37,22 @@ if (isset($_POST['ubah_foto'])) {
 								</div>
 								<div class="mt-3">
 									<h4><?= $data[0][3] ?></h4>
-									<p class="text-secondary mb-1"><?= $data[0][2] ?></p>
+									<p class="text-secondary mb-1">
+										<?php
+										foreach ($dataBidang as $val) {
+											if ($val[4] == $data[0][2]) {
+												echo $val[5];
+											}
+										}
+										?>
+									</p>
 									<p class="text-muted font-size-sm"><?= $data[0][6] ?></p>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- MEDIA SOSIAL START -->
+
+					<!-- MEDIA SOSIAL -->
 					<!-- <div class="card mt-3">
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -65,10 +79,12 @@ if (isset($_POST['ubah_foto'])) {
 							</li>
 						</ul>
 					</div> -->
-					<!-- MEDIA SOSIAL END -->
 				</div>
 
+				<!-- DETAIL USER DAN STATISTIK -->
 				<div class="col-md-8">
+
+					<!-- DETAIL USER -->
 					<div class="card mb-3">
 						<div class="card-body">
 
@@ -85,7 +101,7 @@ if (isset($_POST['ubah_foto'])) {
 
 							<div class="row">
 								<div class="col-sm-3">
-									<h6 class="mb-0">NIP</h6>
+									<h6 class="mb-0">NIP/NIK</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
 									<?= $data[0][4] ?>
@@ -99,7 +115,13 @@ if (isset($_POST['ubah_foto'])) {
 									<h6 class="mb-0">Jabatan</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<?= $data[0][2] ?>
+									<?php
+									foreach ($dataBidang as $val) {
+										if ($val[4] == $data[0][2]) {
+											echo $val[5];
+										}
+									}
+									?>
 								</div>
 							</div>
 
@@ -195,7 +217,88 @@ if (isset($_POST['ubah_foto'])) {
 				</div>
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
-					<div class="mb-3 row">
+					<div class="row px-4">
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1">Foto</label>
+								<input name="foto" type="file" class="form-control" accept=".png, .jpg, .jpeg">
+								<div class="mt-1">
+									<small class="text-muted">
+										<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
+									</small>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1">Nama Lengkap</label>
+								<input name="nama" type="text" class="form-control" value="<?= $data[0][3] ?>" required>
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1">NIP/NIK</label>
+								<input name="nip" type="text" class="form-control" value="<?= $data[0][4] ?>" required>
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1">Kata Sandi <i>(Hanya Edit)</i></label>
+								<input name="sandi" type="password" class="form-control" required>
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1">Jabatan <i><?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "(Hanya lihat)" : "" ?></i></label>
+								<?php
+								if ($data[0][2] != "kd" && $data[0][2] != "sd") {
+								?>
+									<select class="form-select" name="jabatan" required>
+										<option value="" selected></option>
+
+										<?php
+										foreach ($dataBidang as $val) {
+											if ($val[4] != "") {
+										?>
+												<option value="<?= $val[4] ?>" <?= $val[4] == $data[0][2] ? "selected" : "" ?>><?= $val[5] ?></option>
+										<?php
+											}
+										}
+										?>
+
+									</select>
+								<?php
+								} else {
+								?>
+									<div class="form-control"><?= $val[5] ?></div>
+								<?php
+								}
+								?>
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1">Nomor HP</label>
+								<input name="nohp" type="text" class="form-control" value="<?= $data[0][5] ?>" required>
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1">Alamat</label>
+								<input name="alamat" type="text" class="form-control" value="<?= $data[0][6] ?>" required>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- <div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Foto</label>
 						<div class="col-sm-10">
 							<input name="foto" type="file" class="form-control" accept=".png, .jpg, .jpeg">
@@ -205,37 +308,55 @@ if (isset($_POST['ubah_foto'])) {
 								</small>
 							</div>
 						</div>
-					</div>
-					<div class="mb-3 row">
+					</div> -->
+					<!-- <div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Nama</label>
 						<div class="col-sm-10">
 							<input name="nama" type="text" class="form-control" value="<?= $data[0][3] ?>" required>
 						</div>
-					</div>
-					<div class="mb-3 row">
+					</div> -->
+					<!-- <div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">NIP</label>
 						<div class="col-sm-10">
 							<input name="nip" type="text" class="form-control" value="<?= $data[0][4] ?>" required>
 						</div>
-					</div>
-					<div class="mb-3 row">
+					</div> -->
+					<!-- <div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Kata Sandi <i>(Hanya Edit)</i></label>
+						<div class="col-sm-10">
+							<input name="sandi" type="password" class="form-control" required>
+						</div>
+					</div> -->
+					<!-- <div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Jabatan</label>
 						<div class="col-sm-10">
+							<select class="form-select" name="jabatan" required>
+								<option value="" selected></option>
+								<?php
+								foreach ($dataBidang as $val) {
+									if ($val[4] != "") {
+								?>
+										<option value="<?= $val[4] ?>" <?= $val[4] == $data[0][2] ? "selected" : "" ?>><?= $val[5] ?></option>
+								<?php
+									}
+								}
+								?>
+							</select>
 							<input name="jabatan" type="text" class="form-control" value="<?= $data[0][2] ?>" required>
 						</div>
-					</div>
-					<div class="mb-3 row">
+					</div> -->
+					<!-- <div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">No. HP</label>
 						<div class="col-sm-10">
 							<input name="nohp" type="text" class="form-control" value="<?= $data[0][5] ?>" required>
 						</div>
-					</div>
-					<div class="mb-3 row">
+					</div> -->
+					<!-- <div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Alamat</label>
 						<div class="col-sm-10">
 							<input name="alamat" type="text" class="form-control" value="<?= $data[0][6] ?>" required>
 						</div>
-					</div>
+					</div> -->
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
@@ -246,20 +367,20 @@ if (isset($_POST['ubah_foto'])) {
 		</div>
 	</div>
 </div>
-<!-- ISINYA BERAKHIR DI SINI -->
+
 <script>
 	$('#formUbahPejabat').on('submit', function(e) {
 		let usernamePejabat = "<?= $id ?>"
 		let reader = new FileReader();
 		reader.onload = function() {
 			let foto = new Uint8Array(reader.result);
-			
+
 			let dataQuery = new URLSearchParams(new FormData($('#formUbahPejabat')[0]));
 			dataQuery.set('foto', foto);
 			dataQuery.set('ubahPejabat', '');
 			dataQuery.set('usernamePejabat', usernamePejabat);
 			// console.log(dataQuery.toString())
-			
+
 			tanya_simpan("Ubah Pengguna", "Yakin akan simpan?", dataQuery.toString());
 			responProses().then(res => { ///////////// PROMISE ====================+
 				notif('Data tersimpan');

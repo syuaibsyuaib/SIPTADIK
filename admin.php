@@ -103,7 +103,6 @@ $data = array_slice($data, $offset, $limit);
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
 
-
 					<div class="row px-4">
 
 						<div class="col-6 mb-3">
@@ -342,7 +341,7 @@ $data = array_slice($data, $offset, $limit);
 								<tr>
 									<th width="10%">#</th>
 									<th width="35%"><i>Username</i></th>
-									<th width="35%"><i>Password</i> <i>(Edit Only)</i></th>
+									<th width="35%"><i>Password</i> <i>(Hanya Edit)</i></th>
 									<th width="20%">Pilihan</th>
 								</tr>
 							</thead>
@@ -358,10 +357,10 @@ $data = array_slice($data, $offset, $limit);
 										<tr>
 											<th><?= $num ?></th>
 											<td>
-												<input id="piket_u_<?= $value[0] ?>" name="piket_u_<?= $value[0] ?>" type="text" class="form-control" required="" value="<?= $value[0] ?>" readonly="readonly">
+												<input id="piket_u_<?= $value[0] ?>" name="piket_u_<?= $value[0] ?>" type="text" class="form-control" required value="<?= $value[0] ?>" readonly="readonly">
 											</td>
 											<td>
-												<input id="piket_p_<?= $value[0] ?>" name="piket_p_<?= $value[0] ?>" type="text" class="form-control" required="" readonly="readonly" placeholder="Kata sandi">
+												<input id="piket_p_<?= $value[0] ?>" name="piket_p_<?= $value[0] ?>" type="text" class="form-control" required readonly="readonly" placeholder="Kata sandi">
 											</td>
 											<td>
 												<button class="btn btn-primary" type="button" id="piket_btn<?= $value[0] ?>">
@@ -708,9 +707,21 @@ $data = array_slice($data, $offset, $limit);
 					<div class="col">
 						<div class="card shadow-sm">
 
-							<!-- NAMA -->
+							<!-- JABATAN -->
 							<div class="card-header warna-dasar">
-								<?= $value[3] ?>
+
+								<?php
+								foreach ($dataBidang as $val) {
+									if ($val[4] == $value[2]) {
+										if (strlen($val[5]) <= 32) {
+											echo $val[5];
+										} else {
+											echo substr($val[5], 0, 29) . '...';
+										}
+									}
+								}
+								?>
+
 							</div>
 
 							<!-- FOTO -->
@@ -737,9 +748,10 @@ $data = array_slice($data, $offset, $limit);
 
 							<!-- CARD BODY -->
 							<div class="card-body">
-								<!-- JABATAN -->
+								<!-- NAMA -->
 								<p class="card-text">
-									<?= $value[2] ?>
+									<?= $value[3] ?>
+									<!-- <?= $value[2] ?> -->
 								</p>
 								<!-- TOMBOL -->
 								<div class="d-flex justify-content-between align-items-center">
@@ -852,9 +864,9 @@ $data = array_slice($data, $offset, $limit);
 		let hre = new URLSearchParams(new URL($(this).prev().prop('href')).search);
 		let id_del = `hapus=${hre.get('id')}`
 		// document.cookie = `hapus=${hre.get('id')}`
-		
+
 		// alert(id_del)
-		
+
 		tanya_simpan('Hapus Pengguna', 'Yakin akan menghapus user ini?', id_del)
 	})
 
