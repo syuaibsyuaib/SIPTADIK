@@ -831,9 +831,9 @@ $data = array_slice($data, $offset, $limit);
 			dataQuery.set('foto', foto);
 			dataQuery.append('tambahPejabat', '');
 
-			console.log(dataQuery)
+			const data = dataQuery.toString();
 
-			const data = `tambahPejabat=&username=${valArr[0]}&password=${valArr[1]}&nama=${valArr[3]}&nip=${valArr[4]}&bidang=${valArr[5]}&subbidang=${valArr[6]}&jabatan=${valArr[7]}&nohp=${valArr[8]}&alamat=${valArr[9]}&foto=${foto}`;
+			// const data = `tambahPejabat=&username=${valArr[0]}&password=${valArr[1]}&nama=${valArr[3]}&nip=${valArr[4]}&bidang=${valArr[5]}&subbidang=${valArr[6]}&jabatan=${valArr[7]}&nohp=${valArr[8]}&alamat=${valArr[9]}&foto=${foto}`;
 
 			tanya_simpan("Tambah Pengguna", "Yakin akan simpan?", data);
 			responProses().then(res => { ///////////// PROMISE ====================+
@@ -849,7 +849,7 @@ $data = array_slice($data, $offset, $limit);
 				}
 			})
 		}
-		reader.readAsArrayBuffer($(`#modalTambahPejabat input`)[2].files[0]);
+		reader.readAsArrayBuffer($(`#modalTambahPejabat input:file`)[0].files[0]);
 		e.preventDefault()
 	});
 
