@@ -21,9 +21,7 @@ if ($page > $total_pages) {
 	pindahko("?" . http_build_query($_GET));
 }
 $data = array_slice($data, $offset, $limit);
-// UNTUK PAGINATION END
 
-// print_r($_SESSION['data']['dataUser']);
 ?>
 
 <!-- MODAL SLIDER -->
@@ -695,6 +693,7 @@ $data = array_slice($data, $offset, $limit);
 <!-- MAIN CONTENT -->
 <main>
 	<div class="pt-4 pb-3">
+
 		<!-- DAFTAR PEJABAT -->
 		<div class="container-sm pb-3">
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
@@ -774,7 +773,7 @@ $data = array_slice($data, $offset, $limit);
 			</div>
 		</div>
 
-		<!-- PAGINATION MULAI -->
+		<!-- PAGINATION -->
 		<?php if ($total_data > $limit) : ?>
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-center">
@@ -814,7 +813,6 @@ $data = array_slice($data, $offset, $limit);
 				</ul>
 			</nav>
 		<?php endif; ?>
-		<!-- PAGINATION SELESAI -->
 
 	</div>
 </main>

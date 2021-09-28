@@ -234,21 +234,21 @@ if (isset($_POST['ubah_foto'])) {
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1">Nama Lengkap</label>
-								<input name="nama" type="text" class="form-control" value="<?= $data[0][3] ?>" required>
+								<input name="nama" type="text" class="form-control" value="<?= $data[0][3] ?>" placeholder="Nama Lengkap" required>
 							</div>
 						</div>
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1">NIP/NIK</label>
-								<input name="nip" type="text" class="form-control" value="<?= $data[0][4] ?>" required>
+								<input name="nip" type="text" class="form-control" value="<?= $data[0][4] ?>" placeholder="NIP/NIK" required>
 							</div>
 						</div>
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1">Kata Sandi <i>(Hanya Edit)</i></label>
-								<input name="sandi" type="password" class="form-control" required>
+								<input name="sandi" type="password" class="form-control" placeholder="Kata Sandi (Hanya bisa diubah)" required>
 							</div>
 						</div>
 
@@ -275,7 +275,7 @@ if (isset($_POST['ubah_foto'])) {
 								<?php
 								} else {
 								?>
-									<div class="form-control"><?= $val[5] ?></div>
+									<div class="form-control" readonly><?= array_search_multi($dataBidang, 4, $data[0][2], false)[0][5] ?></div>
 								<?php
 								}
 								?>
@@ -285,14 +285,14 @@ if (isset($_POST['ubah_foto'])) {
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1">Nomor HP</label>
-								<input name="nohp" type="text" class="form-control" value="<?= $data[0][5] ?>" required>
+								<input name="nohp" type="text" class="form-control" value="<?= $data[0][5] ?>" placeholder="Nomor HP" required>
 							</div>
 						</div>
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1">Alamat</label>
-								<input name="alamat" type="text" class="form-control" value="<?= $data[0][6] ?>" required>
+								<input name="alamat" type="text" class="form-control" value="<?= $data[0][6] ?>" placeholder="Alamat Lengkap" required>
 							</div>
 						</div>
 
