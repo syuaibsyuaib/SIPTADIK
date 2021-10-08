@@ -49,7 +49,6 @@ function masuk($pengguna, $sandi)
         $_SESSION['pass'] = $sandi;
         $_SESSION['role'] = $hasil["role"];
         $_SESSION['data'] = $hasil;
-        $_SESSION['c'] = 0;
 
         if ($hasil["role"] == 1) {
             header("Location: admin.php");
