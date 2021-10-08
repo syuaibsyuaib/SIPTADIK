@@ -6,7 +6,6 @@ $data = $_SESSION['data']['dataPjb'];
 $dataBidang = $_SESSION['data']['dataBidang'];
 $dataUser = $_SESSION['data']['dataUser'];
 
-// print_r($_SESSION['data']);
 // UNTUK PAGINATION START
 $page = $_GET['p'] ?? 1;
 $limit = 8;
@@ -113,6 +112,7 @@ $data = array_slice($data, $offset, $limit);
 								</div>
 							</div>
 						</div>
+
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="pass_pjb_1"><i>Password</i></label>
@@ -172,6 +172,7 @@ $data = array_slice($data, $offset, $limit);
 								</select>
 							</div>
 						</div>
+
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="subbid">Sub-Bagian</label>
@@ -203,115 +204,6 @@ $data = array_slice($data, $offset, $limit);
 							</div>
 						</div>
 
-						<!-- <div class="mb-3 row">
-							<label class="col-sm-3 col-form-label"><i>Username &amp; Password</i></label>
-							<div class="col">
-								<input name="pengguna_pjb" type="text" class="form-control" placeholder="Nama pengguna" required>
-								<div class="mt-1">
-									<small class="text-danger"><i>Hanya huruf kecil dan angka, diawali dengan huruf</i></small>
-								</div>
-							</div>
-							<div class="col">
-								<input name="pass_pjb_1" type="password" class="form-control pass" placeholder="Kata Sandi" required>
-								<div class="mt-1">
-									<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
-								</div>
-							</div>
-						</div> -->
-
-						<!-- <div class="mb-3 row">
-							<label class="col-sm-3 col-form-label"><i>Username</i></label>
-							<div class="col-sm-9">
-								<input name="pengguna_pjb" type="text" class="form-control" required>
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<label class="col-sm-3 col-form-label"><i>Password</i></label>
-							<div class="col-sm-9">
-								<input name="pass_pjb_1" type="password" class="form-control pass" required>
-								<div class="mt-1">
-									<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
-								</div>
-							</div>
-						</div> -->
-
-						<!-- <div class="mb-3 row">
-							<label class="col-3 col-form-label">Foto Profil</label>
-							<div class="col-9">
-								<input name="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
-								<div class="mt-1">
-									<small class="text-danger">
-										<i>Disarankan rasio 1:1 (persegi)</i>
-									</small>
-								</div>
-							</div>
-						</div> -->
-						<!-- <div class="mb-3 row">
-							<label class="col-3 col-form-label">Nama &amp; NIP/NIK</label>
-							<div class="col">
-								<input name="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap" required>
-							</div>
-							<div class="col">
-								<input name="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK" required>
-							</div>
-						</div> -->
-						<!-- <div class="mb-3 row">
-							<label class="col-3 col-form-label">NIP</label>
-							<div class="col-9">
-								<input name="nip_pjb" type="text" class="form-control" required>
-							</div>
-						</div> -->
-						<!-- <div class="mb-3 row">
-							<label class="col-3 col-form-label">Bidang</label>
-							<div class="col-9">
-								<select id="bid" class="form-select" name="edit_nama_bagian_pengguna" required>
-									<option value="" selected></option>
-									<?php foreach ($dataBidang as $val) { ?>
-										<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
-									<?php } ?>
-								</select>
-							</div>
-						</div> -->
-						<!-- <div class="mb-3 row">
-							<label class="col-3 col-form-label">Sub-Bidang</label>
-							<div class="col-9">
-								<select id="subbid" class="form-select" name="edit_nama_subbagian_pengguna" disabled>
-									<option value="" selected></option>
-									<?php
-									foreach ($dataBidang as $val) {
-										if ($val[3] == "") {
-											continue;
-										}
-									?>
-										<option value="<?= $val[2] ?>"><?= $val[3] ?></option>
-									<?php
-									}
-									?>
-								</select>
-							</div>
-						</div> -->
-						<!-- <div class="mb-3 row">
-							<label class="col-3 col-form-label">Jabatan</label>
-							<div class="col-9">
-								<select id="jabat" class="form-select" name="edit_nama_jabatan_pengguna" disabled required>
-									<option value="" selected></option>
-									<option value="jp">PENGELOLA</option>
-								</select>
-							</div>
-						</div> -->
-						<!-- <div class="mb-3 row">
-							<label class="col-3 col-form-label">No. HP</label>
-							<div class="col-9">
-								<input name="hp_pjb" type="text" class="form-control" placeholder="Nomor Handphone" required>
-							</div>
-
-						</div>
-						<div class="mb-3 row">
-							<label class="col-3 col-form-label">Alamat</label>
-							<div class="col-9">
-								<input name="alamat_pjb" type="text" class="form-control" placeholder="Alamat Lengkap" required>
-							</div>
-						</div> -->
 					</div>
 					<!-- ISI MODAL END HERE -->
 				</div>

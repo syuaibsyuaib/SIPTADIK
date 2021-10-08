@@ -219,7 +219,140 @@ if (isset($_POST['ubah_foto'])) {
 				</div>
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
+
+
+
 					<div class="row px-4">
+
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="pengguna_pjb"><i>Username</i></label>
+								<input name="username" type="hidden" value="<?= $id ?>">
+								<input id="pengguna_pjb" type="text" class="form-control" placeholder="Nama pengguna" readonly value="<?= $id ?>">
+								<div class="mt-1">
+									<small class="text-danger"><i>Hanya bisa dilihat, tidak bisa diubah</i></small>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="pass_pjb_1">Kata Sandi <i>(Hanya Edit)</i></label>
+								<input name="sandi" id="pass_pjb_1" type="password" class="form-control pass" placeholder="Kata Sandi">
+								<div class="mt-1">
+									<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="nama_pjb">Nama Lengkap</label>
+								<input name="nama" id="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap" required value="<?= $data[0][3] ?>">
+							</div>
+						</div>
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="nip_pjb">NIP / NIK</label>
+								<input name="nip" id="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK" required value="<?= $data[0][4] ?>">
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="foto_pjb">Foto Profil</label>
+								<input name="foto" id="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
+								<div class="mt-1">
+									<small class="text-danger">
+										<i>Disarankan rasio 1:1 (persegi)</i>
+									</small>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="mb-1" for="hp_pjb">Nomor HP</label>
+								<input name="nohp" id="hp_pjb" type="text" class="form-control" placeholder="Nomor Handphone" required value="<?= $data[0][5] ?>">
+							</div>
+						</div>
+						<div class="col-6 mb-3">
+							<div class="form-group">
+								<label class="mb-1" for="alamat_pjb">Alamat</label>
+								<input name="alamat" id="alamat_pjb" type="text" class="form-control" placeholder="Alamat Lengkap" required value="<?= $data[0][6] ?>">
+							</div>
+						</div>
+
+						<?php
+						if ($data[0][2] != "kd" && $data[0][2] != "sd") {
+						?>
+
+							<div class="col-12 mb-3 <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "d-none" : "" ?>">
+								<div class="form-group">
+									<label class="required-field mb-1" for="bid">Bidang</label>
+									<select id="bid" class="form-select" name="bidang" required>
+										<option value="" selected></option>
+										<?php foreach ($dataBidang as $val) { ?>
+											<option value="<?= $val[0] ?>"  <?= substr($data[0][1],0,2) == $val[0] ? "selected" : "" ?>><?= $val[1] ?></option>
+										<?php } ?>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-12 mb-3 <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "d-none" : "" ?>">
+								<div class="form-group">
+									<label class="required-field mb-1" for="subbid">Sub-Bidang</label>
+									<select id="subbid" class="form-select" name="subbidang" <?= substr($data[0][1],0,2) != "b1" ? "disabled" : "" ?>>
+										<option value="" selected></option>
+										<?php
+										foreach ($dataBidang as $val) {
+											if ($val[3] == "") {
+												continue;
+											}
+										?>
+											<option value="<?= $val[2] ?>" <?= $data[0][1] == $val[2] ? "selected" : "" ?>><?= $val[3] ?></option>
+										<?php
+
+										}
+										?>
+									</select>
+								</div>
+							</div>
+
+						<?php
+						}
+						?>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1">Jabatan <i><?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "(Hanya lihat)" : "" ?></i></label>
+								<select class="form-select" name="jabatan" required <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "disabled" : "" ?>>
+									<option value="" selected></option>
+
+									<?php
+									if ($data[0][2] == "kd" || $data[0][2] == "sd") {
+										foreach ($dataBidang as $val) {
+											if ($val[4] != "") {
+									?>
+												<option value="<?= $val[4] ?>" <?= $val[4] == $data[0][2] ? "selected" : "" ?>><?= $val[5] ?></option>
+										<?php
+											}
+										}
+									} else {
+										?>
+										<option value="jp" <?= $data[0][2] == "jp" ? "selected" : "" ?>>PENGELOLA</option>
+										<option value="jb" <?= $data[0][2] == "jb" ? "selected" : "" ?>>BENDAHARA</option>
+									<?php
+									}
+									?>
+
+								</select>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- <div class="row px-4">
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
@@ -256,12 +389,44 @@ if (isset($_POST['ubah_foto'])) {
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
+								<label class="required-field mb-1" for="bid">Bidang</label>
+								<select id="bid" class="form-select" name="bidang" required>
+									<option value="" selected></option>
+									<?php foreach ($dataBidang as $val) { ?>
+										<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
+								<label class="required-field mb-1" for="subbid">Sub-Bidang</label>
+								<select id="subbid" class="form-select" name="subbidang" disabled>
+									<option value="" selected></option>
+									<?php
+									foreach ($dataBidang as $val) {
+										if ($val[3] == "") {
+											continue;
+										}
+									?>
+										<option value="<?= $val[2] ?>"><?= $val[3] ?></option>
+									<?php
+
+									}
+									?>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-12 mb-3">
+							<div class="form-group">
 								<label class="required-field mb-1">Jabatan <i><?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "(Hanya lihat)" : "" ?></i></label>
 								<select class="form-select" name="jabatan" required <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "disabled" : "" ?>>
 									<option value="" selected></option>
-								
+
 									<?php
-									
+
 									foreach ($dataBidang as $val) {
 										if ($val[4] != "") {
 									?>
@@ -289,66 +454,6 @@ if (isset($_POST['ubah_foto'])) {
 							</div>
 						</div>
 
-					</div>
-
-					<!-- <div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Foto</label>
-						<div class="col-sm-10">
-							<input name="foto" type="file" class="form-control" accept=".png, .jpg, .jpeg">
-							<div class="mt-1">
-								<small class="text-muted">
-									<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
-								</small>
-							</div>
-						</div>
-					</div> -->
-					<!-- <div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Nama</label>
-						<div class="col-sm-10">
-							<input name="nama" type="text" class="form-control" value="<?= $data[0][3] ?>" required>
-						</div>
-					</div> -->
-					<!-- <div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">NIP</label>
-						<div class="col-sm-10">
-							<input name="nip" type="text" class="form-control" value="<?= $data[0][4] ?>" required>
-						</div>
-					</div> -->
-					<!-- <div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Kata Sandi <i>(Hanya Edit)</i></label>
-						<div class="col-sm-10">
-							<input name="sandi" type="password" class="form-control" required>
-						</div>
-					</div> -->
-					<!-- <div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Jabatan</label>
-						<div class="col-sm-10">
-							<select class="form-select" name="jabatan" required>
-								<option value="" selected></option>
-								<?php
-								foreach ($dataBidang as $val) {
-									if ($val[4] != "") {
-								?>
-										<option value="<?= $val[4] ?>" <?= $val[4] == $data[0][2] ? "selected" : "" ?>><?= $val[5] ?></option>
-								<?php
-									}
-								}
-								?>
-							</select>
-							<input name="jabatan" type="text" class="form-control" value="<?= $data[0][2] ?>" required>
-						</div>
-					</div> -->
-					<!-- <div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">No. HP</label>
-						<div class="col-sm-10">
-							<input name="nohp" type="text" class="form-control" value="<?= $data[0][5] ?>" required>
-						</div>
-					</div> -->
-					<!-- <div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Alamat</label>
-						<div class="col-sm-10">
-							<input name="alamat" type="text" class="form-control" value="<?= $data[0][6] ?>" required>
-						</div>
 					</div> -->
 					<!-- ISI MODAL END HERE -->
 				</div>
@@ -371,7 +476,7 @@ if (isset($_POST['ubah_foto'])) {
 			let foto = new Uint8Array(reader.result);
 
 			let dataQuery = new URLSearchParams(new FormData($('#formUbahPejabat')[0]));
-			if($('select').prop('disabled')){
+			if ($('select').prop('disabled')) {
 				dataQuery.set('jabatan', $('select').val());
 			}
 			dataQuery.set('foto', foto);

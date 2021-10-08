@@ -38,17 +38,9 @@ function timestamp()
     $tgl = getDate()['mday'] . "_" . getDate()['mon'] . "_" . getDate()['year'] . "_" . getDate()['hours'] . "_" . getDate()['minutes'] . "_" . getDate()['seconds'];
     return $tgl;
 }
-// var_dump(session_id());
-if (!isset($_SESSION['role'])) {
-    header("Location: /");
-    unset($_SESSION['user']);
-    unset($_SESSION['pass']);
-};
 
-if (isset($_POST['masuk'])) {
-    $pengguna = $_POST['pengguna'];
-    $sandi = $_POST['sandi'];
-
+function masuk($pengguna, $sandi)
+{
     $data = array("pengguna" => $pengguna, "sandi" => $sandi);
     $hasil = kirim($data);
 
@@ -57,6 +49,7 @@ if (isset($_POST['masuk'])) {
         $_SESSION['pass'] = $sandi;
         $_SESSION['role'] = $hasil["role"];
         $_SESSION['data'] = $hasil;
+        $_SESSION['c'] = 0;
 
         if ($hasil["role"] == 1) {
             header("Location: admin.php");
@@ -68,6 +61,19 @@ if (isset($_POST['masuk'])) {
     } else {
         header("Location: /");
     }
+}
+
+// var_dump(session_id());
+if (!isset($_SESSION['role'])) {
+    header("Location: /");
+    unset($_SESSION['user']);
+    unset($_SESSION['pass']);
+};
+
+if (isset($_POST['masuk'])) {
+    $pengguna = $_POST['pengguna'];
+    $sandi = $_POST['sandi'];
+    masuk($pengguna, $sandi);
 }
 
 // dari page tamu
@@ -94,7 +100,7 @@ if (isset($_POST['kirimTamu'])) {
 //dari admin tambah pejabat
 if (isset($_POST['tambahPejabat'])) {
     $subBidang =  $_POST['subbidang'];
-    if(!$_POST['subbidang']){
+    if (!$_POST['subbidang']) {
         $subBidang = "";
     }
     $dataUser = array("type" => "tambahUser", "dataTambah" => array($_POST['username'], $_POST['password'], $_POST['bidang'], $subBidang, $_POST['jabatan'], $_POST['nama'], $_POST['nip'], $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
@@ -108,6 +114,7 @@ if (isset($_POST['tambahPejabat'])) {
     unset($_SESSION['data']);
     $_SESSION['data'] = $resTambahPejabat;
 
+    masuk($_SESSION['user'], $_SESSION['pass']);
     return print(json_encode($resTambahPejabat));
 }
 
@@ -121,6 +128,7 @@ if (isset($_POST['ubahPejabat'])) {
     unset($_SESSION['data']);
     $_SESSION['data'] = $resUbahPejabat;
 
+    masuk($_SESSION['user'], $_SESSION['pass']);
     return print(json_encode($resUbahPejabat));
 }
 
