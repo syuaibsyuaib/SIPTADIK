@@ -10,7 +10,9 @@ if (!isset($_GET['id'])) {
 $id = encrypt_decrypt("d", $_GET['id']);
 $data = array_search_multi($_SESSION['data']['dataPjb'], 0, $id, false);
 $dataBidang = $_SESSION['data']['dataBidang'];
-// print_r($data);
+// print_r($_SESSION['data']['dataUser']);
+// echo array_search_multi($_SESSION['data']['dataPjb'], 0, $_POST['usernamePejabat'], false);
+// echo array_search_multi($_SESSION['data']['dataUser'], 0, $_POST['usernamePejabat'], false)[0][1];
 
 if (isset($_POST['ubah_foto'])) {
 	// sss
@@ -248,20 +250,18 @@ if (isset($_POST['ubah_foto'])) {
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1">Kata Sandi <i>(Hanya Edit)</i></label>
-								<input name="sandi" type="password" class="form-control" placeholder="Kata Sandi (Hanya bisa diubah)" required>
+								<input name="sandi" type="password" class="form-control" placeholder="Kata Sandi (Hanya bisa diubah)">
 							</div>
 						</div>
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1">Jabatan <i><?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "(Hanya lihat)" : "" ?></i></label>
-								<?php
-								// if ($data[0][2] != "kd" && $data[0][2] != "sd") {
-								?>
 								<select class="form-select" name="jabatan" required <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "disabled" : "" ?>>
 									<option value="" selected></option>
-
+								
 									<?php
+									
 									foreach ($dataBidang as $val) {
 										if ($val[4] != "") {
 									?>
@@ -272,13 +272,6 @@ if (isset($_POST['ubah_foto'])) {
 									?>
 
 								</select>
-								<?php
-								// } else {
-								?>
-								<!-- <div class="form-control" readonly><?= array_search_multi($dataBidang, 4, $data[0][2], false)[0][5] ?></div> -->
-								<?php
-								// }
-								?>
 							</div>
 						</div>
 
@@ -369,6 +362,8 @@ if (isset($_POST['ubah_foto'])) {
 </div>
 
 <script>
+	let modalUbahDetail = new bootstrap.Modal(document.getElementById('ubahdetail'));
+
 	$('#formUbahPejabat').on('submit', function(e) {
 		let usernamePejabat = "<?= $id ?>"
 		let reader = new FileReader();
@@ -376,6 +371,9 @@ if (isset($_POST['ubah_foto'])) {
 			let foto = new Uint8Array(reader.result);
 
 			let dataQuery = new URLSearchParams(new FormData($('#formUbahPejabat')[0]));
+			if($('select').prop('disabled')){
+				dataQuery.set('jabatan', $('select').val());
+			}
 			dataQuery.set('foto', foto);
 			dataQuery.set('ubahPejabat', '');
 			dataQuery.set('usernamePejabat', usernamePejabat);
@@ -384,6 +382,7 @@ if (isset($_POST['ubah_foto'])) {
 			tanya_simpan("Ubah Pengguna", "Yakin akan simpan?", dataQuery.toString());
 			responProses().then(res => { ///////////// PROMISE ====================+
 				notif('Data tersimpan');
+				modalUbahDetail.hide()
 			}).catch((err) => {
 				notif(err)
 			})

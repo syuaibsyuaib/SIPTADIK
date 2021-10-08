@@ -3,6 +3,36 @@ session_start();
 date_default_timezone_set("Asia/Makassar");
 setlocale(LC_ALL, 'id_ID');
 
+// FUNSI PENCARIAN UNTUK ARRAY
+function array_search_multi($array, $key, $value, $parent = false)
+{
+    $results = array();
+
+    if (is_array($array)) {
+        if (isset($array[$key]) && $array[$key] == $value)
+            $results[] = $array;
+
+        foreach ($array as $id => $subarray) {
+            $found = array_search_multi(
+                $subarray,
+                $key,
+                $value
+            );
+
+            if (!empty($found)) {
+                if ($parent) {
+                    $results[$id] =
+                        $array[$id];
+                } else {
+                    $results = $found;
+                }
+            }
+        }
+    }
+
+    return $results;
+}
+
 function timestamp()
 {
     $tgl = getDate()['mday'] . "_" . getDate()['mon'] . "_" . getDate()['year'] . "_" . getDate()['hours'] . "_" . getDate()['minutes'] . "_" . getDate()['seconds'];
@@ -63,7 +93,11 @@ if (isset($_POST['kirimTamu'])) {
 
 //dari admin tambah pejabat
 if (isset($_POST['tambahPejabat'])) {
-    $dataUser = array("type" => "tambahUser", "dataTambah" => array($_POST['username'], $_POST['password'], $_POST['bidang'], $_POST['subbidang'], $_POST['jabatan'], $_POST['nama'], $_POST['nip'], $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
+    $subBidang =  $_POST['subbidang'];
+    if(!$_POST['subbidang']){
+        $subBidang = "";
+    }
+    $dataUser = array("type" => "tambahUser", "dataTambah" => array($_POST['username'], $_POST['password'], $_POST['bidang'], $subBidang, $_POST['jabatan'], $_POST['nama'], $_POST['nip'], $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
 
     $resTambahPejabat = kirim($dataUser);
 
@@ -79,7 +113,8 @@ if (isset($_POST['tambahPejabat'])) {
 
 //dari ubah pejabat
 if (isset($_POST['ubahPejabat'])) {
-    $dataUbahPejabat = array("type" => "ubahPejabat", "usernamePejabat" => $_POST['usernamePejabat'],"dataTambah" => array($_POST['nama'], $_POST['nip'], $_POST['jabatan'], $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
+    $pass = $_POST['sandi'] == "" ? array_search_multi($_SESSION['data']['dataUser'], 0, $_POST['usernamePejabat'], false)[0][1] : $_POST['sandi'];
+    $dataUbahPejabat = array("type" => "ubahPejabat", "usernamePejabat" => $_POST['usernamePejabat'], "dataTambah" => array($_POST['nama'],  $pass, $_POST['nip'], $_POST['jabatan'], $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
 
     $resUbahPejabat = kirim($dataUbahPejabat);
 
@@ -90,12 +125,14 @@ if (isset($_POST['ubahPejabat'])) {
 }
 
 // HAPUS
-if(isset($_POST['hapus'])){
+if (isset($_POST['hapus'])) {
     $hapus = array("type" => "hapusUser", "usernameHapus" => $_POST['hapus']);
-    kirim($hapus);
+    $resHapus = kirim($hapus);
+    return print(json_encode($resHapus));
 }
 
-function kirim($dataArr){
+function kirim($dataArr)
+{
     $url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
 
     $curl = curl_init($url);

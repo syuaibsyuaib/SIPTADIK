@@ -6,6 +6,7 @@ $data = $_SESSION['data']['dataPjb'];
 $dataBidang = $_SESSION['data']['dataBidang'];
 $dataUser = $_SESSION['data']['dataUser'];
 
+// print_r($_SESSION['data']);
 // UNTUK PAGINATION START
 $page = $_GET['p'] ?? 1;
 $limit = 8;
@@ -815,6 +816,7 @@ $data = array_slice($data, $offset, $limit);
 
 <script>
 	let modalTambahPengguna = new bootstrap.Modal(document.getElementById('modalTambahPejabat'));
+	//$('img')[1].src = URL.createObjectURL($('input:file')[0].files[0])
 
 	// TAMBAH PEJABAT
 	$('#formTambahPejabat').submit(function(e) {
@@ -832,7 +834,12 @@ $data = array_slice($data, $offset, $limit);
 			dataQuery.append('tambahPejabat', '');
 
 			const data = dataQuery.toString();
-
+			console.log(foto)
+			// $('img')[6].src = URL.createObjectURL(
+			// 	new Blob([foto.buffer], {
+			// 		type: 'image/png'
+			// 	})
+			// );
 			// const data = `tambahPejabat=&username=${valArr[0]}&password=${valArr[1]}&nama=${valArr[3]}&nip=${valArr[4]}&bidang=${valArr[5]}&subbidang=${valArr[6]}&jabatan=${valArr[7]}&nohp=${valArr[8]}&alamat=${valArr[9]}&foto=${foto}`;
 
 			tanya_simpan("Tambah Pengguna", "Yakin akan simpan?", data);
@@ -857,9 +864,6 @@ $data = array_slice($data, $offset, $limit);
 	$('.hapus').click(function() {
 		let hre = new URLSearchParams(new URL($(this).prev().prop('href')).search);
 		let id_del = `hapus=${hre.get('id')}`
-		// document.cookie = `hapus=${hre.get('id')}`
-
-		// alert(id_del)
 
 		tanya_simpan('Hapus Pengguna', 'Yakin akan menghapus user ini?', id_del)
 	})

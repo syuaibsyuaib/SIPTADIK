@@ -22,6 +22,7 @@
         $('.modal-backdrop:eq(1)').attr('style', 'z-index:1056')
         isiModal.innerHTML = isiPesan;
         judulModal.innerHTML = judulPesan;
+        console.log(data)
 
         tblModalWarning.onclick = function(e) {
             if (data == 'keluar') {
@@ -32,6 +33,7 @@
                 $('.modal-backdrop:eq(2)').attr('style', 'z-index:1056');
                 let resp = kirim('proses.php', data);
                 resp.then((res) => {
+                    console.log(res)
                         myModalLoading.hide();
                         localStorage.setItem('respon', res);
                     })

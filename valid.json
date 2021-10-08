@@ -1,0 +1,159 @@
+{
+    "role": 1,
+    "dataUser": [
+        [
+            "admin",
+            "123",
+            "1"
+        ],
+        [
+            "bendahara",
+            "55555",
+            "3"
+        ],
+        [
+            "piket",
+            "1234",
+            "2"
+        ],
+        [
+            "kadis",
+            "111",
+            "3"
+        ],
+        [
+            "pokja",
+            "1234",
+            "3"
+        ],
+        [
+            "sekdis",
+            "222",
+            "3"
+        ]
+    ],
+    "dataPjb": [
+        [
+            "bendahara",
+            "",
+            "jb",
+            "Leli marlina",
+            "199012032012011002",
+            "0856565656565",
+            "Jl. Abdullah dg. sirua",
+            "https:\/\/drive.google.com\/uc?id=13xJJ4yPL-Q18rXsIoy3S3w00v3I4Tp_B"
+        ],
+        [
+            "kadis",
+            "",
+            "kd",
+            "Muhammad Arief Idris",
+            "197001011989012001",
+            "0812223535353",
+            "Jl. Arief Rate",
+            ""
+        ],
+        [
+            "sekdis",
+            "",
+            "sd",
+            "Rahimnanda",
+            "196017121986052001",
+            "0855555555533",
+            "Jl. Jendral sudirman, No. 18c",
+            ""
+        ],
+        [
+            "pokja",
+            "b1s1",
+            "jp",
+            "Muhammad Fahreza Subair",
+            "196504211989031011",
+            "0854545454545454",
+            "Jl. Bambu runcing",
+            "https:\/\/drive.google.com\/uc?id=1Hk4zurI1idmrokzTF3JyPjVUVLb8qWkv"
+        ]
+    ],
+    "dataTamu": [
+        [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    ],
+    "dataBidang": [
+        [
+            "b1",
+            "SEKRETARIAT",
+            "b1s1",
+            "SUB BIDANG UMUM DAN KEPEGAWAIAN",
+            "kd",
+            "KEPALA DINAS PENDIDIKAN"
+        ],
+        [
+            "b2",
+            "BIDANG PEMBINAAN SEKOLAH MENENGAH ATAS",
+            "b1s2",
+            "SUB BIDANG KEUANGAN",
+            "sd",
+            "SEKRETARIS DINAS PENDIDIKAN"
+        ],
+        [
+            "b3",
+            "BIDANG PEMBINAAN SEKOLAH MENENGAH KEJURUAN",
+            "b1s3",
+            "SUB BIDANG PROGRAM",
+            "jk",
+            "KEPALA"
+        ],
+        [
+            "b4",
+            "BIDANG PEMBINAAN PENDIDIKAN DAN TENAGA KEPENDIDIKAN , FASILITASI PAUD, DIKSAR, DIKTI DAN PENDIDIKAN MASYARAKAT",
+            "",
+            "",
+            "js",
+            "SEKRETARIS"
+        ],
+        [
+            "b5",
+            "BIDANG PEMBINAAN PENDIDIKAN KHUSUS\/LAYANAN KHUSUS BAHASA DAN SASTRA DAERAH",
+            "",
+            "",
+            "jb",
+            "BENDAHARA"
+        ],
+        [
+            "b6",
+            "UPT PTIKP",
+            "",
+            "",
+            "jp",
+            "PENGELOLA"
+        ]
+    ],
+    "slide": [
+        [
+            ""
+        ],
+        [
+            ""
+        ],
+        [
+            ""
+        ],
+        [
+            ""
+        ],
+        [
+            ""
+        ]
+    ]
+}
