@@ -303,7 +303,7 @@ if (isset($_POST['ubah_foto'])) {
 						<div class="col-12 mb-3 <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "d-none" : "" ?>">
 							<div class="form-group">
 								<label class="required-field mb-1" for="subbid">Sub-Bidang</label>
-								<select id="subbid" class="form-select" name="subbidang" <?= substr($data[0][1], 0, 2) != "b1" ? "disabled" : "" ?>>
+								<select id="subbid" class="form-select" name="subbidang" <?= substr($data[0][1], 0, 2) != "b1" ? ($data[0][2] != "kd" && $data[0][2] != "sd" ? "disabled" : "") : "" ?>>
 									<option value="" selected></option>
 									<?php
 									if ($data[0][2] != "kd" && $data[0][2] != "sd") {
