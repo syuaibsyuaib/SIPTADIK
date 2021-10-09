@@ -54,13 +54,17 @@ function masuk($pengguna, $sandi)
 
         if ($hasil["role"] == 1) {
             header("Location: admin.php");
+            exit;
         } elseif ($hasil["role"] == 2) {
             header("Location: tamu.php");
+            exit;
         } elseif ($hasil["role"] == 3) {
             header("Location: pejabat.html");
+            exit;
         }
     } else {
         header("Location: /");
+        exit;
     }
 }
 

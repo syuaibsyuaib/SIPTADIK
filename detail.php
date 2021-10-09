@@ -4,7 +4,7 @@ include("layout/header.php");
 $_SESSION['role'] != 1 && $_SESSION['role'] != 3 ? pindahko("/") : "";
 
 if (!isset($_GET['id'])) {
-	header("Location: /");
+	pindahko("/");
 	exit;
 }
 $id = encrypt_decrypt("d", $_GET['id']);
@@ -350,109 +350,6 @@ if (isset($_POST['ubah_foto'])) {
 
 					</div>
 
-					<!-- <div class="row px-4">
-
-						<div class="col-12 mb-3">
-							<div class="form-group">
-								<label class="required-field mb-1">Foto</label>
-								<input name="foto" type="file" class="form-control" accept=".png, .jpg, .jpeg">
-								<div class="mt-1">
-									<small class="text-muted">
-										<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
-									</small>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-12 mb-3">
-							<div class="form-group">
-								<label class="required-field mb-1">Nama Lengkap</label>
-								<input name="nama" type="text" class="form-control" value="<?= $data[0][3] ?>" placeholder="Nama Lengkap" required>
-							</div>
-						</div>
-
-						<div class="col-12 mb-3">
-							<div class="form-group">
-								<label class="required-field mb-1">NIP/NIK</label>
-								<input name="nip" type="text" class="form-control" value="<?= $data[0][4] ?>" placeholder="NIP/NIK" required>
-							</div>
-						</div>
-
-						<div class="col-12 mb-3">
-							<div class="form-group">
-								<label class="required-field mb-1">Kata Sandi <i>(Hanya Edit)</i></label>
-								<input name="sandi" type="password" class="form-control" placeholder="Kata Sandi (Hanya bisa diubah)">
-							</div>
-						</div>
-
-						<div class="col-12 mb-3">
-							<div class="form-group">
-								<label class="required-field mb-1" for="bid">Bidang</label>
-								<select id="bid" class="form-select" name="bidang" required>
-									<option value="" selected></option>
-									<?php foreach ($dataBidang as $val) { ?>
-										<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
-									<?php } ?>
-								</select>
-							</div>
-						</div>
-
-						<div class="col-12 mb-3">
-							<div class="form-group">
-								<label class="required-field mb-1" for="subbid">Sub-Bidang</label>
-								<select id="subbid" class="form-select" name="subbidang" disabled>
-									<option value="" selected></option>
-									<?php
-									foreach ($dataBidang as $val) {
-										if ($val[3] == "") {
-											continue;
-										}
-									?>
-										<option value="<?= $val[2] ?>"><?= $val[3] ?></option>
-									<?php
-
-									}
-									?>
-								</select>
-							</div>
-						</div>
-
-						<div class="col-12 mb-3">
-							<div class="form-group">
-								<label class="required-field mb-1">Jabatan <i><?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "(Hanya lihat)" : "" ?></i></label>
-								<select class="form-select" name="jabatan" required <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "disabled" : "" ?>>
-									<option value="" selected></option>
-
-									<?php
-
-									foreach ($dataBidang as $val) {
-										if ($val[4] != "") {
-									?>
-											<option value="<?= $val[4] ?>" <?= $val[4] == $data[0][2] ? "selected" : "" ?>><?= $val[5] ?></option>
-									<?php
-										}
-									}
-									?>
-
-								</select>
-							</div>
-						</div>
-
-						<div class="col-12 mb-3">
-							<div class="form-group">
-								<label class="required-field mb-1">Nomor HP</label>
-								<input name="nohp" type="text" class="form-control" value="<?= $data[0][5] ?>" placeholder="Nomor HP" required>
-							</div>
-						</div>
-
-						<div class="col-12 mb-3">
-							<div class="form-group">
-								<label class="required-field mb-1">Alamat</label>
-								<input name="alamat" type="text" class="form-control" value="<?= $data[0][6] ?>" placeholder="Alamat Lengkap" required>
-							</div>
-						</div>
-
-					</div> -->
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
@@ -480,7 +377,7 @@ if (isset($_POST['ubah_foto'])) {
 			dataQuery.set('foto', foto);
 			dataQuery.set('ubahPejabat', '');
 			dataQuery.set('usernamePejabat', usernamePejabat);
-			// console.log(dataQuery.toString())
+			console.log(dataQuery.toString())
 
 			tanya_simpan("Ubah Pengguna", "Yakin akan simpan?", dataQuery.toString());
 			responProses().then(res => { ///////////// PROMISE ====================+
