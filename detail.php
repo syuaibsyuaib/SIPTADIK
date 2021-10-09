@@ -246,13 +246,13 @@ if (isset($_POST['ubah_foto'])) {
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="nama_pjb">Nama Lengkap</label>
-								<input name="nama" id="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap"  value="<?= $data[0][3] ?>">
+								<input name="nama" id="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap" value="<?= $data[0][3] ?>">
 							</div>
 						</div>
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="nip_pjb">NIP / NIK</label>
-								<input name="nip" id="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK"  value="<?= $data[0][4] ?>">
+								<input name="nip" id="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK" value="<?= $data[0][4] ?>">
 							</div>
 						</div>
 
@@ -281,45 +281,46 @@ if (isset($_POST['ubah_foto'])) {
 							</div>
 						</div>
 
-						<?php
-						if ($data[0][2] != "kd" && $data[0][2] != "sd") {
-						?>
 
-							<div class="col-12 mb-3 <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "d-none" : "" ?>">
-								<div class="form-group">
-									<label class="required-field mb-1" for="bid">Bidang</label>
-									<select id="bid" class="form-select" name="bidang" required>
-										<option value="" selected></option>
-										<?php foreach ($dataBidang as $val) { ?>
-											<option value="<?= $val[0] ?>"  <?= substr($data[0][1],0,2) == $val[0] ? "selected" : "" ?>><?= $val[1] ?></option>
-										<?php } ?>
-									</select>
-								</div>
+						<div class="col-12 mb-3 <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "d-none" : "" ?>">
+							<div class="form-group">
+								<label class="required-field mb-1" for="bid">Bidang</label>
+								<select id="bid" class="form-select" name="bidang">
+									<option value="" selected></option>
+									<?php
+									if ($data[0][2] != "kd" && $data[0][2] != "sd") {
+										foreach ($dataBidang as $val) {
+									?>
+											<option value="<?= $val[0] ?>" <?= substr($data[0][1], 0, 2) == $val[0] ? "selected" : "" ?>><?= $val[1] ?></option>
+									<?php
+										}
+									}
+									?>
+								</select>
 							</div>
+						</div>
 
-							<div class="col-12 mb-3 <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "d-none" : "" ?>">
-								<div class="form-group">
-									<label class="required-field mb-1" for="subbid">Sub-Bidang</label>
-									<select id="subbid" class="form-select" name="subbidang" <?= substr($data[0][1],0,2) != "b1" ? "disabled" : "" ?>>
-										<option value="" selected></option>
-										<?php
+						<div class="col-12 mb-3 <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "d-none" : "" ?>">
+							<div class="form-group">
+								<label class="required-field mb-1" for="subbid">Sub-Bidang</label>
+								<select id="subbid" class="form-select" name="subbidang" <?= substr($data[0][1], 0, 2) != "b1" ? "disabled" : "" ?>>
+									<option value="" selected></option>
+									<?php
+									if ($data[0][2] != "kd" && $data[0][2] != "sd") {
 										foreach ($dataBidang as $val) {
 											if ($val[3] == "") {
 												continue;
 											}
-										?>
+									?>
 											<option value="<?= $val[2] ?>" <?= $data[0][1] == $val[2] ? "selected" : "" ?>><?= $val[3] ?></option>
-										<?php
-
+									<?php
 										}
-										?>
-									</select>
-								</div>
+									}
+									?>
+								</select>
 							</div>
+						</div>
 
-						<?php
-						}
-						?>
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
