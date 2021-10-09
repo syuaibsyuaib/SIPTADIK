@@ -33,9 +33,9 @@
                 $('.modal-backdrop:eq(2)').attr('style', 'z-index:1056');
                 let resp = kirim('proses.php', data);
                 resp.then((res) => {
-                    console.log(res)
                         myModalLoading.hide();
                         localStorage.setItem('respon', res);
+                        window.location.reload();
                     })
                     .catch((error) => {
                         myModalLoading.hide();

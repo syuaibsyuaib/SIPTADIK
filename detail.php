@@ -220,8 +220,6 @@ if (isset($_POST['ubah_foto'])) {
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
 
-
-
 					<div class="row px-4">
 
 						<div class="col-6 mb-3">
@@ -230,7 +228,7 @@ if (isset($_POST['ubah_foto'])) {
 								<input name="username" type="hidden" value="<?= $id ?>">
 								<input id="pengguna_pjb" type="text" class="form-control" placeholder="Nama pengguna" readonly value="<?= $id ?>">
 								<div class="mt-1">
-									<small class="text-danger"><i>Hanya bisa dilihat, tidak bisa diubah</i></small>
+									<small class="text-danger"><i>Hanya lihat</i></small>
 								</div>
 							</div>
 						</div>
@@ -248,20 +246,20 @@ if (isset($_POST['ubah_foto'])) {
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="nama_pjb">Nama Lengkap</label>
-								<input name="nama" id="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap" required value="<?= $data[0][3] ?>">
+								<input name="nama" id="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap"  value="<?= $data[0][3] ?>">
 							</div>
 						</div>
 						<div class="col-6 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="nip_pjb">NIP / NIK</label>
-								<input name="nip" id="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK" required value="<?= $data[0][4] ?>">
+								<input name="nip" id="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK"  value="<?= $data[0][4] ?>">
 							</div>
 						</div>
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="foto_pjb">Foto Profil</label>
-								<input name="foto" id="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg" required>
+								<input name="foto" id="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg">
 								<div class="mt-1">
 									<small class="text-danger">
 										<i>Disarankan rasio 1:1 (persegi)</i>
