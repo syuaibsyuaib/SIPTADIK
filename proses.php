@@ -3,7 +3,7 @@ session_start();
 date_default_timezone_set("Asia/Makassar");
 setlocale(LC_ALL, 'id_ID');
 
-// FUNSI PENCARIAN UNTUK ARRAY
+// FUNGSI PENCARIAN UNTUK ARRAY
 function array_search_multi($array, $key, $value, $parent = false)
 {
     $results = array();
@@ -41,8 +41,10 @@ function timestamp()
 
 function masuk($pengguna, $sandi)
 {
+    unset($data);
     $data = array("pengguna" => $pengguna, "sandi" => $sandi);
-    $hasil = kirim($data);
+
+    $hasil = kirim($data, null);
 
     if ($hasil || $hasil != NULL) {
         $_SESSION['user'] = $pengguna;
@@ -90,7 +92,7 @@ if (isset($_POST['kirimTamu'])) {
 
     $res = kirim($dataTamu);
     if (!$res) {
-        return print(json_decode($res));
+        return print($res);
     } else {
         return 'Error';
     }
@@ -104,7 +106,7 @@ if (isset($_POST['tambahPejabat'])) {
     }
     $dataUser = array("type" => "tambahUser", "dataTambah" => array($_POST['username'], $_POST['password'], $_POST['bidang'], $subBidang, $_POST['jabatan'], $_POST['nama'], $_POST['nip'], $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
 
-    $resTambahPejabat = kirim($dataUser);
+    $resTambahPejabat = kirim($dataUser, 1);
 
     if ($resTambahPejabat == "Username sudah ada") {
         return print('Username sudah digunakan');
@@ -119,10 +121,14 @@ if (isset($_POST['tambahPejabat'])) {
 
 //dari ubah pejabat
 if (isset($_POST['ubahPejabat'])) {
+    $subBidang =  $_POST['subbidang'];
+    if (!$_POST['subbidang']) {
+        $subBidang = "";
+    }
     $pass = $_POST['sandi'] == "" ? array_search_multi($_SESSION['data']['dataUser'], 0, $_POST['usernamePejabat'], false)[0][1] : $_POST['sandi'];
-    $dataUbahPejabat = array("type" => "ubahPejabat", "usernamePejabat" => $_POST['usernamePejabat'], "dataTambah" => array($_POST['nama'],  $pass, $_POST['nip'], $_POST['jabatan'], $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
+    $dataUbahPejabat = array("type" => "ubahPejabat", "usernamePejabat" => $_POST['usernamePejabat'], "dataTambah" => array($_POST['bidang'], $subBidang, $_POST['jabatan'], $_POST['nama'],  $pass, $_POST['nip'],  $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
 
-    $resUbahPejabat = kirim($dataUbahPejabat);
+    $resUbahPejabat = kirim($dataUbahPejabat, 1);
 
     unset($_SESSION['data']);
     $_SESSION['data'] = $resUbahPejabat;
@@ -134,11 +140,12 @@ if (isset($_POST['ubahPejabat'])) {
 // HAPUS
 if (isset($_POST['hapus'])) {
     $hapus = array("type" => "hapusUser", "usernameHapus" => $_POST['hapus']);
-    $resHapus = kirim($hapus);
+    $resHapus = kirim($hapus, 1);
+    masuk($_SESSION['user'], $_SESSION['pass']);
     return print(json_encode($resHapus));
 }
 
-function kirim($dataArr)
+function kirim($dataArr, $role = 2)
 {
     $url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
 
@@ -153,13 +160,14 @@ function kirim($dataArr)
         "Content-Type: application/json",
     );
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    
     if (isset($_SESSION['user'])) {
-        $dataArr += ["role" => $_SESSION['role'], "pengguna" => $_SESSION['user'], "sandi" => $_SESSION['pass']];
+        $dataArr += ["role" => $role, "pengguna" => $_SESSION['user'], "sandi" => $_SESSION['pass']];
     }
 
-    $data = json_encode($dataArr);
+    $dataFinal = json_encode($dataArr);
 
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $dataFinal);
 
     //for debug only!
     // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);

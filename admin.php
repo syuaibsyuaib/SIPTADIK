@@ -307,7 +307,7 @@ $data = array_slice($data, $offset, $limit);
 	</div>
 </div>
 
-<!-- MODAL BAGIAN -->
+<!-- MODAL BIDANG -->
 <div class="modal fade" id="modal_bagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
