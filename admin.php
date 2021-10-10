@@ -27,7 +27,7 @@ $data = array_slice($data, $offset, $limit);
 <div class="modal fade" id="slider_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form class="m-0 p-0" method="POST" enctype="multipart/form-data">
+			<form class="m-0 p-0" id="formSlider">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Pengaturan Gambar Slider</h5>
 				</div>
@@ -55,23 +55,23 @@ $data = array_slice($data, $offset, $limit);
 						</div>
 						<div class="row d-block text-center">
 							<div class="col-sm-2 d-inline-block">
-								<input class="form-control d-none" type="file" name="slider_1" id="slider_1" accept="image/*">
+								<input class="form-control d-none" type="file" name="slider_1" id="slider_1" value="" accept="image/*">
 								<label for="slider_1" class="btn btn-sm btn-primary">Ganti</label>
 							</div>
 							<div class="col-sm-2 d-inline-block">
-								<input class="form-control d-none" type="file" name="slider_2" id="slider_2" accept="image/*">
+								<input class="form-control d-none" type="file" name="slider_2" id="slider_2" value="" accept="image/*">
 								<label for="slider_2" class="btn btn-sm btn-primary">Ganti</label>
 							</div>
 							<div class="col-sm-2 d-inline-block">
-								<input class="form-control d-none" type="file" name="slider_3" id="slider_3" accept="image/*">
+								<input class="form-control d-none" type="file" name="slider_3" id="slider_3" value="" accept="image/*">
 								<label for="slider_3" class="btn btn-sm btn-primary">Ganti</label>
 							</div>
 							<div class="col-sm-2 d-inline-block">
-								<input class="form-control d-none" type="file" name="slider_4" id="slider_4" accept="image/*">
+								<input class="form-control d-none" type="file" name="slider_4" id="slider_4" value="" accept="image/*">
 								<label for="slider_4" class="btn btn-sm btn-primary">Ganti</label>
 							</div>
 							<div class="col-sm-2 d-inline-block">
-								<input class="form-control d-none" type="file" name="slider_5" id="slider_5" accept="image/*">
+								<input class="form-control d-none" type="file" name="slider_5" id="slider_5" value="" accept="image/*">
 								<label for="slider_5" class="btn btn-sm btn-primary">Ganti</label>
 							</div>
 						</div>
@@ -81,8 +81,8 @@ $data = array_slice($data, $offset, $limit);
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">Simpan</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+					<button type="submit" class="btn btn-primary" name="ubahSlide" disabled>Simpan</button>
+					<button class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
 		</div>
@@ -706,11 +706,46 @@ $data = array_slice($data, $offset, $limit);
 </main>
 
 <script>
-	let modalTambahPengguna = new bootstrap.Modal(document.getElementById('modalTambahPejabat'));
 	//$('img')[1].src = URL.createObjectURL($('input:file')[0].files[0])
+	let dataSlider = '';
+	let dataQuerySlider = new URLSearchParams(`?slider_1=&slider_2=&slider_3=&slider_4=&slider_5=&ubahSlide=`);
+
+	$('#formSlider input:file').on('change', function(e) {
+		let indexLabel = $('#formSlider input:file').index(this);
+		let slideName = $('#formSlider input:file').eq(indexLabel).prop('name')
+		let reader = new FileReader();
+		reader.onload = async function() {
+			let foto = await new Uint8Array(reader.result);
+			$('#formSlider img').eq(indexLabel).prop('src', URL.createObjectURL($(`#formSlider input:file`)[indexLabel].files[0]))
+			if (reader.readyState == 2) {
+				dataQuerySlider.set(slideName, foto);
+				dataSlider = dataQuerySlider.toString();
+				console.log(dataSlider);
+			}
+		}
+
+		reader.readAsArrayBuffer($(`#formSlider input:file`)[indexLabel].files[0]);
+		$('#formSlider button:submit').prop('disabled', false);
+	})
+
+	$('#formSlider').on('submit', function(e) {
+		let modalSlider = new bootstrap.Modal(document.getElementById('slider_edit'));
+		console.log(dataSlider);
+		tanya_simpan("Ubah slide", "Yakin akan simpan?", dataSlider);
+		responProses().then(res => { ///////////// PROMISE ====================+
+			if (res != 'Pastikan file Anda bertipe gambar!') {
+				notif('Data tersimpan');
+				modalSlider.hide()
+			} else {
+				notif(res);
+			}
+		})
+		e.preventDefault()
+	})
 
 	// TAMBAH PEJABAT
 	$('#formTambahPejabat').submit(function(e) {
+		let modalTambahPengguna = new bootstrap.Modal(document.getElementById('modalTambahPejabat'));
 		let foto, valArr = [];
 		$(`#modalTambahPejabat input,#modalTambahPejabat select`).filter((ind, el) => {
 			valArr.push(el.value);
@@ -725,13 +760,7 @@ $data = array_slice($data, $offset, $limit);
 			dataQuery.append('tambahPejabat', '');
 
 			const data = dataQuery.toString();
-			console.log(foto)
-			// $('img')[6].src = URL.createObjectURL(
-			// 	new Blob([foto.buffer], {
-			// 		type: 'image/png'
-			// 	})
-			// );
-			// const data = `tambahPejabat=&username=${valArr[0]}&password=${valArr[1]}&nama=${valArr[3]}&nip=${valArr[4]}&bidang=${valArr[5]}&subbidang=${valArr[6]}&jabatan=${valArr[7]}&nohp=${valArr[8]}&alamat=${valArr[9]}&foto=${foto}`;
+			// console.log(foto)
 
 			tanya_simpan("Tambah Pengguna", "Yakin akan simpan?", data);
 			responProses().then(res => { ///////////// PROMISE ====================+
@@ -774,8 +803,8 @@ $data = array_slice($data, $offset, $limit);
 	?>
 
 	$('#formTambahPiket').submit(function(e) {
+		tanya_simpan('Tambah Piker', 'Yakin akan menambahkan user ini?', '')
 		e.preventDefault();
-		alert('Under Maintenance');
 	})
 </script>
 

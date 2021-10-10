@@ -153,6 +153,14 @@ if (isset($_POST['hapus'])) {
     return print(json_encode($resHapus));
 }
 
+//SLIDE
+if(isset($_POST['ubahSlide'])){
+    $slideArr = array("type" => "ubahSlide", "dataTambah" => array([$_POST['slider_1']], [$_POST['slider_2']], [$_POST['slider_3']], [$_POST['slider_4']], [$_POST['slider_5']]));
+    $resSlide = kirim($slideArr, 1);
+    masuk($_SESSION['user'], $_SESSION['pass']);
+    return print(json_encode($resSlide));
+}
+
 function kirim($dataArr, $role = 2)
 {
     $url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
