@@ -139,10 +139,9 @@ $dataBidang = $_SESSION['data']['dataBidang'];
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_bagian_edit">Bagian</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_subbagian_edit">Sub-Bagian</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_bidang_edit">Bidang</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_subbidang_edit">Sub-Bidang</a></li>
                                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_jabatan_edit">Jabatan</a></li>
-                                <!-- <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#jabatan_edit">Bagian/Sub-bagian/Jabatan</a></li> -->
                             </ul>
                         </li>
                         <a class="nav-link" href="riwayat.php">Riwayat</a>

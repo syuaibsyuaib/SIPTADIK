@@ -21,7 +21,6 @@ if ($page > $total_pages) {
 	pindahko("?" . http_build_query($_GET));
 }
 $data = array_slice($data, $offset, $limit);
-
 ?>
 
 <!-- MODAL SLIDER -->
@@ -163,7 +162,7 @@ $data = array_slice($data, $offset, $limit);
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
-								<label class="required-field mb-1" for="bid">Bagian</label>
+								<label class="required-field mb-1" for="bid">Bidang</label>
 								<select id="bid" class="form-select" name="bidang" required>
 									<option value="" selected></option>
 									<?php foreach ($dataBidang as $val) { ?>
@@ -175,7 +174,7 @@ $data = array_slice($data, $offset, $limit);
 
 						<div class="col-12 mb-3">
 							<div class="form-group">
-								<label class="required-field mb-1" for="subbid">Sub-Bagian</label>
+								<label class="required-field mb-1" for="subbid">Sub-Bidang</label>
 								<select id="subbid" class="form-select" name="subbidang" readonly>
 									<option value="" selected></option>
 									<?php
@@ -308,12 +307,12 @@ $data = array_slice($data, $offset, $limit);
 </div>
 
 <!-- MODAL BIDANG -->
-<div class="modal fade" id="modal_bagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_bidang_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form class="m-0 p-0" id="formTambahBagian">
+			<form class="m-0 p-0" id="formTambahBidang">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools"></i> Pengaturan Bagian</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools" style="font-size:1rem;"></i> Pengaturan Bidang</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">
@@ -321,7 +320,7 @@ $data = array_slice($data, $offset, $limit);
 						<thead>
 							<tr>
 								<th width="10%">#</th>
-								<th width="70%">Nama Bagian</th>
+								<th width="70%">Nama Bidang</th>
 								<th width="30%">Pilihan</th>
 							</tr>
 						</thead>
@@ -388,13 +387,13 @@ $data = array_slice($data, $offset, $limit);
 	</div>
 </div>
 
-<!-- MODAL SUBBAGIAN -->
-<div class="modal fade" id="modal_subbagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- MODAL SUBBIDANG -->
+<div class="modal fade" id="modal_subbidang_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<form class="m-0 p-0" method="POST" action="">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools"></i> Pengaturan Sub-Bagian</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools" style="font-size:1rem;"></i> Pengaturan Sub-Bagian</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">
@@ -508,7 +507,7 @@ $data = array_slice($data, $offset, $limit);
 		<div class="modal-content">
 			<form class="m-0 p-0" method="POST" action="">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools"></i> Pengaturan Jabatan</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools" style="font-size:1rem;"></i> Pengaturan Jabatan</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">
@@ -760,8 +759,8 @@ $data = array_slice($data, $offset, $limit);
 		tanya_simpan('Hapus Pengguna', 'Yakin akan menghapus user ini?', id_del)
 	})
 
-	// TAMBAH BAGIAN
-	$('#formTambahBagian').submit(function(e) {
+	// TAMBAH BIDANG
+	$('#formTambahBidang').submit(function(e) {
 		//
 		e.preventDefault()
 	});
