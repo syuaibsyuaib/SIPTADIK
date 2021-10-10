@@ -126,11 +126,15 @@ if (isset($_POST['tambahPejabat'])) {
 //dari ubah pejabat
 if (isset($_POST['ubahPejabat'])) {
     $subBidang = "";
+    $foto = "";
     if ($_POST['subbidang']) {
         $subBidang =  $_POST['subbidang'];
     }
+    if($_POST['foto']){
+        $foto = $_POST['foto'];
+    }
     $pass = $_POST['sandi'] == "" ? array_search_multi($_SESSION['data']['dataUser'], 0, $_POST['usernamePejabat'], false)[0][1] : $_POST['sandi'];
-    $dataUbahPejabat = array("type" => "ubahPejabat", "usernamePejabat" => $_POST['usernamePejabat'], "dataTambah" => array($_POST['bidang'], $subBidang, $_POST['jabatan'], $_POST['nama'],  $pass, $_POST['nip'],  $_POST['nohp'], $_POST['alamat']), "foto" => array($_POST['foto']));
+    $dataUbahPejabat = array("type" => "ubahPejabat", "usernamePejabat" => $_POST['usernamePejabat'], "dataTambah" => array($_POST['bidang'], $subBidang, $_POST['jabatan'], $_POST['nama'],  $pass, $_POST['nip'],  $_POST['nohp'], $_POST['alamat']), "foto" => array($foto));
 
     $resUbahPejabat = kirim($dataUbahPejabat, 1);
 
