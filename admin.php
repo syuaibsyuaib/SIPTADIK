@@ -176,7 +176,7 @@ $data = array_slice($data, $offset, $limit);
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="subbid">Sub-Bagian</label>
-								<select id="subbid" class="form-select" name="subbidang" disabled>
+								<select id="subbid" class="form-select" name="subbidang" readonly>
 									<option value="" selected></option>
 									<?php
 									foreach ($dataBidang as $val) {
@@ -196,7 +196,7 @@ $data = array_slice($data, $offset, $limit);
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1" for="jabat">Jabatan</label>
-								<select id="jabat" class="form-select" name="jabatan" disabled required>
+								<select id="jabat" class="form-select" name="jabatan" readonly required>
 									<option value="" selected></option>
 									<option value="jp">PENGELOLA</option>
 									<option value="jb">BENDAHARA</option>

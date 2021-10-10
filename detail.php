@@ -325,7 +325,7 @@ if (isset($_POST['ubah_foto'])) {
 						<div class="col-12 mb-3">
 							<div class="form-group">
 								<label class="required-field mb-1">Jabatan <i><?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "(Hanya lihat)" : "" ?></i></label>
-								<select class="form-select" name="jabatan" required <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "disabled" : "" ?>>
+								<select class="form-select" name="jabatan" required <?= $data[0][2] == "kd" || $data[0][2] == "sd" ? "readonly" : "" ?>>
 									<option value="" selected></option>
 
 									<?php
