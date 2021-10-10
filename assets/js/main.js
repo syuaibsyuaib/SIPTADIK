@@ -26,16 +26,16 @@
 		    switch ($('#bid').prop('selectedIndex')) {
 		        case 0:
 		            $('#subbid, #jabat').prop('selectedIndex', 0);
-		            $('#subbid, #jabat').prop('disabled', true);
+		            $('#subbid option, #jabat option').prop('hidden', true);
 		            break;
 		        case 1:
-		            $('#subbid').prop('disabled', false);
-		            $('#jabat').prop('disabled', true);
+		            $('#subbid option').prop('hidden', false);
+		            $('#jabat option').prop('hidden', true);
 		            $('#subbid, #jabat').prop('selectedIndex', 0);
 		            break;
 		        default:
-		            $('#subbid').prop('disabled', true);
-		            $('#jabat').prop('disabled', false);
+		            $('#subbid option').prop('hidden', true);
+		            $('#jabat option').prop('hidden', false);
 		            $('#subbid, #jabat').prop('selectedIndex', 0);
 		            break;
 		    }
@@ -44,12 +44,17 @@
 		$('#subbid').on('change', function(e) {
 		    switch ($('#subbid').prop('selectedIndex')) {
 		        case 0:
-		            $('#jabat').prop('disabled', true);
-		            $('#jabat').prop('selectedIndex', 0);
+		            $('#jabat option').prop('hidden', true);
+		            $('#jabat option').prop('selectedIndex', 0);
 		            break;
 		        default:
-		            $('#jabat').prop('disabled', false);
-		            $('#jabat').prop('selectedIndex', 0);
+		            $('#jabat option').prop('hidden', false);
+		            $('#jabat option').prop('selectedIndex', 0);
 		            break;
 		    }
 		})
+
+		function hapusOptions(e) {
+		    $(`${e} option`).prop('hidden');
+		    return true;
+		}
