@@ -8,7 +8,6 @@
 </footer>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/jquery.dataTables.min.js"></script>
-
 <script>
     function tanya_simpan(judulPesan, isiPesan, data) {
         data = data || false;
@@ -44,31 +43,6 @@
             }
         };
     };
-
-    async function kirim(url, data) {
-        const response = await fetch(url, {
-            method: 'POST', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded', //'multipart/form-data',   //
-            },
-            body: data,
-        })
-        return response.text();
-    }
-
-    function responProses(){
-        return new Promise((res, rej)=>{
-            let timeout = setTimeout(()=>{
-                let interval = setInterval(() => {
-                    if(localStorage.respon){
-                        res(localStorage.respon);
-                        clearInterval(interval);
-                        clearTimeout(timeout);
-                    }
-                }, 500);
-            }, 10000);
-        })
-    }
 </script>
 </body>
 

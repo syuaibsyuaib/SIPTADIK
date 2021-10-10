@@ -365,32 +365,43 @@ if (isset($_POST['ubah_foto'])) {
 <script>
 	let modalUbahDetail = new bootstrap.Modal(document.getElementById('ubahdetail'));
 
-	$('#formUbahPejabat').on('submit', function(e) {
-		let usernamePejabat = "<?= $id ?>"
-		let reader = new FileReader();
+
+	$('#formUbahPejabat').on('submit', kirimUbahPejabat)
+
+	let reader = new FileReader();
+	let foto = "";
+	$('#foto_pjb').on('change', () => {
+		alert('load foto')
 		reader.onload = function() {
-			let foto = new Uint8Array(reader.result);
-
-			let dataQuery = new URLSearchParams(new FormData($('#formUbahPejabat')[0]));
-			if ($('select').prop('disabled')) {
-				dataQuery.set('jabatan', $('select').val());
-			}
-			dataQuery.set('foto', foto);
-			dataQuery.set('ubahPejabat', '');
-			dataQuery.set('usernamePejabat', usernamePejabat);
-			console.log(dataQuery.toString())
-
-			tanya_simpan("Ubah Pengguna", "Yakin akan simpan?", dataQuery.toString());
-			responProses().then(res => { ///////////// PROMISE ====================+
-				notif('Data tersimpan');
-				modalUbahDetail.hide()
-			}).catch((err) => {
-				notif(err)
-			})
+			alert(reader.result);
+			foto = new Uint8Array(reader.result);
 		}
 		reader.readAsArrayBuffer($('#formUbahPejabat :file')[0].files[0]);
-		e.preventDefault()
 	})
+
+
+	function kirimUbahPejabat(e) {
+		let usernamePejabat = "<?= $id ?>"
+		let dataQuery = new URLSearchParams(new FormData($('#formUbahPejabat')[0]));
+		if ($('select').prop('disabled')) {
+			dataQuery.set('jabatan', $('select').val());
+		}
+		dataQuery.set('foto', foto);
+		dataQuery.set('ubahPejabat', '');
+		dataQuery.set('usernamePejabat', usernamePejabat);
+		// console.log(dataQuery.toString())
+
+		tanya_simpan("Ubah Pengguna", "Yakin akan simpan?", dataQuery.toString());
+
+		responProses().then(res => { ///////////// PROMISE ====================+
+			notif('Data tersimpan');
+			modalUbahDetail.hide()
+		}).catch((err) => {
+			notif(err)
+		})
+
+		e.preventDefault()
+	}
 </script>
 <?php
 include("layout/footer.php");
