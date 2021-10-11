@@ -245,14 +245,14 @@ $data = array_slice($data, $offset, $limit);
 										<tr>
 											<th><?= $num ?></th>
 											<td>
-												<input id="piket_u_<?= $value[0] ?>" name="piket_u_<?= $value[0] ?>" type="text" class="form-control" required value="<?= $value[0] ?>" readonly="readonly">
+												<input name="piket_u_<?= $value[0] ?>" type="text" class="form-control piket_u_current" required value="<?= $value[0] ?>" readonly="readonly">
 											</td>
 											<td>
-												<input id="piket_p_<?= $value[0] ?>" name="piket_p_<?= $value[0] ?>" type="text" class="form-control" required readonly="readonly" placeholder="Kata sandi">
+												<input name="piket_p_<?= $value[0] ?>" type="text" class="form-control piket_p_current" required readonly="readonly" placeholder="Kata sandi">
 											</td>
 											<td>
-												<button class="btn btn-primary" type="button" id="piket_btn<?= $value[0] ?>">
-													<i id="ikon_piket_btn<?= $value[0] ?>" class="bi bi-pencil-square"></i>
+												<button class="btn btn-primary piket_btn_edit" type="button">
+													<i class="bi bi-pencil-square ikon_piket_btn_current"></i>
 												</button>
 												<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
 											</td>
@@ -260,18 +260,20 @@ $data = array_slice($data, $offset, $limit);
 
 										<!-- JQUERY PENGATUR INPUT -->
 										<script>
-											$("#piket_btn<?= $value[0] ?>").click(function() {
-												$('#piket_u_<?= $value[0] ?>').attr('readonly', function(index, attr) {
+											$(".piket_btn_edit").click(function(e) {
+												let indexPiketBtnEdit = $(".piket_btn_edit").index(this);
+												console.log(indexPiketBtnEdit)
+												$('.piket_u_current').eq(indexPiketBtnEdit).attr('readonly', function(index, attr) {
 													return attr == 'readonly' ? null : 'readonly';
 												});
-												$('#piket_p_<?= $value[0] ?>').attr('readonly', function(index, attr) {
+												$('.piket_p_current').eq(indexPiketBtnEdit).attr('readonly', function(index, attr) {
 													return attr == 'readonly' ? null : 'readonly';
 												});
-												$('#ikon_piket_btn<?= $value[0] ?>').attr('class', function(index, attr) {
-													return attr == 'bi bi-pencil-square' ? 'bi bi-check-lg' : 'bi bi-pencil-square';
+												$('.ikon_piket_btn_current').eq(indexPiketBtnEdit).attr('class', function(index, attr) {
+													return attr == 'bi bi-pencil-square ikon_piket_btn_current' ? 'bi bi-check-lg ikon_piket_btn_current' : 'bi bi-pencil-square ikon_piket_btn_current';
 												});
-												$('#piket_btn<?= $value[0] ?>').attr('class', function(index, attr) {
-													return attr == 'btn btn-primary' ? 'btn btn-success' : 'btn btn-primary';
+												$('.piket_btn_edit').eq(indexPiketBtnEdit).attr('class', function(index, attr) {
+													return attr == 'btn btn-primary piket_btn_edit' ? 'btn btn-success piket_btn_edit' : 'btn btn-primary piket_btn_edit';
 												});
 											});
 										</script>
@@ -283,10 +285,10 @@ $data = array_slice($data, $offset, $limit);
 
 								<tr>
 									<td>Tambah</td>
-									<td><input name="tambah_username_piket" type="text" class="form-control" required></td>
-									<td><input name="tambah_password_piket" type="text" class="form-control" required></td>
+									<td><input id='tambahUsernamePiket' name="tambah_username_piket" type="text" class="form-control" required></td>
+									<td><input id='tambahPasswordPiket' name="tambah_password_piket" type="text" class="form-control" required></td>
 									<td>
-										<button class="col-5 btn btn-success"><i class="bi bi-plus-lg"></i></button>
+										<button type="button" class="col-5 btn btn-success tambahInput"><i class="bi bi-plus-lg"></i></button>
 									</td>
 								</tr>
 
@@ -296,7 +298,7 @@ $data = array_slice($data, $offset, $limit);
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
-					<button type="submit" name="tambah_piket" class="btn btn-primary">Simpan</button>
+					<button type="submit" name="tambah_piket" class="btn btn-primary" disabled>Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -707,7 +709,36 @@ $data = array_slice($data, $offset, $limit);
 	//$('img')[1].src = URL.createObjectURL($('input:file')[0].files[0])
 	let dataSlider = '';
 	let dataQuerySlider = new URLSearchParams(`?slider_1=&slider_2=&slider_3=&slider_4=&slider_5=&ubahSlide=`);
+	let scriptCurrentPiket = function(noUrut, usernamePiket){return `<tr>
+									<th>${noUrut}</th>
+									<td>
+										<input name="piket_u_${usernamePiket}" type="text" class="form-control piket_u_current" required value="${usernamePiket}" readonly="readonly">
+									</td>
+									<td>
+										<input name="piket_p_${usernamePiket}" type="text" class="form-control piket_p_current" required readonly="readonly" placeholder="Kata sandi">
+									</td>
+									<td>
+										<button class="btn btn-primary piket_btn_edit" type="button">
+											<i class="bi bi-pencil-square ikon_piket_btn_current"></i>
+										</button>
+										<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+									</td>
+								</tr>`}
 
+	// TAMBAH PIKET
+	$('.tambahInput').on('click', function(e) {
+		$('#formTambahPiket tr').last().before(scriptCurrentPiket($('#formTambahPiket tr').length - 1, $('#tambahUsernamePiket').val()))
+		$('#tambahUsernamePiket').val("");
+		$('#tambahPasswordPiket').val("");
+		$('#formTambahPiket button:submit').prop('disabled',false);
+
+	})
+	$('#formTambahPiket').submit(function(e) {
+		$('#modal_tambah_piket')
+		tanya_simpan('Tambah Piket', 'Yakin akan menambahkan user ini?', '')
+		e.preventDefault();
+	})
+	// SLIDER
 	$('#formSlider input:file').on('change', function(e) {
 		let indexLabel = $('#formSlider input:file').index(this);
 		let slideName = $('#formSlider input:file').eq(indexLabel).prop('name')
@@ -728,7 +759,6 @@ $data = array_slice($data, $offset, $limit);
 
 	$('#formSlider').on('submit', function(e) {
 		let modalSlider = new bootstrap.Modal(document.getElementById('slider_edit'));
-		console.log(dataSlider);
 		tanya_simpan("Ubah slide", "Yakin akan simpan?", dataSlider);
 		responProses().then(res => { ///////////// PROMISE ====================+
 			if (res != 'Pastikan file Anda bertipe gambar!') {
@@ -799,11 +829,6 @@ $data = array_slice($data, $offset, $limit);
 		$data = $_POST['data']['dataPjb'];
 	}
 	?>
-
-	$('#formTambahPiket').submit(function(e) {
-		tanya_simpan('Tambah Piker', 'Yakin akan menambahkan user ini?', '')
-		e.preventDefault();
-	})
 </script>
 
 <?php
