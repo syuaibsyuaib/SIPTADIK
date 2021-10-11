@@ -82,7 +82,7 @@ $data = array_slice($data, $offset, $limit);
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" name="ubahSlide" disabled>Simpan</button>
-					<button class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
 		</div>
