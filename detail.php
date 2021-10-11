@@ -371,9 +371,9 @@ if (isset($_POST['ubah_foto'])) {
 	let reader = new FileReader();
 	let foto = "";
 	$('#foto_pjb').on('change', () => {
-		alert('load foto')
+		// alert('load foto')
 		reader.onload = function() {
-			alert(reader.result);
+			// alert(reader.result);
 			foto = new Uint8Array(reader.result);
 		}
 		reader.readAsArrayBuffer($('#formUbahPejabat :file')[0].files[0]);

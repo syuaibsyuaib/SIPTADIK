@@ -5,6 +5,7 @@ $_SESSION['role'] != 1 ? pindahko("/") : "";
 $data = $_SESSION['data']['dataPjb'];
 $dataBidang = $_SESSION['data']['dataBidang'];
 $dataUser = $_SESSION['data']['dataUser'];
+$slide = $_SESSION['data']['slide'][0];
 
 // UNTUK PAGINATION START
 $page = $_GET['p'] ?? 1;
@@ -37,21 +38,18 @@ $data = array_slice($data, $offset, $limit);
 
 						<!-- THUMBNAIL VIEWER -->
 						<div class="mb-1 row d-block text-center coba">
-							<div class="col-sm-2 d-inline-block rounded p-0">
-								<img class="align-top" src="img/slide1.jpg" alt="">
-							</div>
-							<div class="col-sm-2 d-inline-block rounded p-0">
-								<img class="align-top" src="img/slide2.jpg" alt="">
-							</div>
-							<div class="col-sm-2 d-inline-block rounded p-0">
-								<img class="align-top" src="img/slide3.jpg" alt="">
-							</div>
-							<div class="col-sm-2 d-inline-block rounded p-0">
-								<img class="align-top" src="img/slide4.jpg" alt="">
-							</div>
-							<div class="col-sm-2 d-inline-block rounded p-0">
-								<img class="align-top" src="img/slide5.jpg" alt="">
-							</div>
+							<?php
+							$n = 1;
+							foreach ($slide as $value) {
+								$val = $value <> "" ? $value : "img/slide-none.jpg";
+							?>
+								<div class="col-sm-2 d-inline-block rounded p-0">
+									<img class="align-top" src="<?= $val ?>" alt="Gambar Slider">
+								</div>
+							<?php
+								$n++;
+							}
+							?>
 						</div>
 						<div class="row d-block text-center">
 							<div class="col-sm-2 d-inline-block">
@@ -588,7 +586,7 @@ $data = array_slice($data, $offset, $limit);
 
 		<!-- DAFTAR PEJABAT -->
 		<div class="container-sm pb-3">
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3" id="myList">
 
 				<?php
 				foreach ($data as $value) {
