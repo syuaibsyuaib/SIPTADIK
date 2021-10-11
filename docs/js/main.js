@@ -60,13 +60,15 @@
 		}
 
 
-		async function kirim(url, data) {
+		async function kirim(data) {
+		    const url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
+		    modalLoading()
 		    const response = await fetch(url, {
 		        method: 'POST', // or 'PUT'
 		        headers: {
 		            'Content-Type': 'application/x-www-form-urlencoded', //'multipart/form-data',   //
 		        },
-		        body: data,
+		        body: JSON.stringify(data),
 		    })
 		    return response.text();
 		}
@@ -83,4 +85,31 @@
 		            }, 500);
 		        }, 10000);
 		    })
+		}
+
+
+
+		async function modalLoading() {
+		    let scriptLoading = `<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true" style="z-index: 1057;">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content" style="background: none; border: none;">
+						<div class="modal-body" id="modal_loading_label">
+							<div class="d-flex justify-content-center">
+								<div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
+									<span class="visually-hidden">Loading...</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>`;
+
+		    await $(`body`).prepend(scriptLoading);
+
+		    var myInput = document.getElementById('myInput')
+		    myModal = new bootstrap.Modal(document.getElementById('myModal'))
+		    myModal.show()
+		        // myModal.addEventListener('shown.bs.modal', function() {
+		        //     myInput.focus()
+		        // })
 		}

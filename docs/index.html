@@ -22,37 +22,44 @@
 </head>
 
 <body class="text-center">
+    <section class="container">
+        <main class="form-signin py-4 px-5 shadow rounded">
+            <form id="formLogin">
+                <img class="mb-4" src="img/title.png" alt="" width="100" height="100">
+                <h1 class="h3 mb-3 fw-normal">Silakan Masuk</h1>
 
-    <main class="form-signin py-4 px-5 shadow rounded">
-        <div class="alert alert-warning" role="alert">
-            <!-- something here -->
-        </div>
+                <div class="form-floating">
+                    <input name="pengguna" type="text" class="form-control" id="inputnama" placeholder="Nama Pengguna" required autofocus>
+                    <label for="inputnama">Nama Pengguna</label>
+                </div>
+                <div class="form-floating">
+                    <input name="sandi" type="password" class="form-control" id="inputsandi" placeholder="Kata Sandi" required>
+                    <label for="inputsandi">Kata Sandi</label>
+                </div>
 
-
-        <form method="POST" action="proses.php">
-            <img class="mb-4" src="img/title.png" alt="" width="57" height="57">
-            <h1 class="h3 mb-3 fw-normal">Silakan Masuk</h1>
-
-            <div class="form-floating">
-                <input name="pengguna" type="text" class="form-control" id="inputnama" placeholder="Nama Pengguna" required autofocus>
-                <label for="inputnama">Nama Pengguna</label>
-            </div>
-            <div class="form-floating">
-                <input name="sandi" type="password" class="form-control" id="inputsandi" placeholder="Kata Sandi" required>
-                <label for="inputsandi">Kata Sandi</label>
-            </div>
-
-            <button class="w-100 btn btn-lg btn-primary" type="submit" name="masuk">Masuk</button>
-            <p class="mt-5 mb-3 text-muted">&copy; SIPTADIK</p>
-        </form>
-    </main>
-    <footer class="footer mt-auto py-3 warna-dasar">
-        <div class="text-center">
-            <small><i class="text-dark">SIPTADIK - Sistem Informasi Tamu | Copyright &copy; 2021</i></small>
-        </div>
-    </footer>
+                <button class="w-100 btn btn-lg btn-primary" type="submit" name="masuk">Masuk</button>
+                <p class="mt-5 mb-3 text-muted">&copy; SIPTADIK</p>
+            </form>
+        </main>
+    </section>
     <script src="/js/main.js"></script>
     <script src="/js/jquery.dataTables.min.js"></script>
+    <script>
+        $('#formLogin').on('submit', function(e) {
+            const data = new FormData($('#formLogin')[0])
+            const isi = Object.fromEntries(data.entries())
+            console.log(isi)
+            kirim(isi)
+                .then((res) => {
+                    location.assign('pejabat.html')
+                })
+                .catch((err) => {
+                    alert('Username/Password salah');
+                    myModal.hide();
+                })
+            e.preventDefault();
+        })
+    </script>
 </body>
 
 </html>
