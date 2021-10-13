@@ -96,3 +96,16 @@ if(isset($_POST['ubahSlide'])){
     segarkan($_SESSION['user'], $_SESSION['pass']);
     return print(json_encode($resSlide));
 }
+
+if(isset($_POST['tambahPiket'])){
+    $piket = array();
+    for ($i=0; $i < count($_POST); $i++) { 
+        if($_POST['username' . $i]){
+            array_push($piket, $_POST['username' . $i], $_POST['pass' . $i]);
+        }
+    }
+    $tambahPiket = array("type" => "tambahPiket", "dataTambah" => $piket);
+    $resPiket = kirim($tambahPiket, 1);
+    segarkan($_SESSION['user'], $_SESSION['pass']);
+    return print(json_encode($resPiket));
+}
