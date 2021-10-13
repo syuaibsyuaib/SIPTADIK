@@ -242,42 +242,23 @@ $data = array_slice($data, $offset, $limit);
 										$num++;
 								?>
 
-										<tr>
+										<tr class="barisCurrentPiket">
 											<th><?= $num ?></th>
 											<td>
-												<input name="piket_u_<?= $value[0] ?>" type="text" class="form-control piket_u_current" required value="<?= $value[0] ?>" readonly="readonly">
+												<input name="piket_u_<?= $value[0] ?>" type="text" class="form-control piket_u_current" value="<?= $value[0] ?>" readonly="readonly">
 											</td>
 											<td>
-												<input name="piket_p_<?= $value[0] ?>" type="text" class="form-control piket_p_current" required readonly="readonly" placeholder="Kata sandi">
+												<input name="piket_p_<?= $value[0] ?>" type="password" class="form-control piket_p_current" value="<?= $value[1] ?>" readonly="readonly" placeholder="Kata sandi">
 											</td>
 											<td>
 												<button class="btn btn-primary piket_btn_edit" type="button">
 													<i class="bi bi-pencil-square ikon_piket_btn_current"></i>
 												</button>
-												<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+												<button type="button" class="btn btn-danger piket_btn_hapus">
+													<i class="bi bi-trash"></i>
+												</button>
 											</td>
 										</tr>
-
-										<!-- JQUERY PENGATUR INPUT -->
-										<script>
-											$(".piket_btn_edit").click(function(e) {
-												let indexPiketBtnEdit = $(".piket_btn_edit").index(this);
-												console.log(indexPiketBtnEdit)
-												$('.piket_u_current').eq(indexPiketBtnEdit).attr('readonly', function(index, attr) {
-													return attr == 'readonly' ? null : 'readonly';
-												});
-												$('.piket_p_current').eq(indexPiketBtnEdit).attr('readonly', function(index, attr) {
-													return attr == 'readonly' ? null : 'readonly';
-												});
-												$('.ikon_piket_btn_current').eq(indexPiketBtnEdit).attr('class', function(index, attr) {
-													return attr == 'bi bi-pencil-square ikon_piket_btn_current' ? 'bi bi-check-lg ikon_piket_btn_current' : 'bi bi-pencil-square ikon_piket_btn_current';
-												});
-												$('.piket_btn_edit').eq(indexPiketBtnEdit).attr('class', function(index, attr) {
-													return attr == 'btn btn-primary piket_btn_edit' ? 'btn btn-success piket_btn_edit' : 'btn btn-primary piket_btn_edit';
-												});
-											});
-										</script>
-
 								<?php
 									}
 								}
@@ -285,8 +266,8 @@ $data = array_slice($data, $offset, $limit);
 
 								<tr>
 									<td>Tambah</td>
-									<td><input id='tambahUsernamePiket' name="tambah_username_piket" type="text" class="form-control" required></td>
-									<td><input id='tambahPasswordPiket' name="tambah_password_piket" type="text" class="form-control" required></td>
+									<td><input id='tambahUsernamePiket' name="tambah_username_piket" type="text" class="form-control"></td>
+									<td><input id='tambahPasswordPiket' name="tambah_password_piket" type="text" class="form-control"></td>
 									<td>
 										<button type="button" class="col-5 btn btn-success tambahInput"><i class="bi bi-plus-lg"></i></button>
 									</td>
@@ -298,7 +279,7 @@ $data = array_slice($data, $offset, $limit);
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
-					<button type="submit" name="tambah_piket" class="btn btn-primary" disabled>Simpan</button>
+					<button type="submit" name="tambahPiket" class="btn btn-primary" disabled>Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -709,35 +690,95 @@ $data = array_slice($data, $offset, $limit);
 	//$('img')[1].src = URL.createObjectURL($('input:file')[0].files[0])
 	let dataSlider = '';
 	let dataQuerySlider = new URLSearchParams(`?slider_1=&slider_2=&slider_3=&slider_4=&slider_5=&ubahSlide=`);
-	let scriptCurrentPiket = function(noUrut, usernamePiket){return `<tr>
-									<th>${noUrut}</th>
-									<td>
-										<input name="piket_u_${usernamePiket}" type="text" class="form-control piket_u_current" required value="${usernamePiket}" readonly="readonly">
-									</td>
-									<td>
-										<input name="piket_p_${usernamePiket}" type="text" class="form-control piket_p_current" required readonly="readonly" placeholder="Kata sandi">
-									</td>
-									<td>
-										<button class="btn btn-primary piket_btn_edit" type="button">
-											<i class="bi bi-pencil-square ikon_piket_btn_current"></i>
-										</button>
-										<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-									</td>
-								</tr>`}
+	let scriptCurrentPiket = function(noUrut, usernamePiket, passPiket) {
+		return `<tr class="barisCurrentPiket">
+					<th>${noUrut}</th>
+						<td>
+							<input name="piket_u_${usernamePiket}" type="text" class="form-control piket_u_current" required value="${usernamePiket}" readonly="readonly">
+						</td>
+						<td>
+							<input name="piket_p_${usernamePiket}" type="password" class="form-control piket_p_current"  value="${passPiket}" required readonly="readonly" placeholder="Kata sandi">
+						</td>
+						<td>
+							<button class="btn btn-primary piket_btn_edit" type="button">
+								<i class="bi bi-pencil-square ikon_piket_btn_current"></i>
+							</button>
+							<button class="btn btn-danger piket_btn_hapus" type="button">
+								<i class="bi bi-trash"></i>
+							</button>
+						</td>
+				</tr>`
+	}
 
 	// TAMBAH PIKET
-	$('.tambahInput').on('click', function(e) {
-		$('#formTambahPiket tr').last().before(scriptCurrentPiket($('#formTambahPiket tr').length - 1, $('#tambahUsernamePiket').val()))
-		$('#tambahUsernamePiket').val("");
-		$('#tambahPasswordPiket').val("");
-		$('#formTambahPiket button:submit').prop('disabled',false);
+	function ulangi_piket_btn_edit() {
+		for (let i = 0; i < $(".piket_btn_edit").length; i++) {
+			$(".piket_btn_edit")[i].onclick = function(e) {
+				$('.piket_u_current').eq(i).attr('readonly', function(index, attr) {
+					return attr == 'readonly' ? null : 'readonly';
+				});
+				$('.piket_p_current').eq(i).attr('readonly', function(index, attr) {
+					return attr == 'readonly' ? $(this).prop('type', 'text') && null : 'readonly' && $(this).prop('type', 'password') && $('#formTambahPiket button:submit').prop('disabled', false);
+				});
+				$('.ikon_piket_btn_current').eq(i).attr('class', function(index, attr) {
+					return attr == 'bi bi-pencil-square ikon_piket_btn_current' ? 'bi bi-check-lg ikon_piket_btn_current' : 'bi bi-pencil-square ikon_piket_btn_current';
 
-	})
+				});
+				$('.piket_btn_edit').eq(i).attr('class', function(index, attr) {
+					return attr == 'btn btn-primary piket_btn_edit' ? 'btn btn-success piket_btn_edit' : 'btn btn-primary piket_btn_edit';
+				});
+				ulangi_piket_btn_edit()
+			};
+		}
+	}
+	ulangi_piket_btn_edit()
+
+	function ulangi_piket_btn_hapus() {
+		for (let i = 0; i < $('.piket_btn_hapus').length; i++) {
+			$('.piket_btn_hapus')[i].onclick = function(e) {
+				console.log($('.piket_btn_hapus').length)
+				$('.barisCurrentPiket').eq(i).remove();
+				ulangi_piket_btn_hapus()
+			}
+		}
+	}
+	ulangi_piket_btn_hapus()
+
+
+	$('.tambahInput').on('click', function(e) {
+		let trigger = true;
+		$('#formTambahPiket .piket_u_current').filter(function(index, item, arr) {
+			if ($('#tambahUsernamePiket').val() == $(item).val()) {
+				trigger = false
+			}
+		})
+
+		if (trigger) {
+			$('#formTambahPiket tr').last().before(scriptCurrentPiket($('#formTambahPiket tr').length - 1, $('#tambahUsernamePiket').val(), $('#tambahPasswordPiket').val()))
+			$('#tambahUsernamePiket').val("");
+			$('#tambahPasswordPiket').val("");
+			$('#formTambahPiket button:submit').prop('disabled', false);
+			ulangi_piket_btn_edit()
+			ulangi_piket_btn_hapus()
+		} else {
+			notif('Username sudah ada');
+			$('#tambahUsernamePiket').val("");
+			$('#tambahPasswordPiket').val("");
+		}
+	});
+
 	$('#formTambahPiket').submit(function(e) {
-		$('#modal_tambah_piket')
-		tanya_simpan('Tambah Piket', 'Yakin akan menambahkan user ini?', '')
+		let piketData = new URLSearchParams('tambahPiket=')
+		console.log(piketData.toString())
+		$('#formTambahPiket .piket_u_current').filter((index, item, arr) => {
+			piketData.append(`username${index}`, `${$(item).val()}`);
+			piketData.append(`pass${index}`, `${$('.piket_p_current').eq(index).val()}`);
+		});
+		console.log(piketData.toString())
+		tanya_simpan('Tambah Piket', 'Yakin akan menambahkan user ini?', piketData);
 		e.preventDefault();
 	})
+
 	// SLIDER
 	$('#formSlider input:file').on('change', function(e) {
 		let indexLabel = $('#formSlider input:file').index(this);
