@@ -2,64 +2,11 @@
 date_default_timezone_set("Asia/Makassar");
 setlocale(LC_ALL, 'id_ID');
 session_start();
+include "layout/f.php";
 // KONSTANTA
 define("JUDUL", "SIPTADIK");
 define("TAGLINE", "Sistem Informasi Tamu");
 define("DEVLINK", "https://www.google.com/");
-// FUNSI PENCARIAN UNTUK ARRAY
-function array_search_multi($array, $key, $value, $parent = false)
-{
-    $results = array();
-
-    if (is_array($array)) {
-        if (isset($array[$key]) && $array[$key] == $value)
-            $results[] = $array;
-
-        foreach ($array as $id => $subarray) {
-            $found = array_search_multi(
-                $subarray,
-                $key,
-                $value
-            );
-
-            if (!empty($found)) {
-                if ($parent) {
-                    $results[$id] =
-                        $array[$id];
-                } else {
-                    $results = $found;
-                }
-            }
-        }
-    }
-
-    return $results;
-}
-// FUNGSI REDIRECT
-function pindahko($header_location)
-{
-    echo "<meta http-equiv='refresh' content='0; url=" . $header_location . "' />";
-}
-// FUNGSI ENCRYPT DAN DECRYPT
-function encrypt_decrypt($action, $string)
-{
-    $output = false;
-    $encrypt_method = "AES-256-CBC";
-    $secret_key = 'T9UHzUwCaSebahyV';
-    $secret_iv = 'hDDbC6AWaGn52CBa';
-    // hash
-    $key = hash('sha256', $secret_key);
-
-    // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
-    $iv = substr(hash('sha256', $secret_iv), 0, 16);
-    if ($action == 'e') {
-        $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
-        $output = base64_encode($output);
-    } else if ($action == 'd') {
-        $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
-    }
-    return $output;
-}
 
 if (!isset($_SESSION['user'])) {
     unset($_SESSION['user']);
@@ -86,12 +33,21 @@ $dataBidang = $_SESSION['data']['dataBidang'];
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
     <link href="assets/css/riwayat.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="" > -->
     <link rel="stylesheet" href="assets/css/icons.css">
     <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.js"></script>
     <title><?= $title ?? "Halaman" ?> | <?= JUDUL ?></title>
+    <script>
+        $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myList .col").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -152,9 +108,9 @@ $dataBidang = $_SESSION['data']['dataBidang'];
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modal_kontak">Kontak</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modal_bantuan">Bantuan</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link text-danger" onclick="tanya_simpan('Perhatian', 'Yakin akan keluar?', 'keluar')">Keluar</a>
                     </li>
@@ -162,11 +118,11 @@ $dataBidang = $_SESSION['data']['dataBidang'];
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <?php if ($_SESSION['role'] == 1 && $title == "Admin") { ?>
                         <section>
-                            <input class="form-control" type="search" placeholder="Cari Pejabat" aria-label="Search">
+                            <input id="myInput" class="form-control" type="text" placeholder="Cari Pejabat">
                         </section>
                     <?php } ?>
                     <li class="nav-item">
-                        <i><small class="nav-link text-muted">Akun: <b><?= $role ?></b></small></i>
+                        <!-- <i><small class="nav-link text-muted">Akun: <b><?= $role ?></b></small></i> -->
                     </li>
                 </ul>
             </div>

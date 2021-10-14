@@ -10,25 +10,28 @@
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
-    <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="css/riwayat.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/riwayat.css" rel="stylesheet">
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.js"></script>
-
-    <link href="css/login.css" rel="stylesheet">
-    <title>Pejabat Control Page</title>
+    <title>
+        SIPTADIK APK
+    </title>
 </head>
 
 <body class="d-flex flex-column h-100">
-    <!-- NAVBAR START HERE -->
+
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light warna-dasar sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="/"><img class="d-inline-block align-middle me-1" src="img/title.png" alt="" width="20" height="20"> <b class="d-inline-block align-middle">SIPTADIK</b></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="/"><img class="d-inline-block align-middle me-1" src="./img/title.png" alt=""
+                    width="20" height="20"> <b class="d-inline-block align-middle">SIPTADIK</b></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -37,62 +40,150 @@
                         <a class="nav-link active" aria-current="page" href="/">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Kontak</a>
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modal_kontak">Kontak</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Bantuan</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Menu
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="admin.php">Admin</a></li>
-                            <li><a class="dropdown-item" href="tamu.php">Tamu</a></li>
-                            <li><a class="dropdown-item" href="riwayat.php">Riwayat</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="detail.php">Profil</a></li>
-                            <li><a class="dropdown-item" href="pejabat.html">Pejabat</a></li>
-                        </ul>
+                        <a class="nav-link text-danger"
+                            onclick="tanya_simpan('Perhatian', 'Yakin akan keluar?', 'keluar')">Keluar</a>
                     </li>
                 </ul>
-                <section class="d-flex">
-                    <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                    <a href="/" class="btn bg-danger text-light" id="tbl-keluar">Keluar</a>
-                </section>
             </div>
         </div>
     </nav>
-    <!-- NAVBAR END HERE -->
 
-    <!-- DETAIL PEJABAT START -->
+    <!-- MODAL KONTAK -->
+    <div class="modal fade" id="modal_kontak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form class="m-0 p-0" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-info-circle-fill"></i> Kontak
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- ISI MODAL START HERE -->
+
+                        <div class="row px-3 kontak">
+                            <div class="col-lg-7 contact-form_wrapper p-5 order-lg-1">
+                                <form action="#" class="contact-form form-validate" novalidate="novalidate">
+                                    <div class="row">
+                                        <div class="col-sm-12 mb-3">
+                                            <div class="form-group">
+                                                <label class="required-field mb-1" for="kontak_nama">Nama</label>
+                                                <input type="text" class="form-control" id="kontak_nama"
+                                                    name="kontak_nama" placeholder="Nama lengkap">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 mb-3">
+                                            <div class="form-group">
+                                                <label class="required-field mb-1" for="kontak_email">Email</label>
+                                                <input type="text" class="form-control" id="kontak_email"
+                                                    name="kontak_email" placeholder="email_saya@gmail.com">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 mb-3">
+                                            <div class="form-group">
+                                                <label class="mb-1" for="kontak_hp">Nomor HP</label>
+                                                <input type="tel" class="form-control" id="kontak_hp" name="kontak_hp"
+                                                    placeholder="0812-3456-7890">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mb-3">
+                                            <div class="form-group">
+                                                <label class="required-field mb-1" for="kontak_pesan">Apa yang ingin
+                                                    kamu sampaikan?</label>
+                                                <textarea class="form-control" id="kontak_pesan" name="kontak_pesan"
+                                                    rows="4" placeholder="Halo, saya mau tanya ..."></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mb-3">
+                                            <button type="submit" name="kontak_kirim"
+                                                class="btn btn-primary">Kirim</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="col-lg-5 contact-info_wrapper gradient-brand-color p-5 order-lg-2">
+                                <h3 class="color--white mb-5">Hubungi kami</h3>
+
+                                <ul class="contact-info_list list-style-none position-relative z-index-101 m-0 p-0">
+                                    <li class="mb-4 ps-4">
+                                        <span class="position-absolute"><i class="bi bi-envelope-fill"></i></span> <a
+                                            href="mailto:hadi@mohpoe.com" target="_blank"
+                                            class="text-light">hadi@mohpoe.com</a>
+                                    </li>
+                                    <li class="mb-4 ps-4">
+                                        <span class="position-absolute"><i class="bi bi-whatsapp"></i></span> <a
+                                            href="https://wa.me/+6288804263785" target="_blank" class="text-light">+62
+                                            888-0426-3785</a>
+                                    </li>
+                                    <li class="mb-4 ps-4">
+                                        <span class="position-absolute"><i class="bi bi-geo-alt-fill"></i></span>
+                                        <b>Syuaib Technologies Services</b>.
+                                        <br> Jl. Andi Cammi, Kota Pare-pare
+                                        <br> Sulawesi Selatan, Indonesia
+
+                                        <div class="mt-3">
+                                            <a href="https://www.google.com/maps" target="_blank"
+                                                class="text-link text-white">Buka di peta <i
+                                                    class="bi bi-signpost-split-fill"></i></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Contact Form Wrapper -->
+
+                        </div>
+
+                        <!-- ISI MODAL END HERE -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETAIL PEJABAT -->
     <div class="container">
 
         <div class="container my-4">
             <div class="main-body">
 
                 <div class="row gutters-sm">
+
+                    <!-- FOTO PROFIL DAN MEDIA SOSIAL -->
                     <div class="col-md-4 mb-3">
+
+                        <!-- FOTO PROFIL -->
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="img/orang-1.jpeg" alt="Admin" class="rounded-circle" width="150">
+                                    <div class="detail-content-loader tunggu rounded-circle">
+                                        <img src="https://drive.google.com/uc?id=1maQciIifrkfFlRzdojFouv1Ylrf4PFBo"
+                                            alt="Admin" class="rounded-circle" width="150"
+                                            style="min-height: 150px;min-width: 150px;max-height: 150px;max-width: 150px">
+                                    </div>
                                     <div class="mt-3">
-                                        <h4>Pejabat Satu, M.Si</h4>
-                                        <p class="text-secondary mb-1">Supervisor Divisi 1</p>
-                                        <p class="text-muted font-size-sm">Jl. Sam Ratulangi, No. 18, Kota Makassar</p>
+                                        <h4>Syuaib</h4>
+                                        <p class="text-secondary mb-1">
+                                            PENGELOLA </p>
+                                        <p class="text-muted font-size-sm">Jalan Andi Cammi Nomor 16</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card mt-3">
+
+                        <!-- MEDIA SOSIAL -->
+                        <!-- <div class="card mt-3">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter me-2 icon-inline text-info">
-                                            <path
-                                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
                                             </path>
                                         </svg>Twitter</h6>
                                     <span class="text-secondary">@mohpoe</span>
@@ -113,10 +204,13 @@
                                     <span class="text-secondary">mohpoe</span>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
 
+                    <!-- DETAIL USER DAN STATISTIK -->
                     <div class="col-md-8">
+
+                        <!-- DETAIL USER -->
                         <div class="card mb-3">
                             <div class="card-body">
 
@@ -125,19 +219,17 @@
                                         <h6 class="mb-0">Nama Lengkap</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        Pejabat Satu, M.Si
-                                    </div>
+                                        Syuaib </div>
                                 </div>
 
                                 <hr>
 
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">NIP</h6>
+                                        <h6 class="mb-0">NIP/NIK</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        1234567890
-                                    </div>
+                                        198612172009021002 </div>
                                 </div>
 
                                 <hr>
@@ -147,8 +239,7 @@
                                         <h6 class="mb-0">Jabatan</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        Supervisor Divisi 1
-                                    </div>
+                                        PENGELOLA </div>
                                 </div>
 
                                 <hr>
@@ -158,8 +249,7 @@
                                         <h6 class="mb-0">No. Telepon</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        +62 812-3456-7890
-                                    </div>
+                                        +6288804263785 </div>
                                 </div>
 
                                 <hr>
@@ -169,73 +259,22 @@
                                         <h6 class="mb-0">Alamat</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        Jl. Sam Ratulangi, No. 18, Kota Makassar
-                                    </div>
+                                        Jalan Andi Cammi Nomor 16 </div>
                                 </div>
 
                                 <hr>
 
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-info text-light" href="#" data-bs-toggle="modal" data-bs-target="#ubah">Ubah</a>
+                                        <a class="btn btn-info text-light" href="#" data-bs-toggle="modal"
+                                            data-bs-target="#ubahdetail">Ubah</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- MODAL UBAH -->
-                        <div class="modal fade" id="ubah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form method="POST" action="">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- ISI MODAL START HERE -->
-                                            <div class="mb-3 row">
-                                                <label class="col-sm-2 col-form-label">Nama</label>
-                                                <div class="col-sm-10">
-                                                    <input name="nama_pejabat" type="text" class="form-control" value="Pejabat Satu, M.Si">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-sm-2 col-form-label">NIP</label>
-                                                <div class="col-sm-10">
-                                                    <input name="nip_pejabat" type="text" class="form-control" value="1234567890">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-sm-2 col-form-label">Jabatan</label>
-                                                <div class="col-sm-10">
-                                                    <input name="jabatan_pejabat" type="text" class="form-control" value="Supervisor Divisi 1">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-sm-2 col-form-label">No. HP</label>
-                                                <div class="col-sm-10">
-                                                    <input name="hp_pejabat" type="text" class="form-control" value="+62 812-3456-7890">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-sm-2 col-form-label">Alamat</label>
-                                                <div class="col-sm-10">
-                                                    <input name="alamat_pejabat" type="text" class="form-control" value="Jl. Sam Ratulangi, No. 18, Kota Makassar">
-                                                </div>
-                                            </div>
-                                            <!-- ISI MODAL END HERE -->
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- MODAL UBAH -->
 
-                        <div class="row gutters-sm">
+                        <!-- STATISTICS -->
+                        <!-- <div class="row gutters-sm">
                             <div class="col-sm-6 mb-3">
                                 <div class="card h-100">
                                     <div class="card-body">
@@ -274,7 +313,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
@@ -283,26 +322,168 @@
         </div>
 
     </div>
-    <!-- DETAIL PEJABAT END -->
 
-    <!-- RIWAYAT MULAI -->
+    <!-- MODAL UBAH INFORMASI -->
+    <div class="modal fade" id="ubahdetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form class="m-0 p-0" id="formUbahPejabat">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+                    </div>
+                    <div class="modal-body">
+                        <!-- ISI MODAL START HERE -->
+
+                        <div class="row px-4">
+
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="required-field mb-1" for="pengguna_pjb"><i>Username</i></label>
+                                    <input name="username" type="hidden" value="usernamebaru">
+                                    <input id="pengguna_pjb" type="text" class="form-control"
+                                        placeholder="Nama pengguna" readonly value="usernamebaru">
+                                    <div class="mt-1">
+                                        <small class="text-danger"><i>Hanya lihat</i></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="required-field mb-1" for="pass_pjb_1">Kata Sandi <i>(Hanya
+                                            Edit)</i></label>
+                                    <input name="sandi" id="pass_pjb_1" type="password" class="form-control pass"
+                                        placeholder="Kata Sandi">
+                                    <div class="mt-1">
+                                        <small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau
+                                                simbol</i></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="required-field mb-1" for="nama_pjb">Nama Lengkap</label>
+                                    <input name="nama" id="nama_pjb" type="text" class="form-control"
+                                        placeholder="Nama Lengkap" value="Syuaib">
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="required-field mb-1" for="nip_pjb">NIP / NIK</label>
+                                    <input name="nip" id="nip_pjb" type="text" class="form-control"
+                                        placeholder="NIP/NIK" value="198612172009021002">
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <div class="form-group">
+                                    <label class="required-field mb-1" for="foto_pjb">Foto Profil</label>
+                                    <input name="foto" id="foto_pjb" type="file" class="form-control"
+                                        accept=".png,.jpg,.jpeg">
+                                    <div class="mt-1">
+                                        <small class="text-danger">
+                                            <i>Disarankan rasio 1:1 (persegi)</i>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="mb-1" for="hp_pjb">Nomor HP</label>
+                                    <input name="nohp" id="hp_pjb" type="text" class="form-control"
+                                        placeholder="Nomor Handphone" required value="+6288804263785">
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="mb-1" for="alamat_pjb">Alamat</label>
+                                    <input name="alamat" id="alamat_pjb" type="text" class="form-control"
+                                        placeholder="Alamat Lengkap" required value="Jalan Andi Cammi Nomor 16">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 mb-3 ">
+                                <div class="form-group">
+                                    <label class="required-field mb-1" for="bid">Bidang</label>
+                                    <select id="bid" class="form-select" name="bidang">
+                                        <option value="" selected></option>
+                                        <option value="b1">SEKRETARIAT</option>
+                                        <option value="b2">BIDANG PEMBINAAN SEKOLAH MENENGAH ATAS</option>
+                                        <option value="b3">BIDANG PEMBINAAN SEKOLAH MENENGAH KEJURUAN</option>
+                                        <option value="b4">BIDANG PEMBINAAN PENDIDIKAN DAN TENAGA KEPENDIDIKAN ,
+                                            FASILITASI PAUD, DIKSAR, DIKTI DAN PENDIDIKAN MASYARAKAT</option>
+                                        <option value="b5">BIDANG PEMBINAAN PENDIDIKAN KHUSUS/LAYANAN KHUSUS BAHASA DAN
+                                            SASTRA DAERAH</option>
+                                        <option value="b6">UPT PTIKP</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-3 ">
+                                <div class="form-group">
+                                    <label class="required-field mb-1" for="subbid">Sub-Bidang</label>
+                                    <select id="subbid" class="form-select" name="subbidang" disabled>
+                                        <option value="" selected></option>
+                                        <option value="b1s1">SUB BIDANG UMUM DAN KEPEGAWAIAN</option>
+                                        <option value="b1s2">SUB BIDANG KEUANGAN</option>
+                                        <option value="b1s3">SUB BIDANG PROGRAM</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 mb-3">
+                                <div class="form-group">
+                                    <label class="required-field mb-1">Jabatan <i></i></label>
+                                    <select class="form-select" name="jabatan" required>
+                                        <option value="" selected></option>
+
+                                        <option value="jp" selected>PENGELOLA</option>
+                                        <option value="jb">BENDAHARA</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- ISI MODAL END HERE -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" name="ubahPejabat">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIWAYAT -->
     <div class="container">
-        <h2 class="my-4">Riwayat Tamu: Pejabat Satu, M.Si</h2>
+        <h2 class="my-4">Riwayat Tamu</h2>
 
         <div class="container mt-3 mb-4">
             <div class="col mt-4 mt-lg-0">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
-                            <input class="form-control d-inline-block" style="width: 20%;min-width: 200px;" type="search" placeholder="Search" aria-label="Search">
-                            <!-- TEMPORARY ICON -->
-                            <i class="bi bi-filter-square-fill" style="font-size: 1.5rem;color: #ababab"></i>
-                            <i class="bi bi-arrow-right-square" style="font-size: 1.5rem;color: #ababab"></i>
-                            <i class="bi bi-arrow-left-square" style="font-size: 1.5rem;color: #ababab"></i>
-                            <!-- TEMPORARY ICON -->
-                            <table class="table manage-candidates-top mb-0">
+
+                            <!-- TOMBOL DAN SEARCHBOX -->
+                            <div class="row g-3 mb-4">
+                                <!-- TOMBOL UNDUH CSV -->
+                                <div class="col-auto">
+                                    <button class="btn btn-success"><i class="bi bi-download"></i> Unduh CSV</button>
+                                </div>
+                            </div>
+
+                            <!-- MAIN TABLE -->
+                            <table class="table manage-candidates-top mb-0" id="table_id">
                                 <thead>
                                     <tr>
+                                        <th>Tanggal</th>
                                         <th>Nama Tamu</th>
                                         <th>Instansi</th>
                                         <th>Bidang Tujuan</th>
@@ -311,169 +492,451 @@
                                 </thead>
                                 <tbody>
 
-                                    <!-- TAMU 1 START -->
+                                    <!-- DATA TAMU -->
                                     <tr class="candidates-list">
+                                        <td>12/10/2021 00:07</td>
                                         <td class="title">
                                             <div class="thumb">
-                                                <img class="img-fluid" src="img/tamu1.jpg" alt="">
+                                                <img class="img-fluid tunggu"
+                                                    src="https://drive.google.com/uc?id=1SE96YvB1NuwBkKpIO_AHkZv6fA6FNDl1"
+                                                    alt="" data-bs-toggle="modal" data-bs-target="#foto_1633968441"
+                                                    title="Perbesar gambar">
                                             </div>
                                             <div class="candidate-list-details">
                                                 <div class="candidate-list-info">
                                                     <div class="candidate-list-title">
-                                                        <h5 class="mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#tamu1">NAMA TAMU 1</a>
+                                                        <h5 class="mb-0"><a href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#data_1633968441">Tamu Satu</a>
                                                         </h5>
                                                     </div>
                                                     <div class="candidate-list-option">
                                                         <ul class="list-unstyled">
-                                                            <li><i class="bi bi-person-badge me-1"></i>6472134516890001
-                                                            </li>
+                                                            <li><i class="bi bi-person-badge me-1"></i>123 </li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>Instansi Tamu 1</td>
-                                        <td>Bidang Tujuan 1</td>
-                                        <td>Tujuan Tamu 1</td>
+                                        <td>Instansi Tamu</td>
+                                        <td>b1s2</td>
+                                        <td>Tujuan Tamu</td>
                                     </tr>
-                                    <!-- TAMU 1 END -->
-                                    <!-- MODAL TAMU 1 -->
-                                    <div class="modal fade" id="tamu1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                    <!-- MODAL FOTO TAMU -->
+                                    <div class="modal fade" id="foto_1633968441" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Detail Tamu 1</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Foto: Tamu Satu</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- ISI MODAL START HERE -->
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">Nama</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="Nama Tamu">
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">NIK/NIP</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="123456">
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">Instansi</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="Dinas Pendidikan Kabupaten Pinrang">
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">Sub Bidang Tujuan</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="Sub Bidang Tujuan">
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">Tujuan</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="Kunjungan Dinas">
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">Status</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="Diterima">
-                                                        </div>
-                                                    </div>
+                                                    <img class="modal-foto"
+                                                        src="https://drive.google.com/uc?id=1SE96YvB1NuwBkKpIO_AHkZv6fA6FNDl1"
+                                                        alt="">
                                                     <!-- ISI MODAL END HERE -->
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- MODAL TAMU 1 -->
 
-                                    <!-- TAMU 2 START -->
+                                    <!-- MODAL DATA TAMU -->
+                                    <div class="modal fade" id="data_1633968441" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Detail: Tamu Satu
+                                                    </h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- ISI MODAL START HERE -->
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Nama</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Tamu Satu">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">NIK/NIP</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="123">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Instansi</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Instansi Tamu">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Sub Bidang Tujuan</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="b1s2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Tujuan</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Tujuan Tamu">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="mb-3 row">
+                                                            <label class="col-sm-4 col-form-label">Status</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="text" readonly class="form-control-plaintext" value="Diterima">
+                                                            </div>
+                                                        </div> -->
+                                                    <!-- ISI MODAL END HERE -->
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Keluar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- DATA TAMU -->
                                     <tr class="candidates-list">
+                                        <td>12/10/2021 00:23</td>
                                         <td class="title">
                                             <div class="thumb">
-                                                <img class="img-fluid" src="img/tamu2.jpg" alt="">
+                                                <img class="img-fluid tunggu"
+                                                    src="https://drive.google.com/uc?id=1CGj3HnJ5URLcrM-3FzDyzj2iaI5GDvLT"
+                                                    alt="" data-bs-toggle="modal" data-bs-target="#foto_1633969427"
+                                                    title="Perbesar gambar">
                                             </div>
                                             <div class="candidate-list-details">
                                                 <div class="candidate-list-info">
                                                     <div class="candidate-list-title">
-                                                        <h5 class="mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#tamu2">NAMA TAMU 2</a>
+                                                        <h5 class="mb-0"><a href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#data_1633969427">Tamu 2</a>
                                                         </h5>
                                                     </div>
                                                     <div class="candidate-list-option">
                                                         <ul class="list-unstyled">
-                                                            <li><i class="bi bi-person-badge me-1"></i>6472134516890001
-                                                            </li>
+                                                            <li><i class="bi bi-person-badge me-1"></i>777 </li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>Instansi Tamu 2</td>
-                                        <td>Bidang Tujuan Tamu 2</td>
+                                        <td></td>
                                         <td>Tujuan Tamu 2</td>
                                     </tr>
-                                    <!-- TAMU 2 END -->
-                                    <!-- MODAL TAMU 2 -->
-                                    <div class="modal fade" id="tamu2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                    <!-- MODAL FOTO TAMU -->
+                                    <div class="modal fade" id="foto_1633969427" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Detail Tamu 2</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Foto: Tamu 2</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- ISI MODAL START HERE -->
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">Nama</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="Nama Tamu">
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">NIK/NIP</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="98767654">
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">Instansi</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="Pemkab Pinrang">
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">Sub Bidang Tujuan</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="Sub Bidang Tujuan">
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">Tujuan</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="Kunjungan Dinas">
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-sm-2 col-form-label">Status</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" readonly class="form-control-plaintext" value="Ditolak">
-                                                        </div>
-                                                    </div>
+                                                    <img class="modal-foto"
+                                                        src="https://drive.google.com/uc?id=1CGj3HnJ5URLcrM-3FzDyzj2iaI5GDvLT"
+                                                        alt="">
                                                     <!-- ISI MODAL END HERE -->
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- MODAL TAMU 2 -->
+
+                                    <!-- MODAL DATA TAMU -->
+                                    <div class="modal fade" id="data_1633969427" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Detail: Tamu 2</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- ISI MODAL START HERE -->
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Nama</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Tamu 2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">NIK/NIP</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="777">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Instansi</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Instansi Tamu 2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Sub Bidang Tujuan</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Tujuan</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Tujuan Tamu 2">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="mb-3 row">
+                                                            <label class="col-sm-4 col-form-label">Status</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="text" readonly class="form-control-plaintext" value="Diterima">
+                                                            </div>
+                                                        </div> -->
+                                                    <!-- ISI MODAL END HERE -->
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Keluar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- DATA TAMU -->
+                                    <tr class="candidates-list">
+                                        <td>12/10/2021 00:28</td>
+                                        <td class="title">
+                                            <div class="thumb">
+                                                <img class="img-fluid tunggu"
+                                                    src="https://drive.google.com/uc?id=1grPP5TvFixTzMRMK3qBkpUYcBB1ZsaGL"
+                                                    alt="" data-bs-toggle="modal" data-bs-target="#foto_1633969718"
+                                                    title="Perbesar gambar">
+                                            </div>
+                                            <div class="candidate-list-details">
+                                                <div class="candidate-list-info">
+                                                    <div class="candidate-list-title">
+                                                        <h5 class="mb-0"><a href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#data_1633969718">Tamu 3</a>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="candidate-list-option">
+                                                        <ul class="list-unstyled">
+                                                            <li><i class="bi bi-person-badge me-1"></i>123456789 </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Instansi Tamu 3</td>
+                                        <td>b1s1</td>
+                                        <td>Tujuan Tamu 3</td>
+                                    </tr>
+
+                                    <!-- MODAL FOTO TAMU -->
+                                    <div class="modal fade" id="foto_1633969718" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Foto: Tamu 3</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- ISI MODAL START HERE -->
+                                                    <img class="modal-foto"
+                                                        src="https://drive.google.com/uc?id=1grPP5TvFixTzMRMK3qBkpUYcBB1ZsaGL"
+                                                        alt="">
+                                                    <!-- ISI MODAL END HERE -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- MODAL DATA TAMU -->
+                                    <div class="modal fade" id="data_1633969718" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Detail: Tamu 3</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- ISI MODAL START HERE -->
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Nama</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Tamu 3">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">NIK/NIP</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="123456789">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Instansi</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Instansi Tamu 3">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Sub Bidang Tujuan</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="b1s1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Tujuan</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Tujuan Tamu 3">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="mb-3 row">
+                                                            <label class="col-sm-4 col-form-label">Status</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="text" readonly class="form-control-plaintext" value="Diterima">
+                                                            </div>
+                                                        </div> -->
+                                                    <!-- ISI MODAL END HERE -->
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Keluar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- DATA TAMU -->
+                                    <tr class="candidates-list">
+                                        <td>12/10/2021 00:32</td>
+                                        <td class="title">
+                                            <div class="thumb">
+                                                <img class="img-fluid tunggu"
+                                                    src="https://drive.google.com/uc?id=1uXcpAZxOHYn2kj_Bo_I1qjvysK2UuXyH"
+                                                    alt="" data-bs-toggle="modal" data-bs-target="#foto_1633969958"
+                                                    title="Perbesar gambar">
+                                            </div>
+                                            <div class="candidate-list-details">
+                                                <div class="candidate-list-info">
+                                                    <div class="candidate-list-title">
+                                                        <h5 class="mb-0"><a href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#data_1633969958">Tamu 4</a>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="candidate-list-option">
+                                                        <ul class="list-unstyled">
+                                                            <li><i class="bi bi-person-badge me-1"></i>987654321 </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Instansi Tamu 4</td>
+                                        <td></td>
+                                        <td>Tujuan Tamu 4</td>
+                                    </tr>
+
+                                    <!-- MODAL FOTO TAMU -->
+                                    <div class="modal fade" id="foto_1633969958" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Foto: Tamu 4</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- ISI MODAL START HERE -->
+                                                    <img class="modal-foto"
+                                                        src="https://drive.google.com/uc?id=1uXcpAZxOHYn2kj_Bo_I1qjvysK2UuXyH"
+                                                        alt="">
+                                                    <!-- ISI MODAL END HERE -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- MODAL DATA TAMU -->
+                                    <div class="modal fade" id="data_1633969958" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Detail: Tamu 4</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- ISI MODAL START HERE -->
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Nama</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Tamu 4">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">NIK/NIP</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="987654321">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Instansi</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Instansi Tamu 4">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Sub Bidang Tujuan</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label class="col-sm-4 col-form-label">Tujuan</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                value="Tujuan Tamu 4">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="mb-3 row">
+                                                            <label class="col-sm-4 col-form-label">Status</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="text" readonly class="form-control-plaintext" value="Diterima">
+                                                            </div>
+                                                        </div> -->
+                                                    <!-- ISI MODAL END HERE -->
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Keluar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </tbody>
                             </table>
@@ -484,35 +947,25 @@
             </div>
         </div>
 
-        <!-- Pagination Mulai -->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- Pagination Selesai -->
-
     </div>
-    <!-- RIWAYAT SELESAI -->
+    <!-- ISI SELESAI -->
+
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable();
+        });
+    </script>
 
     <footer class="footer mt-auto py-3 warna-dasar">
         <div class="text-center">
-            <small><i>class="text-dark">SIPTADIK - Sistem Informasi Tamu | Copyright &copy; 2021</i></small>
+            <small><i><a href="/" class="text-dark">SIPTADIK - Sistem Informasi Tamu</a> | Copyright &copy; 2021 | <a
+                        href="https://github.com/Mohpoe/SIPTADIK/" class="text-dark">Made with &hearts;</a></i></small>
+        </div>
     </footer>
+
     <script src="js/main.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
+
 </body>
 
 </html>

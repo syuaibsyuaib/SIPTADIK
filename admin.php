@@ -5,6 +5,7 @@ $_SESSION['role'] != 1 ? pindahko("/") : "";
 $data = $_SESSION['data']['dataPjb'];
 $dataBidang = $_SESSION['data']['dataBidang'];
 $dataUser = $_SESSION['data']['dataUser'];
+$slide = $_SESSION['data']['slide'][0];
 
 // UNTUK PAGINATION START
 $page = $_GET['p'] ?? 1;
@@ -37,21 +38,18 @@ $data = array_slice($data, $offset, $limit);
 
 						<!-- THUMBNAIL VIEWER -->
 						<div class="mb-1 row d-block text-center coba">
-							<div class="col-sm-2 d-inline-block rounded p-0">
-								<img class="align-top" src="img/slide1.jpg" alt="">
-							</div>
-							<div class="col-sm-2 d-inline-block rounded p-0">
-								<img class="align-top" src="img/slide2.jpg" alt="">
-							</div>
-							<div class="col-sm-2 d-inline-block rounded p-0">
-								<img class="align-top" src="img/slide3.jpg" alt="">
-							</div>
-							<div class="col-sm-2 d-inline-block rounded p-0">
-								<img class="align-top" src="img/slide4.jpg" alt="">
-							</div>
-							<div class="col-sm-2 d-inline-block rounded p-0">
-								<img class="align-top" src="img/slide5.jpg" alt="">
-							</div>
+							<?php
+							$n = 1;
+							foreach ($slide as $value) {
+								$val = $value <> "" ? $value : "img/slide-none.jpg";
+							?>
+								<div class="col-sm-2 d-inline-block rounded p-0">
+									<img class="align-top" src="<?= $val ?>" alt="Gambar Slider">
+								</div>
+							<?php
+								$n++;
+							}
+							?>
 						</div>
 						<div class="row d-block text-center">
 							<div class="col-sm-2 d-inline-block">
@@ -82,7 +80,7 @@ $data = array_slice($data, $offset, $limit);
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" name="ubahSlide" disabled>Simpan</button>
-					<button class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
 		</div>
@@ -244,40 +242,23 @@ $data = array_slice($data, $offset, $limit);
 										$num++;
 								?>
 
-										<tr>
+										<tr class="barisCurrentPiket">
 											<th><?= $num ?></th>
 											<td>
-												<input id="piket_u_<?= $value[0] ?>" name="piket_u_<?= $value[0] ?>" type="text" class="form-control" required value="<?= $value[0] ?>" readonly="readonly">
+												<input name="piket_u_<?= $value[0] ?>" type="text" class="form-control piket_u_current" value="<?= $value[0] ?>" readonly="readonly">
 											</td>
 											<td>
-												<input id="piket_p_<?= $value[0] ?>" name="piket_p_<?= $value[0] ?>" type="text" class="form-control" required readonly="readonly" placeholder="Kata sandi">
+												<input name="piket_p_<?= $value[0] ?>" type="password" class="form-control piket_p_current" value="<?= $value[1] ?>" readonly="readonly" placeholder="Kata sandi">
 											</td>
 											<td>
-												<button class="btn btn-primary" type="button" id="piket_btn<?= $value[0] ?>">
-													<i id="ikon_piket_btn<?= $value[0] ?>" class="bi bi-pencil-square"></i>
+												<button class="btn btn-primary piket_btn_edit" type="button">
+													<i class="bi bi-pencil-square ikon_piket_btn_current"></i>
 												</button>
-												<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+												<button type="button" class="btn btn-danger piket_btn_hapus">
+													<i class="bi bi-trash"></i>
+												</button>
 											</td>
 										</tr>
-
-										<!-- JQUERY PENGATUR INPUT -->
-										<script>
-											$("#piket_btn<?= $value[0] ?>").click(function() {
-												$('#piket_u_<?= $value[0] ?>').attr('readonly', function(index, attr) {
-													return attr == 'readonly' ? null : 'readonly';
-												});
-												$('#piket_p_<?= $value[0] ?>').attr('readonly', function(index, attr) {
-													return attr == 'readonly' ? null : 'readonly';
-												});
-												$('#ikon_piket_btn<?= $value[0] ?>').attr('class', function(index, attr) {
-													return attr == 'bi bi-pencil-square' ? 'bi bi-check-lg' : 'bi bi-pencil-square';
-												});
-												$('#piket_btn<?= $value[0] ?>').attr('class', function(index, attr) {
-													return attr == 'btn btn-primary' ? 'btn btn-success' : 'btn btn-primary';
-												});
-											});
-										</script>
-
 								<?php
 									}
 								}
@@ -285,10 +266,10 @@ $data = array_slice($data, $offset, $limit);
 
 								<tr>
 									<td>Tambah</td>
-									<td><input name="tambah_username_piket" type="text" class="form-control" required></td>
-									<td><input name="tambah_password_piket" type="text" class="form-control" required></td>
+									<td><input id='tambahUsernamePiket' name="tambah_username_piket" type="text" class="form-control"></td>
+									<td><input id='tambahPasswordPiket' name="tambah_password_piket" type="text" class="form-control"></td>
 									<td>
-										<button class="col-5 btn btn-success"><i class="bi bi-plus-lg"></i></button>
+										<button type="button" class="col-5 btn btn-success tambahInput"><i class="bi bi-plus-lg"></i></button>
 									</td>
 								</tr>
 
@@ -298,7 +279,7 @@ $data = array_slice($data, $offset, $limit);
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
-					<button type="submit" name="tambah_piket" class="btn btn-primary">Simpan</button>
+					<button type="submit" name="tambahPiket" class="btn btn-primary" disabled>Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -588,7 +569,7 @@ $data = array_slice($data, $offset, $limit);
 
 		<!-- DAFTAR PEJABAT -->
 		<div class="container-sm pb-3">
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3" id="myList">
 
 				<?php
 				foreach ($data as $value) {
@@ -709,7 +690,96 @@ $data = array_slice($data, $offset, $limit);
 	//$('img')[1].src = URL.createObjectURL($('input:file')[0].files[0])
 	let dataSlider = '';
 	let dataQuerySlider = new URLSearchParams(`?slider_1=&slider_2=&slider_3=&slider_4=&slider_5=&ubahSlide=`);
+	let scriptCurrentPiket = function(noUrut, usernamePiket, passPiket) {
+		return `<tr class="barisCurrentPiket">
+					<th>${noUrut}</th>
+						<td>
+							<input name="piket_u_${usernamePiket}" type="text" class="form-control piket_u_current" required value="${usernamePiket}" readonly="readonly">
+						</td>
+						<td>
+							<input name="piket_p_${usernamePiket}" type="password" class="form-control piket_p_current"  value="${passPiket}" required readonly="readonly" placeholder="Kata sandi">
+						</td>
+						<td>
+							<button class="btn btn-primary piket_btn_edit" type="button">
+								<i class="bi bi-pencil-square ikon_piket_btn_current"></i>
+							</button>
+							<button class="btn btn-danger piket_btn_hapus" type="button">
+								<i class="bi bi-trash"></i>
+							</button>
+						</td>
+				</tr>`
+	}
 
+	// TAMBAH PIKET
+	function ulangi_piket_btn_edit() {
+		for (let i = 0; i < $(".piket_btn_edit").length; i++) {
+			$(".piket_btn_edit")[i].onclick = function(e) {
+				$('.piket_u_current').eq(i).attr('readonly', function(index, attr) {
+					return attr == 'readonly' ? null : 'readonly';
+				});
+				$('.piket_p_current').eq(i).attr('readonly', function(index, attr) {
+					return attr == 'readonly' ? $(this).prop('type', 'text') && null : 'readonly' && $(this).prop('type', 'password') && $('#formTambahPiket button:submit').prop('disabled', false);
+				});
+				$('.ikon_piket_btn_current').eq(i).attr('class', function(index, attr) {
+					return attr == 'bi bi-pencil-square ikon_piket_btn_current' ? 'bi bi-check-lg ikon_piket_btn_current' : 'bi bi-pencil-square ikon_piket_btn_current';
+
+				});
+				$('.piket_btn_edit').eq(i).attr('class', function(index, attr) {
+					return attr == 'btn btn-primary piket_btn_edit' ? 'btn btn-success piket_btn_edit' : 'btn btn-primary piket_btn_edit';
+				});
+				ulangi_piket_btn_edit()
+			};
+		}
+	}
+	ulangi_piket_btn_edit()
+
+	function ulangi_piket_btn_hapus() {
+		for (let i = 0; i < $('.piket_btn_hapus').length; i++) {
+			$('.piket_btn_hapus')[i].onclick = function(e) {
+				console.log($('.piket_btn_hapus').length)
+				$('.barisCurrentPiket').eq(i).remove();
+				ulangi_piket_btn_hapus()
+			}
+		}
+	}
+	ulangi_piket_btn_hapus()
+
+
+	$('.tambahInput').on('click', function(e) {
+		let trigger = true;
+		$('#formTambahPiket .piket_u_current').filter(function(index, item, arr) {
+			if ($('#tambahUsernamePiket').val() == $(item).val()) {
+				trigger = false
+			}
+		})
+
+		if (trigger) {
+			$('#formTambahPiket tr').last().before(scriptCurrentPiket($('#formTambahPiket tr').length - 1, $('#tambahUsernamePiket').val(), $('#tambahPasswordPiket').val()))
+			$('#tambahUsernamePiket').val("");
+			$('#tambahPasswordPiket').val("");
+			$('#formTambahPiket button:submit').prop('disabled', false);
+			ulangi_piket_btn_edit()
+			ulangi_piket_btn_hapus()
+		} else {
+			notif('Username sudah ada');
+			$('#tambahUsernamePiket').val("");
+			$('#tambahPasswordPiket').val("");
+		}
+	});
+
+	$('#formTambahPiket').submit(function(e) {
+		let piketData = new URLSearchParams('tambahPiket=')
+		console.log(piketData.toString())
+		$('#formTambahPiket .piket_u_current').filter((index, item, arr) => {
+			piketData.append(`username${index}`, `${$(item).val()}`);
+			piketData.append(`pass${index}`, `${$('.piket_p_current').eq(index).val()}`);
+		});
+		console.log(piketData.toString())
+		tanya_simpan('Tambah Piket', 'Yakin akan menambahkan user ini?', piketData);
+		e.preventDefault();
+	})
+
+	// SLIDER
 	$('#formSlider input:file').on('change', function(e) {
 		let indexLabel = $('#formSlider input:file').index(this);
 		let slideName = $('#formSlider input:file').eq(indexLabel).prop('name')
@@ -730,7 +800,6 @@ $data = array_slice($data, $offset, $limit);
 
 	$('#formSlider').on('submit', function(e) {
 		let modalSlider = new bootstrap.Modal(document.getElementById('slider_edit'));
-		console.log(dataSlider);
 		tanya_simpan("Ubah slide", "Yakin akan simpan?", dataSlider);
 		responProses().then(res => { ///////////// PROMISE ====================+
 			if (res != 'Pastikan file Anda bertipe gambar!') {
@@ -801,11 +870,6 @@ $data = array_slice($data, $offset, $limit);
 		$data = $_POST['data']['dataPjb'];
 	}
 	?>
-
-	$('#formTambahPiket').submit(function(e) {
-		tanya_simpan('Tambah Piker', 'Yakin akan menambahkan user ini?', '')
-		e.preventDefault();
-	})
 </script>
 
 <?php

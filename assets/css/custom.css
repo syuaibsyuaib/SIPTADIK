@@ -1,4 +1,5 @@
-/* FOR COLOR */:root{--kuning:#FFDA6A;--pink:#EA868F;--biru:#0dcaf0;--merah:#d63384}
+/* FOR COLOR */
+:root{--kuning:#FFDA6A;--pink:#EA868F;--biru:#0dcaf0;--merah:#d63384}
 .warna-dasar{background-color:#FFDA6A}
 .warna-sibuk{background-color:#EA868F}
 .bg-male{--bs-bg-opacity:1;background-color:#0dcaf0}
@@ -29,3 +30,8 @@
 /* FOR RIWAYAT */
 .modal-foto{display:block;width:100%}
 .thumb img{cursor:zoom-in}
+/* FOR TAMU */
+body{background-image:url(/img/bg.jpg);background-size:cover}
+.carousel-item{height:100%;max-height:400px;min-height:400px}
+.carousel-item img{min-height:400px}
+video{object-fit:cover;width:380;height:400}

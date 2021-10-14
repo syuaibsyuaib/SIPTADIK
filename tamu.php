@@ -3,25 +3,9 @@ $title = "Tamu";
 include "layout/header.php";
 $_SESSION['role'] != 2 ? pindahko("/") : "";
 $dataBidang = $_SESSION['data']['dataBidang'];
+$slide = $_SESSION['data']['slide'][0];
+// print_r($slide);
 ?>
-
-<style>
-	body {
-		background-image: url(/img/bg.jpg);
-		background-size: cover;
-	}
-
-	.carousel-item {
-		height: 100%;
-		max-height: 400px;
-	}
-
-	video {
-		object-fit: cover;
-		width: 380;
-		height: 400;
-	}
-</style>
 
 <!-- ISI MULAI -->
 <main class="container">
@@ -43,21 +27,19 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
 					</div>
 					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="./img/slide1.jpg" class="d-block w-100" alt="Gambar 1">
-						</div>
-						<div class="carousel-item">
-							<img src="./img/slide2.jpg" class="d-block w-100" alt="Gambar 2">
-						</div>
-						<div class="carousel-item">
-							<img src="./img/slide3.jpg" class="d-block w-100" alt="Gambar 3">
-						</div>
-						<div class="carousel-item">
-							<img src="./img/slide4.jpg" class="d-block w-100" alt="Gambar 3">
-						</div>
-						<div class="carousel-item">
-							<img src="./img/slide5.jpg" class="d-block w-100" alt="Gambar 3">
-						</div>
+						<?php
+						$n = 1;
+						foreach ($slide as $value) {
+							if ($value <> "") {
+						?>
+								<div class="carousel-item <?=$n == 1 ? "active" : ""?>">
+									<img src="<?= $value ?>" class="d-block w-100" alt="Gambar 1">
+								</div>
+						<?php
+							$n++;
+							}
+						}
+						?>
 					</div>
 					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -193,7 +175,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 	let foto = document.getElementById('foto');
 
 	///////// MODAL WARNING //////////===========================================================
-	$('#formTamu').submit(function (event){
+	$('#formTamu').submit(function(event) {
 		event.preventDefault();
 		if ($('#fotoPhp').val() == '') {
 			$('#foto').removeClass('shadow');
@@ -334,56 +316,56 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 	let jabatan = document.getElementById('jabatan');
 
 	for (let i = 3; i < jabatan.options.length; i++) {
-	    jabatan.options[i].classList.toggle('d-none');
+		jabatan.options[i].classList.toggle('d-none');
 	}
 
 	function togel(parm) {
-	    if (parm == 'kadisHilang') {
-	        jabatan.options[1].classList.add('d-none');
-	        jabatan.options[2].classList.add('d-none');
-	        for (let i = 3; i < jabatan.options.length; i++) {
-	            jabatan.options[i].classList.remove('d-none');
-	        }
-	    } else {
-	        jabatan.options[1].classList.remove('d-none');
-	        jabatan.options[2].classList.remove('d-none');
-	        for (let i = 3; i < jabatan.options.length; i++) {
-	            jabatan.options[i].classList.add('d-none');
-	        }
-	    }
+		if (parm == 'kadisHilang') {
+			jabatan.options[1].classList.add('d-none');
+			jabatan.options[2].classList.add('d-none');
+			for (let i = 3; i < jabatan.options.length; i++) {
+				jabatan.options[i].classList.remove('d-none');
+			}
+		} else {
+			jabatan.options[1].classList.remove('d-none');
+			jabatan.options[2].classList.remove('d-none');
+			for (let i = 3; i < jabatan.options.length; i++) {
+				jabatan.options[i].classList.add('d-none');
+			}
+		}
 	}
 
 
 	bidang.addEventListener('change', function(isi) {
-	    let value = isi.target.options[bidang.selectedIndex].value;
-	    subbidang.disabled = true;
-	    subbidang.options.selectedIndex = 0;
-	    // jabatan.disabled = true;
-	    jabatan.options.selectedIndex = 0;
-	    if (value == 'b1') {
-	        subbidang.disabled = false;
-	        jabatan.options.selectedIndex = 0;
-	        jabatan.disabled = true;
-	    } else if (subbidang.selectedIndex == 0) {
-	        jabatan.disabled = false;
-	    }
+		let value = isi.target.options[bidang.selectedIndex].value;
+		subbidang.disabled = true;
+		subbidang.options.selectedIndex = 0;
+		// jabatan.disabled = true;
+		jabatan.options.selectedIndex = 0;
+		if (value == 'b1') {
+			subbidang.disabled = false;
+			jabatan.options.selectedIndex = 0;
+			jabatan.disabled = true;
+		} else if (subbidang.selectedIndex == 0) {
+			jabatan.disabled = false;
+		}
 
-	    if (value != "") {
-	        togel('kadisHilang');
-	    } else {
-	        togel('muncul ko kadis');
-	    }
+		if (value != "") {
+			togel('kadisHilang');
+		} else {
+			togel('muncul ko kadis');
+		}
 	});
 
 	subbidang.addEventListener('change', function(isi) {
-	    let value = isi.target.options[subbidang.selectedIndex].value;
-	    jabatan.options.selectedIndex = 0;
-	    if (value != "" && subbidang.options.selectedIndex != 0) {
-	        jabatan.disabled = false;
-	    } else {
-	        jabatan.options.selectedIndex = 0;
-	        jabatan.disabled = true;
-	    }
+		let value = isi.target.options[subbidang.selectedIndex].value;
+		jabatan.options.selectedIndex = 0;
+		if (value != "" && subbidang.options.selectedIndex != 0) {
+			jabatan.disabled = false;
+		} else {
+			jabatan.options.selectedIndex = 0;
+			jabatan.disabled = true;
+		}
 	})
 </script>
 
