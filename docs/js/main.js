@@ -70,6 +70,7 @@
 		        },
 		        body: JSON.stringify(data),
 		    })
+		    console.log(response.text())
 		    return response.text();
 		}
 
