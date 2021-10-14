@@ -43,6 +43,20 @@
             }
         };
     };
+
+    function warning(judulText, isiText, fx) {
+        let modalWarning = new bootstrap.Modal(document.getElementById('modalWarning'));
+        let isiPesan = document.getElementById('isiModal');
+        let judulPesan = document.getElementById('judulModal');
+        let tblWarning = document.getElementById('tblModalWarning');
+        modalWarning.show();
+        $('.modal-backdrop:eq(1)').attr('style', 'z-index:1056')
+        isiPesan.innerText = isiText;
+        judulPesan.innerText = judulText;
+        tblWarning.onclick = function(e){
+            fx()
+        } 
+    }
 </script>
 </body>
 
