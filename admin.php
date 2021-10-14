@@ -314,34 +314,18 @@ $data = array_slice($data, $offset, $limit);
 									$num++;
 							?>
 
-									<tr>
+									<tr class="row_input_bidang">
 										<th><?= $num ?></th>
 										<td>
-											<input id="bagian_<?= $value[0] ?>" name="bagian_<?= $value[0] ?>" type="text" class="form-control" required="" value="<?= $value[1] ?>" readonly="readonly">
+											<input type="text" class="form-control inputCurrentBidang" required value="<?= $value[1] ?>" readonly>
 										</td>
 										<td>
-											<button class="btn btn-primary" type="button" id="tombol_e_<?= $value[0] ?>">
-												<i id="ikon_tombol_e_<?= $value[0] ?>" class="bi bi-pencil-square"></i>
+											<button class="btn btn-primary btnEditBidang" type="button">
+												<i class="bi bi-pencil-square ikon_tombol_e_bidang"></i>
 											</button>
-											<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+											<button type="button" class="btn btn-danger btnHapusBidang"><i class="bi bi-trash"></i></button>
 										</td>
 									</tr>
-
-									<!-- JQUERY PENGATUR INPUT -->
-									<script>
-										$("#tombol_e_<?= $value[0] ?>").click(function() {
-											$('#bagian_<?= $value[0] ?>').attr('readonly', function(index, attr) {
-												return attr == 'readonly' ? null : 'readonly';
-											});
-											$('#ikon_tombol_e_<?= $value[0] ?>').attr('class', function(index, attr) {
-												return attr == 'bi bi-pencil-square' ? 'bi bi-check-lg' : 'bi bi-pencil-square';
-											});
-											$('#tombol_e_<?= $value[0] ?>').attr('class', function(index, attr) {
-												return attr == 'btn btn-primary' ? 'btn btn-success' : 'btn btn-primary';
-											});
-										});
-									</script>
-
 							<?php
 								}
 							}
@@ -349,9 +333,9 @@ $data = array_slice($data, $offset, $limit);
 
 							<tr>
 								<td>Tambah</td>
-								<td><input name="tambah_bagian" type="text" class="form-control" required></td>
+								<td><input id="inputTambahBidang" type="text" class="form-control"></td>
 								<td>
-									<button class="col-5 btn btn-success"><i class="bi bi-plus-lg"></i></button>
+									<button id="tblTambahBidang" type="button" class="col-5 btn btn-success" disabled><i class="bi bi-plus-lg"></i></button>
 								</td>
 							</tr>
 
@@ -360,7 +344,7 @@ $data = array_slice($data, $offset, $limit);
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">Simpan</button>
+					<button type="submit" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -709,6 +693,93 @@ $data = array_slice($data, $offset, $limit);
 						</td>
 				</tr>`
 	}
+	let scriptCurrentBidang = function(noUrut, valueBidang) {
+		return `<tr class="row_input_bidang">
+					<th>${noUrut}</th>
+					<td>
+						<input type="text" class="form-control inputCurrentBidang"  value="${valueBidang}" required readonly>
+					</td>
+					<td>
+						<button class="btn btn-primary btnEditBidang" type="button">
+							<i class="bi bi-pencil-square ikon_tombol_e_bidang"></i>
+						</button>
+						<button type="button" class="btn btn-danger btnHapusBidang"><i class="bi bi-trash"></i></button>
+					</td>
+				</tr>`
+	}
+
+	// TAMBAH BIDANG
+	function ulangi_bidang_btn_edit() {
+		for (let i = 0; i < $(".btnEditBidang").length; i++) {
+			$(".btnEditBidang")[i].onclick = function(e) {
+				$('.inputCurrentBidang').eq(i).attr('readonly', function(index, attr) {
+					return attr == 'readonly' ? null : 'readonly';
+				});
+
+				$('.ikon_tombol_e_bidang').eq(i).attr('class', function(index, attr) {
+					return attr == 'bi bi-pencil-square ikon_tombol_e_bidang' ? 'bi bi-check-lg ikon_tombol_e_bidang' : 'bi bi-pencil-square ikon_tombol_e_bidang';
+
+				});
+				$('.btnEditBidang').eq(i).attr('class', function(index, attr) {
+					return attr == 'btn btn-primary btnEditBidang' ? 'btn btn-success btnEditBidang' : 'btn btn-primary btnEditBidang';
+				});
+				ulangi_bidang_btn_edit()
+			};
+		}
+	}
+	ulangi_bidang_btn_edit()
+
+	function hapusRow(classBtnHapus, classRowCurrent) {
+		for (let i = 0; i < $(classBtnHapus).length; i++) {
+			$(classBtnHapus)[i].onclick = function(e) {
+				warning("Hapus", "yakin akan menghapus data tersebut?", function() {
+					$(classRowCurrent).eq(i).remove();
+					hapusRow(classBtnHapus, classRowCurrent)
+				})
+			}
+		}
+	}
+
+	hapusRow('.btnHapusBidang', '.row_input_bidang');
+
+	$('#inputTambahBidang').keydown(function() {
+		$('#tblTambahBidang').prop('disabled', false)
+	})
+
+	$('#tblTambahBidang').on('click', function(e) {
+		if ($('#inputTambahBidang').val() == "") {
+			$('#tblTambahBidang').prop('disabled', true)
+			return;
+		}
+		let trigger = true;
+		$('#formTambahBidang .inputCurrentBidang').filter(function(index, item, arr) {
+			if ($('#inputTambahBidang').val() == $(item).val()) {
+				trigger = false
+			}
+		})
+
+		if (trigger) {
+			$('#formTambahBidang tr').last().before(scriptCurrentBidang($('#formTambahBidang tr').length - 1, $('#inputTambahBidang').val()))
+			$('#inputTambahBidang').val("");
+			$('#formTambahBidang button:submit').prop('disabled', false);
+			$('#tblTambahBidang').prop('disabled', true)
+			ulangi_bidang_btn_edit()
+			hapusRow('.btnHapusBidang', '.row_input_bidang');
+		} else {
+			notif('Bidang sudah ada');
+			$('#inputTambahBidang').val("");
+		}
+	})
+
+	$('#formTambahBidang').submit(function(e) {
+		alert('tes')
+		let bidangData = new URLSearchParams('tambahBidang=')
+		$('#formTambahBidang .inputCurrentBidang').filter((index, item, arr) => {
+			bidangData.append(`namaBidang${index}`, `${$(item).val()}`);
+		});
+		tanya_simpan('Tambah Bidang', 'Yakin akan menambahkan bidang ini?', bidangData);
+		e.preventDefault()
+	});
 
 	// TAMBAH PIKET
 	function ulangi_piket_btn_edit() {
@@ -733,17 +804,7 @@ $data = array_slice($data, $offset, $limit);
 	}
 	ulangi_piket_btn_edit()
 
-	function ulangi_piket_btn_hapus() {
-		for (let i = 0; i < $('.piket_btn_hapus').length; i++) {
-			$('.piket_btn_hapus')[i].onclick = function(e) {
-				console.log($('.piket_btn_hapus').length)
-				$('.barisCurrentPiket').eq(i).remove();
-				ulangi_piket_btn_hapus()
-			}
-		}
-	}
-	ulangi_piket_btn_hapus()
-
+	hapusRow('.piket_btn_hapus', '.barisCurrentPiket')
 
 	$('.tambahInput').on('click', function(e) {
 		let trigger = true;
@@ -759,7 +820,7 @@ $data = array_slice($data, $offset, $limit);
 			$('#tambahPasswordPiket').val("");
 			$('#formTambahPiket button:submit').prop('disabled', false);
 			ulangi_piket_btn_edit()
-			ulangi_piket_btn_hapus()
+			hapusRow('.piket_btn_hapus', '.barisCurrentPiket')
 		} else {
 			notif('Username sudah ada');
 			$('#tambahUsernamePiket').val("");
@@ -849,6 +910,7 @@ $data = array_slice($data, $offset, $limit);
 		e.preventDefault()
 	});
 
+
 	// HAPUS PEJABAT/USER
 	$('.hapus').click(function() {
 		let hre = new URLSearchParams(new URL($(this).prev().prop('href')).search);
@@ -857,11 +919,6 @@ $data = array_slice($data, $offset, $limit);
 		tanya_simpan('Hapus Pengguna', 'Yakin akan menghapus user ini?', id_del)
 	})
 
-	// TAMBAH BIDANG
-	$('#formTambahBidang').submit(function(e) {
-		//
-		e.preventDefault()
-	});
 
 	<?php
 	if (isset($_POST['data'])) {

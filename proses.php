@@ -97,6 +97,7 @@ if(isset($_POST['ubahSlide'])){
     return print(json_encode($resSlide));
 }
 
+//TAMBAH PIKET
 if(isset($_POST['tambahPiket'])){
     $piket = array();
     for ($i=0; $i < count($_POST); $i++) { 
@@ -108,4 +109,18 @@ if(isset($_POST['tambahPiket'])){
     $resPiket = kirim($tambahPiket, 1);
     segarkan($_SESSION['user'], $_SESSION['pass']);
     return print(json_encode($resPiket));
+}
+
+//TAMBAH BIDANG
+if(isset($_POST['tambahBidang'])){
+    $bidang = array();
+    for ($i=0; $i < count($_POST); $i++) { 
+        if($_POST['namaBidang' . $i]){
+            array_push($bidang, $_POST['namaBidang' . $i]);
+        }
+    }
+    $tambahBidang = array("type" => "tambahBidang", "dataTambah" => $bidang);
+    $resBidang = kirim($tambahBidang, 1);
+    segarkan($_SESSION['user'], $_SESSION['pass']);
+    return print(json_encode($resBidang));
 }
