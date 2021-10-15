@@ -354,7 +354,7 @@ $data = array_slice($data, $offset, $limit);
 
 <!-- MODAL SUBBIDANG -->
 <div class="modal fade" id="modal_subbidang_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<form class="m-0 p-0" method="POST" action="">
 				<div class="modal-header">
@@ -366,9 +366,22 @@ $data = array_slice($data, $offset, $limit);
 						<thead>
 							<tr>
 								<th width="7%">#</th>
-								<th width="40%">Nama Sub-Bagian</th>
-								<th width="30%">Bagian</th>
-								<th width="23%">Pilihan</th>
+								<th colspan="2">
+									<select id="edit_nama_bagian_<?= $id ?>" class="form-select" name="edit_nama_bagian_<?= $id ?>">
+										<option value="" selected="">== Pilih jenis bagian ==</option>
+										<?php
+
+										foreach ($dataBidang as $val) {
+											if ($val[0] != "") {
+												$id_bidang = array_search_multi($dataBidang, 0, substr($value[2], 0, 2), false)[0][0];
+										?>
+												<option value="<?= $val[0] ?>" <?= $val[0] == $id_bidang ? "selected" : "" ?>><?= $val[1] ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -379,26 +392,12 @@ $data = array_slice($data, $offset, $limit);
 								if ($value[2] != '') {
 									$num++;
 									$id = $value[2];
-									$id_bidang = array_search_multi($dataBidang, 0, substr($value[2], 0, 2), false)[0][0];
+
 							?>
 									<tr>
 										<th><?= $num ?></th>
 										<td>
-											<input id="subbagian_<?= $id ?>" name="subbagian_<?= $id ?>" type="text" class="form-control class_subbagian_<?= $id ?>" required="" value="<?= $value[3] ?>" readonly="readonly">
-										</td>
-										<td>
-											<select id="edit_nama_bagian_<?= $id ?>" class="form-select" name="edit_nama_bagian_<?= $id ?>" required disabled="disabled">
-												<option value="" selected="">== Pilih jenis bagian ==</option>
-												<?php
-												foreach ($dataBidang as $val) {
-													if ($val[0] != "") {
-												?>
-														<option value="<?= $val[0] ?>" <?= $val[0] == $id_bidang ? "selected" : "" ?>><?= $val[1] ?></option>
-												<?php
-													}
-												}
-												?>
-											</select>
+											<input id="subbagian_<?= $id ?>" name="subbagian_<?= $id ?>" type="text" class="form-control class_subbagian_<?= $id ?>" required value="<?= $value[3] ?>" readonly>
 										</td>
 										<td>
 											<button class="btn btn-primary" id="btn_e_subbagian_<?= $id ?>" type="button">
@@ -433,23 +432,11 @@ $data = array_slice($data, $offset, $limit);
 
 							<tr>
 								<td>Tambah</td>
-								<td><input name="tambah_subbagian" type="text" class="form-control" required></td>
-								<td>
-									<select class="form-select" name="tambah_subbagian" required>
-										<option value="" selected="">== Pilih jenis bagian ==</option>
-										<?php
-										foreach ($dataBidang as $val) {
-											if ($val[0] != "") {
-										?>
-												<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
-										<?php
-											}
-										}
-										?>
-									</select>
+								<td width="60%">
+									<input name="tambah_subbagian" type="text" class="form-control">
 								</td>
 								<td>
-									<button class="col-5 btn btn-success"><i class="bi bi-plus-lg"></i></button>
+									<button type="button" class="col-5 btn btn-success"><i class="bi bi-plus-lg"></i></button>
 								</td>
 							</tr>
 
