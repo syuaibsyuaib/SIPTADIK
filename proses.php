@@ -130,7 +130,7 @@ if(isset($_POST['tambahSubbidang'])){
     $subbidang = array();
     for ($i=0; $i < count($_POST); $i++) { 
         if($_POST['namaSubbidang' . $i]){
-            array_push($subbidang, $_POST['namaSubbidang' . $i]);
+            array_push($subbidang, $_POST['kodeSubbidang' . $i], $_POST['namaSubbidang' . $i]);
         }
     }
     $tambahSubbidang = array("type" => "tambahSubbidang", "dataTambah" => $subbidang);
