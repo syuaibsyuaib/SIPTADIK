@@ -124,3 +124,17 @@ if(isset($_POST['tambahBidang'])){
     segarkan($_SESSION['user'], $_SESSION['pass']);
     return print(json_encode($resBidang));
 }
+
+//TAMBAH SUBBIDANG
+if(isset($_POST['tambahSubbidang'])){
+    $subbidang = array();
+    for ($i=0; $i < count($_POST); $i++) { 
+        if($_POST['namaSubbidang' . $i]){
+            array_push($subbidang, $_POST['namaSubbidang' . $i]);
+        }
+    }
+    $tambahSubbidang = array("type" => "tambahSubbidang", "dataTambah" => $subbidang);
+    $resSubbidang = kirim($tambahSubbidang, 1);
+    segarkan($_SESSION['user'], $_SESSION['pass']);
+    return print(json_encode($resSubbidang));
+}
