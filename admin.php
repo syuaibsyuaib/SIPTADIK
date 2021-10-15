@@ -438,7 +438,7 @@ $data = array_slice($data, $offset, $limit);
 <div class="modal fade" id="modal_jabatan_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form class="m-0 p-0" method="POST" action="">
+			<form class="m-0 p-0" id="formTambahJabatan">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools" style="font-size:1rem;"></i> Pengaturan Jabatan</h5>
 				</div>
@@ -463,31 +463,18 @@ $data = array_slice($data, $offset, $limit);
 									$nama_j = $value[5];
 							?>
 
-									<tr>
+									<tr class="row_input_jabatan">
 										<th><?= $num ?></th>
 										<td>
-											<input id="jabatan_<?= $id_j ?>" name="jabatan_<?= $id_j ?>" type="text" class="form-control" required="" value="<?= $nama_j ?>" readonly="readonly">
+											<input type="text" class="form-control inputCurrentJabatan" value="<?= $nama_j ?>" required readonly>
 										</td>
 										<td>
-											<button class="btn btn-primary col-5" type="button" id="tombol_j_<?= $id_j ?>"><i id="ikon_tombol_j_<?= $id_j ?>" class="bi bi-pencil-square"></i></button>
-											<button class="btn btn-danger col-5"><i class="bi bi-trash"></i></button>
+											<button class="btn btn-primary col-5 btnEditJabatan" type="button">
+												<i class="bi bi-pencil-square ikon_tombol_e_jabatan"></i>
+											</button>
+											<button class="btn btn-danger col-5 btnHapusJabatan"><i class="bi bi-trash"></i></button>
 										</td>
 									</tr>
-
-									<!-- JQUERY PENGATUR INPUT -->
-									<script>
-										$("#tombol_j_<?= $id_j ?>").click(function() {
-											$('#jabatan_<?= $id_j ?>').attr('readonly', function(index, attr) {
-												return attr == 'readonly' ? null : 'readonly';
-											});
-											$('#ikon_tombol_j_<?= $id_j ?>').attr('class', function(index, attr) {
-												return attr == 'bi bi-pencil-square' ? 'bi bi-check-lg' : 'bi bi-pencil-square';
-											});
-											$('#tombol_j_<?= $id_j ?>').attr('class', function(index, attr) {
-												return attr == 'btn btn-primary col-5' ? 'btn btn-success col-5' : 'btn btn-primary col-5';
-											});
-										});
-									</script>
 
 							<?php
 								}
@@ -495,10 +482,10 @@ $data = array_slice($data, $offset, $limit);
 							?>
 
 							<tr>
-								<td>Tambah</td>
-								<td><input name="tambah_jabatan" type="text" class="form-control" required></td>
+								<th>Tambah</th>
+								<td><input id="inputTambahJabatan" type="text" class="form-control"></td>
 								<td>
-									<button class="col-5 btn btn-success"><i class="bi bi-plus-lg"></i></button>
+									<button id="tblTambahJabatan" type="button" class="col-5 btn btn-success" disabled><i class="bi bi-plus-lg"></i></button>
 								</td>
 							</tr>
 
@@ -507,7 +494,7 @@ $data = array_slice($data, $offset, $limit);
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">Simpan</button>
+					<button type="submit" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -690,6 +677,20 @@ $data = array_slice($data, $offset, $limit);
                 </td>
             </tr>`
 	}
+	let scriptCurrentJabatan = function(noUrut, valueJabatan) {
+		return `<tr class="row_input_jabatan">
+					<th>${noUrut}</th>
+					<td>
+						<input type="text" class="form-control inputCurrentJabatan" value="${valueJabatan}" required readonly>
+					</td>
+					<td>
+						<button class="btn btn-primary col-5 btnEditJabatan" type="button">
+							<i class="bi bi-pencil-square ikon_tombol_e_jabatan"></i>
+						</button>
+						<button class="btn btn-danger col-5 btnHapusJabatan"><i class="bi bi-trash"></i></button>
+					</td>
+				</tr>`
+	}
 
 	function hapusRow(classBtnHapus, classRowCurrent) {
 		for (let i = 0; i < $(classBtnHapus).length; i++) {
@@ -823,9 +824,9 @@ $data = array_slice($data, $offset, $limit);
 	}
 	filterSubbidang()
 
-	$('#selectBidangSubbidang').on('focus', function(){
+	$('#selectBidangSubbidang').on('focus', function() {
 		prevSelect = this.value
-	}).change(function(){
+	}).change(function() {
 		filterSubbidang(tempTrigger)
 	})
 
@@ -866,21 +867,83 @@ $data = array_slice($data, $offset, $limit);
 		// alert('tes')
 		let subbidangData = new URLSearchParams('tambahSubbidang=')
 
-		
 		$('#formTambahSubbidang .currentKodeSubbidang').filter((index, item, arr) => {
 			subbidangData.append(`kodeSubbidang${index}`, `${$(item).val()}`);
 		});
-		
+
 		$('#formTambahSubbidang .inputCurrentSubbidang').filter((index, item, arr) => {
 			subbidangData.append(`namaSubbidang${index}`, `${$(item).val()}`);
 		});
 
-		for (let hadi of subbidangData.values()) {
+		tempTrigger = 0
+		tanya_simpan('Tambah Subbidang', 'Yakin akan menambahkan Subbidang ini?', subbidangData);
+		e.preventDefault()
+	});
+
+	// TAMBAH JABATAN
+	function ulangi_jabatan_btn_edit() {
+		for (let i = 0; i < $(".btnEditJabatan").length; i++) {
+			$(".btnEditJabatan")[i].onclick = function(e) {
+				$('.inputCurrentJabatan').eq(i).attr('readonly', function(index, attr) {
+					return attr == 'readonly' ? null : 'readonly';
+				});
+
+				$('.ikon_tombol_e_jabatan').eq(i).attr('class', function(index, attr) {
+					return attr == 'bi bi-pencil-square ikon_tombol_e_jabatan' ? 'bi bi-check-lg ikon_tombol_e_jabatan' : 'bi bi-pencil-square ikon_tombol_e_jabatan';
+
+				});
+				$('.btnEditJabatan').eq(i).attr('class', function(index, attr) {
+					return attr == 'btn btn-primary col-5 btnEditJabatan' ? 'btn btn-success col-5 btnEditJabatan' : 'btn btn-primary col-5 btnEditJabatan';
+				});
+				ulangi_jabatan_btn_edit()
+			};
+		}
+	}
+	ulangi_jabatan_btn_edit()
+
+	hapusRow('.btnHapusJabatan', '.row_input_jabatan');
+
+	$('#inputTambahJabatan').keydown(function() {
+		$('#tblTambahJabatan').prop('disabled', false)
+	})
+
+	$('#tblTambahJabatan').on('click', function(e) {
+		if ($('#inputTambahJabatan').val() == "") {
+			$('#tblTambahJabatan').prop('disabled', true)
+			return;
+		}
+		let trigger = true;
+		$('#formTambahJabatan .inputCurrentJabatan').filter(function(index, item, arr) {
+			if ($('#inputTambahJabatan').val() == $(item).val()) {
+				trigger = false
+			}
+		})
+
+		if (trigger) {
+			$('#formTambahJabatan tr').last().before(scriptCurrentJabatan($('#formTambahJabatan tr').length - 1, $('#inputTambahJabatan').val()))
+			$('#inputTambahJabatan').val("");
+			$('#formTambahJabatan button:submit').prop('disabled', false);
+			$('#tblTambahJabatan').prop('disabled', true)
+			ulangi_jabatan_btn_edit()
+			hapusRow('.btnHapusJabatan', '.row_input_jabatan');
+		} else {
+			notif('Jabatan sudah ada');
+			$('#inputTambahJabatan').val("");
+		}
+	})
+
+	$('#formTambahJabatan').submit(function(e) {
+		// alert('tes')
+		let jabatanData = new URLSearchParams('tambahJabatan=')
+		$('#formTambahJabatan .inputCurrentJabatan').filter((index, item, arr) => {
+			jabatanData.append(`namaJabatan${index}`, `${$(item).val()}`);
+		});
+
+		for (var hadi of jabatanData.values()) {
 			console.log(hadi);
 		}
 
-		tempTrigger = 0
-		tanya_simpan('Tambah Subbidang', 'Yakin akan menambahkan Subbidang ini?', subbidangData);
+		// tanya_simpan('Tambah Bidang', 'Yakin akan menambahkan jabatan ini?', jabatanData);
 		e.preventDefault()
 	});
 

@@ -138,3 +138,17 @@ if(isset($_POST['tambahSubbidang'])){
     segarkan($_SESSION['user'], $_SESSION['pass']);
     return print(json_encode($resSubbidang));
 }
+
+//TAMBAH JABATAN
+if(isset($_POST['tambahJabatan'])){
+    $jabatan = array();
+    for ($i=0; $i < count($_POST); $i++) { 
+        if($_POST['namaJabatan' . $i]){
+            array_push($jabatan, $_POST['namaJabatan' . $i]);
+        }
+    }
+    $tambahJabatan = array("type" => "tambahJabatan", "dataTambah" => $jabatan);
+    $resJabatan = kirim($tambahJabatan, 1);
+    segarkan($_SESSION['user'], $_SESSION['pass']);
+    return print(json_encode($resJabatan));
+}
