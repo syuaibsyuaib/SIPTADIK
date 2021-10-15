@@ -21,45 +21,6 @@
 		    return new Uint8Array(bytes.buffer);
 		}
 
-		////////////////////// UNTUK PAGE ADMIN /////////////////
-		$('#bid').on('change', function(e) {
-		    switch ($('#bid').prop('selectedIndex')) {
-		        case 0:
-		            $('#subbid, #jabat').prop('selectedIndex', 0);
-		            $('#subbid option, #jabat option').prop('hidden', true);
-		            break;
-		        case 1:
-		            $('#subbid option').prop('hidden', false);
-		            $('#jabat option').prop('hidden', true);
-		            $('#subbid, #jabat').prop('selectedIndex', 0);
-		            break;
-		        default:
-		            $('#subbid option').prop('hidden', true);
-		            $('#jabat option').prop('hidden', false);
-		            $('#subbid, #jabat').prop('selectedIndex', 0);
-		            break;
-		    }
-		})
-
-		$('#subbid').on('change', function(e) {
-		    switch ($('#subbid').prop('selectedIndex')) {
-		        case 0:
-		            $('#jabat option').prop('hidden', true);
-		            $('#jabat option').prop('selectedIndex', 0);
-		            break;
-		        default:
-		            $('#jabat option').prop('hidden', false);
-		            $('#jabat option').prop('selectedIndex', 0);
-		            break;
-		    }
-		})
-
-		function hapusOptions(e) {
-		    $(`${e} option`).prop('hidden');
-		    return true;
-		}
-
-
 		async function kirim(data) {
 		    const url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
 		    modalLoading()
@@ -70,8 +31,8 @@
 		        },
 		        body: JSON.stringify(data),
 		    })
-		    console.log(response)
-		    return response;
+
+		    return response.json();
 		}
 
 		function responProses() {
