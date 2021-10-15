@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/riwayat.css">
     <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.js"></script>
@@ -45,12 +46,14 @@
     <script src="js/main.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
     <script>
+        localStorage.clear()
         $('#formLogin').on('submit', function(e) {
             const data = new FormData($('#formLogin')[0])
             const isi = Object.fromEntries(data.entries())
             console.log(isi)
             kirim(isi)
                 .then((res) => {
+                    localStorage.setItem('data', JSON.stringify(res));
                     location.assign('pejabat.html')
                 })
                 .catch((err) => {
