@@ -70,8 +70,8 @@
 		        },
 		        body: JSON.stringify(data),
 		    })
-		    console.log(response.text())
-		    return response.text();
+		    console.log(response)
+		    return response;
 		}
 
 		function responProses() {
