@@ -332,7 +332,7 @@ $data = array_slice($data, $offset, $limit);
 							?>
 
 							<tr>
-								<td>Tambah</td>
+								<thd>Tambah</thd>
 								<td><input id="inputTambahBidang" type="text" class="form-control"></td>
 								<td>
 									<button id="tblTambahBidang" type="button" class="col-5 btn btn-success" disabled><i class="bi bi-plus-lg"></i></button>
@@ -354,11 +354,11 @@ $data = array_slice($data, $offset, $limit);
 
 <!-- MODAL SUBBIDANG -->
 <div class="modal fade" id="modal_subbidang_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form class="m-0 p-0" method="POST" action="">
+			<form class="m-0 p-0" id="formTambahSubbidang">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools" style="font-size:1rem;"></i> Pengaturan Sub-Bagian</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-tools" style="font-size:1rem;"></i> Pengaturan Sub-Bidang</h5>
 				</div>
 				<!-- ISI MODAL START HERE -->
 				<div class="modal-body px-4">
@@ -366,20 +366,19 @@ $data = array_slice($data, $offset, $limit);
 						<thead>
 							<tr>
 								<th width="7%">#</th>
-								<th colspan="2">
-									<select id="edit_nama_bagian_<?= $id ?>" class="form-select" name="edit_nama_bagian_<?= $id ?>">
-										<option value="" selected="">== Pilih jenis bagian ==</option>
-										<?php
+								<th colspan="2" width="72%">
+									<select class="form-select" id="selectBidangSubbidang">
 
+										<?php
 										foreach ($dataBidang as $val) {
 											if ($val[0] != "") {
-												$id_bidang = array_search_multi($dataBidang, 0, substr($value[2], 0, 2), false)[0][0];
 										?>
-												<option value="<?= $val[0] ?>" <?= $val[0] == $id_bidang ? "selected" : "" ?>><?= $val[1] ?></option>
+												<option value="<?= $val[0] ?>"><?= $val[1] ?></option>
 										<?php
 											}
 										}
 										?>
+
 									</select>
 								</th>
 							</tr>
@@ -387,56 +386,38 @@ $data = array_slice($data, $offset, $limit);
 						<tbody>
 
 							<?php
-							$num = 0;
+							/*$num = 0;
 							foreach ($dataBidang as $value) {
 								if ($value[2] != '') {
 									$num++;
 									$id = $value[2];
-
 							?>
-									<tr>
+									<tr class="row_input_subbidang">
 										<th><?= $num ?></th>
 										<td>
-											<input id="subbagian_<?= $id ?>" name="subbagian_<?= $id ?>" type="text" class="form-control class_subbagian_<?= $id ?>" required value="<?= $value[3] ?>" readonly>
+											<input type="hidden" class="currentKodeSubbidang" value="<?= $value[2] ?>">
+											<input type="text" class="form-control inputCurrentSubbidang" required value="<?= $value[3] ?>" readonly>
 										</td>
 										<td>
-											<button class="btn btn-primary" id="btn_e_subbagian_<?= $id ?>" type="button">
-												<i id="btn_i_subbagian_<?= $id ?>" class="bi bi-pencil-square"></i>
+											<button class="btn btn-primary btnEditSubbidang" type="button">
+												<i class="bi bi-pencil-square ikon_tombol_e_subbidang"></i>
 											</button>
-											<button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+											<button type="button" class="btn btn-danger btnHapusSubbidang"><i class="bi bi-trash"></i></button>
 										</td>
 									</tr>
 
-									<!-- JQUERY PENGATUR INPUT -->
-									<script>
-										$("#btn_e_subbagian_<?= $id ?>").click(function() {
-											$('#subbagian_<?= $id ?>').attr('readonly', function(index, attr) {
-												return attr == 'readonly' ? null : 'readonly';
-											});
-											$('#edit_nama_bagian_<?= $id ?>').attr('disabled', function(index, attr) {
-												return attr == 'disabled' ? null : 'disabled';
-											});
-											$('#btn_i_subbagian_<?= $id ?>').attr('class', function(index, attr) {
-												return attr == 'bi bi-pencil-square' ? 'bi bi-check-lg' : 'bi bi-pencil-square';
-											});
-											$('#btn_e_subbagian_<?= $id ?>').attr('class', function(index, attr) {
-												return attr == 'btn btn-primary' ? 'btn btn-success' : 'btn btn-primary';
-											});
-										});
-									</script>
-
 							<?php
 								}
-							}
+							}*/
 							?>
 
 							<tr>
-								<td>Tambah</td>
+								<th>Tambah</th>
 								<td width="60%">
-									<input name="tambah_subbagian" type="text" class="form-control">
+									<input id="inputTambahSubbidang" type="text" class="form-control">
 								</td>
 								<td>
-									<button type="button" class="col-5 btn btn-success"><i class="bi bi-plus-lg"></i></button>
+									<button id="tblTambahSubbidang" type="button" class="col-5 btn btn-success" disabled><i class="bi bi-plus-lg"></i></button>
 								</td>
 							</tr>
 
@@ -445,7 +426,7 @@ $data = array_slice($data, $offset, $limit);
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">Simpan</button>
+					<button type="submit" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -694,6 +675,32 @@ $data = array_slice($data, $offset, $limit);
 					</td>
 				</tr>`
 	}
+	let scriptCurrentSubbidang = function(noUrut, kodeSubbidang, namaSubbidang) {
+		return `<tr class="row_input_subbidang">
+                <th>${noUrut}</th>
+                <td>
+					<input type="hidden" class="currentKodeSubbidang" value="${kodeSubbidang}">
+                    <input type="text" class="form-control inputCurrentSubbidang" value="${namaSubbidang}" required readonly>
+                </td>
+                <td>
+                    <button class="btn btn-primary btnEditSubbidang" type="button">
+                        <i class="bi bi-pencil-square ikon_tombol_e_subbidang"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btnHapusSubbidang"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>`
+	}
+
+	function hapusRow(classBtnHapus, classRowCurrent) {
+		for (let i = 0; i < $(classBtnHapus).length; i++) {
+			$(classBtnHapus)[i].onclick = function(e) {
+				warning("Hapus", "Yakin akan menghapus data tersebut?", function() {
+					$(classRowCurrent).eq(i).remove();
+					hapusRow(classBtnHapus, classRowCurrent)
+				})
+			}
+		}
+	}
 
 	// TAMBAH BIDANG
 	function ulangi_bidang_btn_edit() {
@@ -715,17 +722,6 @@ $data = array_slice($data, $offset, $limit);
 		}
 	}
 	ulangi_bidang_btn_edit()
-
-	function hapusRow(classBtnHapus, classRowCurrent) {
-		for (let i = 0; i < $(classBtnHapus).length; i++) {
-			$(classBtnHapus)[i].onclick = function(e) {
-				warning("Hapus", "yakin akan menghapus data tersebut?", function() {
-					$(classRowCurrent).eq(i).remove();
-					hapusRow(classBtnHapus, classRowCurrent)
-				})
-			}
-		}
-	}
 
 	hapusRow('.btnHapusBidang', '.row_input_bidang');
 
@@ -759,12 +755,132 @@ $data = array_slice($data, $offset, $limit);
 	})
 
 	$('#formTambahBidang').submit(function(e) {
-		alert('tes')
+		// alert('tes')
 		let bidangData = new URLSearchParams('tambahBidang=')
 		$('#formTambahBidang .inputCurrentBidang').filter((index, item, arr) => {
 			bidangData.append(`namaBidang${index}`, `${$(item).val()}`);
 		});
+
 		tanya_simpan('Tambah Bidang', 'Yakin akan menambahkan bidang ini?', bidangData);
+		e.preventDefault()
+	});
+
+	// TAMBAH SUBBIDANG
+	let indexBidangSubbidang = $('#selectBidangSubbidang').val()
+	let arrSubbidangFilter = []
+	let arraySubbidang = []
+	let tempTrigger = 0
+	let prevSelect = ""
+
+	<?php foreach ($dataBidang as $nilai) {
+		if ($nilai[2] <> "") { ?>
+			arraySubbidang.push({
+				"kode": "<?= $nilai[2] ?>",
+				"nama": "<?= $nilai[3] ?>"
+			});
+	<?php }
+	} ?>
+
+	function ulangi_subbidang_btn_edit() {
+		for (let i = 0; i < $(".btnEditSubbidang").length; i++) {
+			$(".btnEditSubbidang")[i].onclick = function(e) {
+				$('.inputCurrentSubbidang').eq(i).attr('readonly', function(index, attr) {
+					return attr == 'readonly' ? null : 'readonly';
+				});
+
+				$('.ikon_tombol_e_subbidang').eq(i).attr('class', function(index, attr) {
+					return attr == 'bi bi-pencil-square ikon_tombol_e_subbidang' ? 'bi bi-check-lg ikon_tombol_e_subbidang' : 'bi bi-pencil-square ikon_tombol_e_subbidang';
+
+				});
+				$('.btnEditSubbidang').eq(i).attr('class', function(index, attr) {
+					return attr == 'btn btn-primary btnEditSubbidang' ? 'btn btn-success btnEditSubbidang' : 'btn btn-primary btnEditSubbidang';
+				});
+				ulangi_subbidang_btn_edit()
+			};
+		}
+	}
+	ulangi_subbidang_btn_edit()
+
+	function filterSubbidang(e = 0) {
+		// indexBidangSubbidang = $('#selectBidangSubbidang option:selected').index();
+		if (e === 1) {
+			notif("Belum menyimpan data!")
+			$('#selectBidangSubbidang').val(prevSelect)
+			return
+		}
+		indexBidangSubbidang = $('#selectBidangSubbidang').val();
+		arrSubbidangFilter = []
+		$(".row_input_subbidang").remove();
+		for (let i = 0; i < arraySubbidang.length; i++) {
+			if (arraySubbidang[i].kode.substr(0, 2) == indexBidangSubbidang) {
+				arrSubbidangFilter.push({
+					"kode": arraySubbidang[i].kode,
+					"nama": arraySubbidang[i].nama
+				})
+				$('#formTambahSubbidang tr').last().before(scriptCurrentSubbidang(i + 1, arraySubbidang[i].kode, arraySubbidang[i].nama))
+			}
+		}
+	}
+	filterSubbidang()
+
+	$('#selectBidangSubbidang').on('focus', function(){
+		prevSelect = this.value
+	}).change(function(){
+		filterSubbidang(tempTrigger)
+	})
+
+	hapusRow('.btnHapusSubbidang', '.row_input_subbidang');
+
+	$('#inputTambahSubbidang').keydown(function() {
+		$('#tblTambahSubbidang').prop('disabled', false)
+	})
+
+	$('#tblTambahSubbidang').on('click', function(e) {
+		if ($('#inputTambahSubbidang').val() == "") {
+			$('#tblTambahSubbidang').prop('disabled', true)
+			return;
+		}
+		let trigger = true;
+		$('#formTambahSubbidang .inputCurrentSubbidang').filter(function(index, item, arr) {
+			if ($('#inputTambahSubbidang').val() == $(item).val()) {
+				trigger = false
+			}
+		})
+
+		if (trigger) {
+			let kodePrev = arrSubbidangFilter.length > 0 ? arrSubbidangFilter.at(-1).kode.substr(0, 3) + ($('#formTambahSubbidang .btnEditSubbidang').length + 1) : `${indexBidangSubbidang}s1`;
+			$('#formTambahSubbidang tr').last().before(scriptCurrentSubbidang($('#formTambahSubbidang tr').length - 1, kodePrev, $('#inputTambahSubbidang').val()))
+			$('#inputTambahSubbidang').val("");
+			$('#formTambahSubbidang button:submit').prop('disabled', false);
+			$('#tblTambahSubbidang').prop('disabled', true)
+			ulangi_subbidang_btn_edit()
+			hapusRow('.btnHapusSubbidang', '.row_input_subbidang')
+			tempTrigger = 1
+		} else {
+			notif('Bidang sudah ada');
+			$('#inputTambahSubbidang').val("");
+		}
+	})
+
+	$('#formTambahSubbidang').submit(function(e) {
+		// alert('tes')
+		let subbidangData = new URLSearchParams('tambahSubbidang=')
+
+		
+		$('#formTambahSubbidang .currentKodeSubbidang').filter((index, item, arr) => {
+			subbidangData.append(`kodeSubbidang${index}`, `${$(item).val()}`);
+		});
+		
+		$('#formTambahSubbidang .inputCurrentSubbidang').filter((index, item, arr) => {
+			subbidangData.append(`namaSubbidang${index}`, `${$(item).val()}`);
+		});
+
+		for (let hadi of subbidangData.values()) {
+			console.log(hadi);
+		}
+
+		tempTrigger = 0
+		tanya_simpan('Tambah Subbidang', 'Yakin akan menambahkan Subbidang ini?', subbidangData);
 		e.preventDefault()
 	});
 
@@ -905,7 +1021,6 @@ $data = array_slice($data, $offset, $limit);
 
 		tanya_simpan('Hapus Pengguna', 'Yakin akan menghapus user ini?', id_del)
 	})
-
 
 	<?php
 	if (isset($_POST['data'])) {
