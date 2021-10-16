@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "474334733414",
+    "firebase_url": "https://siptadik-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "siptadik",
+    "storage_bucket": "siptadik.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474334733414:android:7bfd19b752149b2ffa39a7",
+        "android_client_info": {
+          "package_name": "com.syuaib.siptadik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "474334733414-ov13ate0vslvutbe0kqc0ubkheifslu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfwiqOr5153fGgpWq7ZaGhgeVYfEGrx50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "474334733414-ov13ate0vslvutbe0kqc0ubkheifslu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
