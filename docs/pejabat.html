@@ -38,13 +38,13 @@
                         <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modal_kontak">Profil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" onclick="tanya_simpan('Perhatian', 'Yakin akan keluar?', 'keluar')">Keluar</a>
+                        <a class="nav-link text-danger" href="/">Keluar</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- MODAL KONTAK -->
+    <!-- MODAL PROFIL -->
     <div class="modal fade" id="modal_kontak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -68,13 +68,12 @@
                                             <div class="card-body">
                                                 <div class="d-flex flex-column align-items-center text-center">
                                                     <div class="detail-content-loader tunggu rounded-circle">
-                                                        <img src="https://drive.google.com/uc?id=1maQciIifrkfFlRzdojFouv1Ylrf4PFBo" alt="Admin" class="rounded-circle" width="150" style="min-height: 150px;min-width: 150px;max-height: 150px;max-width: 150px">
+                                                        <img id="fotoProfil" src="" alt="Admin" class="rounded-circle" width="150" style="min-height: 150px;min-width: 150px;max-height: 150px;max-width: 150px">
                                                     </div>
                                                     <div class="mt-3">
-                                                        <h4>Syuaib</h4>
-                                                        <p class="text-secondary mb-1">
-                                                            PENGELOLA </p>
-                                                        <p class="text-muted font-size-sm">Jalan Andi Cammi Nomor 16</p>
+                                                        <h4 class="namaProfil"></h4>
+                                                        <p class="text-secondary mb-1 jabatanProfil"></p>
+                                                        <p class="text-muted font-size-sm alamatProfil"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -89,39 +88,38 @@
                                                     <div class="col-sm-3">
                                                         <h6 class="mb-0">Nama Lengkap</h6>
                                                     </div>
-                                                    <div class="col-sm-9 text-secondary"> Syuaib </div>
+                                                    <div class="col-sm-9 text-secondary namaProfil"></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-sm-3">
-                                                        <h6 class="mb-0">NIP/NIK</h6>
+                                                        <h6 class="mb-0">NIP</h6>
                                                     </div>
-                                                    <div class="col-sm-9 text-secondary">
-                                                        198612172009021002 </div>
+                                                    <div id="nipProfil" class="col-sm-9 text-secondary">
+                                                    </div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <h6 class="mb-0">Jabatan</h6>
                                                     </div>
-                                                    <div class="col-sm-9 text-secondary">
-                                                        PENGELOLA </div>
+                                                    <div class="col-sm-9 text-secondary jabatanProfil"></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <h6 class="mb-0">No. Telepon</h6>
                                                     </div>
-                                                    <div class="col-sm-9 text-secondary">
-                                                        +6288804263785 </div>
+                                                    <div id="teleponProfil" class="col-sm-9 text-secondary">
+                                                    </div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <h6 class="mb-0">Alamat</h6>
                                                     </div>
-                                                    <div class="col-sm-9 text-secondary">
-                                                        Jalan Andi Cammi Nomor 16 </div>
+                                                    <div class="col-sm-9 text-secondary alamatProfil">
+                                                    </div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
@@ -157,8 +155,7 @@
                             <div class="mb-3">
                                 <div class="form-group">
                                     <label class="required-field mb-1" for="pengguna_pjb"><i>Username</i></label>
-                                    <input name="username" type="hidden" value="usernamebaru">
-                                    <input id="pengguna_pjb" type="text" class="form-control" placeholder="Nama pengguna" readonly value="usernamebaru">
+                                    <input type="text" class="form-control" id="ubahUsername" placeholder="Nama pengguna" readonly value="">
                                     <div class="mt-1">
                                         <small class="text-danger"><i>Hanya lihat</i></small>
                                     </div>
@@ -166,31 +163,29 @@
                             </div>
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <label class="required-field mb-1" for="pass_pjb_1">Kata Sandi <i>(Hanya
-                                            Edit)</i></label>
-                                    <input name="sandi" id="pass_pjb_1" type="password" class="form-control pass" placeholder="Kata Sandi">
+                                    <label class="required-field mb-1" for="pass_pjb_1">Kata Sandi</label>
+                                    <input name="sandi" id="ubahPassword" type="password" class="form-control pass" placeholder="Kata Sandi" value="">
                                     <div class="mt-1">
-                                        <small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau
-                                                simbol</i></small>
+                                        <small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-group">
                                     <label class="required-field mb-1" for="nama_pjb">Nama Lengkap</label>
-                                    <input name="nama" id="nama_pjb" type="text" class="form-control" placeholder="Nama Lengkap" value="Syuaib">
+                                    <input name="nama" id="ubahNama" type="text" class="form-control" placeholder="Nama Lengkap" value="Syuaib">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <label class="required-field mb-1" for="nip_pjb">NIP / NIK</label>
-                                    <input name="nip" id="nip_pjb" type="text" class="form-control" placeholder="NIP/NIK" value="198612172009021002">
+                                    <label class="required-field mb-1" for="nip_pjb">NIP</label>
+                                    <input name="nip" id="ubahNip" type="text" class="form-control" placeholder="NIP/NIK" value="" readonly>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-group">
                                     <label class="required-field mb-1" for="foto_pjb">Foto Profil</label>
-                                    <input name="foto" id="foto_pjb" type="file" class="form-control" accept=".png,.jpg,.jpeg">
+                                    <input name="foto" id="ubahFoto" type="file" class="form-control" accept=".png,.jpg,.jpeg">
                                     <div class="mt-1">
                                         <small class="text-danger">
                                             <i>Disarankan rasio 1:1 (persegi)</i>
@@ -201,13 +196,13 @@
                             <div class="mb-3">
                                 <div class="form-group">
                                     <label class="mb-1" for="hp_pjb">Nomor HP</label>
-                                    <input name="nohp" id="hp_pjb" type="text" class="form-control" placeholder="Nomor Handphone" required value="+6288804263785">
+                                    <input name="nohp" id="ubahNomorHp" type="text" class="form-control" placeholder="Nomor Handphone" required value="+6288804263785">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-group">
                                     <label class="mb-1" for="alamat_pjb">Alamat</label>
-                                    <input name="alamat" id="alamat_pjb" type="text" class="form-control" placeholder="Alamat Lengkap" required value="Jalan Andi Cammi Nomor 16">
+                                    <input name="alamat" id="ubahAlamat" type="text" class="form-control" placeholder="Alamat Lengkap" required value="Jalan Andi Cammi Nomor 16">
                                 </div>
                             </div>
                         </div>
@@ -262,41 +257,46 @@
                                             </h5>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="mb-3 row border-bottom">
+
+                                            <div class="mb-2 row border-bottom" style="min-height: 250px;">
                                                 <div class="col-sm-8 thumb text-center">
-                                                    <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png">
+                                                    <img style="background-image: url('img/p.png'); background-size: cover;" id="detailFotoTamu" class="img-fluid" src="img/p.png">
                                                 </div>
                                             </div>
-                                            <div class="mb-3 row border-bottom">
-                                                <label class="col-sm-4 col-form-label fw-bold">Nama</label>
-                                                <div class="col-sm-8">
-                                                    <p id="detailNamaTamu">tes nama</p>
+                                            <div class="border rounded px-4 py-2">
+                                                <div class="mb-2 row border-bottom">
+                                                    <label class="col-sm-4 col-form-label fw-bold">Nama</label>
+                                                    <div class="col-sm-8">
+                                                        <p id="detailNamaTamu">tes nama</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 row border-bottom">
+                                                    <label class="col-sm-4 col-form-label fw-bold">NIK/NIP</label>
+                                                    <div class="col-sm-8">
+                                                        <p id="detailNipTamu"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 row border-bottom">
+                                                    <label class="col-sm-4 col-form-label fw-bold">Instansi</label>
+                                                    <div class="col-sm-8">
+                                                        <p id="detailInstansiTamu"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 row border-bottom">
+                                                    <label class="col-sm-4 col-form-label fw-bold">Pejabat
+                                                        Tujuan</label>
+                                                    <div class="col-sm-8">
+                                                        <p id="detailBidangTujuanTamu"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 row">
+                                                    <label class="col-sm-4 col-form-label fw-bold">Tujuan</label>
+                                                    <div class="col-sm-8">
+                                                        <p id="detailTujuanTamu"></p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="mb-3 row border-bottom">
-                                                <label class="col-sm-4 col-form-label fw-bold">NIK/NIP</label>
-                                                <div class="col-sm-8">
-                                                    <p id="detailNipTamu"></p>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row border-bottom">
-                                                <label class="col-sm-4 col-form-label fw-bold">Instansi</label>
-                                                <div class="col-sm-8">
-                                                    <p id="detailInstansiTamu"></p>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row border-bottom">
-                                                <label class="col-sm-4 col-form-label fw-bold">Sub Bidang Tujuan</label>
-                                                <div class="col-sm-8">
-                                                    <p id="detailBidangTujuanTamu"></p>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row border-bottom">
-                                                <label class="col-sm-4 col-form-label fw-bold">Tujuan</label>
-                                                <div class="col-sm-8">
-                                                    <p id="detailTujuanTamu"></p>
-                                                </div>
-                                            </div>
+
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
@@ -312,20 +312,81 @@
     </div>
     <!-- ISI SELESAI -->
     <script>
+        const dataMentah = JSON.parse(localStorage.getItem('data'));
+
+
+        // PROFIL
+        function initJabatan(parmBidang, parmJabatan) {
+            let jabatanUser = ""
+            let bidangUser = ""
+            let subbidangUser = ""
+
+            dataMentah.dataRef.filter((item, index, full) => {
+                if (item[0] === parmBidang) {
+                    bidangUser = full[index][1]
+                }
+            })
+
+            dataMentah.dataRef.filter((item, index, full) => {
+                if (item[2] === parmBidang) {
+                    subbidangUser = full[index][3]
+                }
+            })
+
+            dataMentah.dataRef.filter((item, index, full) => {
+                if (item[4] === parmJabatan) {
+                    jabatanUser = full[index][5]
+                }
+            })
+
+            let jabatanFinal = `${jabatanUser} ${subbidangUser} ${bidangUser}`
+
+            if (bidangUser == "" && subbidangUser == "") {
+                jabatanFinal = jabatanUser
+            }
+            return jabatanFinal;
+        }
+
+        $('#fotoProfil')[0].src = dataMentah.dataPjb[7]
+        $('.namaProfil').text(dataMentah.dataPjb[3])
+        $('.jabatanProfil').text(initJabatan(dataMentah.dataPjb[1], dataMentah.dataPjb[2]))
+        $('.alamatProfil').text(dataMentah.dataPjb[6])
+        $('#nipProfil').text(dataMentah.dataPjb[4])
+        $('#teleponProfil').text(dataMentah.dataPjb[5])
+
+        // UBAH PROFIL
+        $('#ubahUsername').val(dataMentah.dataUser[0])
+        $('#ubahPassword').val(dataMentah.dataUser[1])
+            // $('#fotoProfil')[0].src = dataMentah.dataPjb[7]
+        $('#ubahNama').val(dataMentah.dataPjb[3])
+        $('#ubahAlamat').val(dataMentah.dataPjb[6])
+        $('#ubahNip').val(dataMentah.dataPjb[4])
+        $('#ubahNomorHp').val(dataMentah.dataPjb[5])
+
+        $('#ubahFoto')
+
+        $('#formUbahPejabat').submit(function(e) {
+            const data = new FormData($('#formUbahPejabat')[0])
+            const isi = Object.fromEntries(data.entries())
+            warning("Ubah Profil", "Anda yakin akan mengubah profil?", function() {
+                kirim(isi)
+            })
+            e.preventDefault()
+        })
+
         function templateRiwayat(no, nama, tujuan, tanggal) {
             return templateTrRiwayat = `<tr class="trRiwayat">
                                             <th scope="row">${no}</th>
                                             <td>${tanggal}</td>
                                             <td>
-                                                <a href="#">${nama}<a>
+                                                <a href="#">${nama}</a>
                                             </td>
                                             <td>${tujuan}</td>
                                         </tr>`
         }
 
-        let dataMentah = JSON.parse(localStorage.getItem('data'));
-
-        for (let i = 0; i < dataMentah.dataTamu.length - 1; i++) {
+        // MENGISI TABEL RIWAYAT
+        for (let i = dataMentah.dataTamu.length - 1; i >= 0; i--) {
             const item = dataMentah.dataTamu[i];
             let tanggal = item[8].split("_", 3).join("/");
             let jam = item[8].split("_").slice(3, 6);
@@ -338,19 +399,33 @@
             let jamFinal = jamArr.join(":");
             let waktuBertamu = `${tanggal} ${jamFinal}`
 
-            $('#tbodyRiwayat').append(templateRiwayat(i + 1, item[1], item[7], waktuBertamu))
-
+            $('#tbodyRiwayat').append(templateRiwayat(dataMentah.dataTamu.length - i, item[1], item[7], waktuBertamu))
         }
 
+        // DETAIL TAMU
         let modalDetailTamu = new bootstrap.Modal(document.getElementById('modalDetailTamu'));
         $('.trRiwayat a').click(function(e) {
+            let index = $('.trRiwayat a').length - $('.trRiwayat a').index(this) - 1
+            $('#detailFotoTamu')[0].src = dataMentah.dataTamu[index][10]
+            $('#detailNamaTamu').text(dataMentah.dataTamu[index][1])
+            $('#detailNipTamu').text(dataMentah.dataTamu[index][2])
+            $('#detailInstansiTamu').text(dataMentah.dataTamu[index][3])
+            $('#detailBidangTujuanTamu').text(initJabatan(dataMentah.dataPjb[1], dataMentah.dataPjb[2]))
+                // if (dataMentah.dataTamu[index][5] == "") {
+                //     $('#detailBidangTujuanTamu').text(dataMentah.dataTamu[index][4])
+                // }
+            $('#detailTujuanTamu').text(dataMentah.dataTamu[index][7])
+
             modalDetailTamu.show()
+
+            setTimeout(() => $('#modalDetailTamu svg').toggle(), 1000)
+
         })
     </script>
     <footer class="footer mt-auto py-3 warna-dasar">
         <div class="text-center">
             <small><i><a href="/" class="text-dark">SIPTADIK - Sistem Informasi Tamu</a> | Copyright &copy; 2021</i>
-                                            </small>
+            </small>
         </div>
     </footer>
     <script src="js/main.js"></script>

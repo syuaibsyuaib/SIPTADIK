@@ -50,7 +50,7 @@
         $('#formLogin').on('submit', function(e) {
             const data = new FormData($('#formLogin')[0])
             const isi = Object.fromEntries(data.entries())
-            console.log(isi)
+                // console.log(isi)
             kirim(isi)
                 .then((res) => {
                     localStorage.setItem('data', JSON.stringify(res));
