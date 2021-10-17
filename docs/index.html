@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="css/riwayat.css">
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.js"></script>
 
@@ -23,6 +22,19 @@
 </head>
 
 <body class="text-center">
+    <div class="modal" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true" style="z-index: 1059">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: none; border: none;">
+                <div class="modal-body" id="modal_loading_label">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="container">
         <main class="form-signin py-4 px-5 shadow rounded">
             <form id="formLogin">
@@ -44,13 +56,13 @@
         </main>
     </section>
     <script src="js/main.js"></script>
-    <script src="js/jquery.dataTables.min.js"></script>
     <script>
         localStorage.clear()
+        let elModalLoading = new bootstrap.Modal(document.getElementById('modalLoading'))
         $('#formLogin').on('submit', function(e) {
             const data = new FormData($('#formLogin')[0])
             const isi = Object.fromEntries(data.entries())
-                // console.log(isi)
+            modalLoading(elModalLoading)
             kirim(isi)
                 .then((res) => {
                     localStorage.setItem('data', JSON.stringify(res));
