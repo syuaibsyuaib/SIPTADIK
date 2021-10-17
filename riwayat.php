@@ -4,7 +4,7 @@ include("layout/header.php");
 segarkan($_SESSION['user'], $_SESSION['pass']);
 $_SESSION['role'] != 1 ? pindahko("/") : "";
 $data = $_SESSION['data']['dataTamu'];
-// print_r($data);
+// print_r($_SESSION['data']['dataBidang']);
 ?>
 
 <!-- ISI MULAI -->
@@ -17,23 +17,15 @@ $data = $_SESSION['data']['dataTamu'];
 				<div class="col-md-12">
 					<div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
 
-						<!-- TOMBOL DAN SEARCHBOX -->
-						<div class="row g-3 mb-4">
-							<!-- TOMBOL UNDUH CSV -->
-							<div class="col-auto">
-								<button class="btn btn-success"><i class="bi bi-download"></i> Unduh CSV</button>
-							</div>
-						</div>
-
 						<!-- MAIN TABLE -->
 						<table class="table manage-candidates-top mb-0" id="table_id">
 							<thead>
 								<tr>
-									<th>Tanggal</th>
-									<th>Nama Tamu</th>
-									<th>Instansi</th>
-									<th>Bidang Tujuan</th>
-									<th>Tujuan</th>
+									<th width="10%">Tanggal</th>
+									<th width="35%">Nama Tamu</th>
+									<th width="20%">Instansi</th>
+									<th width="20%">Bidang Tujuan</th>
+									<th width="10%">Tujuan</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -51,6 +43,8 @@ $data = $_SESSION['data']['dataTamu'];
 											$no_id = $value[2];
 											$instansi_asal = $value[3];
 											$bidang_tujuan = $value[4];
+											$bidang_tujuan = array_search_multi($_SESSION['data']['dataBidang'], 0, $bidang_tujuan, false)[0][1];
+											// print_r($bidang_tujuan);
 											$subbidang_tujuan = $value[5];
 											$jabatan_tujuan = $value[6];
 											$tujuan = $value[7];
@@ -80,7 +74,7 @@ $data = $_SESSION['data']['dataTamu'];
 													</div>
 												</td>
 												<td><?= $instansi_asal ?></td>
-												<td><?= $subbidang_tujuan ?></td>
+												<td><?= $bidang_tujuan ?></td>
 												<td><?= $tujuan ?></td>
 											</tr>
 
@@ -174,7 +168,30 @@ $data = $_SESSION['data']['dataTamu'];
 
 <script>
 	$(document).ready(function() {
-		$('#table_id').DataTable();
+		$('#table_id').DataTable({
+			buttons: [{
+				extend: 'csv',
+				text: 'Uncuh CSV',
+				exportOptions: {
+					modifier: {
+						search: 'none'
+					}
+				}
+			}],
+			"language": {
+				"zeroRecords": "Tidak ada data!",
+				"lengthMenu": "Lihat _MENU_ data",
+				"search": "Cari:",
+				"info": "Menampilkan _PAGE_ dari _PAGES_",
+				"paginate": {
+					"next": "Maju",
+					"previous": "Mundur",
+					"first": "Awal",
+					"last": "Akhir"
+				}
+			},
+			dom: 'Blfrtip'
+		});
 	});
 </script>
 
