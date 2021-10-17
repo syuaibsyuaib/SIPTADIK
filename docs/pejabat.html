@@ -13,7 +13,6 @@
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/riwayat.css" rel="stylesheet">
     <link rel="stylesheet" href="css/icons.css">
-    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.js"></script>
     <title>
@@ -22,6 +21,21 @@
 </head>
 
 <body class="d-flex flex-column h-100">
+    <div class="modal" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true" style="z-index: 1059">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: none; border: none;">
+                <div class="modal-body" id="modal_loading_label">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light warna-dasar sticky-top">
         <div class="container">
@@ -38,7 +52,7 @@
                         <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modal_kontak">Profil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="/">Keluar</a>
+                        <a class="nav-link text-danger" href="index.html">Keluar</a>
                     </li>
                 </ul>
             </div>
@@ -166,7 +180,8 @@
                                     <label class="required-field mb-1" for="pass_pjb_1">Kata Sandi</label>
                                     <input name="sandi" id="ubahPassword" type="password" class="form-control pass" placeholder="Kata Sandi" value="">
                                     <div class="mt-1">
-                                        <small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
+                                        <small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau
+                                                simbol</i></small>
                                     </div>
                                 </div>
                             </div>
@@ -218,36 +233,65 @@
     </div>
     <!-- RIWAYAT -->
     <div class="container">
-        <h2 class="my-4">Riwayat Tamu</h2>
+        <h2 class="my-4 ms-3">Riwayat Tamu</h2>
+        <div class="mb-2" style="position: relative;left:20px">
+            <form class="bd-search position-relative me-autod-inline">
+                <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
+                    <input type="search" class="form-control ds-input" id="search-input" placeholder="Cari..."
+                        aria-label="Cari..." autocomplete="off" data-bd-docs-version="5.1" spellcheck="false"
+                        role="combobox" aria-autocomplete="list" aria-expanded="false"
+                        aria-owns="algolia-autocomplete-listbox-0" dir="auto"
+                        style="position: relative; vertical-align: top;">
+                </span>
+                <select id="rentangRiwayat" class="form-select d-inline" style="width: auto;">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                </select>
+            </form>
+
+        </div>
         <div class="container mt-3 mb-4">
             <div class="col mt-4 mt-lg-0">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
-                            <form class="bd-search position-relative me-auto mb-2">
-                                <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
-                                    <input type="search" class="form-control ds-input" id="search-input"
-                                        placeholder="Cari..." aria-label="Cari..." autocomplete="off"
-                                        data-bd-docs-version="5.1" spellcheck="false" role="combobox"
-                                        aria-autocomplete="list" aria-expanded="false"
-                                        aria-owns="algolia-autocomplete-listbox-0" dir="auto"
-                                        style="position: relative; vertical-align: top;">
-                                </span>
-                            </form>
-                            <!-- MAIN TABLE -->
-                            <table class="table table-striped table-bordered manage-candidates-top">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Tanggal</th>
-                                        <th scope="col">Nama Tamu</th>
-                                        <th scope="col">Tujuan</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbodyRiwayat">
+                            <div style="min-height: 250px;">
+                                <!-- MAIN TABLE -->
+                                <table id="tabelRiwayat" class="table table-striped table-bordered manage-candidates-top">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Nama Tamu</th>
+                                            <th scope="col">Tujuan</th>
+                                            <th scope="col">Tanggal/Jam</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyRiwayat">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item" id="prevPage">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <!-- <span class="sr-only">Previous</span> -->
+                                        </a>
+                                    </li>
+
+
+                                    <li class="page-item" id="nextPage">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <!-- <span class="sr-only">Next</span> -->
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                             <!-- MODAL DETAIL TAMU -->
                             <div class="modal fade" id="modalDetailTamu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
@@ -311,9 +355,16 @@
         </div>
     </div>
     <!-- ISI SELESAI -->
+    <footer class="footer mt-auto py-3 warna-dasar">
+        <div class="text-center">
+            <small><i><a href="/" class="text-dark">SIPTADIK - Sistem Informasi Tamu</a> | Copyright &copy; 2021</i>
+            </small>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
     <script>
+        let elModalLoading = new bootstrap.Modal(document.getElementById('modalLoading'))
         const dataMentah = JSON.parse(localStorage.getItem('data'));
-
 
         // PROFIL
         function initJabatan(parmBidang, parmJabatan) {
@@ -365,23 +416,61 @@
 
         $('#ubahFoto')
 
+        let modalUbahDetail = new bootstrap.Modal(document.getElementById('ubahdetail'))
         $('#formUbahPejabat').submit(function(e) {
             const data = new FormData($('#formUbahPejabat')[0])
             const isi = Object.fromEntries(data.entries())
-            warning("Ubah Profil", "Anda yakin akan mengubah profil?", function() {
-                kirim(isi)
+            isi.foto = "";
+            if ($('#ubahFoto').val() != '') {
+                isi.foto = imgtoarr($('#ubahFoto')[0])
+            }
+
+            let dataTambah = [isi.sandi, isi.nama, isi.nip, isi.nohp, isi.alamat];
+
+            //nama,	nip, nohp, alamat, foto
+            let dataFinal = {
+                pengguna: dataMentah.dataUser[0],
+                sandi: dataMentah.dataUser[1],
+                role: dataMentah.dataUser[2],
+                foto: isi.foto,
+                dataTambah: dataTambah
+            };
+            warning("Ubah Profil", "Anda yakin akan mengubah profil?", function(event) {
+                modalLoading(elModalLoading)
+                kirim(dataFinal)
+                    .then(() => {
+                        let objBaru = {
+                            "pengguna": dataMentah.dataUser[0],
+                            "sandi": dataMentah.dataUser[1]
+                        }
+
+                        kirim(objBaru)
+                            .then((resp) => {
+                                localStorage.setItem('data', JSON.stringify(resp))
+                                event.hide()
+                                modalUbahDetail.hide();
+                                elModalLoading.hide();
+                                notif("Data tersimpan")
+                            })
+                            .catch((err) => {
+                                elModalLoading.hide();
+                                alert(err)
+                                console.log(err)
+                            })
+                    })
+
             })
             e.preventDefault()
         })
 
         function templateRiwayat(no, nama, tujuan, tanggal) {
-            return templateTrRiwayat = `<tr class="trRiwayat">
+            return templateTrRiwayat = `<tr class="trRiwayat d-none">
                                             <th scope="row">${no}</th>
-                                            <td>${tanggal}</td>
                                             <td>
                                                 <a href="#">${nama}</a>
                                             </td>
                                             <td>${tujuan}</td>
+                                            <td>${tanggal}</td>
                                         </tr>`
         }
 
@@ -402,6 +491,126 @@
             $('#tbodyRiwayat').append(templateRiwayat(dataMentah.dataTamu.length - i, item[1], item[7], waktuBertamu))
         }
 
+        // PAGINATION RIWAYAT
+        let templateNmrPage = function(no) {
+            return template = `<li class="page-item nmrPage"><a class="page-link" href="#">${no}</a></li>`
+        }
+        let jumlahPage = Math.ceil($('.trRiwayat').length / $('#rentangRiwayat').val())
+
+        // BUAT NOMOR PAGE
+        for (let i = 0; i < jumlahPage; i++) {
+            $('#nextPage').before(templateNmrPage(i + 1))
+        }
+
+        // NOMOR PAGE 1 NYALA 
+        $('.nmrPage').eq(0).addClass('active');
+        $('#prevPage').addClass('disabled')
+            // MUNCULKAN PAGE 1 - SESUAI VALUE SELECT/OPTION PAGE
+        for (let i = 0; i < $('#rentangRiwayat').val(); i++) {
+            $('.trRiwayat').eq(i).removeClass('d-none')
+        }
+
+        // TRIGGER ONCLICK (NEXTPAGE DAN PREVPAGE) UNTUK PINDAHKAN PAGE AKTIF
+        $('#prevPage').on('click', function(e) {
+            let indexActiveNmrPage = $('.nmrPage').parent().children('.active').index() - 1
+            $('.nmrPage').eq(indexActiveNmrPage).removeClass('active')
+            $('.nmrPage').eq(indexActiveNmrPage - 1).removeClass('d-none')
+            $('.nmrPage').eq(indexActiveNmrPage - 1).click()
+        })
+
+        $('#nextPage').on('click', function(e) {
+            let indexActiveNmrPage = $('.nmrPage').parent().children('.active').index()
+            let valActiveNmrPage = $('.nmrPage').parent().children('.active').eq(0).children().eq(0).text()
+            console.log(indexActiveNmrPage)
+            $('.nmrPage').eq(indexActiveNmrPage).removeClass('active')
+            $('.nmrPage').eq(indexActiveNmrPage).removeClass('d-none')
+            $('.nmrPage').eq(indexActiveNmrPage).click()
+                // jumlah yang aktif ($('.nmrPage').length - $('.nmrPage').parent().children('.d-none').length) 
+            if (indexActiveNmrPage != 1) {
+                $('.nmrPage').eq(0).after(templateTransPage);
+                for (let i = 0; i < indexActiveNmrPage - 1; i++) {
+                    $('.nmrPage').eq(i).addClass('d-none')
+                }
+            }
+        })
+
+        /* JIKA JUMLAH NMRPAGE LEBIH DARI 4 MAKA HIDDEN NMRPAGE 5 - SATU PAGE SEBELUM PAGE TERAKHIR
+            DAN MUNCULKAN BUTTON [...] */
+        let templateTransPage = `<li class="page-item" id="transPagePrev"><a class="page-link" href="#">...</a></li>`
+
+        if ($('.nmrPage').length > 2) {
+            $('.nmrPage').eq($('.nmrPage').length - 1).before(templateTransPage);
+            for (let i = 2; i < $('.nmrPage').length - 1; i++) {
+                $('.nmrPage').eq(i).addClass('d-none')
+            }
+        }
+
+
+        /* TRIGGER ONCHANGE (SELECT/OPTION PAGE) UNTUK ATUR ULANG JUMLAH NOMOR PAGE 
+            DAN JUMLAH ROW YANG MUNCUL SESUAI VALUE SELECT/OPTION PAGE */
+        $('#rentangRiwayat').on('change', function(e) {
+            $('#prevPage').addClass('disabled')
+                // atur ulang nomor page
+            for (let i = 0; i < jumlahPage; i++) {
+                $('.nmrPage').remove()
+            }
+
+            // let awalIndex = (index + 1) * $('#rentangRiwayat').val() - $('#rentangRiwayat').val();
+            // let akhirIndex = (index + 1) * $('#rentangRiwayat').val();
+
+            // let indexActiveNmrPage = $('.nmrPage').parent().children('.active').index()
+
+            for (let i = 0; i < Math.ceil($('.trRiwayat').length / $('#rentangRiwayat').val()); i++) {
+                $('#nextPage').before(templateNmrPage(i + 1))
+            }
+
+            $('.nmrPage').eq(0).addClass('active');
+
+            for (let i = 0; i < $('.trRiwayat').length; i++) {
+                $('.trRiwayat').eq(i).addClass('d-none')
+            }
+
+            for (let i = 0; i < $('#rentangRiwayat').val(); i++) {
+                $('.trRiwayat').eq(i).toggleClass('d-none')
+            }
+
+            aktifkanNmrPage()
+        })
+
+        // TRIGGER ONCLICK (BUTTON NOMOR PAGE) UNTUK MUNCULKAN ROW RIWAYAT SESUAI NOMOR PAGE DAN VALUE SELECT/OPTION PAGE
+        function aktifkanNmrPage() {
+            $('.nmrPage').on('click', function(e) {
+                let index = $('.nmrPage').index(this)
+                if (index != 0) {
+                    $('#prevPage').removeClass('disabled')
+                } else {
+                    $('#prevPage').addClass('disabled')
+                }
+
+                $('.nmrPage').removeClass('active')
+                $('.nmrPage').eq(index).addClass('active')
+
+                let awalIndex = (index + 1) * $('#rentangRiwayat').val() - $('#rentangRiwayat').val();
+                let akhirIndex = (index + 1) * $('#rentangRiwayat').val();
+
+                if (index + 1 == $('.nmrPage').length) {
+                    $('#nextPage').addClass('disabled')
+                } else {
+                    $('#nextPage').removeClass('disabled')
+                }
+
+                for (let i = 0; i < $('.trRiwayat').length; i++) {
+                    $('.trRiwayat').eq(i).addClass('d-none')
+                }
+                for (let i = awalIndex; i < akhirIndex; i++) {
+                    $('.trRiwayat').eq(i).toggleClass('d-none')
+                }
+            })
+        }
+        aktifkanNmrPage()
+
+
+
         // DETAIL TAMU
         let modalDetailTamu = new bootstrap.Modal(document.getElementById('modalDetailTamu'));
         $('.trRiwayat a').click(function(e) {
@@ -418,18 +627,25 @@
 
             modalDetailTamu.show()
 
-            setTimeout(() => $('#modalDetailTamu svg').toggle(), 1000)
+            // setTimeout(() => $('#modalDetailTamu svg').toggle(), 1000)
 
         })
+
+        $("#search-input").on("keyup", function() {
+            let value = $(this).val().toLowerCase();
+            $("#tbodyRiwayat tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+        // $('document').ready(() => {
+        //     for (let i = 0; i < $("#tbodyRiwayat tr").length; i++) {
+        //         $('#rentangRiwayat').append(`<option>${((i + 1) * 5).toFixed()}</option>`)
+        //     }
+        // })
     </script>
-    <footer class="footer mt-auto py-3 warna-dasar">
-        <div class="text-center">
-            <small><i><a href="/" class="text-dark">SIPTADIK - Sistem Informasi Tamu</a> | Copyright &copy; 2021</i>
-            </small>
-        </div>
-    </footer>
-    <script src="js/main.js"></script>
-    <script src="js/jquery.dataTables.min.js"></script>
+
+
 </body>
 
 </html>

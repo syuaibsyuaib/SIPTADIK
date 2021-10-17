@@ -6,9 +6,32 @@ $('.pass').on('click', function() {
 });
 
 function notif(isiPesan) {
+    let templateToast = `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
+                            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                    <strong class="me-auto">SIPTADIK</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    <div>${isiPesan}</div>
+                                </div>
+                            </div>
+                        </div>`
+    $('body').prepend(templateToast);
     let toast = new bootstrap.Toast($('#liveToast'));
-    $('#pesanNotif').html(isiPesan);
     toast.show();
+}
+
+function imgtoarr(el) {
+    let hasil = ""
+    let reader = new FileReader();
+    reader.onload = function() {
+        if (reader.readyState == 2) {
+            hasil = new Uint8Array(reader.result);
+        }
+    }
+    reader.readAsArrayBuffer(el.files[0]);
+    return hasil;
 }
 
 function b64toArr(base64) {
@@ -21,17 +44,15 @@ function b64toArr(base64) {
     return new Uint8Array(bytes.buffer);
 }
 
+
 async function kirim(data) {
+    // modalLoading();
+    console.log(data)
     const url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
-    modalLoading()
     const response = await fetch(url, {
         method: 'POST', // or 'PUT'
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded', //'multipart/form-data',   //
-        },
         body: JSON.stringify(data),
     })
-
     return response.json();
 }
 
@@ -49,29 +70,11 @@ function responProses() {
     })
 }
 
-async function modalLoading() {
-    let scriptLoading = `<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true" style="z-index: 1057;">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content" style="background: none; border: none;">
-						<div class="modal-body" id="modal_loading_label">
-							<div class="d-flex justify-content-center">
-								<div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
-									<span class="visually-hidden">Loading...</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>`;
 
-    await $(`body`).prepend(scriptLoading);
 
-    var myInput = document.getElementById('myInput')
-    myModal = new bootstrap.Modal(document.getElementById('myModal'))
-    myModal.show()
-        // myModal.addEventListener('shown.bs.modal', function() {
-        //     myInput.focus()
-        // })
+function modalLoading(elem) {
+    $('.modal-backdrop:eq(1)').prop('style', 'z-index:1058')
+    elem.show()
 }
 
 function warning(judulText, isiText, fx) {
@@ -83,22 +86,26 @@ function warning(judulText, isiText, fx) {
                     <h5 class="modal-title" id="judulModal">${judulText}</h5>
                 </div>
                 <div class="modal-body">
-                    <div id="isiModal">${isiText}</div>
+                    <div>${isiText}</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tblModalWarning">Ya</button>
+                    <button type="button" class="btn btn-primary" id="tblModalWarning">Ya</button>
                 </div>
             </div>
         </div>
     </div>`
-    $('body').prepend(templateModalWarning);
+
+    if (!$('#modalWarning')[0]) {
+        $('body').prepend(templateModalWarning);
+    }
+
     let modalWarning = new bootstrap.Modal(document.getElementById('modalWarning'));
     let tblWarning = document.getElementById('tblModalWarning');
     modalWarning.show();
     $('.modal-backdrop:eq(1)').attr('style', 'z-index:1056')
 
     tblWarning.onclick = function(e) {
-        fx()
+        fx(modalWarning)
     }
 }
