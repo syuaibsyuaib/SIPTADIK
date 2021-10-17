@@ -7,7 +7,7 @@
     </div>
 </footer>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/jquery.dataTables.min.js"></script>
+<script src="assets/js/datatables.min.js"></script>
 <script>
     function tanya_simpan(judulPesan, isiPesan, data) {
         data = data || false;
