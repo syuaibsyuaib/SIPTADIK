@@ -169,6 +169,7 @@ $data = $_SESSION['data']['dataTamu'];
 <script>
 	$(document).ready(function() {
 		$('#table_id').DataTable({
+			order: [[0, "desc"]],
 			buttons: [{
 				extend: 'csv',
 				text: 'Uncuh CSV',
