@@ -43,9 +43,10 @@ $data = $_SESSION['data']['dataTamu'];
 											$no_id = $value[2];
 											$instansi_asal = $value[3];
 											$bidang_tujuan = $value[4];
-											$bidang_tujuan = array_search_multi($_SESSION['data']['dataBidang'], 0, $bidang_tujuan, false)[0][1];
-											// print_r($bidang_tujuan);
+											$bidang_tujuan = array_search_multi($_SESSION['data']['dataBidang'], 0, $value[4], false)[0][1];
 											$subbidang_tujuan = $value[5];
+											$subbidang_tujuan = array_search_multi($_SESSION['data']['dataBidang'], 2, $value[5], false)[0][3];
+											// print_r($subbidang_tujuan);
 											$jabatan_tujuan = $value[6];
 											$tujuan = $value[7];
 											$user_piket = $value[9];
@@ -105,41 +106,43 @@ $data = $_SESSION['data']['dataTamu'];
 														<div class="modal-body">
 															<!-- ISI MODAL START HERE -->
 															<div class="mb-3 row">
-																<label class="col-sm-4 col-form-label">Nama</label>
-																<div class="col-sm-8">
+																<label class="col-sm-3 col-form-label">Nama</label>
+																<div class="col-sm-9">
 																	<input type="text" readonly class="form-control-plaintext" value="<?= $nama ?>">
 																</div>
 															</div>
 															<div class="mb-3 row">
-																<label class="col-sm-4 col-form-label">NIK/NIP</label>
-																<div class="col-sm-8">
+																<label class="col-sm-3 col-form-label">NIK/NIP</label>
+																<div class="col-sm-9">
 																	<input type="text" readonly class="form-control-plaintext" value="<?= $no_id ?>">
 																</div>
 															</div>
 															<div class="mb-3 row">
-																<label class="col-sm-4 col-form-label">Instansi</label>
-																<div class="col-sm-8">
+																<label class="col-sm-3 col-form-label">Instansi</label>
+																<div class="col-sm-9">
 																	<input type="text" readonly class="form-control-plaintext" value="<?= $instansi_asal ?>">
 																</div>
 															</div>
 															<div class="mb-3 row">
-																<label class="col-sm-4 col-form-label">Sub Bidang Tujuan</label>
-																<div class="col-sm-8">
-																	<input type="text" readonly class="form-control-plaintext" value="<?= $subbidang_tujuan ?>">
+																<label class="col-sm-3 col-form-label">Bidang Tujuan</label>
+																<div class="col-sm-9">
+																	<input type="text" readonly class="form-control-plaintext" value="<?= $bidang_tujuan ?>">
 																</div>
 															</div>
+															<?php if ($subbidang_tujuan <> "") { ?>
+																<div class="mb-3 row">
+																	<label class="col-sm-3 col-form-label">Sub-Bidang Tujuan</label>
+																	<div class="col-sm-9">
+																		<input type="text" readonly class="form-control-plaintext" value="<?= $subbidang_tujuan ?>">
+																	</div>
+																</div>
+															<?php } ?>
 															<div class="mb-3 row">
-																<label class="col-sm-4 col-form-label">Tujuan</label>
-																<div class="col-sm-8">
+																<label class="col-sm-3 col-form-label">Tujuan</label>
+																<div class="col-sm-9">
 																	<input type="text" readonly class="form-control-plaintext" value="<?= $tujuan ?>">
 																</div>
 															</div>
-															<!-- <div class="mb-3 row">
-														<label class="col-sm-4 col-form-label">Status</label>
-														<div class="col-sm-8">
-															<input type="text" readonly class="form-control-plaintext" value="Diterima">
-														</div>
-													</div> -->
 															<!-- ISI MODAL END HERE -->
 														</div>
 														<div class="modal-footer">
@@ -169,7 +172,9 @@ $data = $_SESSION['data']['dataTamu'];
 <script>
 	$(document).ready(function() {
 		$('#table_id').DataTable({
-			order: [[0, "desc"]],
+			order: [
+				[0, "desc"]
+			],
 			buttons: [{
 				extend: 'csv',
 				text: 'Uncuh CSV',
