@@ -162,3 +162,16 @@
     overflow: hidden;
     border-radius: 50%;
 }
+
+.pagination {
+    padding-left: 50px;
+}
+
+#tabelRiwayat_length {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+#tabelRiwayat_filter {
+    text-align: left;
+}
