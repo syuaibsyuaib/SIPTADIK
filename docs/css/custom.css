@@ -9,6 +9,10 @@ html {
     --merah: #d63384
 }
 
+.collapsing {
+    transition: height 0.15s linier !important;
+}
+
 .warna-dasar {
     background-color: #FFDA6A
 }
