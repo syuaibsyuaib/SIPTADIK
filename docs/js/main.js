@@ -8,7 +8,7 @@ $('.pass').on('click', function() {
 function notif(isiPesan) {
     let templateToast = `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
                             <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                                <div class="toast-header">
+                                <div class="toast-header bg-success text-light">
                                     <strong class="me-auto">SIPTADIK</strong>
                                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
@@ -22,17 +22,6 @@ function notif(isiPesan) {
     toast.show();
 }
 
-function imgtoarr(el) {
-    let hasil = ""
-    let reader = new FileReader();
-    reader.onload = function() {
-        if (reader.readyState == 2) {
-            hasil = new Uint8Array(reader.result);
-        }
-    }
-    reader.readAsArrayBuffer(el.files[0]);
-    return hasil;
-}
 
 function b64toArr(base64) {
     var binary_string = window.atob(base64);
@@ -46,8 +35,6 @@ function b64toArr(base64) {
 
 
 async function kirim(data) {
-    // modalLoading();
-    console.log(data)
     const url = "https://script.google.com/macros/s/AKfycbx6QxaoEdDJf8e9zItLDwD6Oq6er4L8cnknO2ET2E-mBxK2QqM/exec";
     const response = await fetch(url, {
         method: 'POST', // or 'PUT'
