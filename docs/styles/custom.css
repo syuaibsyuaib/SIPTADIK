@@ -1,5 +1,9 @@
 /* FOR COLOR */
 
+html {
+    height: 100vh;
+}
+
 :root {
     --kuning: #FFDA6A;
     --pink: #EA868F;

@@ -1,0 +1,1 @@
+keytool -genkey -v -keystore siptadik.keystore -storepass 123?123. -alias siptadikkey -keypass 123?123. -keyalg RSA -keysize 2048 -validity 10000
