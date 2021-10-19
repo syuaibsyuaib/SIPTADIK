@@ -17,7 +17,7 @@
     </title>
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100" style="background-image: url(img/bg.jpg); background-size: cover;">
     <div class="modal" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true" style="z-index: 1059">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="background: none; border: none;">
@@ -36,21 +36,19 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light warna-dasar sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <images class="d-inline-block align-middle me-1" src="img/title.png" alt="" width="20" height="20"> <b class="d-inline-block align-middle">SIPTADIK</b></a>
+            <a class="navbar-brand" href="#">
+                <images class="d-inline-block align-middle me-1" src="img/title.png" alt="" width="20" height="20"> <b class="d-inline-block align-middle">SIPTADIK</b>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Beranda</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modal_kontak">Profil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="index.html">Keluar</a>
+                        <a id="keluar" class="nav-link text-danger" href="index.html">Keluar</a>
                     </li>
                 </ul>
             </div>
@@ -80,7 +78,7 @@
                                             <div class="card-body">
                                                 <div class="d-flex flex-column align-items-center text-center">
                                                     <div class="detail-content-loader tunggu rounded-circle">
-                                                        <images id="fotoProfil" src="" alt="Admin" class="rounded-circle" width="150" style="min-height: 150px;min-width: 150px;max-height: 150px;max-width: 150px">
+                                                        <img id="fotoProfil" src="" alt="Admin" class="rounded-circle" height="150" width="150" style="object-fit: cover;">
                                                     </div>
                                                     <div class="mt-3">
                                                         <h4 class="namaProfil"></h4>
@@ -263,10 +261,9 @@
                                             </h5>
                                         </div>
                                         <div class="modal-body">
-
-                                            <div class="mb-2 row border-bottom" style="min-height: 250px;">
-                                                <div class="col-sm-8 thumb text-center">
-                                                    <images style="background-image: url('images/p.png'); background-size: cover;" id="detailFotoTamu" class="images-fluid" src="images/p.png">
+                                            <div class="d-flex flex-column align-items-center text-center py-4">
+                                                <div class="detail-content-loader tunggu rounded-circle">
+                                                    <img id="detailFotoTamu" src="" alt="Admin" class="rounded-circle" width="150" height="150" style="object-fit: cover;">
                                                 </div>
                                             </div>
                                             <div class="border rounded px-4 py-2">
@@ -326,10 +323,16 @@
     <script src="js/main.js"></script>
     <script>
         let elModalLoading = new bootstrap.Modal(document.getElementById('modalLoading'))
-        const dataMentah = JSON.parse(localStorage.getItem('data'));
+        const dataMentah = function(databaru) {
+            if (databaru) {
+                localStorage.setItem('data', JSON.stringify(databaru))
+            }
+            return JSON.parse(localStorage.getItem('data'));
+        }
 
-
-
+        if (!dataMentah()) {
+            Website2APK.exitApp();
+        }
 
         // PROFIL
         function initJabatan(parmBidang, parmJabatan) {
@@ -337,19 +340,19 @@
             let bidangUser = ""
             let subbidangUser = ""
 
-            dataMentah.dataRef.filter((item, index, full) => {
+            dataMentah().dataRef.filter((item, index, full) => {
                 if (item[0] === parmBidang) {
                     bidangUser = full[index][1]
                 }
             })
 
-            dataMentah.dataRef.filter((item, index, full) => {
+            dataMentah().dataRef.filter((item, index, full) => {
                 if (item[2] === parmBidang) {
                     subbidangUser = full[index][3]
                 }
             })
 
-            dataMentah.dataRef.filter((item, index, full) => {
+            dataMentah().dataRef.filter((item, index, full) => {
                 if (item[4] === parmJabatan) {
                     jabatanUser = full[index][5]
                 }
@@ -363,41 +366,48 @@
             return jabatanFinal;
         }
 
-        $('#fotoProfil')[0].src = dataMentah.dataPjb[7]
-        $('.namaProfil').text(dataMentah.dataPjb[3])
-        $('.jabatanProfil').text(initJabatan(dataMentah.dataPjb[1], dataMentah.dataPjb[2]))
-        $('.alamatProfil').text(dataMentah.dataPjb[6])
-        $('#nipProfil').text(dataMentah.dataPjb[4])
-        $('#teleponProfil').text(dataMentah.dataPjb[5])
+        $('#fotoProfil').prop("src", dataMentah().dataPjb[7])
+        $('.namaProfil').text(dataMentah().dataPjb[3])
+        $('.jabatanProfil').text(initJabatan(dataMentah().dataPjb[1], dataMentah().dataPjb[2]))
+        $('.alamatProfil').text(dataMentah().dataPjb[6])
+        $('#nipProfil').text(dataMentah().dataPjb[4])
+        $('#teleponProfil').text(dataMentah().dataPjb[5])
 
         // UBAH PROFIL
-        $('#ubahUsername').val(dataMentah.dataUser[0])
-        $('#ubahPassword').val(dataMentah.dataUser[1])
-            // $('#fotoProfil')[0].src = dataMentah.dataPjb[7]
-        $('#ubahNama').val(dataMentah.dataPjb[3])
-        $('#ubahAlamat').val(dataMentah.dataPjb[6])
-        $('#ubahNip').val(dataMentah.dataPjb[4])
-        $('#ubahNomorHp').val(dataMentah.dataPjb[5])
-
-        $('#ubahFoto')
+        $('#ubahUsername').val(dataMentah().dataUser[0])
+        $('#ubahPassword').val(dataMentah().dataUser[1])
+        $('#ubahNama').val(dataMentah().dataPjb[3])
+        $('#ubahAlamat').val(dataMentah().dataPjb[6])
+        $('#ubahNip').val(dataMentah().dataPjb[4])
+        $('#ubahNomorHp').val(dataMentah().dataPjb[5])
 
         let modalUbahDetail = new bootstrap.Modal(document.getElementById('ubahdetail'))
-        $('#formUbahPejabat').submit(function(e) {
+        let isiFoto = "";
+
+        $('#ubahFoto').change(function(event) {
+            if ($('#ubahFoto').val() != '') {
+                let reader = new FileReader();
+                reader.onload = function() {
+                    if (reader.readyState == 2) {
+                        isiFoto = new Uint8Array(reader.result);
+                    }
+                }
+                reader.readAsArrayBuffer(event.target.files[0]);
+            }
+        })
+
+        $('#formUbahPejabat').on('submit', function(e) {
             const data = new FormData($('#formUbahPejabat')[0])
             const isi = Object.fromEntries(data.entries())
-            isi.foto = "";
-            if ($('#ubahFoto').val() != '') {
-                isi.foto = imagestoarr($('#ubahFoto')[0])
-            }
 
             let dataTambah = [isi.sandi, isi.nama, isi.nip, isi.nohp, isi.alamat];
 
             //nama,	nip, nohp, alamat, foto
             let dataFinal = {
-                pengguna: dataMentah.dataUser[0],
-                sandi: dataMentah.dataUser[1],
-                role: dataMentah.dataUser[2],
-                foto: isi.foto,
+                pengguna: dataMentah().dataUser[0],
+                sandi: dataMentah().dataUser[1],
+                role: dataMentah().dataUser[2],
+                foto: [isiFoto.toString()],
                 dataTambah: dataTambah
             };
             warning("Ubah Profil", "Anda yakin akan mengubah profil?", function(event) {
@@ -405,22 +415,26 @@
                 kirim(dataFinal)
                     .then(() => {
                         let objBaru = {
-                            "pengguna": dataMentah.dataUser[0],
-                            "sandi": dataMentah.dataUser[1]
+                            "pengguna": dataMentah().dataUser[0],
+                            "sandi": dataMentah().dataUser[1]
                         }
 
                         kirim(objBaru)
                             .then((resp) => {
-                                localStorage.setItem('data', JSON.stringify(resp))
+                                dataMentah(resp)
                                 event.hide()
                                 modalUbahDetail.hide();
                                 elModalLoading.hide();
-                                notif("Data tersimpan")
+                                notif("Data tersimpan");
+                            })
+                            .then((res) => {
+                                setTimeout(() => {
+                                    Website2APK.refreshPage();
+                                }, 1500)
                             })
                             .catch((err) => {
                                 elModalLoading.hide();
-                                alert(err)
-                                console.log(err)
+                                notif(err)
                             })
                     })
 
@@ -441,8 +455,8 @@
 
         // MENGISI TABEL RIWAYAT
         let arrTamu = []
-        for (let i = dataMentah.dataTamu.length - 1; i >= 0; i--) {
-            const item = dataMentah.dataTamu[i];
+        for (let i = dataMentah().dataTamu.length - 1; i >= 0; i--) {
+            const item = dataMentah().dataTamu[i];
             let tanggal = item[8].split("_", 3).join("/");
             let jam = item[8].split("_").slice(3, 6);
             let jamArr = jam;
@@ -454,8 +468,8 @@
             let jamFinal = jamArr.join(":");
             let waktuBertamu = `${tanggal} ${jamFinal}`
 
-            $('#tbodyRiwayat').append(templateRiwayat(dataMentah.dataTamu.length - i, item[1], item[7], waktuBertamu))
-                // arrTamu.push(templateRiwayat(dataMentah.dataTamu.length - i, item[1], item[7], waktuBertamu))
+            $('#tbodyRiwayat').append(templateRiwayat(dataMentah().dataTamu.length - i, item[1], item[7], waktuBertamu))
+                // arrTamu.push(templateRiwayat(dataMentah().dataTamu.length - i, item[1], item[7], waktuBertamu))
         }
 
 
@@ -463,12 +477,12 @@
         let modalDetailTamu = new bootstrap.Modal(document.getElementById('modalDetailTamu'));
         $('.trRiwayat a').click(function(e) {
             let index = $('.trRiwayat a').length - $('.trRiwayat a').index(this) - 1
-            $('#detailFotoTamu')[0].src = dataMentah.dataTamu[index][10]
-            $('#detailNamaTamu').text(dataMentah.dataTamu[index][1])
-            $('#detailNipTamu').text(dataMentah.dataTamu[index][2])
-            $('#detailInstansiTamu').text(dataMentah.dataTamu[index][3])
-            $('#detailBidangTujuanTamu').text(initJabatan(dataMentah.dataPjb[1], dataMentah.dataPjb[2]))
-            $('#detailTujuanTamu').text(dataMentah.dataTamu[index][7])
+            $('#detailFotoTamu')[0].src = dataMentah().dataTamu[index][10]
+            $('#detailNamaTamu').text(dataMentah().dataTamu[index][1])
+            $('#detailNipTamu').text(dataMentah().dataTamu[index][2])
+            $('#detailInstansiTamu').text(dataMentah().dataTamu[index][3])
+            $('#detailBidangTujuanTamu').text(initJabatan(dataMentah().dataPjb[1], dataMentah().dataPjb[2]))
+            $('#detailTujuanTamu').text(dataMentah().dataTamu[index][7])
 
             modalDetailTamu.show()
 
