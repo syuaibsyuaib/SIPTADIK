@@ -39,7 +39,8 @@
             <a class="navbar-brand" href="#">
                 <images class="d-inline-block align-middle me-1" src="img/title.png" alt="" width="20" height="20"> <b class="d-inline-block align-middle">SIPTADIK</b>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" -->
+            <button id="navToggle" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -322,6 +323,10 @@
     </footer>
     <script src="js/main.js"></script>
     <script>
+        $('#navToggle').click(function() {
+            $('#navbarSupportedContent').toggle("fast")
+        })
+
         let elModalLoading = new bootstrap.Modal(document.getElementById('modalLoading'))
         const dataMentah = function(databaru) {
             if (databaru) {
@@ -386,6 +391,9 @@
 
         $('#ubahFoto').change(function(event) {
             if ($('#ubahFoto').val() != '') {
+                if (event.target.files[0].size > 2000000) {
+                    alert("Foto ini berukuran cukup besar, proses upload mungkin akan lambat")
+                }
                 let reader = new FileReader();
                 reader.onload = function() {
                     if (reader.readyState == 2) {
@@ -425,16 +433,18 @@
                                 event.hide()
                                 modalUbahDetail.hide();
                                 elModalLoading.hide();
-                                notif("Data tersimpan");
+                                // notif("Data tersimpan");
+                                alert("Datat tersimpan")
                             })
                             .then((res) => {
                                 setTimeout(() => {
                                     Website2APK.refreshPage();
-                                }, 1500)
+                                }, 1000)
                             })
                             .catch((err) => {
                                 elModalLoading.hide();
-                                notif(err)
+                                // notif(err)
+                                alert(err)
                             })
                     })
 
