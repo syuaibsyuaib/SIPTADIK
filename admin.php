@@ -836,6 +836,10 @@ $data = array_slice($data, $offset, $limit);
 		$('#tblTambahSubbidang').prop('disabled', false)
 	})
 
+	$('.inputCurrentSubbidang').change(function() {
+		tempTrigger = 1
+	})
+
 	$('#tblTambahSubbidang').on('click', function(e) {
 		if ($('#inputTambahSubbidang').val() == "") {
 			$('#tblTambahSubbidang').prop('disabled', true)
@@ -876,6 +880,9 @@ $data = array_slice($data, $offset, $limit);
 		});
 
 		tempTrigger = 0
+		// for (let hadi of subbidangData.values()) {
+		// 	console.log(hadi);
+		// }
 		tanya_simpan('Tambah Subbidang', 'Yakin akan menambahkan Subbidang ini?', subbidangData);
 		e.preventDefault()
 	});
