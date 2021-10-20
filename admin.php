@@ -782,26 +782,6 @@ $data = array_slice($data, $offset, $limit);
 	<?php }
 	} ?>
 
-	function ulangi_subbidang_btn_edit() {
-		for (let i = 0; i < $(".btnEditSubbidang").length; i++) {
-			$(".btnEditSubbidang")[i].onclick = function(e) {
-				$('.inputCurrentSubbidang').eq(i).attr('readonly', function(index, attr) {
-					return attr == 'readonly' ? null : 'readonly';
-				});
-
-				$('.ikon_tombol_e_subbidang').eq(i).attr('class', function(index, attr) {
-					return attr == 'bi bi-pencil-square ikon_tombol_e_subbidang' ? 'bi bi-check-lg ikon_tombol_e_subbidang' : 'bi bi-pencil-square ikon_tombol_e_subbidang';
-
-				});
-				$('.btnEditSubbidang').eq(i).attr('class', function(index, attr) {
-					return attr == 'btn btn-primary btnEditSubbidang' ? 'btn btn-success btnEditSubbidang' : 'btn btn-primary btnEditSubbidang';
-				});
-				ulangi_subbidang_btn_edit()
-			};
-		}
-	}
-	ulangi_subbidang_btn_edit()
-
 	function filterSubbidang(e = 0) {
 		// indexBidangSubbidang = $('#selectBidangSubbidang option:selected').index();
 		if (e === 1) {
@@ -823,6 +803,26 @@ $data = array_slice($data, $offset, $limit);
 		}
 	}
 	filterSubbidang()
+
+	function ulangi_subbidang_btn_edit() {
+		for (let i = 0; i < $(".btnEditSubbidang").length; i++) {
+			$(".btnEditSubbidang")[i].onclick = function(e) {
+				$('.inputCurrentSubbidang').eq(i).attr('readonly', function(index, attr) {
+					return attr == 'readonly' ? null : 'readonly';
+				});
+
+				$('.ikon_tombol_e_subbidang').eq(i).attr('class', function(index, attr) {
+					return attr == 'bi bi-pencil-square ikon_tombol_e_subbidang' ? 'bi bi-check-lg ikon_tombol_e_subbidang' : 'bi bi-pencil-square ikon_tombol_e_subbidang';
+
+				});
+				$('.btnEditSubbidang').eq(i).attr('class', function(index, attr) {
+					return attr == 'btn btn-primary btnEditSubbidang' ? 'btn btn-success btnEditSubbidang' : 'btn btn-primary btnEditSubbidang';
+				});
+				ulangi_subbidang_btn_edit()
+			};
+		}
+	}
+	ulangi_subbidang_btn_edit()
 
 	$('#selectBidangSubbidang').on('focus', function() {
 		prevSelect = this.value
