@@ -176,14 +176,24 @@ $data = $_SESSION['data']['dataTamu'];
 				[0, "desc"]
 			],
 			buttons: [{
-				extend: 'csv',
-				text: 'Uncuh CSV',
-				exportOptions: {
-					modifier: {
-						search: 'none'
+					extend: 'excelHtml5',
+					text: 'Unduh Excel',
+					exportOptions: {
+						modifier: {
+							page: 'current'
+						}
+					}
+				},
+				{
+					extend: 'pdfHtml5',
+					text: 'Unduh PDF',
+					exportOptions: {
+						modifier: {
+							page: 'current'
+						}
 					}
 				}
-			}],
+			],
 			"language": {
 				"zeroRecords": "Tidak ada data!",
 				"lengthMenu": "Lihat _MENU_ data",
