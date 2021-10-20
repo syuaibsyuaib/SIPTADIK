@@ -35,8 +35,24 @@ $dataBidang = $_SESSION['data']['dataBidang'];
     <link href="assets/css/riwayat.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/icons.css">
     <link rel="stylesheet" href="assets/css/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/DataTables-1.11.3/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/Buttons-2.0.1/css/buttons.bootstrap5.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/DateTime-1.1.1/css/dataTables.dateTime.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/SearchPanes-1.4.0/css/searchPanes.bootstrap5.min.css" />
+
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/JSZip-2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" src="assets/pdfmake-0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="assets/pdfmake-0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="assets/DataTables-1.11.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="assets/DataTables-1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="assets/Buttons-2.0.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="assets/Buttons-2.0.1/js/buttons.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="assets/Buttons-2.0.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="assets/DateTime-1.1.1/js/dataTables.dateTime.min.js"></script>
+    <script type="text/javascript" src="assets/SearchPanes-1.4.0/js/dataTables.searchPanes.min.js"></script>
+    <script type="text/javascript" src="assets/SearchPanes-1.4.0/js/searchPanes.bootstrap5.min.js"></script>
     <title><?= $title ?? "Halaman" ?> | <?= JUDUL ?></title>
     <script>
         $(document).ready(function() {
