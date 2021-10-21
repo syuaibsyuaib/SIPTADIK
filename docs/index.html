@@ -57,16 +57,13 @@
             const data = new FormData($('#formLogin')[0])
             const isi = Object.fromEntries(data.entries())
             isi.role = "3";
-            alert(JSON.stringify(isi))
             modalLoading(elModalLoading)
             kirim(isi)
                 .then((res) => {
-                alert(res)
                     localStorage.setItem('data', JSON.stringify(res));
                     location.assign('pejabat.html')
                 })
                 .catch((err) => {
-                alert(err)
                     alert('Username/Password salah');
                     elModalLoading.hide();
                 })
