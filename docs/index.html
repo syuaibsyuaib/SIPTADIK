@@ -56,7 +56,7 @@
         $('#formLogin').on('submit', function(e) {
             const data = new FormData($('#formLogin')[0])
             const isi = Object.fromEntries(data.entries())
-            isi.role = 3;
+            isi.role = "3";
             alert(JSON.stringify(isi))
             modalLoading(elModalLoading)
             kirim(isi)
