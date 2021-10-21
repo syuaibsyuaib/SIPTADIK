@@ -414,7 +414,7 @@
             let dataFinal = {
                 pengguna: dataMentah().dataUser[0],
                 sandi: dataMentah().dataUser[1],
-                role: dataMentah().dataUser[2],
+                role: 3,
                 foto: [isiFoto.toString()],
                 dataTambah: dataTambah
             };
@@ -424,7 +424,8 @@
                     .then(() => {
                         let objBaru = {
                             "pengguna": dataMentah().dataUser[0],
-                            "sandi": dataMentah().dataUser[1]
+                            "sandi": dataMentah().dataUser[1],
+                            "role": 3
                         }
 
                         kirim(objBaru)
@@ -464,7 +465,7 @@
         }
 
         // MENGISI TABEL RIWAYAT
-        let arrTamu = []
+        let arrTamu = [];
         for (let i = dataMentah().dataTamu.length - 1; i >= 0; i--) {
             const item = dataMentah().dataTamu[i];
             let tanggal = item[8].split("_", 3).join("/");
