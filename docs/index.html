@@ -57,7 +57,7 @@
             const data = new FormData($('#formLogin')[0])
             const isi = Object.fromEntries(data.entries())
             isi.role = "3";
-            console log(isi)
+            console.log(isi)
             modalLoading(elModalLoading)
             kirim(isi)
                 .then((res) => {
