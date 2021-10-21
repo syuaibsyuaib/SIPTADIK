@@ -799,6 +799,7 @@ $data = array_slice($data, $offset, $limit);
 					"nama": arraySubbidang[i].nama
 				})
 				$('#formTambahSubbidang tr').last().before(scriptCurrentSubbidang(i + 1, arraySubbidang[i].kode, arraySubbidang[i].nama))
+				ulangi_subbidang_btn_edit()
 			}
 		}
 	}
