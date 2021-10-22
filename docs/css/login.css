@@ -2,14 +2,14 @@ body{display:flex;align-items:center;padding-top:40px;padding-bottom:40px;backgr
 .wrapper{width:100%;margin:0 auto;overflow:hidden;border-radius:1rem;background:#3a2875}
 .wp-u{margin:2rem auto}
 .wp-u span,.wp-u img{display:block;margin:0 auto}
-.wp-u span{font-weight:bold;font-size:1.5rem;color:#fff}
+.wp-u span{font-weight:bold;font-size:1.5rem;color: #0283ad;}
 .wp-u img{width:6rem;height:auto}
 .wp-b{background:#fff;padding:2rem;border-radius:1rem}
 .wp-b span{display:block;text-align:left}
-.wp-b .judul{font-weight:bold;font-size:1.25rem;color:#5838c1}
+.wp-b .judul{font-weight:bold;font-size:1.25rem;color: #0283ad;}
 .wp-b .subjudul{font-size:.9rem;color:#555}
 .wp-b form{margin-top:2rem}
 .form-floating{margin:.5rem auto}
-.wp-b .form-control{border:none;border-bottom:1px solid #333;border-radius:0}
-.wp-b button{background-color:#5440b4;border-color:#3b2893;font-size:1rem;width:50%}
-.wp-b button:hover{background-color:#3b2893;border-color:#2e1c82}
+.wp-b .form-control{border:none;border-bottom:1px solid #cbcbcb;border-radius:0}
+.wp-b button{background-color: #01bede;border-color: #0186b5;font-size:1rem;width:50%;}
+.wp-b button:hover{background-color: #0283ad;border-color: #006a8d;}
