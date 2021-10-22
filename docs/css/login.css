@@ -1,5 +1,5 @@
-body{display:flex;align-items:center;padding-top:40px;padding-bottom:40px;background-color:#fff3cd;background-image:url(/img/bg.jpg);background-size:contain}
-.wrapper{width:100%;margin:0 auto;overflow:hidden;border-radius:1rem;background:#3a2875;background-image: url(/img/lg-bg-5.jpg);background-size:contain}
+body{display:flex;align-items:center;padding-top:40px;padding-bottom:40px;background-color:#fff3cd}
+.wrapper{width:100%;margin:0 auto;overflow:hidden;border-radius:1rem;background:#3a2875}
 .wp-u{margin:2rem auto}
 .wp-u span,.wp-u img{display:block;margin:0 auto}
 .wp-u span{font-weight:bold;font-size:1.5rem;color:#fff}
