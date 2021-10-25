@@ -10,7 +10,7 @@ html{height:100vh}
 h1{color:#4648b2;}
 /* FOR CONTACT */
 /* .gradient-brand-color{background-image:-webkit-linear-gradient(0deg,#376be6 0%,#6470ef 100%);background-image:-ms-linear-gradient(0deg,#376be6 0%,#6470ef 100%);color:#fff} */
-.gradient-brand-color{background-color: #3b2893;color:#fff}
+.gradient-brand-color{background-color: #0283ad;color:#fff}
 .contact-info_wrapper{overflow:hidden;border-radius:0 .625rem .625rem 0;border:1px solid #376be6}
 .contact-info_list span.position-absolute{left:0;margin-top:5px}
 .z-index-101{z-index:101}
@@ -18,12 +18,6 @@ h1{color:#4648b2;}
 .contact-form_wrapper{border-radius:.625rem 0 0 .625rem;border-top:1px solid #376be6;border-left:1px solid #376be6;border-bottom:1px solid #376be6}
 .kontak a{text-decoration:none}
 .kontak a:hover{text-decoration:underline}
-/* FOR ADMIN */
-.coba img{min-width:100%;width:100%;height:5rem}
-.coba>div{overflow:hidden}
-.td-vmiddle td,.td-vmiddle th{vertical-align:middle}
-#admin-page .card-header span{display:block;width:100%;white-space:nowrap;overflow:auto}
-#admin-page .card-header span::-webkit-scrollbar{width:0;height:0}
 /* FOR NAVBAR */
 .navbar-nav a{cursor:pointer}
 /* FOR DETAIL */
@@ -38,3 +32,5 @@ h1{color:#4648b2;}
 #tabelRiwayat_length{margin-bottom:10px;text-align:left}
 #tabelRiwayat_filter{text-align:left}
 input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus,input:-webkit-autofill:active{transition:background-color 5000s;-webkit-text-fill-color:rgb(61,61,61)!important}
+.judul-utama{color:#0283ad;font-weight:bold;margin-bottom:1rem}
+.wp-r{background:#ffffffa8;padding:1rem 0 2rem 0;border-radius:2%}
