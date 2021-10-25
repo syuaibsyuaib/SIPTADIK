@@ -8,7 +8,8 @@
 </footer>
 <script src="assets/js/main.js"></script>
 <script>
-    function tanya_simpan(judulPesan, isiPesan, data) {
+    function tanya_simpan(judulPesan, isiPesan, data, rowHidden) {
+        rowHidden = rowHidden || false;
         data = data || false;
         let loc = window.location.pathname
         let myModalWarning = new bootstrap.Modal(document.getElementById('modalWarning'));
@@ -27,11 +28,16 @@
                 window.location.assign('masuk.php?logout=<?= $_SESSION['role'] ?>');
             } else {
                 localStorage.clear();
+                if(rowHidden){
+                    $(rowHidden + ':hidden').remove()
+                }
+
                 myModalLoading.show();
                 $('.modal-backdrop:eq(2)').attr('style', 'z-index:1056');
                 let resp = kirim('proses.php', data);
                 resp.then((res) => {
                         myModalLoading.hide();
+                        notif("Data tersimpan")
                         localStorage.setItem('respon', res);
                         window.location.reload();
                     })

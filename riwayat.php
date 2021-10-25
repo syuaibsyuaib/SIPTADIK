@@ -46,7 +46,6 @@ $data = $_SESSION['data']['dataTamu'];
 											$bidang_tujuan = array_search_multi($_SESSION['data']['dataBidang'], 0, $value[4], false)[0][1];
 											$subbidang_tujuan = $value[5];
 											$subbidang_tujuan = array_search_multi($_SESSION['data']['dataBidang'], 2, $value[5], false)[0][3];
-											// print_r($subbidang_tujuan);
 											$jabatan_tujuan = $value[6];
 											$tujuan = $value[7];
 											$user_piket = $value[9];
@@ -100,47 +99,47 @@ $data = $_SESSION['data']['dataTamu'];
 											<div class="modal fade" id="data_<?= $id_raw ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog modal-lg">
 													<div class="modal-content">
-														<div class="modal-header">
+														<div class="modal-header bg-warning">
 															<h5 class="modal-title" id="exampleModalLabel">Detail: <?= $nama ?></h5>
 														</div>
 														<div class="modal-body">
 															<!-- ISI MODAL START HERE -->
-															<div class="mb-3 row">
+															<div class="py-2 row ">
 																<label class="col-sm-3 col-form-label">Nama</label>
 																<div class="col-sm-9">
-																	<input type="text" readonly class="form-control-plaintext" value="<?= $nama ?>">
+																	<input type="text" readonly class="form-control-plaintext" value=": <?= $nama ?>">
 																</div>
 															</div>
-															<div class="mb-3 row">
+															<div class="py-2 row bg-light">
 																<label class="col-sm-3 col-form-label">NIK/NIP</label>
 																<div class="col-sm-9">
-																	<input type="text" readonly class="form-control-plaintext" value="<?= $no_id ?>">
+																	<input type="text" readonly class="form-control-plaintext" value=": <?= $no_id ?>">
 																</div>
 															</div>
-															<div class="mb-3 row">
+															<div class="py-2 row">
 																<label class="col-sm-3 col-form-label">Instansi</label>
 																<div class="col-sm-9">
-																	<input type="text" readonly class="form-control-plaintext" value="<?= $instansi_asal ?>">
+																	<input type="text" readonly class="form-control-plaintext" value=": <?= $instansi_asal ?>">
 																</div>
 															</div>
-															<div class="mb-3 row">
+															<div class="py-2 row bg-light">
 																<label class="col-sm-3 col-form-label">Bidang Tujuan</label>
 																<div class="col-sm-9">
-																	<input type="text" readonly class="form-control-plaintext" value="<?= $bidang_tujuan ?>">
+																	<input type="text" readonly class="form-control-plaintext" value=": <?= $bidang_tujuan ?>">
 																</div>
 															</div>
 															<?php if ($subbidang_tujuan <> "") { ?>
-																<div class="mb-3 row">
+																<div class="py-2 row">
 																	<label class="col-sm-3 col-form-label">Sub-Bidang Tujuan</label>
 																	<div class="col-sm-9">
-																		<input type="text" readonly class="form-control-plaintext" value="<?= $subbidang_tujuan ?>">
+																		<input type="text" readonly class="form-control-plaintext" value=": <?= $subbidang_tujuan ?>">
 																	</div>
 																</div>
 															<?php } ?>
-															<div class="mb-3 row">
+															<div class="py-2 row bg-light">
 																<label class="col-sm-3 col-form-label">Tujuan</label>
 																<div class="col-sm-9">
-																	<input type="text" readonly class="form-control-plaintext" value="<?= $tujuan ?>">
+																	<input type="text" readonly class="form-control-plaintext" value=": <?= $tujuan ?>">
 																</div>
 															</div>
 															<!-- ISI MODAL END HERE -->

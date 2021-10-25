@@ -19,6 +19,33 @@ if (!isset($_SESSION['user'])) {
 
 $role = $_SESSION['role'] == 1 ? "Admin" : ($_SESSION['role'] == 2 ? "Piket/Tamu" : ($_SESSION['role'] == 3 ? "Pejabat" : "Unknown"));
 $dataBidang = $_SESSION['data']['dataBidang'];
+
+function convert_bidang($kodebidang)
+{
+    $dataBid = $_SESSION['data']['dataBidang'];
+    foreach ($dataBid as $isi) {
+        if (preg_match('/s/', $kodebidang) == 0 && preg_match('/b/', $kodebidang) == 1) { // apakah kode bidang?
+            if ($kodebidang == $isi[0]) {
+                return $isi[1];
+            }
+        } elseif (preg_match('/b\d+s\d+/', $kodebidang, $hasil) == 1) { //apakah kode subbidang?
+            if ($isi[2] == $hasil[0]) {
+                return $isi[3];
+            }
+        } elseif (preg_match('/.d/', $kodebidang, $kd) == 1) { // apakah kode kadis atau sekdis?
+            if ($isi[4] == $kd[0]) {
+                return $isi[5];
+            } elseif($isi[4] == $kd[0]) {
+                return $isi[5];
+            }
+        } elseif (preg_match('/j\d+/', $kodebidang, $arrJabatan) == 1) { //apakah kode jabatan?
+            if ($isi[4] == $arrJabatan[0]) {
+                return $isi[5];
+            }
+        }
+    }
+    return;
+}
 ?>
 <html class="h-100">
 
@@ -322,7 +349,7 @@ $dataBidang = $_SESSION['data']['dataBidang'];
     <!-- NOTIFIKASI -->
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
+            <div class="toast-header bg-warning">
                 <strong class="me-auto">SIPTADIK</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>

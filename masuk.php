@@ -38,8 +38,10 @@ if (isset($_GET['logout'])) {
 	<?php
 	if (isset($_SESSION['temp'])) {
 	?>
-		<div class="alert alert-warning" role="alert">
-			<?= $_SESSION['temp'] ?>
+		<div class="position-absolute" style="top:0">
+			<div class="alert alert-warning mx-auto" role="alert">
+				<?= $_SESSION['temp'] ?>
+			</div>
 		</div>
 	<?php
 		unset($_SESSION['temp']);
