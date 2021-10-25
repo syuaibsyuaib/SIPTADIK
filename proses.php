@@ -142,9 +142,9 @@ if(isset($_POST['tambahSubbidang'])){
 //TAMBAH JABATAN
 if(isset($_POST['tambahJabatan'])){
     $jabatan = array();
-    for ($i=0; $i < count($_POST); $i++) { 
-        if($_POST['namaJabatan' . $i]){
-            array_push($jabatan, $_POST['namaJabatan' . $i]);
+    for ($i=0; $i < count($_POST) - 1; $i++) { 
+        if($_POST['j' . $i]){
+            array_push($jabatan, $_POST['j' . $i]);
         }
     }
     $tambahJabatan = array("type" => "tambahJabatan", "dataTambah" => $jabatan);

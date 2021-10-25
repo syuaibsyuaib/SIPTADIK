@@ -9,8 +9,13 @@ if (!isset($_GET['id'])) {
 }
 $id = encrypt_decrypt("d", $_GET['id']);
 $data = array_search_multi($_SESSION['data']['dataPjb'], 0, $id, false);
+$dataUser = $_SESSION['data']['dataUser'];
+// $dataUser[i][0];
 $dataBidang = $_SESSION['data']['dataBidang'];
-// print_r($_SESSION['data']['dataUser']);
+
+// print_r($data[0][0]);
+
+// print_r($data[0]);
 // echo array_search_multi($_SESSION['data']['dataPjb'], 0, $_POST['usernamePejabat'], false);
 // echo array_search_multi($_SESSION['data']['dataUser'], 0, $_POST['usernamePejabat'], false)[0][1];
 
@@ -235,8 +240,17 @@ if (isset($_POST['ubah_foto'])) {
 
 						<div class="col-6 mb-3">
 							<div class="form-group">
-								<label class="required-field mb-1" for="pass_pjb_1">Kata Sandi <i>(Hanya Edit)</i></label>
-								<input name="sandi" id="pass_pjb_1" type="password" class="form-control pass" placeholder="Kata Sandi">
+								<label class="required-field mb-1" for="pass_pjb_1">Password</i></label>
+								<?php
+								// print_r($data);
+								foreach ($dataUser as $key) {
+									if ($key[0] == $data[0][0]) {
+								?>
+										<input name="sandi" id="pass_pjb_1" type="password" class="form-control pass" placeholder="Password" value="<?= $key[1] ?>">
+								<?php
+									}
+								}
+								?>
 								<div class="mt-1">
 									<small class="text-danger"><i>Disarankan paduan huruf, angka dan/atau simbol</i></small>
 								</div>

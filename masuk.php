@@ -31,23 +31,96 @@ if (isset($_GET['logout'])) {
 
 	<!-- Custom styles for this template -->
 	<!-- <link href="assets/css/login.css" rel="stylesheet"> -->
-    <style>
-        body{display:flex;align-items:center;padding-top:40px;padding-bottom:40px;background-color:#fff3cd;background-image:url(/img/bg.jpg);background-size:cover}
-        .wrapper{width:100%;margin:0 auto;overflow:hidden;border-radius:1rem;background:#3a2875;background:url(/img/lg-bg-5.png);background-size:contain}
-        .wp-u{margin:2rem auto}
-        .wp-u span,.wp-u img{display:block;margin:0 auto}
-        .wp-u span{font-weight:bold;font-size:1.5rem;color:#fff}
-        .wp-u img{width:6rem;height:auto}
-        .wp-b{background:#fff;padding:2rem;border-radius:1rem}
-        .wp-b span{display:block;text-align:left}
-        .wp-b .judul{font-weight:bold;font-size:1.25rem;color:#5838c1}
-        .wp-b .subjudul{font-size:.9rem;color:#555}
-        .wp-b form{margin-top:2rem}
-        .form-floating{margin:.5rem auto}
-        .wp-b .form-control{border:none;border-bottom:1px solid #333;border-radius:0}
-        .wp-b button{background-color:#5440b4;border-color:#3b2893;font-size:1rem;width:50%}
-        .wp-b button:hover{background-color:#3b2893;border-color:#2e1c82}
-    </style>
+	<style>
+		body {
+			display: flex;
+			align-items: center;
+			padding-top: 10vh;
+			padding-bottom: 40px;
+			background-color: #fff3cd;
+			background-image: url(/img/bg.jpg);
+			background-size: cover
+		}
+
+		.wrapper {
+			width: 100%;
+			margin: 0 auto;
+			overflow: hidden;
+			border-radius: 1rem;
+			background: #3a2875;
+			background: url(/img/lg-bg-5.png);
+			background-size: contain
+		}
+
+		.wp-u {
+			margin: 2rem auto
+		}
+
+		.wp-u span,
+		.wp-u img {
+			display: block;
+			margin: 0 auto
+		}
+
+		.wp-u span {
+			font-weight: bold;
+			font-size: 1.5rem;
+			color: #fff
+		}
+
+		.wp-u img {
+			width: 6rem;
+			height: auto
+		}
+
+		.wp-b {
+			background: #fff;
+			padding: 2rem;
+			border-radius: 1rem
+		}
+
+		.wp-b span {
+			display: block;
+			text-align: left
+		}
+
+		.wp-b .judul {
+			font-weight: bold;
+			font-size: 1.25rem;
+			color: #5838c1
+		}
+
+		.wp-b .subjudul {
+			font-size: .9rem;
+			color: #555
+		}
+
+		.wp-b form {
+			margin-top: 2rem
+		}
+
+		.form-floating {
+			margin: .5rem auto
+		}
+
+		.wp-b .form-control {
+			border: none;
+			border-bottom: 1px solid #333;
+			border-radius: 0
+		}
+
+		.wp-b button {
+			background-color: #5440b4;
+			border-color: #3b2893;
+			font-size: 1rem;
+			width: 50%
+		}
+
+		.wp-b button:hover {
+			background-color: #3b2893;
+			border-color: #2e1c82
+		}
+	</style>
 </head>
 
 <body class="text-center">
@@ -55,8 +128,10 @@ if (isset($_GET['logout'])) {
 	<?php
 	if (isset($_SESSION['temp'])) {
 	?>
-		<div class="alert alert-warning" role="alert">
-			<?= $_SESSION['temp'] ?>
+		<div class="position-absolute" style="top:0">
+			<div class="alert alert-warning mx-auto" role="alert">
+				<?= $_SESSION['temp'] ?>
+			</div>
 		</div>
 	<?php
 		unset($_SESSION['temp']);
