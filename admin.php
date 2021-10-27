@@ -7,6 +7,9 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 $dataUser = $_SESSION['data']['dataUser'];
 $slide = $_SESSION['data']['slide'][0];
 
+// foreach ($dataBidang as $isi) {
+// 	print_r($isi);
+// }
 // UNTUK PAGINATION START
 $page = $_GET['p'] ?? 1;
 $limit = 8;
@@ -22,6 +25,7 @@ if ($page > $total_pages) {
 	pindahko("?" . http_build_query($_GET));
 }
 $data = array_slice($data, $offset, $limit);
+
 ?>
 
 <!-- MODAL SLIDER -->
@@ -195,8 +199,8 @@ $data = array_slice($data, $offset, $limit);
 								<label class="required-field mb-1" for="jabat">Jabatan</label>
 								<select id="jabat" class="form-select" name="jabatan" readonly required>
 									<option value="" selected></option>
-									<option value="jp">PENGELOLA</option>
-									<option value="jb">BENDAHARA</option>
+									<option value="j3">PENGELOLA</option>
+									<option value="j5">STAF</option>
 								</select>
 							</div>
 						</div>
@@ -237,18 +241,24 @@ $data = array_slice($data, $offset, $limit);
 
 								<?php
 								$num = 0;
+								$piketArr;
+								$piketArrPassKosong;
 								foreach ($dataUser as $value) {
 									if ($value[0] != "" && $value[2] == 2) {
+										$piketArr['username' . $num] = $value[0];
+										$piketArr['pass' . $num] = $value[1];
+										$piketArrPassKosong['username' . $num] = $value[0];
+										$piketArrPassKosong['pass' . $num] = "";
 										$num++;
 								?>
 
 										<tr class="barisCurrentPiket">
 											<th><?= $num ?></th>
 											<td>
-												<input name="piket_u_<?= $value[0] ?>" type="text" class="form-control piket_u_current" value="<?= $value[0] ?>" readonly="readonly">
+												<input name="username<?= $num - 1 ?>" type="text" class="form-control piket_u_current" value="<?= $value[0] ?>" readonly>
 											</td>
 											<td>
-												<input name="piket_p_<?= $value[0] ?>" type="password" class="form-control piket_p_current" value="<?= $value[1] ?>" readonly="readonly" placeholder="Kata sandi">
+												<input name="pass<?= $num - 1 ?>" type="password" class="form-control piket_p_current" value="<?= $value[1] ?>" readonly placeholder="Kata sandi">
 											</td>
 											<td>
 												<button class="btn btn-primary piket_btn_edit" type="button">
@@ -262,14 +272,17 @@ $data = array_slice($data, $offset, $limit);
 								<?php
 									}
 								}
+								echo '<script> localStorage.setItem("listPiket", JSON.stringify(' . json_encode($piketArr) . '))</script>';
+								echo '<script> localStorage.setItem("listPiketPassKosong", JSON.stringify(' . json_encode($piketArrPassKosong) . '))</script>';
 								?>
 
-								<tr>
+								<tr id="rowInputTambahPiket">
 									<td>Tambah</td>
-									<td><input id='tambahUsernamePiket' name="tambah_username_piket" type="text" class="form-control"></td>
-									<td><input id='tambahPasswordPiket' name="tambah_password_piket" type="text" class="form-control"></td>
+									<!-- name="tambah_username_piket"     name="tambah_password_piket"-->
+									<td><input id='tambahUsernamePiket' type="text" class="form-control"></td>
+									<td><input id='tambahPasswordPiket' type="text" class="form-control"></td>
 									<td>
-										<button type="button" class="col-5 btn btn-success tambahInput"><i class="bi bi-plus-lg"></i></button>
+										<button id="tblTambahPiket" type="button" class="col-5 btn btn-success tambahInput" disabled><i class="bi bi-plus-lg"></i></button>
 									</td>
 								</tr>
 
@@ -332,7 +345,7 @@ $data = array_slice($data, $offset, $limit);
 							?>
 
 							<tr>
-								<thd>Tambah</thd>
+								<td>Tambah</td>
 								<td><input id="inputTambahBidang" type="text" class="form-control"></td>
 								<td>
 									<button id="tblTambahBidang" type="button" class="col-5 btn btn-success" disabled><i class="bi bi-plus-lg"></i></button>
@@ -366,7 +379,7 @@ $data = array_slice($data, $offset, $limit);
 						<thead>
 							<tr>
 								<th width="7%">#</th>
-								<th colspan="2" width="72%">
+								<th colspan="2" width="80%">
 									<select class="form-select" id="selectBidangSubbidang">
 
 										<?php
@@ -456,32 +469,39 @@ $data = array_slice($data, $offset, $limit);
 
 							<?php
 							$num = 0;
+							$jabatanArr;
+							// $jabatanArrKosong;
 							foreach ($dataBidang as $value) {
+								// print_r($value);
 								if ($value[4] != '' && $value[4] != 'kd' && $value[4] != 'sd') {
 									$num++;
 									$id_j = $value[4];
 									$nama_j = $value[5];
+									$jabatanArr[$id_j] = $nama_j;
+									// $jabatanArrKosong[$id_j] = "";
 							?>
 
 									<tr class="row_input_jabatan">
 										<th><?= $num ?></th>
 										<td>
-											<input type="text" class="form-control inputCurrentJabatan" value="<?= $nama_j ?>" required readonly>
+											<input name="<?= $id_j?>" type="text" class="form-control inputCurrentJabatan" value="<?= $nama_j ?>" required readonly>
 										</td>
 										<td>
-											<button class="btn btn-primary col-5 btnEditJabatan" type="button">
+											<button type="button" class="btn btn-primary col-5 btnEditJabatan" >
 												<i class="bi bi-pencil-square ikon_tombol_e_jabatan"></i>
 											</button>
-											<button class="btn btn-danger col-5 btnHapusJabatan"><i class="bi bi-trash"></i></button>
+											<button type="button" class="btn btn-danger col-5 btnHapusJabatan"><i class="bi bi-trash"></i></button>
 										</td>
 									</tr>
 
 							<?php
 								}
 							}
+							echo '<script> localStorage.setItem("listJabatan", JSON.stringify(' . json_encode($jabatanArr) . '))</script>';
+							// echo '<script> localStorage.setItem("listJabatanKosong", JSON.stringify(' . json_encode($jabatanArrKosong) . '))</script>';
 							?>
 
-							<tr>
+							<tr id="rowInputTambahJabatan">
 								<th>Tambah</th>
 								<td><input id="inputTambahJabatan" type="text" class="form-control"></td>
 								<td>
@@ -513,6 +533,14 @@ $data = array_slice($data, $offset, $limit);
 				<?php
 				foreach ($data as $value) {
 					$id = encrypt_decrypt("e", $value[0]);
+					$jab = convert_bidang($value[2]);
+					$subbid = convert_bidang($value[1]);
+					// print_r($value[1]);
+					preg_match('/b\d+/', $value[1], $arrBid);
+					array_push($arrBid, "");
+					// print_r($arrBid);
+					$bid = convert_bidang($arrBid[0]);
+
 				?>
 
 					<div class="col">
@@ -520,20 +548,12 @@ $data = array_slice($data, $offset, $limit);
 
 							<!-- JABATAN -->
 							<div class="card-header warna-dasar">
-
-								<?php
-								foreach ($dataBidang as $val) {
-									if ($val[4] == $value[2]) {
-										echo "<span>$val[5]</span>";
-									}
-								}
-								?>
-
+								<?= "<span>$jab $subbid </span>" ?>
 							</div>
 
 							<!-- FOTO -->
-							<div class="tunggu" style="height: 310px; overflow: hidden;">
-								<img style="cursor:zoom-in; width: 100%; min-height: 310px; min-width: 310px;" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>" data-bs-toggle="modal" data-bs-target="#foto_<?= $value[0] ?>">
+							<div class="tunggu" style="cursor:zoom-in;height: 310px; overflow: hidden; background-image:url('<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>'); background-size:cover;background-position: center center" data-bs-toggle="modal" data-bs-target="#foto_<?= $value[0] ?>">
+								<!-- <img style="cursor:zoom-in; width: 100%;background-size: fill" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>" data-bs-toggle="modal" data-bs-target="#foto_<?= $value[0] ?>"> -->
 							</div>
 
 							<!-- MODAL FOTO -->
@@ -546,6 +566,7 @@ $data = array_slice($data, $offset, $limit);
 										</div>
 										<div class="modal-body">
 											<!-- ISI MODAL START HERE -->
+											<?= "<div class='text-center mb-3 warna-dasar'>$jab $bid $subbid</div>" ?>
 											<img class="modal-foto" src="<?= $value[7] != "" ? $value[7] : "img/p.webp" ?>" alt="">
 											<!-- ISI MODAL END HERE -->
 										</div>
@@ -627,8 +648,9 @@ $data = array_slice($data, $offset, $limit);
 
 <script>
 	//$('img')[1].src = URL.createObjectURL($('input:file')[0].files[0])
-	let dataSlider = '';
-	let dataQuerySlider = new URLSearchParams(`?slider_1=&slider_2=&slider_3=&slider_4=&slider_5=&ubahSlide=`);
+
+
+	/*
 	let scriptCurrentPiket = function(noUrut, usernamePiket, passPiket) {
 		return `<tr class="barisCurrentPiket">
 					<th>${noUrut}</th>
@@ -648,6 +670,7 @@ $data = array_slice($data, $offset, $limit);
 						</td>
 				</tr>`
 	}
+	*/
 	let scriptCurrentBidang = function(noUrut, valueBidang) {
 		return `<tr class="row_input_bidang">
 					<th>${noUrut}</th>
@@ -696,7 +719,10 @@ $data = array_slice($data, $offset, $limit);
 		for (let i = 0; i < $(classBtnHapus).length; i++) {
 			$(classBtnHapus)[i].onclick = function(e) {
 				warning("Hapus", "Yakin akan menghapus data tersebut?", function() {
-					$(classRowCurrent).eq(i).remove();
+					$(classRowCurrent).eq(i).prop('hidden', true);
+					$(classRowCurrent + ':hidden input').prop('disabled', true);
+					// $(classRowCurrent).eq(i).remove();
+					$(classRowCurrent).parents("form").children().eq(2).children("button:submit").prop("disabled", false);
 					hapusRow(classBtnHapus, classRowCurrent)
 				})
 			}
@@ -704,6 +730,21 @@ $data = array_slice($data, $offset, $limit);
 	}
 
 	// TAMBAH BIDANG
+	function templateUbahBidang(index, valueBidang) {
+		return `<tr class="row_input_bidang">
+					<th>${index}</th>
+					<td>
+						<input name="namaBidang${index}" type="text" class="form-control inputCurrentBidang" required="" value="${valueBidang}" readonly>
+					</td>
+					<td>
+						<button class="btn btn-primary btnEditBidang" type="button">
+							<i class="bi bi-pencil-square ikon_tombol_e_bidang"></i>
+						</button>
+						<button type="button" class="btn btn-danger btnHapusBidang"><i class="bi bi-trash"></i></button>
+					</td>
+				</tr>`
+	}
+
 	function ulangi_bidang_btn_edit() {
 		for (let i = 0; i < $(".btnEditBidang").length; i++) {
 			$(".btnEditBidang")[i].onclick = function(e) {
@@ -722,12 +763,17 @@ $data = array_slice($data, $offset, $limit);
 			};
 		}
 	}
-	ulangi_bidang_btn_edit()
+	ulangi_bidang_btn_edit();
 
 	hapusRow('.btnHapusBidang', '.row_input_bidang');
+	$('#formTambahBidang button:submit').prop('disabled', true);
 
-	$('#inputTambahBidang').keydown(function() {
-		$('#tblTambahBidang').prop('disabled', false)
+	$('#inputTambahBidang').keyup(function(e) {
+		if ($('#inputTambahBidang').val() !== "") {
+			$('#tblTambahBidang').prop('disabled', false);
+		} else {
+			$('#tblTambahBidang').prop('disabled', true);
+		}
 	})
 
 	$('#tblTambahBidang').on('click', function(e) {
@@ -761,8 +807,7 @@ $data = array_slice($data, $offset, $limit);
 		$('#formTambahBidang .inputCurrentBidang').filter((index, item, arr) => {
 			bidangData.append(`namaBidang${index}`, `${$(item).val()}`);
 		});
-
-		tanya_simpan('Tambah Bidang', 'Yakin akan menambahkan bidang ini?', bidangData);
+		tanya_simpan('Ubah Bidang', 'Yakin akan mengubah bidang ini?', bidangData);
 		e.preventDefault()
 	});
 
@@ -889,6 +934,37 @@ $data = array_slice($data, $offset, $limit);
 	});
 
 	// TAMBAH JABATAN
+	let modalJabatan = $('#modal_jabatan_edit')[0];
+
+	function templateRowJabatan(index, value) {
+		return `<tr class="row_input_jabatan">
+					<th>${index + 1}</th>
+					<td>
+						<input name="j${index}" type="text" class="form-control inputCurrentJabatan" value="${value}" required readonly>
+					</td>
+					<td>
+						<button type="button" class="btn btn-primary col-5 btnEditJabatan" >
+							<i class="bi bi-pencil-square ikon_tombol_e_jabatan"></i>
+						</button>
+						<button type="button" class="btn btn-danger col-5 btnHapusJabatan">
+							<i class="bi bi-trash"></i>
+						</button>
+					</td>
+				</tr>`;
+	}
+
+	modalJabatan.addEventListener('shown.bs.modal', function() {
+		$('#formTambahJabatan button:submit').prop('disabled', true);
+		let listJabatan = JSON.parse(localStorage.getItem('listJabatan'));
+		$('.row_input_jabatan').remove();
+		let lengthJabatanStorage = Object.keys(listJabatan).length;
+		for (let i = 0; i < lengthJabatanStorage; i++) {
+			$('#rowInputTambahJabatan').before(templateRowJabatan(i, listJabatan[`j${i}`]))
+		}
+		ulangi_jabatan_btn_edit()
+		hapusRow('.btnHapusJabatan', '.row_input_jabatan');
+	})
+
 	function ulangi_jabatan_btn_edit() {
 		for (let i = 0; i < $(".btnEditJabatan").length; i++) {
 			$(".btnEditJabatan")[i].onclick = function(e) {
@@ -907,20 +983,25 @@ $data = array_slice($data, $offset, $limit);
 			};
 		}
 	}
-	ulangi_jabatan_btn_edit()
+	
 
 	hapusRow('.btnHapusJabatan', '.row_input_jabatan');
 
-	$('#inputTambahJabatan').keydown(function() {
-		$('#tblTambahJabatan').prop('disabled', false)
+	$('#inputTambahJabatan').keyup(function() {
+		if($('#inputTambahJabatan').val() !== ""){
+			$('#tblTambahJabatan').prop('disabled', false)
+		}else{
+			$('#tblTambahJabatan').prop('disabled', true)
+		}
 	})
 
 	$('#tblTambahJabatan').on('click', function(e) {
-		if ($('#inputTambahJabatan').val() == "") {
-			$('#tblTambahJabatan').prop('disabled', true)
-			return;
-		}
 		let trigger = true;
+		// if ($('#inputTambahJabatan').val() == "") {
+		// 	$('#tblTambahJabatan').prop('disabled', true)
+		// 	return;
+		// }
+
 		$('#formTambahJabatan .inputCurrentJabatan').filter(function(index, item, arr) {
 			if ($('#inputTambahJabatan').val() == $(item).val()) {
 				trigger = false
@@ -938,24 +1019,71 @@ $data = array_slice($data, $offset, $limit);
 			notif('Jabatan sudah ada');
 			$('#inputTambahJabatan').val("");
 		}
+		$('#tblTambahJabatan').prop('disabled', true)
 	})
 
 	$('#formTambahJabatan').submit(function(e) {
-		// alert('tes')
-		let jabatanData = new URLSearchParams('tambahJabatan=')
-		$('#formTambahJabatan .inputCurrentJabatan').filter((index, item, arr) => {
-			jabatanData.append(`namaJabatan${index}`, `${$(item).val()}`);
+		// let listJabatanKosong = JSON.parse(localStorage.getItem('listJabatanKosong'));
+		
+		let dataJabatan = new URLSearchParams('tambahJabatan=')
+		// let jsonJabatanModal = Object.fromEntries(new FormData($('#formTambahJabatan')[0])); //json dgn key dari name form
+
+		// const mergedObject = {
+		// 	...listJabatanKosong,
+		// 	...jsonJabatanModal
+		// };
+
+		// let dataJabatan = new URLSearchParams(jsonJabatanModal)
+		$('.inputCurrentJabatan:not([disabled])').filter((index, item, arr) => {
+			dataJabatan.append(`j${index}`, `${$(item).val()}`);
 		});
 
-		for (var hadi of jabatanData.values()) {
-			console.log(hadi);
-		}
-
-		// tanya_simpan('Tambah Bidang', 'Yakin akan menambahkan jabatan ini?', jabatanData);
+		// for (var hadi of jabatanData.values()) {
+		// 	console.log(hadi);
+		// }
+		console.log(dataJabatan)
+		dataJabatan.set('tambahJabatan', "");
+		tanya_simpan('Tambah Bidang', 'Yakin akan menambahkan jabatan ini?', dataJabatan.toString());
 		e.preventDefault()
 	});
 
 	// TAMBAH PIKET
+	let modalPiket = $('#modal_tambah_piket')[0];
+
+	function templatePiket(index, valueUser, valuePass) {
+		return `<tr class="barisCurrentPiket">
+					<th>${index}</th>
+					<td>
+						<input name="username${index}" type="text" class="form-control piket_u_current" value="${valueUser}" readonly>
+					</td>
+					<td>
+						<input name="pass${index}" type="password" class="form-control piket_p_current" value="${valuePass}" readonly placeholder="Kata sandi">
+					</td>
+					<td>
+						<button class="btn btn-primary piket_btn_edit" type="button">
+							<i class="bi bi-pencil-square ikon_piket_btn_current"></i>
+						</button>
+						<button type="button" class="btn btn-danger piket_btn_hapus">
+							<i class="bi bi-trash"></i>
+						</button>
+					</td>
+				</tr>`
+	}
+
+	modalPiket.addEventListener('shown.bs.modal', function() {
+		let listPiket = JSON.parse(localStorage.getItem('listPiket'));
+		$('#formTambahPiket tbody .bariscurrentpiket').remove()
+
+		let lengthPiketStorage = Object.keys(listPiket).length;
+
+		for (let i = 0; i < lengthPiketStorage / 2; i++) {
+			$('#rowInputTambahPiket').before(templatePiket(i + 1, listPiket[`username${i}`], listPiket[`pass${i}`]))
+		}
+
+		ulangi_piket_btn_edit()
+		hapusRow('.piket_btn_hapus', '.barisCurrentPiket')
+	})
+
 	function ulangi_piket_btn_edit() {
 		for (let i = 0; i < $(".piket_btn_edit").length; i++) {
 			$(".piket_btn_edit")[i].onclick = function(e) {
@@ -976,11 +1104,17 @@ $data = array_slice($data, $offset, $limit);
 			};
 		}
 	}
-	ulangi_piket_btn_edit()
 
-	hapusRow('.piket_btn_hapus', '.barisCurrentPiket')
+	$('#rowInputTambahPiket input').keyup(function(e) {
+		// console.log($('#tambahUsernamePiket').val())
+		if ($('#tambahUsernamePiket').val() !== "" && $('#tambahPasswordPiket').val() !== "") {
+			$('#tblTambahPiket').prop('disabled', false);
+		} else {
+			$('#tblTambahPiket').prop('disabled', true);
+		}
+	})
 
-	$('.tambahInput').on('click', function(e) {
+	$('#tblTambahPiket').on('click', function(e) {
 		let trigger = true;
 		$('#formTambahPiket .piket_u_current').filter(function(index, item, arr) {
 			if ($('#tambahUsernamePiket').val() == $(item).val()) {
@@ -989,7 +1123,7 @@ $data = array_slice($data, $offset, $limit);
 		})
 
 		if (trigger) {
-			$('#formTambahPiket tr').last().before(scriptCurrentPiket($('#formTambahPiket tr').length - 1, $('#tambahUsernamePiket').val(), $('#tambahPasswordPiket').val()))
+			$('#formTambahPiket tr').last().before(templatePiket($('#formTambahPiket tr').length - 1, $('#tambahUsernamePiket').val(), $('#tambahPasswordPiket').val()))
 			$('#tambahUsernamePiket').val("");
 			$('#tambahPasswordPiket').val("");
 			$('#formTambahPiket button:submit').prop('disabled', false);
@@ -1000,32 +1134,42 @@ $data = array_slice($data, $offset, $limit);
 			$('#tambahUsernamePiket').val("");
 			$('#tambahPasswordPiket').val("");
 		}
+		$('#tblTambahPiket').prop('disabled', true);
 	});
 
 	$('#formTambahPiket').submit(function(e) {
-		let piketData = new URLSearchParams('tambahPiket=')
-		console.log(piketData.toString())
-		$('#formTambahPiket .piket_u_current').filter((index, item, arr) => {
-			piketData.append(`username${index}`, `${$(item).val()}`);
-			piketData.append(`pass${index}`, `${$('.piket_p_current').eq(index).val()}`);
-		});
-		console.log(piketData.toString())
-		tanya_simpan('Tambah Piket', 'Yakin akan menambahkan user ini?', piketData);
+		let listPiketPassKosong = JSON.parse(localStorage.getItem('listPiketPassKosong'));
+		// let lengthPiketStorage = Object.keys(listPiketPassKosong).length;
+		// let lengthPiketModal = $('.piket_u_current').length;
+		let jsonPiketModal = Object.fromEntries(new FormData($('#formTambahPiket')[0])); //json dgn key dari name form
+
+		const mergedObject = {
+			...listPiketPassKosong,
+			...jsonPiketModal
+		};
+
+		// console.log(mergedObject)
+		let dataPiket = new URLSearchParams(mergedObject)
+		dataPiket.set('tambahPiket', "");
+		tanya_simpan('Ubah Piket', 'Yakin akan mengubah user ini?', dataPiket.toString());
 		e.preventDefault();
 	})
 
 	// SLIDER
+	let dataSlider = '';
+	let dataQuerySlider = new URLSearchParams(`slider_1=&slider_2=&slider_3=&slider_4=&slider_5=&ubahSlide=`);
+
 	$('#formSlider input:file').on('change', function(e) {
 		let indexLabel = $('#formSlider input:file').index(this);
 		let slideName = $('#formSlider input:file').eq(indexLabel).prop('name')
 		let reader = new FileReader();
-		reader.onload = async function() {
-			let foto = await new Uint8Array(reader.result);
+		reader.onload = function() {
+			let foto = new Uint8Array(reader.result);
 			$('#formSlider img').eq(indexLabel).prop('src', URL.createObjectURL($(`#formSlider input:file`)[indexLabel].files[0]))
 			if (reader.readyState == 2) {
 				dataQuerySlider.set(slideName, foto);
 				dataSlider = dataQuerySlider.toString();
-				console.log(dataSlider);
+				// console.log(foto)
 			}
 		}
 
@@ -1035,6 +1179,7 @@ $data = array_slice($data, $offset, $limit);
 
 	$('#formSlider').on('submit', function(e) {
 		let modalSlider = new bootstrap.Modal(document.getElementById('slider_edit'));
+		// console.log(dataSlider)
 		tanya_simpan("Ubah slide", "Yakin akan simpan?", dataSlider);
 		responProses().then(res => { ///////////// PROMISE ====================+
 			if (res != 'Pastikan file Anda bertipe gambar!') {
@@ -1044,7 +1189,7 @@ $data = array_slice($data, $offset, $limit);
 				notif(res);
 			}
 		})
-		e.preventDefault()
+		e.preventDefault();
 	})
 
 	// TAMBAH PEJABAT

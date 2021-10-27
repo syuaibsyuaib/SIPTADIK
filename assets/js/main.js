@@ -22,6 +22,8 @@ function b64toArr(base64) {
 }
 
 ////////////////////// UNTUK PAGE ADMIN /////////////////
+$('#subbid option').prop('hidden', true);
+
 $('#bid').on('change', function(e) {
     switch ($('#bid').prop('selectedIndex')) {
         case 0:
