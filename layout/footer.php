@@ -62,7 +62,14 @@
             fx()
         } 
     }
+    
+    function detailPiket() {
+        let modalKu = new bootstrap.Modal(document.getElementById('detail-piket'))
+        modalKu.show()
+        $('.modal-backdrop:eq(1)').attr('style', 'z-index:1056')
+    }
 </script>
+
 </body>
 
 </html>

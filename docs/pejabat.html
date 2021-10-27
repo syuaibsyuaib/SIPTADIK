@@ -33,29 +33,6 @@
             </div>
         </div>
     </div>
-
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light gradient-brand-color sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img class="d-inline-block align-middle me-1" src="img/title.png" alt="" width="20" height="20"> <b class="d-inline-block align-middle text-light">SIPTADIK</b>
-            </a>
-            <!-- data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" -->
-            <button id="navToggle" class="navbar-toggler bg-light" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link text-light" data-bs-toggle="modal" data-bs-target="#modal_kontak">Profil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="keluar" class="nav-link text-warning" href="index.html">Keluar</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     
     <!-- MODAL PROFIL -->
     <div class="modal fade" id="modal_kontak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -230,6 +207,69 @@
             </div>
         </div>
     </div>
+
+    <!-- MODAL DETAIL PIKET -->
+    <div class="modal fade" id="detail-piket" tabindex="-1" aria-hidden="true" style="z-index: 1057;">
+        <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title">Detail Piket: Nama Piket</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- ISI MODAL START HERE -->
+                    <div class="d-flex flex-column align-items-center text-center pb-4 pt-2">
+                        <div class="detail-content-loader tunggu rounded-circle">
+                            <img id="detailFotoTamu" src="img/p.webp" alt="Foto Tamu" class="rounded-circle" width="150" height="150" style="object-fit: cover;">
+                        </div>
+                    </div>
+                    <table class="table table-striped">
+                        <tr>
+                            <th width="40%">Nama</th>
+                            <td width="1%">:</td>
+                            <th width="59%">Nama Piket</th>
+                        </tr>
+                        <tr>
+                            <th>Register</th>
+                            <td>:</td>
+                            <td>123456</td>
+                        </tr>
+                        <tr>
+                            <th>Anjab</th>
+                            <td>:</td>
+                            <td>Qwertyuiop</td>
+                        </tr>
+                    </table>
+                    <!-- ISI MODAL END HERE -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light gradient-brand-color sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img class="d-inline-block align-middle me-1" src="img/title.png" alt="" width="20" height="20"> <b class="d-inline-block align-middle text-light">SIPTADIK</b>
+            </a>
+            <!-- data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" -->
+            <button id="navToggle" class="navbar-toggler bg-light" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" data-bs-toggle="modal" data-bs-target="#modal_kontak">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="keluar" class="nav-link text-warning" href="index.html">Keluar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     
     <!-- RIWAYAT -->
     <div class="container">

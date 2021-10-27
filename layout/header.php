@@ -35,7 +35,7 @@ function convert_bidang($kodebidang)
         } elseif (preg_match('/.d/', $kodebidang, $kd) == 1) { // apakah kode kadis atau sekdis?
             if ($isi[4] == $kd[0]) {
                 return $isi[5];
-            } elseif($isi[4] == $kd[0]) {
+            } elseif ($isi[4] == $kd[0]) {
                 return $isi[5];
             }
         } elseif (preg_match('/j\d+/', $kodebidang, $arrJabatan) == 1) { //apakah kode jabatan?
@@ -94,6 +94,46 @@ function convert_bidang($kodebidang)
 </head>
 
 <body class="d-flex flex-column h-100">
+
+    <!-- MODAL DETAIL PIKET -->
+    <div class="modal fade" id="detail-piket" tabindex="-1" aria-hidden="true" style="z-index: 1057;">
+        <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title">Detail Piket: Nama Piket</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- ISI MODAL START HERE -->
+                    <div class="d-flex flex-column align-items-center text-center pb-4 pt-2">
+                        <div class="detail-content-loader tunggu rounded-circle">
+                            <img id="detailFotoTamu" src="/img/p.webp" alt="Foto Tamu" class="rounded-circle" width="150" height="150" style="object-fit: cover;">
+                        </div>
+                    </div>
+                    <table class="table table-striped">
+                        <tr>
+                            <th width="40%">Nama</th>
+                            <td width="1%">:</td>
+                            <th width="59%">Nama Piket</th>
+                        </tr>
+                        <tr>
+                            <th>Register</th>
+                            <td>:</td>
+                            <td>123456</td>
+                        </tr>
+                        <tr>
+                            <th>Anjab</th>
+                            <td>:</td>
+                            <td>Qwertyuiop</td>
+                        </tr>
+                    </table>
+                    <!-- ISI MODAL END HERE -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- NAVIGATION BAR (NAVBAR) -->
     <nav class="navbar navbar-expand-lg navbar-light warna-dasar sticky-top">
