@@ -22,10 +22,11 @@ $data = $_SESSION['data']['dataTamu'];
 							<thead>
 								<tr>
 									<th width="10%">Tanggal</th>
-									<th width="35%">Nama Tamu</th>
+									<th width="25%">Nama Tamu</th>
 									<th width="20%">Instansi</th>
 									<th width="20%">Bidang Tujuan</th>
 									<th width="10%">Tujuan</th>
+									<th width="10%">Piket</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -61,7 +62,7 @@ $data = $_SESSION['data']['dataTamu'];
 													<div class="candidate-list-details">
 														<div class="candidate-list-info">
 															<div class="candidate-list-title">
-																<h5 class="mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#data_<?= $id_raw ?>"><?= $nama ?></a>
+																<h5 class="mb-0"><a href="#" data-bs-toggle="modal" data-bs-target="#detail_<?= $id_raw ?>"><?= $nama ?></a>
 																</h5>
 															</div>
 															<div class="candidate-list-option">
@@ -76,6 +77,7 @@ $data = $_SESSION['data']['dataTamu'];
 												<td><?= $instansi_asal ?></td>
 												<td><?= $bidang_tujuan ?></td>
 												<td><?= $tujuan ?></td>
+												<td><a href="#" data-bs-toggle="modal" data-bs-target="#piket_<?= $id_raw ?>"><?= $user_piket ?></a></td>
 											</tr>
 
 											<!-- MODAL FOTO TAMU -->
@@ -95,8 +97,8 @@ $data = $_SESSION['data']['dataTamu'];
 												</div>
 											</div>
 
-											<!-- MODAL DATA TAMU -->
-											<div class="modal fade" id="data_<?= $id_raw ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<!-- MODAL DETAIL TAMU -->
+											<div class="modal fade" id="detail_<?= $id_raw ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog modal-lg">
 													<div class="modal-content">
 														<div class="modal-header bg-warning">
@@ -136,20 +138,59 @@ $data = $_SESSION['data']['dataTamu'];
 																	</div>
 																</div>
 															<?php } ?>
-															<div class="py-2 row bg-light">
+															<div class="py-2 row <?= $subbidang_tujuan <> "" ? "bg-light" : "" ?>">
 																<label class="col-sm-3 col-form-label">Tujuan</label>
 																<div class="col-sm-9">
 																	<input type="text" readonly class="form-control-plaintext" value=": <?= $tujuan ?>">
 																</div>
 															</div>
+															<div class="py-2 row <?= $subbidang_tujuan == "" ? "bg-light" : "" ?>">
+																<label class="col-sm-3 col-form-label">Piket</label>
+																<div class="col-sm-9">
+																	: <a href="#" onclick="modalPiket<?= $id_raw ?>()"><?= $user_piket ?></a>
+																	<!-- <input type="text" readonly class="form-control-plaintext" value=": <?= $user_piket ?>" onclick="modalPiket<?= $id_raw ?>()"> -->
+																</div>
+															</div>
 															<!-- ISI MODAL END HERE -->
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 														</div>
 													</div>
 												</div>
 											</div>
+
+											<!-- MODAL DETAIL PIKET -->
+											<div class="modal fade" id="piket_<?= $id_raw ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1057;">
+												<div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
+													<div class="modal-content">
+														<div class="modal-header bg-warning">
+															<h5 class="modal-title" id="exampleModalLabel">Detail Piket: <?= $user_piket ?></h5>
+														</div>
+														<div class="modal-body">
+															<!-- ISI MODAL START HERE -->
+															<div class="py-2 row ">
+																<label class="col-sm-3 col-form-label">Nama</label>
+																<div class="col-sm-9">
+																	<input type="text" readonly class="form-control-plaintext" value=": <?= $user_piket ?>">
+																</div>
+															</div>
+															<!-- ISI MODAL END HERE -->
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<script>
+												function modalPiket<?= $id_raw ?>() {
+													let modalPiket = new bootstrap.Modal(document.getElementById('piket_<?= $id_raw ?>'))
+													modalPiket.show()
+													$('.modal-backdrop:eq(1)').attr('style', 'z-index:1056')
+												}
+											</script>
 								<?php
 										}
 									}

@@ -18,6 +18,8 @@
 </head>
 
 <body class="d-flex flex-column h-100" style="background-image:url(img/bg-in.jpg);background-size: cover;background-attachment: fixed;background-position-x: center;">
+    
+    <!-- MODAL LOADING -->
     <div class="modal" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true" style="z-index: 1059">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="background: none; border: none;">
@@ -54,6 +56,7 @@
             </div>
         </div>
     </nav>
+    
     <!-- MODAL PROFIL -->
     <div class="modal fade" id="modal_kontak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -227,6 +230,7 @@
             </div>
         </div>
     </div>
+    
     <!-- RIWAYAT -->
     <div class="container">
         <div class="container mt-3 mb-4 wp-r">
@@ -244,6 +248,7 @@
                                             <th scope="col">Nama Tamu</th>
                                             <th scope="col">Tujuan</th>
                                             <th scope="col">Tanggal/Jam</th>
+                                            <th scope="col">Piket</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tbodyRiwayat">
@@ -298,6 +303,12 @@
                                                         <p id="detailTujuanTamu"></p>
                                                     </div>
                                                 </div>
+                                                <div class="mb-2 row">
+                                                    <label class="col-sm-4 col-form-label fw-bold">Piket</label>
+                                                    <div class="col-sm-8">
+                                                        <p id="detailPiketTamu"></p>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                         </div>
@@ -313,13 +324,15 @@
             </div>
         </div>
     </div>
-    <!-- ISI SELESAI -->
+
+    <!-- FOOTER -->
     <footer class="footer mt-auto py-3 gradient-brand-color">
         <div class="text-center">
             <small><i class="text-light"><a href="#" class="text-light">SIPTADIK - Sistem Informasi Tamu</a> | &copy; 2021</i>
             </small>
         </div>
     </footer>
+
     <script src="js/main.js"></script>
     <script>
         $('#navToggle').click(function() {
@@ -493,6 +506,7 @@
             $('#detailInstansiTamu').text(dataMentah().dataTamu[index][3])
             $('#detailBidangTujuanTamu').text(initJabatan(dataMentah().dataPjb[1], dataMentah().dataPjb[2]))
             $('#detailTujuanTamu').text(dataMentah().dataTamu[index][7])
+            $('#detailPiketTamu').text(dataMentah().dataTamu[index][9])
 
             modalDetailTamu.show()
 
@@ -544,6 +558,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>

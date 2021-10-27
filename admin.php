@@ -84,7 +84,7 @@ $data = array_slice($data, $offset, $limit);
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" name="ubahSlide" disabled>Simpan</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 				</div>
 			</form>
 		</div>
@@ -210,7 +210,7 @@ $data = array_slice($data, $offset, $limit);
 				</div>
 				<div class="modal-footer">
 					<button type="submit" name="tambahPejabat" class="btn btn-primary">Simpan</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 				</div>
 			</form>
 		</div>
@@ -231,9 +231,12 @@ $data = array_slice($data, $offset, $limit);
 						<table class="table td-vmiddle">
 							<thead>
 								<tr>
-									<th width="10%">#</th>
-									<th width="35%"><i>Username</i></th>
-									<th width="35%"><i>Password</i> <i>(Hanya Edit)</i></th>
+									<th width="5%">#</th>
+									<th width="20%"><i>Username</i></th>
+									<th width="20%"><i>Password</i> <i>(Hanya Edit)</i></th>
+									<th width="10%">Foto</th>
+									<th width="15%">Register</th>
+									<th width="10%">ANJAB</th>
 									<th width="20%">Pilihan</th>
 								</tr>
 							</thead>
@@ -261,6 +264,14 @@ $data = array_slice($data, $offset, $limit);
 												<input name="pass<?= $num - 1 ?>" type="password" class="form-control piket_p_current" value="<?= $value[1] ?>" readonly placeholder="Kata sandi">
 											</td>
 											<td>
+												<label for="piket_foto">
+													<span class="btn btn-sm btn-secondary">Foto</span>
+												</label>
+												<input type="file" name="piket_foto" id="piket_foto" class="form-control d-none" accept=".png,.jpg,.jpeg" required>
+											</td>
+											<td><input type="text" name="piket_register" id="piket_register" class="form-control" required></td>
+											<td><input type="text" name="piket_anjab" id="piket_anjab" class="form-control" required></td>
+											<td>
 												<button class="btn btn-primary piket_btn_edit" type="button">
 													<i class="bi bi-pencil-square ikon_piket_btn_current"></i>
 												</button>
@@ -279,9 +290,9 @@ $data = array_slice($data, $offset, $limit);
 								<tr id="rowInputTambahPiket">
 									<td>Tambah</td>
 									<!-- name="tambah_username_piket"     name="tambah_password_piket"-->
-									<td><input id='tambahUsernamePiket' type="text" class="form-control"></td>
-									<td><input id='tambahPasswordPiket' type="text" class="form-control"></td>
-									<td>
+									<td colspan="2"><input id='tambahUsernamePiket' type="text" class="form-control" placeholder="Username"></td>
+									<td colspan="2"><input id='tambahPasswordPiket' type="text" class="form-control" placeholder="Password"></td>
+									<td colspan="2">
 										<button id="tblTambahPiket" type="button" class="col-5 btn btn-success tambahInput" disabled><i class="bi bi-plus-lg"></i></button>
 									</td>
 								</tr>
@@ -293,7 +304,7 @@ $data = array_slice($data, $offset, $limit);
 				</div>
 				<div class="modal-footer">
 					<button type="submit" name="tambahPiket" class="btn btn-primary" disabled>Simpan</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 				</div>
 			</form>
 		</div>
@@ -358,7 +369,7 @@ $data = array_slice($data, $offset, $limit);
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Simpan</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 				</div>
 			</form>
 		</div>
@@ -440,7 +451,7 @@ $data = array_slice($data, $offset, $limit);
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Simpan</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 				</div>
 			</form>
 		</div>
@@ -484,10 +495,10 @@ $data = array_slice($data, $offset, $limit);
 									<tr class="row_input_jabatan">
 										<th><?= $num ?></th>
 										<td>
-											<input name="<?= $id_j?>" type="text" class="form-control inputCurrentJabatan" value="<?= $nama_j ?>" required readonly>
+											<input name="<?= $id_j ?>" type="text" class="form-control inputCurrentJabatan" value="<?= $nama_j ?>" required readonly>
 										</td>
 										<td>
-											<button type="button" class="btn btn-primary col-5 btnEditJabatan" >
+											<button type="button" class="btn btn-primary col-5 btnEditJabatan">
 												<i class="bi bi-pencil-square ikon_tombol_e_jabatan"></i>
 											</button>
 											<button type="button" class="btn btn-danger col-5 btnHapusJabatan"><i class="bi bi-trash"></i></button>
@@ -515,7 +526,7 @@ $data = array_slice($data, $offset, $limit);
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Simpan</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 				</div>
 			</form>
 		</div>
@@ -983,14 +994,14 @@ $data = array_slice($data, $offset, $limit);
 			};
 		}
 	}
-	
+
 
 	hapusRow('.btnHapusJabatan', '.row_input_jabatan');
 
 	$('#inputTambahJabatan').keyup(function() {
-		if($('#inputTambahJabatan').val() !== ""){
+		if ($('#inputTambahJabatan').val() !== "") {
 			$('#tblTambahJabatan').prop('disabled', false)
-		}else{
+		} else {
 			$('#tblTambahJabatan').prop('disabled', true)
 		}
 	})
@@ -1024,7 +1035,7 @@ $data = array_slice($data, $offset, $limit);
 
 	$('#formTambahJabatan').submit(function(e) {
 		// let listJabatanKosong = JSON.parse(localStorage.getItem('listJabatanKosong'));
-		
+
 		let dataJabatan = new URLSearchParams('tambahJabatan=')
 		// let jsonJabatanModal = Object.fromEntries(new FormData($('#formTambahJabatan')[0])); //json dgn key dari name form
 
@@ -1050,6 +1061,26 @@ $data = array_slice($data, $offset, $limit);
 	// TAMBAH PIKET
 	let modalPiket = $('#modal_tambah_piket')[0];
 
+	// function templatePiket(index, valueUser, valuePass) {
+	// 	return `<tr class="barisCurrentPiket">
+	// 				<th>${index}</th>
+	// 				<td>
+	// 					<input name="username${index}" type="text" class="form-control piket_u_current" value="${valueUser}" readonly>
+	// 				</td>
+	// 				<td>
+	// 					<input name="pass${index}" type="password" class="form-control piket_p_current" value="${valuePass}" readonly placeholder="Kata sandi">
+	// 				</td>
+	// 				<td>
+	// 					<button class="btn btn-primary piket_btn_edit" type="button">
+	// 						<i class="bi bi-pencil-square ikon_piket_btn_current"></i>
+	// 					</button>
+	// 					<button type="button" class="btn btn-danger piket_btn_hapus">
+	// 						<i class="bi bi-trash"></i>
+	// 					</button>
+	// 				</td>
+	// 			</tr>`
+	// }
+
 	function templatePiket(index, valueUser, valuePass) {
 		return `<tr class="barisCurrentPiket">
 					<th>${index}</th>
@@ -1059,6 +1090,14 @@ $data = array_slice($data, $offset, $limit);
 					<td>
 						<input name="pass${index}" type="password" class="form-control piket_p_current" value="${valuePass}" readonly placeholder="Kata sandi">
 					</td>
+					<td>
+						<label for="piket_foto">
+							<span class="btn btn-sm btn-secondary">Foto</span>
+						</label>
+							<input type="file" name="piket_foto" id="piket_foto" class="form-control d-none" accept=".png,.jpg,.jpeg" required>
+					</td>
+					<td><input type="text" name="piket_register" id="piket_register" class="form-control" required></td>
+					<td><input type="text" name="piket_anjab" id="piket_anjab" class="form-control" required></td>
 					<td>
 						<button class="btn btn-primary piket_btn_edit" type="button">
 							<i class="bi bi-pencil-square ikon_piket_btn_current"></i>

@@ -7,16 +7,17 @@ $slide = $_SESSION['data']['slide'][0];
 // print_r($slide);
 ?>
 
-<!-- ISI MULAI -->
 <main class="container">
 	<div class="row">
+
+		<!-- LEFT SIDE -->
 		<div class="col-md-7 p-4">
 
 			<div class="row mb-5">
 				<img src="./img/Logo ProvSulSel.png" width="200px" style="width:30%;display:block;margin:0 auto;">
 			</div>
 
-			<!-- SLIDER START HERE -->
+			<!-- SLIDER -->
 			<div class="row">
 				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 					<div class="carousel-indicators">
@@ -32,11 +33,11 @@ $slide = $_SESSION['data']['slide'][0];
 						foreach ($slide as $value) {
 							if ($value <> "") {
 						?>
-								<div class="carousel-item <?=$n == 1 ? "active" : ""?>">
+								<div class="carousel-item <?= $n == 1 ? "active" : "" ?>">
 									<img src="<?= $value ?>" class="d-block w-100" alt="Gambar 1">
 								</div>
 						<?php
-							$n++;
+								$n++;
 							}
 						}
 						?>
@@ -51,14 +52,14 @@ $slide = $_SESSION['data']['slide'][0];
 					</button>
 				</div>
 			</div>
-			<!-- SLIDER END HERE -->
 
 		</div>
 
+		<!-- RIGHT SIDE -->
 		<div class="col-md-5 bg-light p-4" style="box-shadow: 15px 0px 15px -4px rgb(0 0 0 / 23%), -13px 0 8px -4px rgb(0 0 0 / 23%)">
 
+			<!-- INPUT TAMU -->
 			<h2 class="mb-4">Informasi Pengunjung</h2>
-			<!-- method="POST" action="proses.php" enctype="multipart/form-data" name="formTamu" id="formTamu" -->
 			<form id="formTamu" autocomplete="off">
 				<div class="mb-3">
 					<label for="nama" class="form-label">Nama</label>
@@ -129,47 +130,148 @@ $slide = $_SESSION['data']['slide'][0];
 					<!-- type="submit" name="kirimTamu" id="kirimTamu"-->
 				</div>
 			</form>
-			<!-- MODAL KAMERA START -->
-			<div class="modal" tabindex="-1" id="modal-kamera">
-				<div class="modal-dialog modal-md">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">Ambil gambar</h5>
-							<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-						</div>
 
-						<div class="modal-body">
-							<div class="camera">
-								<section class="row">
-									<section class="col text-center">
-										<section>
-											<video id="video" style="display: inline">Video stream not
-												available.</video>
-											<canvas id="canvas" style="display: none">
-											</canvas>
-										</section>
-									</section>
-								</section>
-								<section class="row">
-									<section class="col text-center">
-										<button id="startbutton" class="btn btn-success mt-2">Take</button>
-									</section>
-								</section>
-							</div>
-						</div>
-
-						<div class="modal-footer">
-							<button class="btn btn-secondary" data-bs-dismiss="modal" id="tutupKamera">Tutup</button>
-							<button class="btn btn-primary" data-bs-dismiss="modal" id="simpan" disabled>Simpan</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- MODAL KAMERA END -->
 		</div>
 	</div>
 </main>
-<!-- ISI SELESAI -->
+
+<!-- MODAL PIKET TAKE PICTURE -->
+<div class="modal fade" id="absen-piket" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header bg-warning">
+				<h5 class="modal-title" >Absen Piket</h5>
+			</div>
+			<div class="modal-body">
+				<!-- ISI MODAL START HERE -->
+				<div class="camera">
+					<section class="row">
+						<section class="col text-center">
+							<section>
+								<video id="video" style="display: inline">Video stream not
+									available.</video>
+								<canvas id="canvas" style="display: none">
+								</canvas>
+							</section>
+						</section>
+					</section>
+					<section class="row">
+						<section class="col text-center">
+							<button id="startbutton" class="btn btn-success mt-2">Ambil</button>
+						</section>
+					</section>
+				</div>
+				<!-- ISI MODAL END HERE -->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL KARTU PENGUNJUNG -->
+<div class="modal fade" id="kartu-pengunjung" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header bg-warning">
+				<h5 class="modal-title">Kartu Pengunjung: Nama Tamu</h5>
+			</div>
+			<div class="modal-body">
+				<!-- ISI MODAL START HERE -->
+				<div class="d-flex flex-column align-items-center text-center pb-4 pt-2">
+					<div class="detail-content-loader tunggu rounded-circle">
+						<img id="detailFotoTamu" src="/img/p.webp" alt="Foto Tamu" class="rounded-circle" width="150" height="150" style="object-fit: cover;">
+					</div>
+				</div>
+				<table class="table table-striped">
+					<tr>
+						<th width="40%">Nama</th>
+						<td width="1%">:</td>
+						<th width="59%">Nama Tamu</th>
+					</tr>
+					<tr>
+						<th>NIP</th>
+						<td>:</td>
+						<td>123456</td>
+					</tr>
+					<tr>
+						<th>Instansi</th>
+						<td>:</td>
+						<td>Instansi Tamu</td>
+					</tr>
+					<tr>
+						<th>Bidang Tujuan</th>
+						<td>:</td>
+						<td>Bidang Tujuan Tamu</td>
+					</tr>
+					<tr>
+						<th>Sub-Bidang Tujuan</th>
+						<td>:</td>
+						<td>Sub-Bidang Tujuan Tamu</td>
+					</tr>
+					<tr>
+						<th>Jabatan Tujuan</th>
+						<td>:</td>
+						<td>Jabatan Tujuan Tamu</td>
+					</tr>
+					<tr>
+						<th>Tujuan</th>
+						<td>:</td>
+						<td>Tujuan Tamu</td>
+					</tr>
+				</table>
+				<!-- ISI MODAL END HERE -->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	// ****************************** PERCOBAAN PANGIL MODAL ****************************** //
+	// HAPUS MI NANTI INI, PERCOBAAN JI
+	let modalKu = new bootstrap.Modal(document.getElementById('kartu-pengunjung'))
+	modalKu.show()
+	// ****************************** PERCOBAAN PANGIL MODAL ****************************** //
+</script>
+
+<!-- MODAL KAMERA -->
+<div class="modal" tabindex="-1" id="modal-kamera">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Ambil gambar</h5>
+			</div>
+
+			<div class="modal-body">
+				<div class="camera">
+					<section class="row">
+						<section class="col text-center">
+							<section>
+								<video id="video" style="display: inline">Video stream not
+									available.</video>
+								<canvas id="canvas" style="display: none">
+								</canvas>
+							</section>
+						</section>
+					</section>
+					<section class="row">
+						<section class="col text-center">
+							<button id="startbutton" class="btn btn-success mt-2">Ambil</button>
+						</section>
+					</section>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-bs-dismiss="modal" id="tutupKamera">Tutup</button>
+				<button class="btn btn-primary" data-bs-dismiss="modal" id="simpan" disabled>Simpan</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script>
 	let foto = document.getElementById('foto');
