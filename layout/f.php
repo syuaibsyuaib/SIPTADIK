@@ -120,6 +120,7 @@ function masuk($pengguna, $sandi)
             exit;
         }
     } else {
+        print_r("username/password salah");
         pindahko("/");
         exit;
     }

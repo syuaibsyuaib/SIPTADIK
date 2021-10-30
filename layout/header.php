@@ -80,6 +80,7 @@ function convert_bidang($kodebidang)
     <script type="text/javascript" src="assets/DateTime-1.1.1/js/dataTables.dateTime.min.js"></script>
     <script type="text/javascript" src="assets/SearchPanes-1.4.0/js/dataTables.searchPanes.min.js"></script>
     <script type="text/javascript" src="assets/SearchPanes-1.4.0/js/searchPanes.bootstrap5.min.js"></script>
+    <script src="https://github.com/justadudewhohacks/face-api.js/blob/master/dist/face-api.min.js"></script>
     <title><?= $title ?? "Halaman" ?> | <?= JUDUL ?></title>
     <script>
         $(document).ready(function() {
