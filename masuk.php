@@ -28,13 +28,26 @@ if (isset($_GET['logout'])) {
 	<title>SIPTADIK | Masuk</title>
 
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
 	<!-- Custom styles for this template -->
 	<link href="assets/css/login.css" rel="stylesheet">
 </head>
 
 <body class="text-center">
-
+	<!-- MODAL LOADING -->
+	<div class="modal" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_loading_label" aria-hidden="true" style="z-index: 1057;">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content" style="background: none; border: none;">
+				<div class="modal-body" id="modal_loading_label">
+					<div class="d-flex justify-content-center">
+						<div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
+							<span class="visually-hidden">Loading...</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<?php
 	if (isset($_SESSION['temp'])) {
 	?>
@@ -69,7 +82,7 @@ if (isset($_GET['logout'])) {
 								<label for="inputsandi">Kata Sandi</label>
 							</div>
 
-							<button class="btn btn-lg btn-primary rounded-pill mt-4" type="submit" name="masuk">Masuk</button>
+							<button id="login" class="btn btn-lg btn-primary rounded-pill mt-4" type="submit" name="masuk">Masuk</button>
 						</form>
 					</div>
 				</div>
@@ -97,7 +110,12 @@ if (isset($_GET['logout'])) {
 		</form>
 	</main> -->
 	<script>
-		localStorage.clear()
+		localStorage.clear();
+		let login = document.getElementById("login")
+		login.addEventListener('click', () => {
+			let myModalLoading = new bootstrap.Modal(document.getElementById('modalLoading'));
+			myModalLoading.show();
+		})
 	</script>
 </body>
 
