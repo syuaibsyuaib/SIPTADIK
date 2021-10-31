@@ -29,6 +29,7 @@ if (isset($_GET['logout'])) {
 
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="https://github.com/justadudewhohacks/face-api.js/blob/master/dist/face-api.js"></script>
 	<!-- Custom styles for this template -->
 	<link href="assets/css/login.css" rel="stylesheet">
 </head>
