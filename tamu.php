@@ -41,10 +41,20 @@ $slide = $_SESSION['data']['slide'][0];
 	.menu-tamu.collapsed {
 		left: 0;
 	}
+
+	.nav-link {
+		cursor: pointer;
+		transition: .25s all ease;
+	}
+
+	.nav-link:hover {
+		background: #e4e4e4;
+	}
 </style>
 
 <main class="container">
 
+	<!-- TOMBOL MENU -->
 	<div class="menu-tamu collapsed" data-bs-target="#sidebar" data-bs-toggle="collapse" title="Tampilkan Bilah Menu">
 		<div class="btn btn-warning shadow">
 			<i class="bi bi-list me-2"></i> Menu
@@ -59,6 +69,16 @@ $slide = $_SESSION['data']['slide'][0];
 			</a>
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
+				<li>
+					<span class="nav-link link-dark" onclick="detailPiket()">
+						<i class="bi bi-person-circle me-2"></i> Profil
+					</span>
+				</li>
+				<li>
+					<span class="nav-link link-dark" data-bs-toggle="modal" data-bs-target="#absen-piket">
+						<i class="bi bi-person-bounding-box me-2"></i> Absen
+					</span>
+				</li>
 				<li class="nav-item">
 					<span class="nav-link link-dark" data-bs-toggle="modal" data-bs-target="#modal_kontak">
 						<i class="bi bi-telephone me-2"></i> Kontak
@@ -73,8 +93,8 @@ $slide = $_SESSION['data']['slide'][0];
 		</div>
 	</div>
 
+	<!-- ISI UTAMA -->
 	<div class="row">
-
 		<!-- LEFT SIDE -->
 		<div class="col-md-7 p-4">
 
@@ -297,8 +317,8 @@ $slide = $_SESSION['data']['slide'][0];
 <script>
 	// ****************************** PERCOBAAN PANGIL MODAL ****************************** //
 	// HAPUS MI NANTI INI, PERCOBAAN JI
-	let modalKu = new bootstrap.Modal(document.getElementById('kartu-pengunjung'))
-	modalKu.show()
+	// let modalKu = new bootstrap.Modal(document.getElementById('kartu-pengunjung'))
+	// modalKu.show()
 	// ****************************** PERCOBAAN PANGIL MODAL ****************************** //
 </script>
 

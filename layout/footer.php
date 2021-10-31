@@ -63,6 +63,7 @@
         } 
     }
     
+    // nantinya bisa diberi parameter "namaPiket" di fungsi ini untuk menampilkan detail nama piket yang dimaksud
     function detailPiket() {
         let modalKu = new bootstrap.Modal(document.getElementById('detail-piket'))
         modalKu.show()
