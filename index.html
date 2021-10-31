@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/currency.js@2.0.4/dist/currency.min.js"></script>
+    <style>
+        td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        tr {
+            height: 40px;
+        }
+
+        input,
+        select {
+            height: 50px;
+            border: none;
+            outline: none;
+            width: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td style="width: 180px;">TANGGAL</td>
+            <td style="width: 180px;"><input type="date"></td>
+        </tr>
+        <tr>
+            <td>SUBBIDANG</td>
+            <td>
+                <select>
+                    <option>Subbidang 1</option>
+                    <option>Subbidang 2</option>
+                    <option>Subbidang 3</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Harga</td>
+            <td><input id="harga" type="text"></td>
+        </tr>
+    </table>
+    <script>
+        let harga = document.getElementById('harga')
+        
+        harga.addEventListener('change', (e) => {
+            let hargaoke = currency(e.target.value, { separator: '.',decimal: ',' , symbol: 'Rp. '}).format();
+            harga.value = hargaoke;
+        })
+    </script>
+</body>
+
+</html>

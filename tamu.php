@@ -79,7 +79,7 @@ $slide = $_SESSION['data']['slide'][0];
 		<div class="col-md-7 p-4">
 
 			<div class="row mb-5">
-				<img src="./img/Logo ProvSulSel.png" width="200px" style="width:30%;display:block;margin:0 auto;">
+				<img src="./img/Logo ProvSulSel.png" width="200px" style="width:20%;display:block;margin:0 auto;">
 			</div>
 
 			<!-- SLIDER -->
@@ -427,6 +427,7 @@ $slide = $_SESSION['data']['slide'][0];
 
 
 	startbutton.addEventListener('click', function(ev) {
+		alert('tes')
 		takepicture();
 		ev.preventDefault();
 	}, false);
