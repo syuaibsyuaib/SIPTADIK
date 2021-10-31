@@ -7,7 +7,67 @@ $slide = $_SESSION['data']['slide'][0];
 // print_r($slide);
 ?>
 
+<style>
+	#sidebar {
+		position: fixed;
+		left: 0;
+		top: 0;
+		height: 100%;
+		z-index: 1;
+	}
+
+	.navbar {
+		display: none;
+	}
+
+	footer {
+		background-color: transparent !important;
+		color: #fff;
+	}
+
+	footer .text-dark {
+		color: #fff !important;
+	}
+
+	.menu-tamu {
+		display: block;
+		position: fixed;
+		top: 0;
+		right: 0;
+		margin: 1rem;
+	}
+</style>
+
 <main class="container">
+
+	<div class="menu-tamu" data-bs-target="#sidebar" data-bs-toggle="collapse" title="Tampilkan Bilah Menu">
+		<div class="btn btn-warning shadow">
+			<i class="bi bi-list me-2"></i> Menu
+		</div>
+	</div>
+
+	<!-- SIDEBAR -->
+	<div id="sidebar" class="collapse collapse-horizontal">
+		<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height: 100%">
+			<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+				<img class="d-inline-block align-middle me-1" src="./img/title.png" alt="" width="20" height="20"> <b class="d-inline-block align-middle"><?= JUDUL ?></b>
+			</a>
+			<hr>
+			<ul class="nav nav-pills flex-column mb-auto">
+				<li class="nav-item">
+					<span class="nav-link link-dark" data-bs-toggle="modal" data-bs-target="#modal_kontak">
+						<i class="bi bi-telephone me-2"></i> Kontak
+					</span>
+				</li>
+				<li>
+					<span class="nav-link link-danger">
+						<i class="bi bi-power me-2"></i> Keluar
+					</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
 	<div class="row">
 
 		<!-- LEFT SIDE -->
@@ -59,7 +119,7 @@ $slide = $_SESSION['data']['slide'][0];
 		<div class="col-md-5 bg-light p-4" style="box-shadow: 15px 0px 15px -4px rgb(0 0 0 / 23%), -13px 0 8px -4px rgb(0 0 0 / 23%)">
 
 			<!-- INPUT TAMU -->
-			<h2 class="mb-4">Informasi Pengunjung</h2>
+			<h2 class="mb-4" data-bs-target="#sidebar" data-bs-toggle="collapse">Informasi Pengunjung</h2>
 			<form id="formTamu" autocomplete="off">
 				<div class="mb-3">
 					<label for="nama" class="form-label">Nama</label>
@@ -140,7 +200,7 @@ $slide = $_SESSION['data']['slide'][0];
 	<div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header bg-warning">
-				<h5 class="modal-title" >Absen Piket</h5>
+				<h5 class="modal-title">Absen Piket</h5>
 			</div>
 			<div class="modal-body">
 				<!-- ISI MODAL START HERE -->
