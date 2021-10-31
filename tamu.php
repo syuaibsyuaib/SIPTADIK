@@ -33,14 +33,19 @@ $slide = $_SESSION['data']['slide'][0];
 		display: block;
 		position: fixed;
 		top: 0;
-		right: 0;
+		left: 280px;
 		margin: 1rem;
+		transition: .25s all ease;
+	}
+
+	.menu-tamu.collapsed {
+		left: 0;
 	}
 </style>
 
 <main class="container">
 
-	<div class="menu-tamu" data-bs-target="#sidebar" data-bs-toggle="collapse" title="Tampilkan Bilah Menu">
+	<div class="menu-tamu collapsed" data-bs-target="#sidebar" data-bs-toggle="collapse" title="Tampilkan Bilah Menu">
 		<div class="btn btn-warning shadow">
 			<i class="bi bi-list me-2"></i> Menu
 		</div>
