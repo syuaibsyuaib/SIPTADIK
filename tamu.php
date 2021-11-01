@@ -216,6 +216,42 @@ $slide = $_SESSION['data']['slide'][0];
 				</div>
 			</form>
 
+			<!-- MODAL KAMERA -->
+			<div class="modal" tabindex="-1" id="modal-kamera">
+				<div class="modal-dialog modal-md">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Ambil gambar</h5>
+						</div>
+
+						<div class="modal-body">
+							<div class="camera">
+								<section class="row">
+									<section class="col text-center">
+										<section>
+											<video id="video" style="display: inline">Video stream not
+												available.</video>
+											<canvas id="canvas" style="display: none">
+											</canvas>
+										</section>
+									</section>
+								</section>
+								<section class="row">
+									<section class="col text-center">
+										<button id="startbutton" class="btn btn-success mt-2">Ambil</button>
+									</section>
+								</section>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<button class="btn btn-secondary" data-bs-dismiss="modal" id="tutupKamera">Tutup</button>
+							<button class="btn btn-primary" data-bs-dismiss="modal" id="simpan" disabled>Simpan</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </main>
@@ -314,49 +350,6 @@ $slide = $_SESSION['data']['slide'][0];
 		</div>
 	</div>
 </div>
-<script>
-	// ****************************** PERCOBAAN PANGIL MODAL ****************************** //
-	// HAPUS MI NANTI INI, PERCOBAAN JI
-	// let modalKu = new bootstrap.Modal(document.getElementById('kartu-pengunjung'))
-	// modalKu.show()
-	// ****************************** PERCOBAAN PANGIL MODAL ****************************** //
-</script>
-
-<!-- MODAL KAMERA -->
-<div class="modal" tabindex="-1" id="modal-kamera">
-	<div class="modal-dialog modal-md">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Ambil gambar</h5>
-			</div>
-
-			<div class="modal-body">
-				<div class="camera">
-					<section class="row">
-						<section class="col text-center">
-							<section>
-								<video id="video" style="display: inline">Video stream not
-									available.</video>
-								<canvas id="canvas" style="display: none">
-								</canvas>
-							</section>
-						</section>
-					</section>
-					<section class="row">
-						<section class="col text-center">
-							<button id="startbutton" class="btn btn-success mt-2">Ambil</button>
-						</section>
-					</section>
-				</div>
-			</div>
-
-			<div class="modal-footer">
-				<button class="btn btn-secondary" data-bs-dismiss="modal" id="tutupKamera">Tutup</button>
-				<button class="btn btn-primary" data-bs-dismiss="modal" id="simpan" disabled>Simpan</button>
-			</div>
-		</div>
-	</div>
-</div>
 
 <script>
 	let foto = document.getElementById('foto');
@@ -447,7 +440,6 @@ $slide = $_SESSION['data']['slide'][0];
 
 
 	startbutton.addEventListener('click', function(ev) {
-		alert('tes')
 		takepicture();
 		ev.preventDefault();
 	}, false);
