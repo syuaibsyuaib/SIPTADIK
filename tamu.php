@@ -32,6 +32,7 @@ $slide = $_SESSION['data']['slide'][0];
 	.menu-tamu {
 		display: block;
 		position: fixed;
+		z-index: 9999;
 		top: 0;
 		left: 280px;
 		margin: 1rem;
