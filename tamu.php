@@ -6,7 +6,8 @@ $dataBidang = $_SESSION['data']['dataBidang'];
 $slide = $_SESSION['data']['slide'][0];
 // print_r($slide);
 ?>
-
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 <style>
 	#sidebar {
 		position: fixed;
@@ -76,7 +77,7 @@ $slide = $_SESSION['data']['slide'][0];
 					</span>
 				</li>
 				<li>
-					<span class="nav-link link-dark" data-bs-toggle="modal" data-bs-target="#absen-piket">
+					<span class="nav-link link-dark" data-bs-toggle="modal" data-bs-target="#absen_piket">
 						<i class="bi bi-person-bounding-box me-2"></i> Absen
 					</span>
 				</li>
@@ -258,7 +259,7 @@ $slide = $_SESSION['data']['slide'][0];
 </main>
 
 <!-- MODAL PIKET TAKE PICTURE -->
-<div class="modal fade" id="absen-piket" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="absen_piket" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header bg-warning">
@@ -269,17 +270,17 @@ $slide = $_SESSION['data']['slide'][0];
 				<div class="camera">
 					<section class="row">
 						<section class="col text-center">
-							<section>
-								<video id="video" style="display: inline">Video stream not
+							<section id="video_piket" style="height: 300; width: 300; border: 1px solid grey; margin: auto">
+								<!-- <video id="video_piket" style="display: inline">Video stream not
 									available.</video>
 								<canvas id="canvas" style="display: none">
-								</canvas>
+								</canvas> -->
 							</section>
 						</section>
 					</section>
 					<section class="row">
 						<section class="col text-center">
-							<button id="startbutton" class="btn btn-success mt-2">Ambil</button>
+							<button id="take_picture_piket" class="btn btn-success mt-2">Ambil</button>
 						</section>
 					</section>
 				</div>
@@ -293,7 +294,7 @@ $slide = $_SESSION['data']['slide'][0];
 </div>
 
 <!-- MODAL KARTU PENGUNJUNG -->
-<div class="modal fade" id="kartu-pengunjung" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kartu_pengunjung" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header bg-warning">
@@ -303,7 +304,7 @@ $slide = $_SESSION['data']['slide'][0];
 				<!-- ISI MODAL START HERE -->
 				<div class="d-flex flex-column align-items-center text-center pb-4 pt-2">
 					<div class="detail-content-loader tunggu rounded-circle">
-						<img id="detailFotoTamu" src="/img/p.webp" alt="Foto Tamu" class="rounded-circle" width="150" height="150" style="object-fit: cover;">
+						<img id="detail_foto_tamu" src="/img/p.webp" alt="Foto Tamu" class="rounded-circle" width="150" height="150" style="object-fit: cover;">
 					</div>
 				</div>
 				<table class="table table-striped">
@@ -369,6 +370,90 @@ $slide = $_SESSION['data']['slide'][0];
 			tanya_simpan('Perhatian', 'Yakin akan simpan?', data);
 		}
 	});
+
+
+	/// ABSEN PIKET /////==============================================
+
+	const URL = "./my_model/";
+
+	let model, webcam, labelContainer, maxPredictions;
+
+	// Load the image model and setup the webcam
+	async function init() {
+		const modelURL = URL + "model.json";
+		const metadataURL = URL + "metadata.json";
+
+		// load the model and metadata
+		// Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+		// or files from your local hard drive
+		// Note: the pose library adds "tmImage" object to your window (window.tmImage)
+		model = await tmImage.load(modelURL, metadataURL);
+		maxPredictions = model.getTotalClasses();
+
+		// Convenience function to setup a webcam
+		const flip = true; // whether to flip the webcam
+		webcam = new tmImage.Webcam(300, 300, flip); // width, height, flip
+		await webcam.setup(); // request access to the webcam
+		await webcam.play();
+		window.requestAnimationFrame(loop);
+
+		// append elements to the DOM
+		document.getElementById("video_piket").appendChild(webcam.canvas);
+		labelContainer = document.getElementById("label-container");
+		// for (let i = 0; i < maxPredictions; i++) { // and class labels
+		// 	labelContainer.appendChild(document.createElement("div"));
+		// }
+	}
+
+	async function loop() {
+		webcam.update(); // update the webcam frame
+		await predict();
+		window.requestAnimationFrame(loop);
+	}
+
+	// run the webcam image through the image model
+	async function predict() {
+		// predict can take in an image, video or canvas html element
+		const prediction = await model.predict(webcam.canvas); //AMBIL className DAN probability
+		// console.log(prediction)
+		for (let i = 0; i < maxPredictions; i++) {
+			const namaPrediksi = prediction[i].className;
+			const skor = prediction[i].probability.toFixed(2);
+			if (namaPrediksi == 'dot' && skor == 1) {
+				alert('kamu dot');
+				break;
+			}
+			// labelContainer.childNodes[i].innerHTML = classPrediction;
+		}
+	}
+
+
+	$('#absen_piket').on('show.bs.modal', function() {
+		// StartKamera('#video_piket')
+		init()
+	})
+
+	$('#absen_piket').on('hide.bs.modal', function() {
+		webcam.stop()
+		$('#video_piket').html("")
+	})
+
+	// function StartKamera(idVid) {
+	// 	navigator.getUserMedia({
+	// 		video: true
+	// 	}, (res) => {
+	// 		$(`${idVid}`)[0].srcObject = res
+	// 		$(`${idVid}`)[0].play()
+	// 	}, (err) => {
+	// 		console.error(err)
+	// 	})
+	// }
+
+	// function StopKamera(idVid) {
+	// 	let vidStream = $(`${idVid}`)[0].srcObject
+	// 	let vidTracks = vidStream.getTracks()
+	// 	vidTracks[0].stop()
+	// }
 
 	/////// CAMERA ////////=================================================================================
 	let streaming = false;
