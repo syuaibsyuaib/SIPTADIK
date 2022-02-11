@@ -5,19 +5,53 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
   <title>Document</title>
 </head>
 
 <body>
-
+  <section class="mt-5">
+    <form class="mx-auto p-4 bg-success rounded" style="max-width: 300px; --bs-bg-opacity: .5" id="form_kirim">
+      <div class="mb-3">
+        <select id="bidang" class="form-select">
+          <option value="umum">Umum</option>
+          <option value="dikdas">Dikdas</option>
+          <option value="paud">Paud</option>
+          <option value="kebudayaan">Kebudayaan</option>
+          <option value="mutu">PMGTK</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <select id="jabatan" class="form-select">
+          <option value="kepala">Kepala</option>
+          <option value="pengelola">Pengelola</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <input type="text" name="" id="nama" class="form-control">
+      </div>
+      <div class="mb-3">
+        <input type="number" name="" id="nip" class="form-control">
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-primary" id="kirim">Kirim</button>
+      </div>
+    </form>
+  </section>
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-analytics.js";
-    import { getFirestore, doc, collection, getDoc, getDocs, addDoc, setDoc, updateDoc, deleteDoc, deleteField } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-firestore.js";
+    import { getFirestore, doc, collection, getDoc, getDocs, addDoc, setDoc, updateDoc, deleteDoc, deleteField, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-firestore.js";
 
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
+
+    //https://firebase.google.com/docs/firestore/manage-data/add-data#set_a_document
 
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -30,6 +64,28 @@
       appId: "1:105240806596:web:7fef84675a1c8fa8237591",
       measurementId: "G-B6ZRV1Z2YF"
     };
+
+    /*
+    1. To create or overwrite a single document, use the set() method:
+        If the document does not exist, it will be created. If the document does exist, its contents will be overwritten with the newly provided data, unless you specify that the data should be merged into the existing document,
+    
+    2. When you use set() to create a document, you must specify an ID for the document to create.
+        let Cloud Firestore auto-generate an ID for you. You can do this by calling add()
+
+    3. To update some fields of a document without overwriting the entire document, use the update() method
+
+    4. You can set a field in your document to a server timestamp which tracks when the server receives the update.
+        When updating multiple timestamp fields inside of a transaction, each field receives the same server timestamp value.
+
+    5. If your document contains nested objects, you can use "dot notation" to reference nested fields within the document when you call update():
+        // To update age and favorite color:
+        await updateDoc(frankDocRef, {
+          "age": 13,
+          "favorites.color": "Red"
+        });
+    
+    6. 
+    */
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
@@ -45,7 +101,15 @@
       return hasilList;
     }
 
-    getPiket(db).then(res => console.log(res))
+    let formKirim = document.getElementById('form_kirim');
+
+    TulisAutoId()
+
+    ambilDb(db, "pejabat").then(res => console.log(res))
+
+    formKirim.addEventListener('submit', (e) => {
+      e.preventDefault()
+    })
 
     //================ AUTO ID ==========================================//
     async function TulisAutoId(key, data) { // data => json
@@ -60,7 +124,7 @@
         })
     }
 
-    alert("ID anda : " + isi.id)
+    // alert("ID anda : " + isi.id)
 
     //============== COSTUM ID ===========================================//   
     async function TulisCostumId(key, data, kostumId) { // data => json
@@ -102,8 +166,8 @@
         })
     }
 
-     //============ DELETE DB ===============================================//
-     async function DeleteDb(key, data, unikId) { // data => json
+    //============ DELETE DB ===============================================//
+    async function DeleteDb(key, data, unikId) { // data => json
       const ref = doc(db, key, unikId);
 
       const hasil = await getDoc(ref)
@@ -113,12 +177,12 @@
       }
 
       await deleteDoc(ref)
-      .then(()=> {
-        alert("data berhasil dihapus")
-      })
-      .catch((err) => {
-        alert(err)
-      })
+        .then(() => {
+          alert("data berhasil dihapus")
+        })
+        .catch((err) => {
+          alert(err)
+        })
     }
 
   </script>
