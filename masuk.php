@@ -9,7 +9,13 @@ if (isset($_SESSION['user'])) {
 	} elseif ($_SESSION['role'] == 2) {
 		header("Location: tamu.php");
 	} elseif ($_SESSION['role'] == 3) {
-		header("Location: pejabat.html");
+		// header("Location: pejabat.html");
+		unset($_SESSION['user']);
+		unset($_SESSION['pass']);
+		unset($_SESSION['role']);
+		$_SESSION['temp'] = "Pejabat masuk melalui Phone App!";
+		header("Location: /");
+		exit;
 	}
 }
 if (isset($_GET['logout'])) {
@@ -49,18 +55,6 @@ if (isset($_GET['logout'])) {
 			</div>
 		</div>
 	</div>
-	<?php
-	if (isset($_SESSION['temp'])) {
-	?>
-		<div class="position-absolute" style="top:0">
-			<div class="alert alert-warning mx-auto" role="alert">
-				<?= $_SESSION['temp'] ?>
-			</div>
-		</div>
-	<?php
-		unset($_SESSION['temp']);
-	}
-	?>
 
 	<div class="container">
 		<div class="row">
@@ -73,6 +67,16 @@ if (isset($_GET['logout'])) {
 					<div class="wp-b">
 						<span class="judul">Selamat Datang</span>
 						<span class="subjudul">Silakan masuk terlebih dahulu</span>
+						<?php
+						if (isset($_SESSION['temp'])) {
+						?>
+							<div class="alert alert-warning mx-auto" role="alert">
+								<?= $_SESSION['temp'] ?>
+							</div>
+						<?php
+							unset($_SESSION['temp']);
+						}
+						?>
 						<form method="POST" action="proses.php">
 							<div class="form-floating">
 								<input name="pengguna" type="text" class="form-control" id="inputnama" placeholder="Nama Pengguna" required autofocus>
@@ -91,25 +95,6 @@ if (isset($_GET['logout'])) {
 		</div>
 	</div>
 
-	<!-- <main class="form-signin py-4 px-5 shadow rounded">
-
-		<form method="POST" action="proses.php">
-			<img class="mb-4" src="img/title.png" alt="" width="57" height="57">
-			<h1 class="h3 mb-3 fw-normal">Silakan Masuk</h1>
-
-			<div class="form-floating">
-				<input name="pengguna" type="text" class="form-control" id="inputnama" placeholder="Nama Pengguna" required autofocus>
-				<label for="inputnama">Nama Pengguna</label>
-			</div>
-			<div class="form-floating">
-				<input name="sandi" type="password" class="form-control" id="inputsandi" placeholder="Kata Sandi" required>
-				<label for="inputsandi">Kata Sandi</label>
-			</div>
-
-			<button class="w-100 btn btn-lg btn-primary" type="submit" name="masuk">Masuk</button>
-			<p class="mt-5 mb-3 text-muted">&copy; SIPTADIK</p>
-		</form>
-	</main> -->
 	<script>
 		localStorage.clear();
 		let login = document.getElementById("login")
