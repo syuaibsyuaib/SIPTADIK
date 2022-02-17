@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set("Asia/Makassar");
 setlocale(LC_ALL, 'id_ID');
+session_set_cookie_params(0);
 session_start();
 include "layout/f.php";
 // KONSTANTA
