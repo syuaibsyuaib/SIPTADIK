@@ -15,9 +15,11 @@
 
 <body>
   <section class="mt-5">
-    <form class="mx-auto p-4 bg-success rounded" style="max-width: 300px; --bs-bg-opacity: .5" id="form_kirim">
+    <form class="mx-auto p-4 bg-success rounded text-white" style="max-width: 300px; --bs-bg-opacity: .5"
+      id="form_kirim">
       <div class="mb-3">
-        <select id="bidang" class="form-select">
+        <label for="bidang">Bidang</label>
+        <select id="bidang" class="form-select" name="bidang">
           <option value="umum">Umum</option>
           <option value="dikdas">Dikdas</option>
           <option value="paud">Paud</option>
@@ -26,19 +28,22 @@
         </select>
       </div>
       <div class="mb-3">
-        <select id="jabatan" class="form-select">
+        <label for="jabatan">Jabatan</label>
+        <select id="jabatan" class="form-select" name="jabatan">
           <option value="kepala">Kepala</option>
           <option value="pengelola">Pengelola</option>
         </select>
       </div>
       <div class="mb-3">
-        <input type="text" name="" id="nama" class="form-control">
+        <label for="nama">Nama</label>
+        <input type="text" name="nama" id="nama" class="form-control">
       </div>
       <div class="mb-3">
-        <input type="number" name="" id="nip" class="form-control">
+        <label for="nip">NIP</label>
+        <input type="number" name="nip" id="nip" class="form-control">
       </div>
       <div class="mb-3">
-        <button class="btn btn-primary" id="kirim">Kirim</button>
+        <button type="submit" class="btn btn-primary" id="kirim">Kirim</button>
       </div>
     </form>
   </section>
@@ -97,19 +102,24 @@
     async function ambilDb(db, key) {
       const koleksi = collection(db, key);
       const hasilKoleksi = await getDocs(koleksi);
-      const hasilList = hasilKoleksi.docs.map(doc => doc.data());
-      return hasilList;
+      // const hasilList = hasilKoleksi.docs.map(doc => {
+      //   doc.data()
+      // });
+      let arr = []
+      hasilKoleksi.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        arr.push({id:doc.id, data:doc.data()});
+      });
+      return arr;
     }
 
-    let formKirim = document.getElementById('form_kirim');
 
-    TulisAutoId()
+
 
     ambilDb(db, "pejabat").then(res => console.log(res))
+    ambilDb(db, "piket").then(res => console.log(res))
 
-    formKirim.addEventListener('submit', (e) => {
-      e.preventDefault()
-    })
+
 
     //================ AUTO ID ==========================================//
     async function TulisAutoId(key, data) { // data => json
@@ -185,7 +195,20 @@
         })
     }
 
+    let formKirim = document.getElementById('form_kirim');
+    formKirim.addEventListener('submit', (e) => {
+      e.preventDefault()
+
+      let data = new FormData(e.target)
+      var object = {};
+
+      data.forEach((value, key) => object[key] = value);
+      var json = JSON.stringify(object);
+
+      TulisAutoId('pejabat', object)
+    })
   </script>
+
 </body>
 
 </html>
