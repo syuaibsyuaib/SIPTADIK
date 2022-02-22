@@ -29,19 +29,22 @@ $data = $_SESSION['data']['dataTamu'];
             <div class="row" style="display: block;">
                 <div class="col">
                     <div id="div_tambah_jadwal">
-                        <div class="row w-50">
-                            <div class="col">
-                                <p>Nama Jadwal</p>
-                                <input class="form-control" type="text" name="nama_jadwal" id="">
-                            </div>
-                            <div class="col">
-                                <p>Jam</p>
-                                <input class="form-control" type="time" name="jadwal" id="">
-                            </div>
-                            <div class="col">
-
-                            </div>
-                        </div>
+                        <table>
+                            <thead>
+                                <th>Aktivasi</th>
+                                <th>Nama Jadwal</th>
+                                <th>Jam</th>
+                                <th>Toleransi</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                    <td><input class="form-control" type="text" name="nama_jadwal" id=""></td>
+                                    <td><input class="form-control" type="text" name="nama_jadwal" id=""></td>
+                                    <td><input class="form-control" type="text" name="nama_jadwal" id=""></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div>
                         <button type="button" class="btn btn-primary" id="tambah_jadwal">Tambah jadwal</button>
@@ -49,8 +52,9 @@ $data = $_SESSION['data']['dataTamu'];
                 </div>
             </div>
         </div>
-        <div style="display: none;" id="frame_train_model">
-            <iframe src="/teachable machine" class="w-100 h-100" frameborder="0"></iframe>
+        <div style="display: none;" id="frame_train_model" class="h-100">
+            <canvas style="position: absolute;" id="myCanvas"></canvas>
+            <video id="myVideo"></video>
         </div>
         <div style="display: none;" id="frame_report">
             <canvas id="myChart"></canvas>
@@ -61,6 +65,35 @@ $data = $_SESSION['data']['dataTamu'];
 
 
 <script>
+    $('#sidebar_absen a').on('click', (e) => {
+        $('#sidebar_absen a').each((idx, elem) => {
+            $(elem).removeClass('active')
+        })
+        $(e.target).addClass('active')
+
+        switch ($(e.target).text()) {
+            case 'Pengaturan':
+                $('#frame_train_model').show()
+                $('#frame_report').hide()
+                $('#frame_jadwal').hide()
+                pengaturan_scan()
+                break;
+            case 'Report':
+                vidOff()
+                $('#frame_train_model').hide()
+                $('#frame_report').show()
+                $('#frame_jadwal').hide()
+                break;
+            case 'Jadwal Absen':
+                vidOff()
+                $('#frame_train_model').hide()
+                $('#frame_report').hide()
+                $('#frame_jadwal').show()
+                break;
+        }
+    })
+
+    // JADWAL
     $('#tambah_jadwal').on('click', (e) => {
         $('#div_tambah_jadwal').append(` <div class="row w-50">
                         <div class="col">
@@ -78,31 +111,9 @@ $data = $_SESSION['data']['dataTamu'];
                     </div>`)
     })
 
-    $('#sidebar_absen a').on('click', (e) => {
-        $('#sidebar_absen a').each((idx, elem) => {
-            $(elem).removeClass('active')
-        })
-        $(e.target).addClass('active')
 
-        switch ($(e.target).text()) {
-            case 'Pengaturan':
-                $('#frame_train_model').show()
-                $('#frame_report').hide()
-                $('#frame_jadwal').hide()
-                break;
-            case 'Report':
-                $('#frame_train_model').hide()
-                $('#frame_report').show()
-                $('#frame_jadwal').hide()
-                break;
-            case 'Jadwal Absen':
-                $('#frame_train_model').hide()
-                $('#frame_report').hide()
-                $('#frame_jadwal').show()
-                break;
-        }
-    })
 
+    // REPORT
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
@@ -138,6 +149,104 @@ $data = $_SESSION['data']['dataTamu'];
             }
         }
     });
+
+
+
+    function vidOff() {
+        localStream.getVideoTracks()[0].stop();
+        video.src = '';
+    }
+
+    // PENGATURAN PEGAWAI
+    function pengaturan_scan() {
+        model().then((res) => {
+            let stream = navigator.mediaDevices.getUserMedia({
+                video: true
+            })
+
+            stream.then(res => {
+                console.log(res)
+                myVideo.srcObject = res;
+                window.localStream = res;
+                myVideo.onloadeddata = (e) => {
+                    myVideo.play()
+                }
+            })
+
+            console.log(`%c ${res}`, 'background: #222; color: #bada55')
+            $(myVideo).on('play', function() {
+                console.log('video siap')
+                detek()
+            })
+        })
+
+        async function model() {
+            await faceapi.nets.ssdMobilenetv1.loadFromUri('/models')
+            // await faceapi.nets.ageGenderNet.loadFromUri('/models')
+            // await faceapi.nets.faceExpressionNet.loadFromUri('/models')
+            await faceapi.nets.faceLandmark68Net.loadFromUri('/models')
+            // await faceapi.nets.faceLandmark68TinyNet.loadFromUri('/models')
+            await faceapi.nets.faceRecognitionNet.loadFromUri('/models')
+            // await faceapi.nets.tinyFaceDetector.loadFromUri('/models')
+
+            return 'model siap'
+        }
+
+        async function detek() {
+            // TRAINING FOTO
+            let wajah = await loadLabeledImages()
+            const faceMatcher = new faceapi.FaceMatcher(wajah)
+
+            // UBAH UKURAN CANVAS SAMA DENGAN VIDEO
+            const displaySize = {
+                width: $(myVideo).width(),
+                height: $(myVideo).height()
+            }
+            faceapi.matchDimensions(myCanvas, displaySize)
+            console.log('%c CANVAS SIAP, background: #222; color: #bada55')
+
+            // DETEKSI WAJAH
+            async function ulangi() {
+                const detections = await faceapi.detectSingleFace(myVideo).withFaceLandmarks()
+                    .withFaceDescriptor()
+
+                if (detections) {
+                    const resizedDetections = faceapi.resizeResults(detections, displaySize)
+                    myCanvas.getContext('2d').clearRect(0, 0, myCanvas.width, myCanvas.height)
+                    const results = faceMatcher.findBestMatch(resizedDetections.descriptor)
+                    const box = resizedDetections.detection.box
+                    const drawBox = new faceapi.draw.DrawBox(box, {
+                        label: results.label
+                    })
+                    drawBox.draw(myCanvas)
+                }
+
+                requestAnimationFrame(ulangi)
+            }
+            requestAnimationFrame(ulangi)
+        }
+
+
+        function loadLabeledImages() {
+            //const labels = ['Black Widow', 'Captain America', 'Hawkeye' , 'Jim Rhodes', 'Tony Stark', 'Thor', 'Captain Marvel']
+            const labels = ['syuaib'] // for WebCam
+            return Promise.all(
+                labels.map(async (label) => {
+                    console.log(label)
+                    let descriptions = []
+                    for (let i = 0; i < 3; i++) {
+                        const img = await faceapi.fetchImage(`/images/${label}/${i}.jpg`)
+                        const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+                        if (detections) {
+                            console.log(`%c wajah ditemukan`, `background: #222; color: #bada55`)
+                            descriptions.push(detections.descriptor)
+                        }
+                    }
+                    return new faceapi.LabeledFaceDescriptors(label, descriptions)
+                })
+            )
+        }
+    }
 </script>
 
 
