@@ -65,31 +65,30 @@ $data = $_SESSION['data']['dataTamu'];
 
 
 <script>
-    $('#sidebar_absen a').on('click', (e) => {
+    $('#sidebar_absen a').on('click', function(e) {
         $('#sidebar_absen a').each((idx, elem) => {
             $(elem).removeClass('active')
         })
         $(e.target).addClass('active')
 
-        switch ($(e.target).text()) {
-            case 'Pengaturan':
-                $('#frame_train_model').show()
-                $('#frame_report').hide()
-                $('#frame_jadwal').hide()
-                pengaturan_scan()
-                break;
-            case 'Report':
-                vidOff()
-                $('#frame_train_model').hide()
-                $('#frame_report').show()
-                $('#frame_jadwal').hide()
-                break;
-            case 'Jadwal Absen':
-                vidOff()
-                $('#frame_train_model').hide()
-                $('#frame_report').hide()
-                $('#frame_jadwal').show()
-                break;
+        if ($(e.target).text() === 'Pengaturan') {
+            $('#frame_train_model').show()
+            $('#frame_report').hide()
+            $('#frame_jadwal').hide()
+            pengaturan_scan($(e.target).text())
+            return
+        } else if ($(e.target).text() === 'Report') {
+            vidOff(myVideo)
+            $('#frame_train_model').hide()
+            $('#frame_report').show()
+            $('#frame_jadwal').hide()
+            return
+        } else if ($(e.target).text() === 'Jadwal Absen') {
+            vidOff(myVideo)
+            $('#frame_train_model').hide()
+            $('#frame_report').hide()
+            $('#frame_jadwal').show()
+            return
         }
     })
 
@@ -110,8 +109,6 @@ $data = $_SESSION['data']['dataTamu'];
                         </div>
                     </div>`)
     })
-
-
 
     // REPORT
     const ctx = document.getElementById('myChart').getContext('2d');
@@ -151,14 +148,39 @@ $data = $_SESSION['data']['dataTamu'];
     });
 
 
+    let animFrame;
 
-    function vidOff() {
-        localStream.getVideoTracks()[0].stop();
-        video.src = '';
+    function vidOff(videoElem) {
+        try{
+            const stream = videoElem.srcObject;
+            const tracks = stream.getTracks();
+    
+            tracks.forEach(function(track) {
+                track.stop();
+            });
+    
+            videoElem.srcObject = null;
+            cancelAnimationFrame(animFrame)
+            myCanvas.getContext('2d').clearRect(0, 0, $(myVideo).width(), $(myVideo).height())
+        }catch{
+            console.log('video belum jalan')
+        }
     }
 
     // PENGATURAN PEGAWAI
-    function pengaturan_scan() {
+    async function model() {
+        await faceapi.nets.ssdMobilenetv1.loadFromUri('/models')
+        // await faceapi.nets.ageGenderNet.loadFromUri('/models')
+        // await faceapi.nets.faceExpressionNet.loadFromUri('/models')
+        await faceapi.nets.faceLandmark68Net.loadFromUri('/models')
+        // await faceapi.nets.faceLandmark68TinyNet.loadFromUri('/models')
+        await faceapi.nets.faceRecognitionNet.loadFromUri('/models')
+        // await faceapi.nets.tinyFaceDetector.loadFromUri('/models')
+
+        return 'model siap'
+    }
+
+    function pengaturan_scan(textEl) {
         model().then((res) => {
             let stream = navigator.mediaDevices.getUserMedia({
                 video: true
@@ -168,29 +190,19 @@ $data = $_SESSION['data']['dataTamu'];
                 console.log(res)
                 myVideo.srcObject = res;
                 window.localStream = res;
-                myVideo.onloadeddata = (e) => {
-                    myVideo.play()
+                myVideo.onloadedmetadata = async function(e) {
+                    if (textEl == 'Pengaturan') {
+                        await $('#myVideo')[0].play()
+                        console.log('video siap')
+                        detek()
+                    } else {
+                        return
+                    }
                 }
             })
 
             console.log(`%c ${res}`, 'background: #222; color: #bada55')
-            $(myVideo).on('play', function() {
-                console.log('video siap')
-                detek()
-            })
         })
-
-        async function model() {
-            await faceapi.nets.ssdMobilenetv1.loadFromUri('/models')
-            // await faceapi.nets.ageGenderNet.loadFromUri('/models')
-            // await faceapi.nets.faceExpressionNet.loadFromUri('/models')
-            await faceapi.nets.faceLandmark68Net.loadFromUri('/models')
-            // await faceapi.nets.faceLandmark68TinyNet.loadFromUri('/models')
-            await faceapi.nets.faceRecognitionNet.loadFromUri('/models')
-            // await faceapi.nets.tinyFaceDetector.loadFromUri('/models')
-
-            return 'model siap'
-        }
 
         async function detek() {
             // TRAINING FOTO
@@ -202,8 +214,9 @@ $data = $_SESSION['data']['dataTamu'];
                 width: $(myVideo).width(),
                 height: $(myVideo).height()
             }
+
             faceapi.matchDimensions(myCanvas, displaySize)
-            console.log('%c CANVAS SIAP, background: #222; color: #bada55')
+            console.log('%c CANVAS SIAP', 'background: #222; color: #bada55')
 
             // DETEKSI WAJAH
             async function ulangi() {
@@ -212,24 +225,30 @@ $data = $_SESSION['data']['dataTamu'];
 
                 if (detections) {
                     const resizedDetections = faceapi.resizeResults(detections, displaySize)
-                    myCanvas.getContext('2d').clearRect(0, 0, myCanvas.width, myCanvas.height)
+                    myCanvas.getContext('2d').clearRect(0, 0, displaySize.width, displaySize.height)
                     const results = faceMatcher.findBestMatch(resizedDetections.descriptor)
                     const box = resizedDetections.detection.box
                     const drawBox = new faceapi.draw.DrawBox(box, {
                         label: results.label
                     })
-                    drawBox.draw(myCanvas)
+
+                    console.log(results.label)
+                    if(results.label != 'unknown'){
+                        drawBox.draw(myCanvas)
+                    }else{
+                        myCanvas.getContext('2d').clearRect(0, 0, displaySize.width, displaySize.height)
+                    }
                 }
 
                 requestAnimationFrame(ulangi)
             }
-            requestAnimationFrame(ulangi)
+            animFrame = requestAnimationFrame(ulangi)
         }
 
 
         function loadLabeledImages() {
             //const labels = ['Black Widow', 'Captain America', 'Hawkeye' , 'Jim Rhodes', 'Tony Stark', 'Thor', 'Captain Marvel']
-            const labels = ['syuaib'] // for WebCam
+            const labels = ['syuaib', 'irma'] // for WebCam
             return Promise.all(
                 labels.map(async (label) => {
                     console.log(label)
@@ -238,7 +257,7 @@ $data = $_SESSION['data']['dataTamu'];
                         const img = await faceapi.fetchImage(`/images/${label}/${i}.jpg`)
                         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
                         if (detections) {
-                            console.log(`%c wajah ditemukan`, `background: #222; color: #bada55`)
+                            console.log(`%c foto wajah ditemukan (training)`, `background: #222; color: #bada55`)
                             descriptions.push(detections.descriptor)
                         }
                     }
