@@ -320,6 +320,7 @@ if (isset($_POST['ubah_foto'])) {
 								<select id="subbid" class="form-select" name="subbidang" <?= substr($data[0][1], 0, 2) != "b1" ? ($data[0][2] != "kd" && $data[0][2] != "sd" ? "disabled" : "") : "" ?>>
 									<option value="" selected></option>
 									<?php
+									var_dump($dataBidang);
 									if ($data[0][2] != "kd" && $data[0][2] != "sd") {
 										foreach ($dataBidang as $val) {
 											if ($val[3] == "") {
