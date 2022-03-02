@@ -16,9 +16,9 @@ $data = $_SESSION['data']['dataTamu'];
     </div>
     <div class="tab-content w-100" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="frame_jadwal" role="tabpanel" aria-labelledby="frame_jadwal-tab">
-            <div id="div_tambah_jadwal">
-                <table>
-                    <thead>
+            <div id="div_tambah_jadwal" class="w-75">
+                <table class="table text-light">
+                    <thead class="text-center">
                         <th>Aktivasi</th>
                         <th>Nama Jadwal</th>
                         <th>Jam Absen</th>
@@ -26,20 +26,20 @@ $data = $_SESSION['data']['dataTamu'];
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input class="form-check-input" type="checkbox" value="" id="check_masuk"></td>
-                            <td><input class="form-control" type="text" name="nama_jadwal_masuk" id="nama_jadwal_masuk"></td>
+                            <td><input class="form-check-input" type="checkbox" value="" id="check_masuk" checked></td>
+                            <td><span name="nama_jadwal_masuk" id="nama_jadwal_masuk">Jadwal Masuk</span></td>
                             <td><input class="form-control" type="time" name="waktu_jadwal_masuk" id="waktu_jadwal_masuk"></td>
                             <td><input class="form-control" type="time" name="toleransi_jadwal_masuk" id="toleransi_jadwal_masuk"></td>
                         </tr>
                         <tr>
-                            <td><input class="form-check-input" type="checkbox" value="" id="check_pulang"></td>
-                            <td><input class="form-control" type="text" name="nama_jadwal_pulang" id="nama_jadwal_pulang"></td>
+                            <td><input class="form-check-input" type="checkbox" value="" id="check_pulang" checked></td>
+                            <td><span name="nama_jadwal_pulang" id="nama_jadwal_pulang">Jadwal Pulang</span></td>
                             <td><input class="form-control" type="time" name="waktu_jadwal_pulang" id="waktu_jadwal_pulang"></td>
                             <td><input class="form-control" type="time" name="toleransi_jadwal_pulang" id="toleransi_jadwal_pulang"></td>
                         </tr>
                         <tr>
                             <td><input class="form-check-input" type="checkbox" value="" id="check_siang"></td>
-                            <td><input class="form-control" type="text" name="nama_jadwal_siang" id="nama_jadwal_siang"></td>
+                            <td><span name="nama_jadwal_siang" id="nama_jadwal_siang">Jadwal Siang</span></td>
                             <td><input class="form-control" type="time" name="waktu_jadwal_siang" id="waktu_jadwal_siang"></td>
                             <td><input class="form-control" type="time" name="toleransi_jadwal_siang" id="toleransi_jadwal_siang"></td>
                         </tr>
@@ -207,20 +207,24 @@ $data = $_SESSION['data']['dataTamu'];
         $('#div_tambah_pegawai tbody').append(() => {
             let banyakChild = $('#div_tambah_pegawai tbody').children().length
             return `<tr>
-                                <td scope="col" class="fw-bold"><span>${banyakChild + 1}</span></td>
-                                <td><input class="form-control" type="text"></td>
-                                <td><input class="form-control" type="text"></td>
-                                <td><input class="form-control" type="text"></td>
-                                <td class="text-center"><button class="btn btn-success" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
-                                            <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
-                                            <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
-                                        </svg></button>
-                                    <button type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                                        </svg></button>
-                                </td>
-                            </tr>`
+                        <td scope="col" class="fw-bold"><span>${banyakChild + 1}</span></td>
+                        <td><input class="form-control" type="text"></td>
+                        <td><input class="form-control" type="text"></td>
+                        <td><input class="form-control" type="text"></td>
+                        <td class="text-center"><button class="btn btn-success" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+                                    <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                                    <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                                </svg></button>
+                            <button type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                </svg></button>
+                        </td>
+                    </tr>`
         })
+    })
+
+    $('#div_tambah_pegawai button').click(e => {
+        console.log(e.target)
     })
 
     // JADWAL
