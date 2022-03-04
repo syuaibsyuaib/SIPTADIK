@@ -555,7 +555,7 @@ $data = array_slice($data, $offset, $limit);
 				?>
 
 					<div class="col">
-						<div class="card shadow-sm">
+						<div class="card shadow-sm border-0">
 
 							<!-- JABATAN -->
 							<div class="card-header warna-dasar">
