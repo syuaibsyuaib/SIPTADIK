@@ -58,30 +58,44 @@ function convert_bidang($kodebidang)
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
     <link rel="icon" href="favicon.ico">
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/custom.css" rel="stylesheet">
-    <link href="assets/css/riwayat.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/riwayat.css">
     <link rel="stylesheet" href="assets/css/icons.css">
-    <link rel="stylesheet" href="assets/css/datatables.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/DataTables-1.11.3/css/dataTables.bootstrap5.min.css" />
-    <link rel="stylesheet" type="text/css" href="assets/Buttons-2.0.1/css/buttons.bootstrap5.min.css" />
-    <link rel="stylesheet" type="text/css" href="assets/DateTime-1.1.1/css/dataTables.dateTime.min.css" />
-    <link rel="stylesheet" type="text/css" href="assets/SearchPanes-1.4.0/css/searchPanes.bootstrap5.min.css" />
+    <link rel="stylesheet" href="assets/Buttons-2.0.1/css/buttons.bootstrap5.min.css" />
+
+    <?php
+    if (isset($datatable)) {
+    ?>
+        <link rel="stylesheet" href="assets/css/datatables.min.css">
+        <link rel="stylesheet" href="assets/DataTables-1.11.3/css/dataTables.bootstrap5.min.css" />
+        <link rel="stylesheet" href="assets/DateTime-1.1.1/css/dataTables.dateTime.min.css" />
+        <link rel="stylesheet" href="assets/SearchPanes-1.4.0/css/searchPanes.bootstrap5.min.css" />
+    <?php
+    }
+    ?>
 
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.js"></script>
-    <script type="text/javascript" src="assets/JSZip-2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" src="assets/pdfmake-0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="assets/pdfmake-0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="assets/DataTables-1.11.3/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="assets/DataTables-1.11.3/js/dataTables.bootstrap5.min.js"></script>
-    <script type="text/javascript" src="assets/Buttons-2.0.1/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="assets/Buttons-2.0.1/js/buttons.bootstrap5.min.js"></script>
-    <script type="text/javascript" src="assets/Buttons-2.0.1/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="assets/DateTime-1.1.1/js/dataTables.dateTime.min.js"></script>
-    <script type="text/javascript" src="assets/SearchPanes-1.4.0/js/dataTables.searchPanes.min.js"></script>
-    <script type="text/javascript" src="assets/SearchPanes-1.4.0/js/searchPanes.bootstrap5.min.js"></script>
+    <script src="assets/JSZip-2.5.0/jszip.min.js"></script>
+    <script src="assets/pdfmake-0.1.36/pdfmake.min.js"></script>
+    <script src="assets/pdfmake-0.1.36/vfs_fonts.js"></script>
+    <script src="assets/SearchPanes-1.4.0/js/searchPanes.bootstrap5.min.js"></script>
+    <script src="assets/Buttons-2.0.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="assets/Buttons-2.0.1/js/buttons.html5.min.js"></script>
     <script src="../js/face-api.js"></script>
+
+    <?php
+    if (isset($datatable)) {
+    ?>
+        <script src="assets/DataTables-1.11.3/js/jquery.dataTables.min.js"></script>
+        <script src="assets/DataTables-1.11.3/js/dataTables.bootstrap5.min.js"></script>
+        <script src="assets/Buttons-2.0.1/js/dataTables.buttons.min.js"></script>
+        <script src="assets/DateTime-1.1.1/js/dataTables.dateTime.min.js"></script>
+        <script src="assets/SearchPanes-1.4.0/js/dataTables.searchPanes.min.js"></script>
+    <?php
+    }
+    ?>
 
     <title><?= $title ?? "Halaman" ?> | <?= JUDUL ?></title>
     <script>
@@ -188,6 +202,26 @@ function convert_bidang($kodebidang)
                         </li>
                         <a class="nav-link" href="riwayat.php">Riwayat</a>
                         <a class="nav-link" href="absen.php">Absensi</a>
+                    <?php
+                    }
+                    ?>
+
+
+                    <?php
+                    // MENU KHUSUS UNTUK USER ROLE 1 (ADMIN)
+                    if ($_SESSION['role'] == 1 && $title == "Absen") {
+                    ?>
+                        <li class="nav nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pilihan Absensi
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" id="frame_jadwal-tab" data-bs-toggle="pill" data-bs-target="#frame_jadwal">Jadwal</a></li>
+                                <li><a class="dropdown-item" id="frame_tambah_pegawai-tab" data-bs-toggle="pill" data-bs-target="#frame_tambah_pegawai">Pegawai</a></li>
+                                <li><a class="dropdown-item" id="frame_train_model-tab" data-bs-toggle="pill" data-bs-target="#frame_train_model">Preview</a></li>
+                                <li><a class="dropdown-item" id="frame_report-tab" data-bs-toggle="pill" data-bs-target="#frame_report">Report</a></li>
+                            </ul>
+                        </li>
                     <?php
                     }
                     ?>

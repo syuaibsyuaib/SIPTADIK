@@ -1,5 +1,6 @@
 <?php
 $title = "Riwayat";
+$datatable = 1;
 include("layout/header.php");
 segarkan($_SESSION['user'], $_SESSION['pass']);
 $_SESSION['role'] != 1 ? pindahko("/") : "";
