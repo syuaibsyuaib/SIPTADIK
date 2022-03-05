@@ -89,36 +89,8 @@ function responProses() {
 
 // TODO fungsi ambil foto pakai camera di admin untuk dikirim ke server PHP 
 // lalu simpan di folder images
-function ambilGambar() {
-    var width = 320;
-    var height = 0;
-
-    var streaming = false;
-
-    var video = null;
-    var canvas = null;
-    var photo = null;
-    var startbutton = null;
-
-    function showViewLiveResultButton() {
-        if (window.self !== window.top) {
-            document.querySelector(".contentarea").remove();
-            const button = document.createElement("button");
-            button.textContent = "View live result of the example code above";
-            document.body.append(button);
-            button.addEventListener('click', () => window.open(location.href));
-            return true;
-        }
-        return false;
-    }
-
-    function startup() {
-        if (showViewLiveResultButton()) { return; }
-        video = document.getElementById('video');
-        canvas = document.getElementById('canvas');
-        photo = document.getElementById('photo');
-        startbutton = document.getElementById('startbutton');
-
+let AmbilFoto = {
+    start: function (video) {
         navigator.mediaDevices.getUserMedia({ video: true, audio: false })
             .then(function (stream) {
                 video.srcObject = stream;
@@ -127,53 +99,18 @@ function ambilGambar() {
             .catch(function (err) {
                 console.log("An error occurred: " + err);
             });
-
-        video.addEventListener('canplay', function (ev) {
-            if (!streaming) {
-                height = video.videoHeight / (video.videoWidth / width);
-
-                if (isNaN(height)) {
-                    height = width / (4 / 3);
-                }
-
-                video.setAttribute('width', width);
-                video.setAttribute('height', height);
-                canvas.setAttribute('width', width);
-                canvas.setAttribute('height', height);
-                streaming = true;
-            }
-        }, false);
-
-        startbutton.addEventListener('click', function (ev) {
-            takepicture();
-            ev.preventDefault();
-        }, false);
-
-        clearphoto();
+    },
+    take: function (video) {
+        let cvs = document.createElement('canvas')
+        cvs.width = $(video).width()
+        cvs.height = $(video).height()
+        let ctx = cvs.getContext('2d');
+        ctx.drawImage(video, cvs.width/3, cvs.width/5, cvs.width, cvs.width, 0, 0, cvs.width, cvs.width);
+        return cvs.toDataURL('image/png');
+    },
+    clear: function(el){
+        el.src = ""
     }
+}
 
-    function clearphoto() {
-        var context = canvas.getContext('2d');
-        context.fillStyle = "#AAA";
-        context.fillRect(0, 0, canvas.width, canvas.height);
 
-        var data = canvas.toDataURL('image/png');
-        photo.setAttribute('src', data);
-    }
-
-    function takepicture() {
-        var context = canvas.getContext('2d');
-        if (width && height) {
-            canvas.width = width;
-            canvas.height = height;
-            context.drawImage(video, 0, 0, width, height);
-
-            var data = canvas.toDataURL('image/png');
-            photo.setAttribute('src', data);
-        } else {
-            clearphoto();
-        }
-    }
-
-    window.addEventListener('load', startup, false);
-};
