@@ -1,13 +1,12 @@
 <?php
-$title = "Absen";
+$title = "Riwayat";
 include("layout/header.php");
 segarkan($_SESSION['user'], $_SESSION['pass']);
 $_SESSION['role'] != 1 ? pindahko("/") : "";
 $data = $_SESSION['data']['dataTamu'];
+// print_r($_SESSION['data']['dataBidang']);
 ?>
-
 <script src="assets/js/chart.min.js"></script>
-
 
 <!-- modal info -->
 <div class="modal fade" id="modal_info" tabindex="-1" aria-labelledby="modal_infoLabel" aria-hidden="true">
@@ -77,133 +76,71 @@ $data = $_SESSION['data']['dataTamu'];
     </div>
 </div>
 
-
 <div class="d-flex align-items-start h-100 ">
-
+    <div class="nav flex-column nav-pills h-100 me-3 bg-dark" style="min-width: 200px;" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button class="btn btn-outline-info py-3 border-0 rounded-0 active" id="frame_jadwal-tab" data-bs-toggle="pill" data-bs-target="#frame_jadwal" type="button" role="tab" aria-controls="frame_jadwal" aria-selected="true">Jadwal</button>
+        <button class="btn btn-outline-info py-3 border-0 rounded-0" id="frame_tambah_pegawai-tab" data-bs-toggle="pill" data-bs-target="#frame_tambah_pegawai" type="button" role="tab" aria-controls="frame_tambah_pegawai" aria-selected="false">Pegawai</button>
+        <button class="btn btn-outline-info py-3 border-0 rounded-0" id="frame_train_model-tab" data-bs-toggle="pill" data-bs-target="#frame_train_model" type="button" role="tab" aria-controls="frame_train_model" aria-selected="false">Preview</button>
+        <button class="btn btn-outline-info border-0 rounded-0" id="frame_report-tab" data-bs-toggle="pill" data-bs-target="#frame_report" type="button" role="tab" aria-controls="frame_report" aria-selected="false">Report</button>
+    </div>
+    
     <div class="tab-content w-100" id="v-pills-tabContent">
-
-        <!-- JADWAL -->
         <div class="tab-pane fade show active" id="frame_jadwal" role="tabpanel" aria-labelledby="frame_jadwal-tab">
-
-
-            <div class="container my-4" id="div_tambah_jadwal">
-                <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-                  <form>
-                    <!-- JAM DATANG -->
-                    <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm">
-                            <div class="card-header py-3">
-                                <h4 class="my-0 fw-normal form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" id="check_masuk">Jam Datang
-                                    </label>
-                                </h4>
-                            </div>
-                            <div class="card-body text-start">
-                                <div class="mb-3">
-                                    <label for="nama_jadwal_masuk" class="form-label">Nama Jadwal</label>
-                                    <input type="text" class="form-control" name="nama_jadwal_masuk" id="nama_jadwal_masuk" placeholder="Nama Jadwal">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="waktu_jadwal_masuk" class="form-label">Jam Absen</label>
-                                    <input class="form-control" type="time" name="waktu_jadwal_masuk" id="waktu_jadwal_masuk">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="toleransi_jadwal_masuk" class="form-label">Toleransi</label>
-                                    <input class="form-control" type="time" name="toleransi_jadwal_masuk" id="toleransi_jadwal_masuk">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- JAM PULANG -->
-                    <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm">
-                            <div class="card-header py-3">
-                                <h4 class="my-0 fw-normal form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" id="check_pulang">Jam Pulang
-                                    </label>
-                                </h4>
-                            </div>
-                            <div class="card-body text-start">
-                                <div class="mb-3">
-                                    <label for="nama_jadwal_pulang" class="form-label">Nama Jadwal</label>
-                                    <input class="form-control" type="text" name="nama_jadwal_pulang" id="nama_jadwal_pulang" placeholder="Nama Jadwal">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="waktu_jadwal_pulang" class="form-label">Jam Absen</label>
-                                    <input class="form-control" type="time" name="waktu_jadwal_pulang" id="waktu_jadwal_pulang">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="toleransi_jadwal_pulang" class="form-label">Toleransi</label>
-                                    <input class="form-control" type="time" name="toleransi_jadwal_pulang" id="toleransi_jadwal_pulang">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- JAM SIANG -->
-                    <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm">
-                            <div class="card-header py-3">
-                                <h4 class="my-0 fw-normal form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" id="check_siang">Jam Siang
-                                    </label>
-                                </h4>
-                            </div>
-                            <div class="card-body text-start">
-                                <div class="mb-3">
-                                    <label for="nama_jadwal_pulang" class="form-label">Nama Jadwal</label>
-                                    <input class="form-control" type="text" name="nama_jadwal_siang" id="nama_jadwal_siang" placeholder="Nama Jadwal">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="waktu_jadwal_pulang" class="form-label">Jam Absen</label>
-                                    <input class="form-control" type="time" name="waktu_jadwal_siang" id="waktu_jadwal_siang">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="toleransi_jadwal_pulang" class="form-label">Toleransi</label>
-                                    <input class="form-control" type="time" name="toleransi_jadwal_siang" id="toleransi_jadwal_siang">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <button class="btn btn-primary ms-5" type="submit">Simpan</button>
-                    </form>
-
-                </div>
+            <div id="div_tambah_jadwal" class="w-75">
+                <form>
+                    <table class="table text-light">
+                        <thead class="text-center">
+                            <th>Aktivasi</th>
+                            <th>Nama Jadwal</th>
+                            <th>Jam Absen</th>
+                            <th>Toleransi</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="form-check-input" type="checkbox" value="" id="check_masuk" checked></td>
+                                <td><span name="nama_jadwal_masuk" id="nama_jadwal_masuk">Jadwal Masuk</span></td>
+                                <td><input class="form-control" type="time" name="waktu_jadwal_masuk" id="waktu_jadwal_masuk"></td>
+                                <td><input class="form-control" type="time" name="toleransi_jadwal_masuk" id="toleransi_jadwal_masuk"></td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-check-input" type="checkbox" value="" id="check_pulang" checked></td>
+                                <td><span name="nama_jadwal_pulang" id="nama_jadwal_pulang">Jadwal Pulang</span></td>
+                                <td><input class="form-control" type="time" name="waktu_jadwal_pulang" id="waktu_jadwal_pulang"></td>
+                                <td><input class="form-control" type="time" name="toleransi_jadwal_pulang" id="toleransi_jadwal_pulang"></td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-check-input" type="checkbox" value="" id="check_siang"></td>
+                                <td><span name="nama_jadwal_siang" id="nama_jadwal_siang">Jadwal Siang</span></td>
+                                <td><input class="form-control" type="time" name="waktu_jadwal_siang" id="waktu_jadwal_siang"></td>
+                                <td><input class="form-control" type="time" name="toleransi_jadwal_siang" id="toleransi_jadwal_siang"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary ms-5" type="submit">Simpan</button>
+                </form>
             </div>
         </div>
-
-        <!-- PEGAWAI -->
         <div class="tab-pane fade" id="frame_tambah_pegawai" role="tabpanel" aria-labelledby="frame_tambah_pegawai-tab">
-            <div class="container my-4 p-3" style="background: #ffffffab;" id="div_tambah_pegawai">
-                <table class="table table-striped table-hover">
-                    <thead class="text-center">
-                        <tr>
+            <div id="div_tambah_pegawai">
+                <form>
+                    <table class="table text-white table-hover">
+                        <thead class="text-center">
                             <th>#</th>
                             <th>Nama Pegawai</th>
                             <th>ID</th>
                             <th>Alamat</th>
                             <th>Aksi</th>
-                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td colspan="5" class="text-center"><i>Belum ada data</i></td>
-                          </tr>
+
                         </tbody>
                     </table>
                     <div>
                         <button type="button" class="btn btn-primary" id="btn_tambah_pegawai">Tambah</button>
                     </div>
-
-
+                </form>
             </div>
         </div>
-
-        <!-- PREVIEW -->
         <div class="tab-pane fade" id="frame_train_model" role="tabpanel" aria-labelledby="frame_train_model-tab">
             <div class="d-flex justify-content-center align-items-center">
                 <div class="p-3 border mt-3">
@@ -215,12 +152,11 @@ $data = $_SESSION['data']['dataTamu'];
                 </div>
             </div>
         </div>
-
-        <!-- REPORT -->
         <div class="tab-pane fade" id="frame_report" role="tabpanel" aria-labelledby="frame_report-tab">
             <canvas id="chart_report"></canvas>
         </div>
-
+    </div>
+</div>
 
 <script src="/assets/js/main.js"></script>
 
@@ -241,6 +177,7 @@ $data = $_SESSION['data']['dataTamu'];
     })
 
     // TAMBAH PEGAWAI
+
     $(btn_tambah_pegawai).click(e => {
         $('#div_tambah_pegawai tbody').append(() => {
             let banyakChild = $('#div_tambah_pegawai tbody').children().length
@@ -258,7 +195,6 @@ $data = $_SESSION['data']['dataTamu'];
                                 </svg></button>
                         </td>
                     </tr>`
-
         })
 
         $('#div_tambah_pegawai tbody tr button:nth-child(1)').click(e => {
@@ -320,7 +256,6 @@ $data = $_SESSION['data']['dataTamu'];
             })
 
             vidOff(video_foto, false)
-
         })
     })
 
@@ -328,19 +263,19 @@ $data = $_SESSION['data']['dataTamu'];
     // JADWAL
     $('#tambah_jadwal').on('click', (e) => {
         $('#div_tambah_jadwal').append(` <div class="row w-50">
-            <div class="col">
-                <p>Nama Jadwal</p>
-                <input class="form-control" type="text" name="nama_jadwal" id="">
-            </div>
-            <div class="col">
-                <p>Jam</p>
-                <input class="form-control" type="time" name="jadwal" id="">
-            </div>
-            <div class="col">
-            <p style="margin-bottom:40px"></p>
-            <button class="btn btn-danger" style="width:50px">hapus</button>
-            </div>
-        </div>`)
+                        <div class="col">
+                            <p>Nama Jadwal</p>
+                            <input class="form-control" type="text" name="nama_jadwal" id="">
+                        </div>
+                        <div class="col">
+                            <p>Jam</p>
+                            <input class="form-control" type="time" name="jadwal" id="">
+                        </div>
+                        <div class="col">
+                        <p style="margin-bottom:40px"></p>
+                        <button class="btn btn-danger" style="width:50px">hapus</button>
+                        </div>
+                    </div>`)
     })
 
     // REPORT
