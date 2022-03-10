@@ -208,7 +208,7 @@ function convert_bidang($kodebidang)
 
 
                     <?php
-                    // MENU KHUSUS UNTUK USER ROLE 1 (ADMIN)
+                    // MENU KHUSUS ABSEN
                     if ($_SESSION['role'] == 1 && $title == "Absen") {
                     ?>
                         <li class="nav nav-item dropdown">
@@ -218,6 +218,7 @@ function convert_bidang($kodebidang)
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="v-pills-tab" role="tablist">
                                 <li><a class="dropdown-item" id="frame_jadwal-tab" data-bs-toggle="pill" data-bs-target="#frame_jadwal" role="tab" aria-controls="frame_jadwal" aria-selected="true">Jadwal</a></li>
                                 <li><a class="dropdown-item" id="frame_tambah_pegawai-tab" data-bs-toggle="pill" data-bs-target="#frame_tambah_pegawai" role="tab" aria-controls="frame_tambah_pegawai" aria-selected="false">Pegawai</a></li>
+                                <li><a class="dropdown-item" id="frame_tambah_wajah-tab" data-bs-toggle="pill" data-bs-target="#frame_tambah_wajah" role="tab" aria-controls="frame_tambah_wajah" aria-selected="false">Tambah Wajah</a></li>
                                 <li><a class="dropdown-item" id="frame_train_model-tab" data-bs-toggle="pill" data-bs-target="#frame_train_model" role="tab" aria-controls="frame_train_model" aria-selected="false">Preview</a></li>
                                 <li><a class="dropdown-item" id="frame_report-tab" data-bs-toggle="pill" data-bs-target="#frame_report" role="tab" aria-controls="frame_report" aria-selected="false">Report</a></li>
                             </ul>

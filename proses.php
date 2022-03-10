@@ -66,7 +66,7 @@ if (isset($_POST['ubahPejabat'])) {
     if ($_POST['subbidang']) {
         $subBidang =  $_POST['subbidang'];
     }
-    if($_POST['foto']){
+    if ($_POST['foto']) {
         $foto = $_POST['foto'];
     }
     $pass = $_POST['sandi'] == "" ? array_search_multi($_SESSION['data']['dataUser'], 0, $_POST['usernamePejabat'], false)[0][1] : $_POST['sandi'];
@@ -90,7 +90,7 @@ if (isset($_POST['hapus'])) {
 }
 
 //SLIDE
-if(isset($_POST['ubahSlide'])){
+if (isset($_POST['ubahSlide'])) {
     $slideArr = array("type" => "ubahSlide", "dataTambah" => array([$_POST['slider_1']], [$_POST['slider_2']], [$_POST['slider_3']], [$_POST['slider_4']], [$_POST['slider_5']]));
     $resSlide = kirim($slideArr, 1);
     segarkan($_SESSION['user'], $_SESSION['pass']);
@@ -98,10 +98,10 @@ if(isset($_POST['ubahSlide'])){
 }
 
 //TAMBAH PIKET
-if(isset($_POST['tambahPiket'])){
+if (isset($_POST['tambahPiket'])) {
     $piket = array();
-    for ($i=0; $i < count($_POST); $i++) { 
-        if($_POST['username' . $i]){
+    for ($i = 0; $i < count($_POST); $i++) {
+        if ($_POST['username' . $i]) {
             array_push($piket, $_POST['username' . $i], $_POST['pass' . $i]);
         }
     }
@@ -112,10 +112,10 @@ if(isset($_POST['tambahPiket'])){
 }
 
 //TAMBAH BIDANG
-if(isset($_POST['tambahBidang'])){
+if (isset($_POST['tambahBidang'])) {
     $bidang = array();
-    for ($i=0; $i < count($_POST); $i++) { 
-        if($_POST['namaBidang' . $i]){
+    for ($i = 0; $i < count($_POST); $i++) {
+        if ($_POST['namaBidang' . $i]) {
             array_push($bidang, $_POST['namaBidang' . $i]);
         }
     }
@@ -126,10 +126,10 @@ if(isset($_POST['tambahBidang'])){
 }
 
 //TAMBAH SUBBIDANG
-if(isset($_POST['tambahSubbidang'])){
+if (isset($_POST['tambahSubbidang'])) {
     $subbidang = array();
-    for ($i=0; $i < count($_POST); $i++) { 
-        if($_POST['namaSubbidang' . $i]){
+    for ($i = 0; $i < count($_POST); $i++) {
+        if ($_POST['namaSubbidang' . $i]) {
             array_push($subbidang, $_POST['kodeSubbidang' . $i], $_POST['namaSubbidang' . $i]);
         }
     }
@@ -140,10 +140,10 @@ if(isset($_POST['tambahSubbidang'])){
 }
 
 //TAMBAH JABATAN
-if(isset($_POST['tambahJabatan'])){
+if (isset($_POST['tambahJabatan'])) {
     $jabatan = array();
-    for ($i=0; $i < count($_POST) - 1; $i++) { 
-        if($_POST['j' . $i]){
+    for ($i = 0; $i < count($_POST) - 1; $i++) {
+        if ($_POST['j' . $i]) {
             array_push($jabatan, $_POST['j' . $i]);
         }
     }
@@ -155,13 +155,55 @@ if(isset($_POST['tambahJabatan'])){
 
 // TODO isset post foto pegawai, nama, id
 // TODO imspan foto di local pake move_uploded_file
-if(isset($_POST['tambahAbsen'])){
+if (isset($_POST['tambahAbsen'])) {
     $absen = array();
     // for($i = 0; $i < count($_POST); $i++){
-        array_push($absen, $_POST["id_pegawai"], $_POST["nama_pegawai"], $_POST["alamat_pegawai"], [$_POST["foto_pegawai"]]);
+    array_push($absen, $_POST["id_pegawai"], $_POST["nama_pegawai"], $_POST["alamat_pegawai"], [$_POST["foto_pegawai"]]);
     // }
     $tambahAbsen = array("type" => "tambahAbsen", "dataTambah" => $absen);
     $resAbsen = kirim($tambahAbsen, 1);
     segarkan($_SESSION['user'], $_SESSION['pass']);
     return print(json_encode($resAbsen));
+}
+
+if (isset($_POST['tambah-wajah'])) {
+    $nama_pegawai = $_POST['nama-pegawai'];
+
+    if (!is_dir("images/$nama_pegawai")) {
+        mkdir("images/$nama_pegawai");
+    }
+
+    $img = $_POST['image'];
+    $folderPath = "images/$nama_pegawai/";
+
+    $image_parts = explode(";base64,", $img);
+    $image_type_aux = explode("image/", $image_parts[0]);
+    $image_type = $image_type_aux[1];
+
+    $image_base64 = base64_decode($image_parts[1]);
+    // $fileName = uniqid() . '.jpg';
+    
+    $myFile = [];
+    if ($handle = opendir($folderPath)) {
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != "..") {
+                if (!is_dir($entry)) {
+                    $myFile[] = substr($entry, 0, strrpos($entry, "."));
+                }
+            }
+        }
+        closedir($handle);
+    }
+
+    if (count($myFile) > 0) {
+        $num = max($myFile) + 1;
+        $fileName = $num . '.jpg';
+    } else {
+        $fileName = "0.jpg";
+    }
+
+    $file = $folderPath . $fileName;
+    file_put_contents($file, $image_base64);
+
+    pindahko("/absen.php");
 }

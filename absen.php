@@ -7,6 +7,8 @@ $data = $_SESSION['data']['dataTamu'];
 // print_r($_SESSION['data']['dataBidang']);
 ?>
 
+<script src="assets/js/webcam.min.js"></script>
+
 <!-- modal info -->
 <div class="modal fade" id="modal_info" tabindex="-1" aria-labelledby="modal_infoLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -198,6 +200,68 @@ $data = $_SESSION['data']['dataTamu'];
             </div>
         </div>
 
+        <!-- REGISTRASI WAJAH -->
+        <div class="tab-pane fade" id="frame_tambah_wajah" role="tabpanel" aria-labelledby="frame_tambah_wajah-tab">
+            <div class="container my-4">
+
+                <form method="POST" action="proses.php">
+                    <input type="hidden" name="image" class="image-tag">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <div class="card" style="width: 490px; border: none; margin: 0 auto;">
+                                <div style="height: 390; background: #333;" class="card-img-top" id="kamera_tambah_wajah"></div>
+                                <div class="card-body">
+                                    <button class="btn btn-secondary btn-lg" type=button value="Ambil Gambar" onClick="ambil_wajah()"><i class="bi bi-camera"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <div class="card" style="width: 490px; border: none; margin: 0 auto;">
+                                <div style="height: 390; background: #333;" class="card-img-top" id="results"></div>
+                                <div class="card-body">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Nama pegawai:</span>
+                                        <input type="text" class="form-control" name="nama-pegawai" required>
+                                        <button class="btn btn-primary" type="submit" name="tambah-wajah" id="simpan_wajah">Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <span onclick="Webcam.reset()">RESET</span>
+
+            </div>
+        </div>
+
+        <!-- reset -->
+
+        <script>
+            let kameraTambahWajah = document.getElementById('frame_tambah_wajah-tab');
+            let simpan_wajah = document.getElementById('simpan_wajah');
+            Webcam.set({
+                width: 490,
+                height: 390,
+                image_format: 'jpeg',
+                jpeg_quality: 90
+            });
+
+            kameraTambahWajah.addEventListener('click', function() {
+                simpan_wajah.disabled = true;
+                Webcam.attach('#kamera_tambah_wajah');
+            })
+
+            function ambil_wajah() {
+                Webcam.snap(function(data_uri) {
+                    simpan_wajah.disabled = false;
+                    $(".image-tag").val(data_uri);
+                    document.getElementById('results').innerHTML = '<img src="' + data_uri + '"/>';
+                    Webcam.reset();
+                });
+            }
+        </script>
+
         <!-- PREVIEW -->
         <div class="tab-pane fade" id="frame_train_model" role="tabpanel" aria-labelledby="frame_train_model-tab">
             <div class="d-flex justify-content-center align-items-center">
@@ -248,6 +312,7 @@ $data = $_SESSION['data']['dataTamu'];
 <?php
 include("firestorage.php");
 ?>
+
 //<script>
     $('#v-pills-tab li').on('click', function(event) {
         event.preventDefault()
@@ -257,6 +322,9 @@ include("firestorage.php");
         } else(
             vidOff(myVideo)
         )
+        if ($(event.target).text() != 'Tambah Wajah') {
+            Webcam.reset()
+        }
     })
 
     // ambilDb(db, "absen").then(res => console.log(res))
