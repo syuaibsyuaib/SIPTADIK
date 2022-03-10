@@ -215,11 +215,11 @@ function convert_bidang($kodebidang)
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Pilihan Absensi
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" id="frame_jadwal-tab" data-bs-toggle="pill" data-bs-target="#frame_jadwal">Jadwal</a></li>
-                                <li><a class="dropdown-item" id="frame_tambah_pegawai-tab" data-bs-toggle="pill" data-bs-target="#frame_tambah_pegawai">Pegawai</a></li>
-                                <li><a class="dropdown-item" id="frame_train_model-tab" data-bs-toggle="pill" data-bs-target="#frame_train_model">Preview</a></li>
-                                <li><a class="dropdown-item" id="frame_report-tab" data-bs-toggle="pill" data-bs-target="#frame_report">Report</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="v-pills-tab" role="tablist">
+                                <li><a class="dropdown-item" id="frame_jadwal-tab" data-bs-toggle="pill" data-bs-target="#frame_jadwal" role="tab" aria-controls="frame_jadwal" aria-selected="true">Jadwal</a></li>
+                                <li><a class="dropdown-item" id="frame_tambah_pegawai-tab" data-bs-toggle="pill" data-bs-target="#frame_tambah_pegawai" role="tab" aria-controls="frame_tambah_pegawai" aria-selected="false">Pegawai</a></li>
+                                <li><a class="dropdown-item" id="frame_train_model-tab" data-bs-toggle="pill" data-bs-target="#frame_train_model" role="tab" aria-controls="frame_train_model" aria-selected="false">Preview</a></li>
+                                <li><a class="dropdown-item" id="frame_report-tab" data-bs-toggle="pill" data-bs-target="#frame_report" role="tab" aria-controls="frame_report" aria-selected="false">Report</a></li>
                             </ul>
                         </li>
                     <?php
