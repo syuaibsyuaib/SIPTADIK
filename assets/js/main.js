@@ -61,7 +61,7 @@ function hapusOptions(e) {
     return true;
 }
 
-
+// KIRIM KE PROSES.PHP
 async function kirim(url, data) {
     const response = await fetch(url, {
         method: 'POST', // or 'PUT'
@@ -87,8 +87,7 @@ function responProses() {
     })
 }
 
-// TODO fungsi ambil foto pakai camera di admin untuk dikirim ke server PHP 
-// lalu simpan di folder images
+//FUNGSI AMBIL FOTO
 let AmbilFoto = {
     start: function (video) {
         navigator.mediaDevices.getUserMedia({ video: true, audio: false })

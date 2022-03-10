@@ -1,12 +1,11 @@
 <?php
-$title = "Riwayat";
+$title = "Absen";
 include("layout/header.php");
 segarkan($_SESSION['user'], $_SESSION['pass']);
 $_SESSION['role'] != 1 ? pindahko("/") : "";
 $data = $_SESSION['data']['dataTamu'];
 // print_r($_SESSION['data']['dataBidang']);
 ?>
-<script src="assets/js/chart.min.js"></script>
 
 <!-- modal info -->
 <div class="modal fade" id="modal_info" tabindex="-1" aria-labelledby="modal_infoLabel" aria-hidden="true">
@@ -35,42 +34,40 @@ $data = $_SESSION['data']['dataTamu'];
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="">
-                    <div class="row">
-                        <div class="col col-5 text-center">
-                            <div style="height: 350px;overflow:hidden">
-                                <canvas style="position: absolute;"></canvas>
-                                <video id="video_foto" style="height: 350px;" class="border mb-3"></video>
-                            </div>
-                            <div>
-                                <button id="startbutton" type="button" class="btn btn-primary mb-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
-                                        <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
-                                        <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
-                                    </svg>
-                                </button>
-                            </div>
+                <div class="row">
+                    <div class="col col-5 text-center">
+                        <div style="height: 350px;overflow:hidden">
+                            <canvas style="position: absolute;"></canvas>
+                            <video id="video_foto" style="height: 350px;" class="border mb-3"></video>
                         </div>
-                        <div class="col">
-                            <div class="container">
-                                <div class="row mb-3 g-0">
-                                    <div class="col"><img class="img-thumbnail" src="/img/orangDepan.png"></div>
-                                    <div class="col"><img class="img-thumbnail" src="/img/orangSamping.png"></div>
-                                    <div class="col"><img class="img-thumbnail" src="/img/orangSamping2.png"></div>
-                                </div>
-                                <div class="row g-0" id="canvas_foto">
-                                    <div class="col"><img class="img-fluid img-thumbnail" src=""></div>
-                                    <div class="col"><img class="img-fluid img-thumbnail" src=""></div>
-                                    <div class="col"><img class="img-fluid img-thumbnail" src=""></div>
-                                </div>
+                        <div>
+                            <button id="startbutton" type="button" class="btn btn-primary mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+                                    <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                                    <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="container">
+                            <div class="row mb-3 g-0">
+                                <div class="col"><img class="img-thumbnail" src="/img/orangDepan.png"></div>
+                                <div class="col"><img class="img-thumbnail" src="/img/orangSamping.png"></div>
+                                <div class="col"><img class="img-thumbnail" src="/img/orangSamping2.png"></div>
+                            </div>
+                            <div class="row g-0" id="canvas_foto">
+                                <div class="col"><img class="img-fluid img-thumbnail" src=""></div>
+                                <div class="col"><img class="img-fluid img-thumbnail" src=""></div>
+                                <div class="col"><img class="img-fluid img-thumbnail" src=""></div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary">Ulangi</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary">Ulangi</button>
+                <button type="button" class="btn btn-primary">Simpan</button>
             </div>
         </div>
     </div>
@@ -83,7 +80,7 @@ $data = $_SESSION['data']['dataTamu'];
         <button class="btn btn-outline-info py-3 border-0 rounded-0" id="frame_train_model-tab" data-bs-toggle="pill" data-bs-target="#frame_train_model" type="button" role="tab" aria-controls="frame_train_model" aria-selected="false">Preview</button>
         <button class="btn btn-outline-info border-0 rounded-0" id="frame_report-tab" data-bs-toggle="pill" data-bs-target="#frame_report" type="button" role="tab" aria-controls="frame_report" aria-selected="false">Report</button>
     </div>
-    
+
     <div class="tab-content w-100" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="frame_jadwal" role="tabpanel" aria-labelledby="frame_jadwal-tab">
             <div id="div_tambah_jadwal" class="w-75">
@@ -153,28 +150,52 @@ $data = $_SESSION['data']['dataTamu'];
             </div>
         </div>
         <div class="tab-pane fade" id="frame_report" role="tabpanel" aria-labelledby="frame_report-tab">
-            <canvas id="chart_report"></canvas>
+            <table class="table text-light">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>ID</th>
+                        <th>Nama</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>321</td>
+                        <td>labaco</td>
+                        <td>
+                            <button class="btn btn-info" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-week" viewBox="0 0 16 16">
+                                    <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
 <script src="/assets/js/main.js"></script>
 
-<script>
-    var triggerTabList = [].slice.call(document.querySelectorAll('#v-pills-tab button'))
-    triggerTabList.forEach(function(triggerEl) {
-        var tabTrigger = new bootstrap.Tab(triggerEl)
-
-        triggerEl.addEventListener('click', function(event) {
-            event.preventDefault()
-            if ($(event.target).text() == 'Preview') {
-                $(video_loading).show()
-                pengaturan_scan()
-            } else(
-                vidOff(myVideo)
-            )
-        })
+<?php
+include("firestorage.php");
+?>
+//<script>
+    $('#v-pills-tab button').on('click', function(event) {
+        event.preventDefault()
+        if ($(event.target).text() == 'Preview') {
+            $(video_loading).show()
+            pengaturan_scan()
+        } else(
+            vidOff(myVideo)
+        )
     })
+
+    // ambilDb(db, "absen").then(res => console.log(res))
 
     // TAMBAH PEGAWAI
 
@@ -186,7 +207,9 @@ $data = $_SESSION['data']['dataTamu'];
                         <td><input class="form-control" type="text"></td>
                         <td><input class="form-control" type="text"></td>
                         <td><input class="form-control" type="text"></td>
-                        <td class="text-center"><button class="btn btn-success" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+                        <td class="text-center">
+                        <button class="btn btn-success" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
                                     <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
                                     <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
                                 </svg></button>
@@ -198,13 +221,34 @@ $data = $_SESSION['data']['dataTamu'];
         })
 
         $('#div_tambah_pegawai tbody tr button:nth-child(1)').click(e => {
-            let nama_pegawai = $(e.target).parents('tr').find('input').eq(0).val()
-            let id_pegawai = $(e.target).parents('tr').find('input').eq(1).val()
-            if (nama_pegawai == "" || id_pegawai == "") {
+            let namaPegawai = $(e.target).parents('tr').find('input').eq(0).val()
+            let idPegawai = $(e.target).parents('tr').find('input').eq(1).val()
+            let alamatPegawai = $(e.target).parents('tr').find('input').eq(2).val()
+
+            if (namaPegawai == "" || idPegawai == "") {
                 $('#modal_info .modal-body').text("Nama Pegawai/ ID Pegawai tidak boleh kosong")
                 $(modal_info).modal('show')
                 return false
             }
+
+            // KIRIM FOTO KE SERVER
+            $('#modal_ambil_foto button').eq(3).click(e => {
+                let arrFotoPegawai = []
+                $('#canvas_foto img').each((idx, elm) => {
+                    arrFotoPegawai.push(b64toArr((elm.src).replace("data:image/png;base64,", "")))
+                    // console.log()
+                })
+                // TODO kirim ke proses.php
+                // TODO tes kirim ke firebase
+                let formKirimPegawai = new URLSearchParams("tambahAbsen=")
+                formKirimPegawai.append("id_pegawai", idPegawai)
+                formKirimPegawai.append("nama_pegawai", namaPegawai)
+                formKirimPegawai.append("alamat_pegawai", alamatPegawai)
+                formKirimPegawai.append("foto_pegawai", arrFotoPegawai)
+
+                tanya_simpan("Simpan", "Yakin akan simpan?", formKirimPegawai)
+                e.preventDefault()
+            })
 
             $('#modal_ambil_foto').modal('show')
             let canvas = $('#modal_ambil_foto canvas')[0]
@@ -217,9 +261,10 @@ $data = $_SESSION['data']['dataTamu'];
             ctx.fillRect(0, 0, $(video_foto).width(), $(video_foto).height());
             ctx.clearRect($(video_foto).width() / 6, $(video_foto).width() / 8, $(video_foto).width() / 1.5, $(video_foto).width() / 1.5);
 
-            $('#modal_ambil_foto h5').text(nama_pegawai + " / " + id_pegawai)
+            $('#modal_ambil_foto h5').text(namaPegawai + " / " + idPegawai)
             AmbilFoto.start(video_foto)
 
+            // TAKE FOTO
             let i = 0
             $(startbutton).on('click', function(ev) {
                 let res = AmbilFoto.take(video_foto);
@@ -230,6 +275,7 @@ $data = $_SESSION['data']['dataTamu'];
                 ev.preventDefault();
             });
 
+            // BERSIHKAN IMG FOTO
             $('#modal_ambil_foto button').eq(2).click(e => {
                 $('#canvas_foto img').each((idx, item) => {
                     AmbilFoto.clear(item)
@@ -237,8 +283,11 @@ $data = $_SESSION['data']['dataTamu'];
                 })
             })
 
+
+
         })
 
+        // HAPUS BARIS PEGAWAI
         $('#div_tambah_pegawai tbody tr button:nth-child(2)').click(e => {
             $(e.target).parents('tr').remove()
             let td = $('#div_tambah_pegawai tbody td:nth-child(1)')
@@ -249,7 +298,7 @@ $data = $_SESSION['data']['dataTamu'];
         })
 
 
-
+        // JIKA MODAL AMBIL FOTO TERTUTUP, BERSIHKAN IMG.SRC
         $('#modal_ambil_foto').on('hide.bs.modal', (e) => {
             $('#canvas_foto img').each((idx, item) => {
                 AmbilFoto.clear(item)
@@ -257,6 +306,8 @@ $data = $_SESSION['data']['dataTamu'];
 
             vidOff(video_foto, false)
         })
+
+
     })
 
 
@@ -279,41 +330,7 @@ $data = $_SESSION['data']['dataTamu'];
     })
 
     // REPORT
-    const ctx = document.getElementById('chart_report').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+
 
 
     let animFrame;
