@@ -152,3 +152,16 @@ if(isset($_POST['tambahJabatan'])){
     segarkan($_SESSION['user'], $_SESSION['pass']);
     return print(json_encode($resJabatan));
 }
+
+// TODO isset post foto pegawai, nama, id
+// TODO imspan foto di local pake move_uploded_file
+if(isset($_POST['tambahAbsen'])){
+    $absen = array();
+    // for($i = 0; $i < count($_POST); $i++){
+        array_push($absen, $_POST["id_pegawai"], $_POST["nama_pegawai"], $_POST["alamat_pegawai"], [$_POST["foto_pegawai"]]);
+    // }
+    $tambahAbsen = array("type" => "tambahAbsen", "dataTambah" => $absen);
+    $resAbsen = kirim($tambahAbsen, 1);
+    segarkan($_SESSION['user'], $_SESSION['pass']);
+    return print(json_encode($resAbsen));
+}
