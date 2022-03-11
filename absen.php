@@ -230,8 +230,6 @@ $data = $_SESSION['data']['dataTamu'];
                     </div>
                 </form>
 
-                <span onclick="Webcam.reset()">RESET</span>
-
             </div>
         </div>
 
