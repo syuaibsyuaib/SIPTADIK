@@ -25,6 +25,8 @@ body {
 .user-dashboard-info-box .candidates-list .thumb img {
     max-width: 80px;
     max-height: 80px;
+    min-width: 80px;
+    min-height: 80px;
     -o-object-fit: cover;
     object-fit: cover;
     overflow: hidden;
@@ -189,12 +191,4 @@ body {
 
 .shadow-sm {
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important
-}
-
-.user-dashboard-info-box .candidates-list .thumb {
-    margin-right: 20px
-}
-
-#table_id_length {
-    margin-top: 20px;
 }

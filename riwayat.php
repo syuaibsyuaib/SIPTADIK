@@ -5,7 +5,7 @@ include("layout/header.php");
 segarkan($_SESSION['user'], $_SESSION['pass']);
 $_SESSION['role'] != 1 ? pindahko("/") : "";
 $data = $_SESSION['data']['dataTamu'];
-// print_r($_SESSION['data']['dataBidang']);
+// print_r($data);
 ?>
 
 <!-- ISI MULAI -->
@@ -16,10 +16,10 @@ $data = $_SESSION['data']['dataTamu'];
 			<div class="row">
 				<div class="col-md-12">
 					<div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
-						<h2 class="mb-4">Riwayat Tamu</h2>
+						<!-- <h2 class="mb-4">Riwayat Tamu</h2> -->
 
 						<!-- MAIN TABLE -->
-						<table class="table manage-candidates-top mb-0" id="table_id">
+						<table class="table table-striped manage-candidates-top mb-0" id="table_id">
 							<thead>
 								<tr>
 									<th width="10%">Tanggal</th>
@@ -40,7 +40,7 @@ $data = $_SESSION['data']['dataTamu'];
 											$id_enc = encrypt_decrypt("e", $id_raw);
 											$timestamp = $value[8];
 											$e = explode("_", $timestamp);
-											$timestamp = empty($e[4]) == 0 ? date("d/m/Y H:i", strtotime($e[0] . "-" . $e[1] . "-" . $e[2] . " " . $e[3] . ":" . $e[4])) : $value[8];
+											$timestamp = empty($e[4]) == 0 ? date("Y/m/d H:i", strtotime($e[0] . "-" . $e[1] . "-" . $e[2] . " " . $e[3] . ":" . $e[4])) : $value[8];
 											$nama = $value[1];
 											$no_id = $value[2];
 											$instansi_asal = $value[3];
@@ -181,27 +181,13 @@ $data = $_SESSION['data']['dataTamu'];
 <script>
 	$(document).ready(function() {
 		$('#table_id').DataTable({
+			// dom: 'Blfrtip',
+			dom: "<'row mb-4'<'#judul_riwayat.col ps-0'><'col pe-0 text-end'B>>" +
+				"<'row mb-4'<'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 			order: [
 				[0, "desc"]
-			],
-			buttons: [{
-					extend: 'excelHtml5',
-					text: 'Unduh Excel',
-					exportOptions: {
-						modifier: {
-							page: 'current'
-						}
-					}
-				},
-				{
-					extend: 'pdfHtml5',
-					text: 'Unduh PDF',
-					exportOptions: {
-						modifier: {
-							page: 'current'
-						}
-					}
-				}
 			],
 			"language": {
 				"zeroRecords": "Tidak ada data!",
@@ -215,8 +201,27 @@ $data = $_SESSION['data']['dataTamu'];
 					"last": "Akhir"
 				}
 			},
-			dom: 'Blfrtip'
+			buttons: [{
+					extend: 'excel',
+					text: 'Unduh Excel',
+					exportOptions: {
+						modifier: {
+							page: 'current'
+						}
+					}
+				},
+				{
+					extend: 'pdf',
+					text: 'Unduh PDF',
+					exportOptions: {
+						modifier: {
+							page: 'current'
+						}
+					}
+				}
+			],
 		});
+		$('#judul_riwayat').html('<h2>Riwayat Tamu</h2>');
 	});
 </script>
 
