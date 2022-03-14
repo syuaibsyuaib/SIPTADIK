@@ -67,33 +67,18 @@ function convert_bidang($kodebidang)
     if (isset($datatable)) {
     ?>
         <link rel="stylesheet" href="assets/css/datatables.min.css">
-        <!-- <link rel="stylesheet" href="assets/DataTables-1.11.3/css/dataTables.bootstrap5.min.css" /> -->
-        <!-- <link rel="stylesheet" href="assets/Buttons-2.0.1/css/buttons.bootstrap5.min.css" /> -->
-        <!-- <link rel="stylesheet" href="assets/DateTime-1.1.1/css/dataTables.dateTime.min.css" /> -->
-        <!-- <link rel="stylesheet" href="assets/SearchPanes-1.4.0/css/searchPanes.bootstrap5.min.css" /> -->
     <?php
     }
     ?>
 
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.js"></script>
-    <!-- <script src="assets/JSZip-2.5.0/jszip.min.js"></script> -->
-    <!-- <script src="assets/pdfmake-0.1.36/pdfmake.min.js"></script> -->
-    <!-- <script src="assets/pdfmake-0.1.36/vfs_fonts.js"></script> -->
-    <!-- <script src="assets/SearchPanes-1.4.0/js/searchPanes.bootstrap5.min.js"></script> -->
-    <!-- <script src="assets/Buttons-2.0.1/js/buttons.bootstrap5.min.js"></script> -->
-    <!-- <script src="assets/Buttons-2.0.1/js/buttons.html5.min.js"></script> -->
     <script src="../js/face-api.js"></script>
 
     <?php
     if (isset($datatable)) {
     ?>
         <script src="assets/js/datatables.min.js"></script>
-        <!-- <script src="assets/Buttons-2.0.1/js/dataTables.buttons.min.js"></script> -->
-        <!-- <script src="assets/DateTime-1.1.1/js/dataTables.dateTime.min.js"></script> -->
-        <!-- <script src="assets/SearchPanes-1.4.0/js/dataTables.searchPanes.min.js"></script> -->
-        <!-- <script src="assets/DataTables-1.11.3/js/jquery.dataTables.min.js"></script> -->
-        <!-- <script src="assets/DataTables-1.11.3/js/dataTables.bootstrap5.min.js"></script> -->
     <?php
     }
     ?>
