@@ -206,7 +206,7 @@ $data = $_SESSION['data']['dataTamu'];
 					text: 'Unduh Excel',
 					exportOptions: {
 						modifier: {
-							page: 'current'
+							page: 'all'
 						}
 					}
 				},
@@ -215,7 +215,7 @@ $data = $_SESSION['data']['dataTamu'];
 					text: 'Unduh PDF',
 					exportOptions: {
 						modifier: {
-							page: 'current'
+							page: 'all'
 						}
 					}
 				}
